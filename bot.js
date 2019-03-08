@@ -3,7 +3,22 @@
 
 const { ActivityTypes } = require('botbuilder');
 
-class MyBot {
+const DIALOG_STATE_PROPERTY = 'dialogStatePropertyAccessor';
+
+class MyBot {    
+    /**
+     * Currently empty.
+     * Manages different states.
+     */
+    constructor(conversationState)
+    {
+        // Record the conversation and user state management objects.
+        this.conversationState = conversationState
+
+        // Create our state property accessors.
+        this.dialogStateAccessor = conversationState.createProperty(DIALOG_STATE_PROPERTY);
+    }
+
     /**
      *
      * @param {TurnContext} on turn context object.
