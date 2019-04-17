@@ -1,22 +1,22 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-const { ActivityTypes, MessageFactory } = require('botbuilder');
-const { DialogSet, WaterfallDialog, Dialog, DialogTurnStatus } = require('botbuilder-dialogs');
+const { ActivityTypes } = require('botbuilder');
+const { DialogSet } = require('botbuilder-dialogs');
 
 // Import component dialog.
-const { ProfileDialog } = require("./profileDialog");
+const { ProfileDialog } = require('./profileDialog');
 
 const DIALOG_STATE_PROPERTY = 'dialogStatePropertyAccessor';
 
-class MyBot {    
+class MyBot {
     /**
      * Currently empty.
      * Manages different states.
      */
     constructor(conversationState) {
         // Record the conversation and user state management objects.
-        this.conversationState = conversationState
+        this.conversationState = conversationState;
 
         // Create our state property accessors.
         this.dialogStateAccessor = conversationState.createProperty(DIALOG_STATE_PROPERTY);
@@ -34,8 +34,8 @@ class MyBot {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
         if (turnContext.activity.type === ActivityTypes.Message) {
             const dialogContext = await this.dialogs.createContext(turnContext);
-            const dialogTurnResult = await dialogContext.continueDialog();
-        
+            // const dialogTurnResult = await dialogContext.continueDialog();
+
             await dialogContext.beginDialog('profile');
 
             // Keeping an eye on the dialog result in current turn.
