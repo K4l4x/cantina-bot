@@ -1,5 +1,6 @@
 {
     "name": "CantinaBot",
+    "description": "",
     "services": [
         {
             "type": "endpoint",

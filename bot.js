@@ -7,23 +7,28 @@ const { DialogSet } = require('botbuilder-dialogs');
 // Import component dialog.
 const { ProfileDialog } = require('./profileDialog');
 
+const { MenuOperationDialog } = require('./Dialogs/MenuOperationDialog');
+
 const DIALOG_STATE_PROPERTY = 'dialogStatePropertyAccessor';
+const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
 
 class MyBot {
     /**
      * Currently empty.
      * Manages different states.
      */
-    constructor(conversationState) {
-        // Record the conversation and user state management objects.
-        this.conversationState = conversationState;
-
+    constructor(conversationState, userState) {
         // Create our state property accessors.
         this.dialogStateAccessor = conversationState.createProperty(DIALOG_STATE_PROPERTY);
+        this.userStateAccessor = userState.createProperty(USER_STATE_PROPERTY);
+
+        // Record the conversation and user state management objects.
+        this.conversationState = conversationState;
+        this.userState = userState;
 
         // Create our bot's dialog set, adding a main dialog and the three component dialogs.
         this.dialogs = new DialogSet(this.dialogStateAccessor)
-            .add(new ProfileDialog('profile'));
+            .add(new MenuOperationDialog('menuOperation'));
     }
 
     /**
@@ -36,7 +41,7 @@ class MyBot {
             const dialogContext = await this.dialogs.createContext(turnContext);
             // const dialogTurnResult = await dialogContext.continueDialog();
 
-            await dialogContext.beginDialog('profile');
+            await dialogContext.beginDialog('menuOperation');
 
             // Keeping an eye on the dialog result in current turn.
             // if (dialogTurnResult.status === DialogTurnStatus.complete) {
