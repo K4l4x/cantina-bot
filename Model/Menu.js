@@ -2,26 +2,14 @@
 // operations on menu like AddItem, DeleteItem, SortItems, MoveItem, SearchForItem
 
 class Menu {
-    constructor(day) {
-        this.items = [];
-
+    constructor(title, type, description, ingredients, price, menuInfo, day) {
+        this.title = title;
+        this.type = type;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.price = price;
+        this.menuInfo = menuInfo;
         this.day = day;
-    }
-
-    set setDay(dayName) {
-        this.day = dayName;
-    }
-
-    get getDay() {
-        return this.day;
-    }
-
-    addItem(item) {
-        this.items.push(item);
-    }
-
-    showItems() {
-        return this.items;
     }
 }
 
