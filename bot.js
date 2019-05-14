@@ -2,15 +2,25 @@
 // Licensed under the MIT License.
 
 const { ActivityTypes } = require('botbuilder');
-const { DialogSet } = require('botbuilder-dialogs');
+const { DialogSet, DialogTurnStatus } = require('botbuilder-dialogs');
 
-// Import component dialog.
-const { ProfileDialog } = require('./profileDialog');
+// Import sample dialogs.
+// const { ProfileDialog } = require('./profileDialog');
+// const { MenuOperationDialog } = require('./Dialogs/MenuOperationDialog');
 
-const { MenuOperationDialog } = require('./Dialogs/MenuOperationDialog');
+// Current mensa dialog set.
+// const { MenuDialog } = require('./Dialogs/MenuDialog');
+// const { MenuOfWeekDialog } = require('./Dialogs/MenuOfWeekDialog');
+const { MenuOfTodayDialog } = require('./Dialogs/MenuOfTodayDialog');
+// const { OpeningHoursDialog } = require('./Dialogs/OpeningHoursDialog');
+// const { PricesDialog } = require('./Dialogs/PricesDialog');
+// const { AllergenicDialog } = require('./Dialogs/AllergenicDialog');
 
 const DIALOG_STATE_PROPERTY = 'dialogStatePropertyAccessor';
 const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
+
+// const { Menu } = require('./Model/Menu');
+// const MENU_STATE_PROPERTY = 'menuState';
 
 class MyBot {
     /**
@@ -27,8 +37,13 @@ class MyBot {
         this.userState = userState;
 
         // Create our bot's dialog set, adding a main dialog and the three component dialogs.
-        this.dialogs = new DialogSet(this.dialogStateAccessor)
-            .add(new MenuOperationDialog('menuOperation'));
+        this.dialogs = new DialogSet(this.dialogStateAccessor);
+        // this.dialogs.add(new MenuDialog('aboutMenu'));
+        // this.dialogs.add(new AllergenicDialog('aboutAllergenic'));
+        this.dialogs.add(new MenuOfTodayDialog('menuToday'));
+        // this.dialogs.add(new MenuOfWeekDialog('menuWeek'));
+        // this.dialogs.add(new PricesDialog('aboutPrices'));
+        // this.dialogs.add(new OpeningHoursDialog('openingHours'));
     }
 
     /**
@@ -39,16 +54,10 @@ class MyBot {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
         if (turnContext.activity.type === ActivityTypes.Message) {
             const dialogContext = await this.dialogs.createContext(turnContext);
-            // const dialogTurnResult = await dialogContext.continueDialog();
-
-            await dialogContext.beginDialog('menuOperation');
-
-            // Keeping an eye on the dialog result in current turn.
-            // if (dialogTurnResult.status === DialogTurnStatus.complete) {
-            // }
-            // else {
-            //     await turnContext.sendActivity(`You said '${ turnContext.activity.text }'`);
-            // }
+            const results = await dialogContext.continueDialog();
+            if (results.status === DialogTurnStatus.empty) {
+                await dialogContext.beginDialog('menuToday');
+            }
         } else {
             await turnContext.sendActivity(`[${ turnContext.activity.type } event detected]`);
         }

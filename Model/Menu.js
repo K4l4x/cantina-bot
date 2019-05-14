@@ -1,8 +1,9 @@
-// item, List<item>
-// operations on menu like AddItem, DeleteItem, SortItems, MoveItem, SearchForItem
-
+/**
+ * Represents an entire menu.
+ * The description holds all parts of the dish served.
+ */
 class Menu {
-    constructor(title, type, description, ingredients, price, menuInfo, day) {
+    constructor(title, type, description, ingredients, price, menuInfo, day, isVegan) {
         this.title = title;
         this.type = type;
         this.description = description;
@@ -10,6 +11,7 @@ class Menu {
         this.price = price;
         this.menuInfo = menuInfo;
         this.day = day;
+        this.isVegan = isVegan;
     }
 }
 

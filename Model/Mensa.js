@@ -1,8 +1,7 @@
-// Menu
-// operations on Cafeteria like updateMenu, DeleteMenu, NewMenu
-
-// const { Menu } = require('/Model/Menu');
-
+/**
+ * Represents an entire part of the mensa system.
+ * Every mensa has it's own menus and opening hours.
+ */
 class Mensa {
     constructor(name, menus, openingHours, generalInfo) {
         this.name = name;

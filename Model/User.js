@@ -1,13 +1,10 @@
-// Conversation logs
-// Message logs
-// ResultOfPolicy
-// IsVegan
-// IsVeggie
-
+/**
+ * Simple user.
+ */
 class User {
-    // constructor() {
-    //
-    // }
+    constructor(Id) {
+        this.Id = Id;
+    }
 }
 
 exports.User = User;
