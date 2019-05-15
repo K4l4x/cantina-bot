@@ -1,0 +1,64 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "size": "Medium",
+          "weight": "Bolder",
+          "text": "Menü vegetarisch"
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "weight": "Bolder",
+                  "text": "Vegetarische Maultaschen mit Tomatensoße",
+                  "wrap": true
+                }
+              ],
+              "width": "stretch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Basmatireis, Gemüse-Couscous, Asiatischer Blumenkohl, Kaisergemüse, Beilagensalate, Götterspeise, Heidelbeer-Dickmilch, Vanillepudding oder Eis",
+          "wrap": true
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Studierende:",
+              "value": "2,70€"
+            },
+            {
+              "title": "Bedienstete:",
+              "value": "4,40€"
+            },
+            {
+              "title": "Gäste:",
+              "value": "5,30€"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}

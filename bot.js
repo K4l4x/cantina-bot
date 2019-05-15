@@ -12,7 +12,7 @@ const { DialogSet, DialogTurnStatus } = require('botbuilder-dialogs');
 // const { MenuDialog } = require('./Dialogs/MenuDialog');
 // const { MenuOfWeekDialog } = require('./Dialogs/MenuOfWeekDialog');
 const { MenuOfTodayDialog } = require('./Dialogs/MenuOfTodayDialog');
-// const { OpeningHoursDialog } = require('./Dialogs/OpeningHoursDialog');
+const { OpeningHoursDialog } = require('./Dialogs/OpeningHoursDialog');
 // const { PricesDialog } = require('./Dialogs/PricesDialog');
 // const { AllergenicDialog } = require('./Dialogs/AllergenicDialog');
 
@@ -43,7 +43,7 @@ class MyBot {
         this.dialogs.add(new MenuOfTodayDialog('menuToday'));
         // this.dialogs.add(new MenuOfWeekDialog('menuWeek'));
         // this.dialogs.add(new PricesDialog('aboutPrices'));
-        // this.dialogs.add(new OpeningHoursDialog('openingHours'));
+        this.dialogs.add(new OpeningHoursDialog('openingHours'));
     }
 
     /**
@@ -56,7 +56,7 @@ class MyBot {
             const dialogContext = await this.dialogs.createContext(turnContext);
             const results = await dialogContext.continueDialog();
             if (results.status === DialogTurnStatus.empty) {
-                await dialogContext.beginDialog('menuToday');
+                await dialogContext.beginDialog('openingHours');
             }
         } else {
             await turnContext.sendActivity(`[${ turnContext.activity.type } event detected]`);

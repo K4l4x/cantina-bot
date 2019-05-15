@@ -1,0 +1,64 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "size": "Medium",
+          "weight": "Bolder",
+          "text": "Pasta"
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "weight": "Bolder",
+                  "text": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl",
+                  "wrap": true
+                }
+              ],
+              "width": "stretch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Preis pro 100g",
+          "wrap": true
+        },
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Studierende:",
+              "value": "0,75€"
+            },
+            {
+              "title": "Bedienstete:",
+              "value": "0,90€"
+            },
+            {
+              "title": "Gäste:",
+              "value": "1,10€"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}

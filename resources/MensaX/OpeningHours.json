@@ -1,0 +1,50 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "size": "Medium",
+          "weight": "Bolder",
+          "text": "Öffnungszeiten: Mensa X"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Montag:",
+              "value": "11:30 - 14:30Uhr"
+            },
+            {
+              "title": "Dienstag:",
+              "value": "11:30 - 14:30Uhr"
+            },
+            {
+              "title": "Mittwoch:",
+              "value": "11:30 - 14:30Uhr"
+            },
+            {
+              "title": "Donnerstag:",
+              "value": "11:30 - 14:30Uhr"
+            },
+            {
+              "title": "Freitag:",
+              "value": "11:30 - 14:30Uhr"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}
