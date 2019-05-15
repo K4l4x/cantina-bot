@@ -1,0 +1,51 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "size": "Medium",
+          "weight": "Bolder",
+          "text": "Cafeteria Menü 1"
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "weight": "Bolder",
+                  "text": "Seelachsfilet Tacco mit Remoulade und Potatoe Wedges ",
+                  "wrap": true
+                }
+              ],
+              "width": "stretch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Preis:",
+              "value": "3,90€"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}

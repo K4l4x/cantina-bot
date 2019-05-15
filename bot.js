@@ -54,8 +54,13 @@ class MyBot {
         // See https://aka.ms/about-bot-activity-message to learn more about the message and other activity types.
         if (turnContext.activity.type === ActivityTypes.Message) {
             const dialogContext = await this.dialogs.createContext(turnContext);
-            const results = await dialogContext.continueDialog();
-            if (results.status === DialogTurnStatus.empty) {
+            await dialogContext.continueDialog();
+
+            if (dialogContext.context.activity.text.includes('heute')) {
+                await dialogContext.beginDialog('menuToday');
+            }
+
+            if (dialogContext.context.activity.text.includes('öffnungszeiten')) {
                 await dialogContext.beginDialog('openingHours');
             }
         } else {

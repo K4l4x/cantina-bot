@@ -10,6 +10,9 @@ const PastaTodayMenu = require('../resources/MensaX/TodayMenuPastaSample.json');
 const FirstTodayMenu = require('../resources/CafeteriaX/TodayMenuFirstSample.json');
 const SecondTodayMenu = require('../resources/CafeteriaX/TodayMenuSecondSample.json');
 
+// Westend - Samples
+const WestendMenuOneToday = require('../resources/Westend/TodayMenuOneSample.json');
+const WestendMenuTwoToday = require('../resources/Westend/TodayMenuTwoSample.json');
 
 const initialId = 'menuToday';
 
@@ -60,16 +63,16 @@ class MenuOfTodayDialog extends ComponentDialog {
             });
             break;
         case westend:
-            await step.context.sendActivity({ attachments: [CardFactory.adaptiveCard()] });
+            await step.context.sendActivity({ attachments: [
+                CardFactory.adaptiveCard(WestendMenuOneToday),
+                CardFactory.adaptiveCard(WestendMenuTwoToday)],
+            attachmentLayout: AttachmentLayoutTypes.Carousel
+            });
             break;
         default:
             break;
         }
 
-        if (step.result.value.toString() === 'Mensa X') {
-        } else {
-            return await step.endDialog();
-        }
         return await step.endDialog();
     }
 
