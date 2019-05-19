@@ -4,7 +4,7 @@
 const { ActivityTypes } = require('botbuilder');
 const { DialogSet, DialogTurnStatus } = require('botbuilder-dialogs');
 
-// Import sample dialogs.
+// Require sample dialogs.
 // const { ProfileDialog } = require('./Dialogs/profileDialog');
 
 // Current mensa dialog set.
