@@ -3,8 +3,6 @@ const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
 
 // Sample opening hours
 const mensaHours = require('../resources/MensaX/OpeningHours');
-const cafeteriaHours = require('../resources/CafeteriaX/OpeningHours');
-const westendHours = require('../resources/Westend/OpeningHours');
 
 const initialId = 'openingHours';
 
@@ -25,9 +23,7 @@ class OpeningHoursDialog extends ComponentDialog {
 
     async showHours(step) {
         await step.context.sendActivity({ attachments: [
-            CardFactory.adaptiveCard(mensaHours),
-            CardFactory.adaptiveCard(cafeteriaHours),
-            CardFactory.adaptiveCard(westendHours)],
+            CardFactory.adaptiveCard(mensaHours)],
         attachmentLayout: AttachmentLayoutTypes.Carousel });
 
         return await step.endDialog();

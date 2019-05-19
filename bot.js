@@ -5,15 +5,13 @@ const { ActivityTypes } = require('botbuilder');
 const { DialogSet, DialogTurnStatus } = require('botbuilder-dialogs');
 
 // Import sample dialogs.
-// const { ProfileDialog } = require('./profileDialog');
-// const { MenuOperationDialog } = require('./Dialogs/MenuOperationDialog');
+// const { ProfileDialog } = require('./Dialogs/profileDialog');
 
 // Current mensa dialog set.
 // const { MenuDialog } = require('./Dialogs/MenuDialog');
-// const { MenuOfWeekDialog } = require('./Dialogs/MenuOfWeekDialog');
-const { MenuOfTodayDialog } = require('./Dialogs/MenuOfTodayDialog');
+// const { WeekMenuDialog } = require('./Dialogs/WeekMenuDialog');
+const { TodayMenuDialog } = require('./Dialogs/TodayMenuDialog');
 const { OpeningHoursDialog } = require('./Dialogs/OpeningHoursDialog');
-// const { PricesDialog } = require('./Dialogs/PricesDialog');
 // const { AllergenicDialog } = require('./Dialogs/AllergenicDialog');
 
 const DIALOG_STATE_PROPERTY = 'dialogStatePropertyAccessor';
@@ -40,7 +38,7 @@ class MyBot {
         this.dialogs = new DialogSet(this.dialogStateAccessor);
         // this.dialogs.add(new MenuDialog('aboutMenu'));
         // this.dialogs.add(new AllergenicDialog('aboutAllergenic'));
-        this.dialogs.add(new MenuOfTodayDialog('menuToday'));
+        this.dialogs.add(new TodayMenuDialog('menuToday'));
         // this.dialogs.add(new MenuOfWeekDialog('menuWeek'));
         // this.dialogs.add(new PricesDialog('aboutPrices'));
         this.dialogs.add(new OpeningHoursDialog('openingHours'));

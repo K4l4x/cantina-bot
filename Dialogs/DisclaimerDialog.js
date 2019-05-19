@@ -3,7 +3,7 @@ const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
 
 const initialId = 'privacy';
 
-class PrivacyPolicyDialog extends ComponentDialog {
+class DisclaimerDialog extends ComponentDialog {
     /**
      *
      * @param {dialogID} identifies this dialog.

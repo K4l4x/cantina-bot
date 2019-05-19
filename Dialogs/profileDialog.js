@@ -1,5 +1,5 @@
 
-const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
+const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs/lib/index');
 
 const initialId = 'profile';
 
