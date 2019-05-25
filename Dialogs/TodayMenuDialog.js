@@ -1,5 +1,6 @@
 const { AttachmentLayoutTypes, CardFactory } = require('botbuilder');
 const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
+const MenuScraper = require('../Scraper/MenuScraper');
 
 // Mensa X menu.
 const MensaTodayMenu = require('../resources/MensaX/TodaysMenu/MainMenuCard.json');
@@ -38,6 +39,30 @@ class TodayMenuDialog extends ComponentDialog {
 
     async getToday() {
         // TODO: Get the today's menu and fill all relevant adaptive cards.
+
+        // let weekDays = [];
+        // var menuTypes = [];
+        // var mondayMenu = [];
+
+        let weekDays = await MenuScraper.MenuScraper.prototype.requestWeekDays().then(function(days) {
+            return new Array(days);
+        });
+
+        // await MenuScraper.MenuScraper.prototype.requestMenuTypes();
+
+
+
+        // menus = await MenuScraper.MenuScraper.prototype.requestMenus();
+
+        // mondayMenu = weekDays.map(function(index, elem) {
+        //     return [elem, menuTypes[index]];
+        // });
+
+        //console.log(mondayMenu.toString());
+
+        // console.log(
+        //     'weekDays:' + weekDays + '\n' + 'menuTypes:' + menuTypes + '\n' + 'menus:' + menus + '\n'
+        // );
     }
 }
 
