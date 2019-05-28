@@ -3,16 +3,16 @@
  * The description holds all parts of the dish served.
  */
 class Menu {
-    constructor(title, type, description, ingredients, price, menuInfo, day, isVegan) {
-        this.title = title;
-        this.type = type;
-        this.description = description;
-        this.ingredients = ingredients;
-        this.price = price;
-        this.menuInfo = menuInfo;
+    constructor(menuType, description, date, day, allergenic) {
+        this.date = date;
         this.day = day;
-        this.isVegan = isVegan;
+        this.menuType = menuType;
+        this.description = description;
+        this.allergenic = allergenic;
+        // this.ingredients = ingredients;
+        // this.price = price;
+        // this.isVegan = isVegan;
     }
 }
 
-exports.modules.Menu = Menu;
+exports.Menu = Menu;

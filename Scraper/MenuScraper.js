@@ -1,8 +1,8 @@
 const _promise = require('request-promise-native'); // using native, because only basic functionality is needed.
 const _cheerio = require('cheerio');
 const system = require('fs');
-
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
+var { Menu } = require('../Model/Menu');
 
 const options = {
     uri: mensaXmenuURI,
@@ -40,26 +40,8 @@ class MenuScraper {
                 //     if (err) throw err;
                 //     console.log('Saved to MenuPart.json');
                 // });
-                console.log(weekDays);
-            })
-            .catch(function(PossibleNullPointerException) {
-                console.log(PossibleNullPointerException);
-            });
-    }
-    /**
-     *
-     * @returns {Promise<T>}
-     */
-    async requestMenuTypes() {
-        options.transform = this.extractTypeOfMenuToJson;
-
-        return await _promise(options)
-            .then(function(menuTypes) {
-                // system.appendFile('MenuPart.json', menuTypes, function(err) {
-                //     if (err) throw err;
-                //     console.log('Saved to MenuPart.json');
-                // });
-                return menuTypes.toString();
+                // console.log(weekDays);
+                return weekDays;
             })
             .catch(function(PossibleNullPointerException) {
                 console.log(PossibleNullPointerException);
@@ -85,6 +67,27 @@ class MenuScraper {
                 console.log(PossibleNullPointerException);
             });
     }
+
+    /**
+     *
+     * @returns {Promise<T>}
+     */
+    async requestMenuCountPerDay() {
+        options.transform = this.extractMenusPerDay;
+
+        return await _promise(options)
+            .then(function(menusCount) {
+                // system.appendFile('MenuPart.json', menus, function(err) {
+                //     if (err) throw err;
+                //     console.log('Saved to MenuPart.json');
+                // });
+
+                return menusCount;
+            })
+            .catch(function(PossibleNullPointerException) {
+                console.log(PossibleNullPointerException);
+            });
+    }
     // return $('#c1367').find('.first').text();
 
     // Extracting week day menus.
@@ -92,10 +95,20 @@ class MenuScraper {
     /**
      *
      * @param body
-     * @returns {Promise<string>}
+     * @returns {Promise<number[]>}
+     */
+    async extractMenusPerDay(body) {
+        const $ = _cheerio.load(body);
+    }
+
+    /**
+     *
+     * @param body
+     * @returns {Promise<Array>}
      */
     async extractWeekDaysToJson(body) {
         const $ = _cheerio.load(body);
+
         const raw = [];
         const days = [];
 
@@ -114,72 +127,94 @@ class MenuScraper {
         });
 
         // Return valid json days.
-        return JSON.stringify(days);
-    }
-    /**
-     *
-     * @param body of {mensaXmenuURI}
-     * @returns {Promise<string>}
-     */
-    async extractTypeOfMenuToJson(body) {
-        const $ = _cheerio.load(body);
-        const raw = [];
-        const menuTypes = [];
-
-        // Extracting all types of possible menus, while ignoring the .menu-detail and removing spaces.
-        $('.mensa').find('strong').not('.menu-detail').each(function(i, elem) {
-            raw[i] = $(this).text().replace(/\s+/gm, '');
-        });
-
-        // Go through every raw menu types and create a new menu based on that type.
-        // Also pushing the new menus into menus.
-        raw.forEach(function(elem) {
-            let menu = {};
-            menu.type = elem.toString();
-            menuTypes.push(menu);
-        });
-
-        return JSON.stringify(menuTypes);
+        return days;
     }
 
     /**
      *
-     * @param body of {mensaXmenuURI}
-     * @returns {Promise<string>}
+     * @param body
+     * @returns {Promise<Array>}
      */
     async extractMenusToJson(body) {
         const $ = _cheerio.load(body);
-        const raw = [];
-        const menus = [];
+        let rawMenus = [];
+        const menuDescriptions = [];
+        const rawTypes = [];
+        let menus = [];
+        const rawSups = [];
+        const rawDates = [];
+        const rawOddsCounts = [];
+        const rawEvenCounts = [];
 
-        $('.mensa').find('.first').not('.menu-detail').each(function(i, elem) {
-            raw[i] = $(this).find('p').not('h3').text().replace(/\s+/gm, ' ');
+        // Extracting weekdays and dates. Also remove all spaces, before adding to raw array.
+        $('#c1367').find('h2').each(function(index, item) {
+            rawDates[index] = $(item).text().replace(/\s+/g, '');
         });
 
-        raw.forEach(function(elem) {
-            let descriptionMess = elem.toString();
-            let infoTextString = 'Es können 3 Wahlbeilagen gewählt werden:';
-            let showDetailsString = 'Details anzeigen';
+        // Extracting all menus from each day and count them.
+        $('.stripedtable').each(function(index, item) {
+            rawOddsCounts[index] = $(item).find('.odd').get().length;
+            rawEvenCounts[index] = $(item).find('.even').get().length;
+            rawSups[index] = $(item).find('sup').text().replace(/\s+/gm, ' ');
+        });
 
-            descriptionMess = descriptionMess.replace(new RegExp(infoTextString), '|');
+        $('.stripedtable').find('strong').each(function(index, item) {
+            rawTypes[index] = $(item).text().replace(/\s+/gm, ' ');
+        });
 
-            let sideDishes = descriptionMess.substring(
-                descriptionMess.lastIndexOf('|') + 1,
-                descriptionMess.lastIndexOf('Details anzeigen')
+        $('.stripedtable').find('.first').not(':empty').each(function(index, item) {
+            rawMenus[index] = $(item).find('p').not('.menu-detail').text().replace(/\s+/gm, ' ');
+        });
+
+
+        rawMenus.forEach(function(menu) {
+            let descriptionMess = menu;
+            let modifiedInfoTextString = ' Es können 3 Wahlbeilagen gewählt werden: ';
+            let priceByString = 'Preis pro 100 g';
+            let takeWithString = 'auch zum Mitnehmen!';
+            let modifiedExtrasString = ' Dazu gibt es: ';
+
+            descriptionMess = descriptionMess.replace(
+                new RegExp('Es können 3 Wahlbeilagen gewählt werden:'), modifiedInfoTextString
+            );
+            descriptionMess = descriptionMess.replace(
+                new RegExp('Dazu gibt es:'), modifiedExtrasString
+            );
+            descriptionMess = descriptionMess.replace(
+                new RegExp(priceByString), ''
             );
 
-            descriptionMess = descriptionMess.replace(new RegExp(sideDishes), ' ');
+            menu = descriptionMess.replace(
+                new RegExp(takeWithString), ''
+            );
 
-            let finalDescription = descriptionMess.replace(new RegExp(showDetailsString), ' ');
-
-            let menu = {};
-            menu.InfoText = infoTextString;
-            menu.description = finalDescription;
-            menu.sideDishes = sideDishes;
-            menus.push(menu);
+            menuDescriptions.push(menu);
         });
 
-        return JSON.stringify(menus);
+        let menusPerDay = rawOddsCounts.map(function(elem, index) {
+            return parseInt(elem + rawEvenCounts[index]);
+        });
+
+        menuDescriptions.reverse();
+
+        rawDates.forEach(function(date) {
+            let numberOfMenus = menusPerDay[rawDates.indexOf(date)];
+            let tmpNumber = numberOfMenus;
+            while (numberOfMenus !== 0) {
+                let menu = new Menu();
+                menu.date = date.toString().split(',')[1];
+                menu.day = date.toString().split(',')[0];
+                menu.menuType = rawTypes[tmpNumber - numberOfMenus];
+                menu.description = menuDescriptions.pop();
+                menu.allergenic = '';
+                menus.push(menu);
+                numberOfMenus--;
+            }
+        });
+
+        console.log(menus);
+
+        return menus;
     }
 }
 
