@@ -212,7 +212,7 @@ class MenuScraper {
             }
         });
 
-        console.log(menus);
+        // console.log(menus);
 
         return menus;
     }
