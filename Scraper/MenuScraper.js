@@ -3,6 +3,7 @@ const _cheerio = require('cheerio');
 const system = require('fs');
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
 var { Menu } = require('../Model/Menu');
+var moment = require('moment');
 
 const options = {
     uri: mensaXmenuURI,
@@ -201,9 +202,10 @@ class MenuScraper {
             let numberOfMenus = menusPerDay[rawDates.indexOf(date)];
             let tmpNumber = numberOfMenus;
             while (numberOfMenus !== 0) {
+                let parseDate = moment(date.toString().split(',')[1], 'DD-MM-YYYY').toDate();
                 let menu = new Menu();
-                menu.date = date.toString().split(',')[1];
-                menu.day = date.toString().split(',')[0];
+                menu.date = parseDate;
+                menu.day = parseDate.getDay();
                 menu.menuType = rawTypes[tmpNumber - numberOfMenus];
                 menu.description = menuDescriptions.pop();
                 menu.allergenic = '';

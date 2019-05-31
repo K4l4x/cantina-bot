@@ -3,7 +3,7 @@
  * The description holds all parts of the dish served.
  */
 class Menu {
-    constructor(menuType, description, date, day, allergenic) {
+    constructor(date, day, menuType, description, allergenic) {
         this.date = date;
         this.day = day;
         this.menuType = menuType;

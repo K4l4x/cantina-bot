@@ -1,8 +1,10 @@
-const { CardFactory } = require('botbuilder');
+const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
 const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
 var AdaptiveCards = require('adaptivecards');
 const { MenuScraper } = require('../Scraper/MenuScraper');
 var { Menu } = require('../Model/Menu');
+var { MenuCardSchema } = require('../Model/MenuCardSchema');
+var moment = require('moment');
 
 // Mensa X menu.
 // const MensaTodayMenu = require('../resources/MensaX/TodaysMenu/MainMenuCard.json');
@@ -12,6 +14,14 @@ var { Menu } = require('../Model/Menu');
 // const { TextBlock } = require('adaptivecards/lib/card-elements');
 
 const initialId = 'menuToday';
+
+var WEEKDAYS = {
+    MONDAY: 1,
+    TUESDAY: 2,
+    WEDNESDAY: 3,
+    THURSDAY: 4,
+    FRIDAY: 5
+};
 
 class TodayMenuDialog extends ComponentDialog {
     /**
@@ -44,60 +54,57 @@ class TodayMenuDialog extends ComponentDialog {
     async scrollTroughMenus(step) {
         let menus = await this.getToday();
 
-        var menuCard = [];
+        let weekDay = new Date().getDay();
+
+        let attachments = [];
+
+        const menuCard = new MenuCardSchema();
 
         menus.forEach(function(current) {
+            let card = new AdaptiveCards.AdaptiveCard();
+
             let menu = Object.assign(new Menu(), current);
-            if (Date.parse(menu.date) === new Date()) {
-                menuCard.push({
-                    'type': 'AdaptiveCard',
-                    'body': [
-                        {
-                            'type': 'Container',
-                            'items': [
-                                {
-                                    'type': 'TextBlock',
-                                    'size': 'Medium',
-                                    'weight': 'Bolder',
-                                    'text': menu.menuType
-                                },
-                                {
-                                    'type': 'TextBlock',
-                                    'text': menu.description,
-                                    'wrap': true
-                                },
-                                {
-                                    'type': 'FactSet',
-                                    'facts': [
-                                        {
-                                            'title': 'Studierende:',
-                                            'value': '2,70€'
-                                        },
-                                        {
-                                            'title': 'Bedienstete:',
-                                            'value': '4,40€'
-                                        },
-                                        {
-                                            'title': 'Gäste:',
-                                            'value': '5,30€'
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ],
-                    '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',
-                    'version': '1.0'
-                });
+
+            if (menu.date !== moment().toDate()) {
+                console.log(menu.date);
             }
+
+
+            switch (weekDay) {
+            case WEEKDAYS.MONDAY:
+                card.parse(menuCard.getMenuCard(menu.menuType, menu.description));
+                attachments.push(CardFactory.adaptiveCard(card));
+                break;
+            case WEEKDAYS.TUESDAY:
+                card.parse(menuCard.getMenuCard(menu.menuType, menu.description));
+                attachments.push(CardFactory.adaptiveCard(card));
+                break;
+            case WEEKDAYS.WEDNESDAY:
+                card.parse(menuCard.getMenuCard(menu.menuType, menu.description));
+                attachments.push(CardFactory.adaptiveCard(card));
+                break;
+            case WEEKDAYS.THURSDAY:
+                card.parse(menuCard.getMenuCard(menu));
+                attachments.push(CardFactory.adaptiveCard(card));
+                break;
+            case WEEKDAYS.FRIDAY:
+                card.parse(menuCard.getMenuCard(menu.menuType, menu.description));
+                attachments.push(CardFactory.adaptiveCard(card));
+                break;
+            default:
+                break;
+            }
+
+            // if (menu.day === 'Freitag') {
+            //     card.parse(menuCard.getMenuCard(menu.menuType, menu.description));
+            //     attachments.push(CardFactory.adaptiveCard(card));
+            // }
         });
 
-        console.log(menuCard[0]);
+        // console.log(await menuCard.getMenuCard());
 
-        let card = new AdaptiveCards.AdaptiveCard();
+        await step.context.sendActivity({ attachments: attachments, attachmentLayout: AttachmentLayoutTypes.Carousel });
 
-        card.parse(menuCard[0]);
-        await step.context.sendActivity({ attachments: [CardFactory.adaptiveCard(card)] });
         return await step.endDialog();
     }
 
