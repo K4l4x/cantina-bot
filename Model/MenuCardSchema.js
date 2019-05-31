@@ -2,7 +2,7 @@
  *
  */
 class MenuCardSchema {
-    getMenuCard(menu) {
+    createMenuCard(menu) {
         return {
             "type": "AdaptiveCard",
             "body": [
@@ -22,15 +22,15 @@ class MenuCardSchema {
                     "facts": [
                         {
                             "title": "Studierende:",
-                            "value": "2,70€"
+                            "value": "€"
                         },
                         {
                             "title": "Bedienstete:",
-                            "value": "4,40€"
+                            "value": "€"
                         },
                         {
                             "title": "Gäste:",
-                            "value": "5,30€"
+                            "value": "€"
                         }
                     ]
                 }

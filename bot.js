@@ -10,7 +10,7 @@ const { DialogSet, DialogTurnStatus } = require('botbuilder-dialogs');
 // Current mensa dialog set.
 // const { MenuDialog } = require('./Dialogs/MenuDialog');
 // const { WeekMenuDialog } = require('./Dialogs/WeekMenuDialog');
-const { TodayMenuDialog } = require('./Dialogs/TodayMenuDialog');
+const { TodaysMenuDialog } = require('./Dialogs/TodaysMenuDialog');
 const { OpeningHoursDialog } = require('./Dialogs/OpeningHoursDialog');
 // const { AllergenicDialog } = require('./Dialogs/AllergenicDialog');
 
@@ -38,7 +38,7 @@ class MyBot {
         this.dialogs = new DialogSet(this.dialogStateAccessor);
         // this.dialogs.add(new MenuDialog('aboutMenu'));
         // this.dialogs.add(new AllergenicDialog('aboutAllergenic'));
-        this.dialogs.add(new TodayMenuDialog('menuToday'));
+        this.dialogs.add(new TodaysMenuDialog('menuToday'));
         // this.dialogs.add(new MenuOfWeekDialog('menuWeek'));
         // this.dialogs.add(new PricesDialog('aboutPrices'));
         this.dialogs.add(new OpeningHoursDialog('openingHours'));
