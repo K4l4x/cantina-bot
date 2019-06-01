@@ -44,7 +44,6 @@ class TodaysMenuDialog extends ComponentDialog {
         let menus = await this.getToday();
 
         let todaysDate = moment(Date.now()).format('LL');
-        // let todaysDate = moment('2019-06-02').format('LL');
 
         let attachments = [];
 
@@ -54,6 +53,9 @@ class TodaysMenuDialog extends ComponentDialog {
             let card = new AdaptiveCards.AdaptiveCard();
 
             let menu = Object.assign(new Menu(), current);
+
+            card.parse(menuCard.createMenuCard(menu));
+            attachments.push(CardFactory.adaptiveCard(card));
 
             if (menu.date === todaysDate) {
                 switch (menu.day) {
@@ -99,9 +101,7 @@ class TodaysMenuDialog extends ComponentDialog {
         // }));
 
         let builder = new MenuBuilder();
-        // return await builder.buildMenus();
-
-        console.log(await builder.buildMenus());
+        return await builder.buildMenus();
     }
 }
 

@@ -9,33 +9,56 @@ class MenuBuilder {
     async buildMenus() {
         let menus = [];
         const rawDateTime = await this.getRawDateTime();
-        const pricesPerDay = await this.getPricesPerDay();
         const menusPerDay = await this.getMenusPerDay();
         const menuTypes = await this.getMenuTypes();
+        const menuPrices = await this.prepareMenuPrices();
         const menuDescriptions = await this.prepareMenuDescriptions();
 
         rawDateTime.forEach(function(date) {
             let numberOfMenusPerDay = menusPerDay[rawDateTime.indexOf(date)];
             let allMenus = numberOfMenusPerDay;
+
             while (numberOfMenusPerDay !== 0) {
                 let parseDate = moment.utc(date.toString().split(',')[1], 'DD-MM-YYYY', 'en');
                 let menu = new Menu();
                 menu.date = parseDate.format('LL');
                 menu.day = parseDate.day();
-                menu.menuType = menuTypes[allMenus - numberOfMenusPerDay];
+                menu.menuType = menuTypes[allMenus - numberOfMenusPerDay]; // TODO Contains bug, mutiplies entire list up to 5 lists, because of iteration.
                 menu.description = menuDescriptions.shift();
+                menu.prices = menuPrices.shift(); // TODO Contains bug, mutiplies entire list up to 5 lists, because of iteration.
                 menus.push(menu);
                 numberOfMenusPerDay--;
             }
         });
 
-        // return menus;
+        return menus;
 
         // console.log(menus);
         // console.log(rawDateTime);
         // console.log(menusPerDay);
         // console.log(menuTypes);
-        console.log(pricesPerDay);
+    }
+
+    async prepareMenuPrices() {
+        const pricesPerDay = await this.getPricesPerDay();
+        const menuPrices = [];
+
+        pricesPerDay.forEach(function(price) {
+            let priceFormats = price;
+
+            if (priceFormats.includes('€')) {
+                menuPrices.push([' ', ' ', priceFormats]);
+            } else if (priceFormats.match(new RegExp(/\|/gm))) {
+                let studentPrice = priceFormats.split('|')[0] + '€';
+                let staffPrice = priceFormats.split('|')[1] + '€';
+                let guestPrice = priceFormats.split('|')[2] + '€';
+                menuPrices.push([studentPrice, staffPrice, guestPrice]);
+            } else {
+                menuPrices.push([' ', ' ', ' ']);
+            }
+        });
+
+        return menuPrices;
     }
 
     async prepareMenuDescriptions() {
@@ -45,9 +68,9 @@ class MenuBuilder {
         rawMenus.forEach(function(description) {
             let descriptionMess = description;
             let modifiedInfoTextString = ' Es können 3 Wahlbeilagen gewählt werden: ';
-            let priceByString = 'Preis pro 100 g';
+            let priceByPattern = new RegExp(/Preis pro 100\s?g/gm);
             let takeWithString = 'auch zum Mitnehmen!';
-            let modifiedExtrasString = ' Dazu gibt es: ';
+            let modifiedExtrasString = '\n\n Dazu gibt es: ';
 
             descriptionMess = descriptionMess.replace(
                 new RegExp('Es können 3 Wahlbeilagen gewählt werden:'), modifiedInfoTextString
@@ -56,7 +79,7 @@ class MenuBuilder {
                 new RegExp('Dazu gibt es:'), modifiedExtrasString
             );
             descriptionMess = descriptionMess.replace(
-                new RegExp(priceByString), ''
+                priceByPattern, '\n\n Preis pro 100g'
             );
 
             description = descriptionMess.replace(

@@ -22,15 +22,15 @@ class MenuCardSchema {
                     "facts": [
                         {
                             "title": "Studierende:",
-                            "value": "€"
+                            "value": menu.prices[0]
                         },
                         {
                             "title": "Bedienstete:",
-                            "value": "€"
+                            "value": menu.prices[1]
                         },
                         {
                             "title": "Gäste:",
-                            "value": "€"
+                            "value": menu.prices[2]
                         }
                     ]
                 }
