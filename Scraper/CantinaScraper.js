@@ -31,7 +31,10 @@ class CantinaScraper {
                 console.log(PossibleNullPointerException);
             });
     }
-
+    /**
+     *
+     * @returns {Promise<T>}
+     */
     async requestCountMenusPerDay() {
         return await _promise(options)
             .then(function($) {
@@ -51,7 +54,10 @@ class CantinaScraper {
                 console.log(PossibleNullPointerException);
             });
     }
-
+    /**
+     *
+     * @returns {Promise<T>}
+     */
     async requestPricesPerDay() {
         return await _promise(options)
             .then(function($) {
@@ -67,13 +73,16 @@ class CantinaScraper {
                 console.log(PossibleNullPointerException);
             });
     }
-
+    /**
+     *
+     * @returns {Promise<T>}
+     */
     async requestMenuTypes() {
         return await _promise(options)
             .then(function($) {
                 const rawTypes = [];
 
-                $('.stripedtable').find('strong').each(function(index, item) {
+                $('.stripedtable').find('h3').each(function(index, item) {
                     rawTypes[index] = $(item).text().replace(/\s+/gm, ' ');
                 });
 
@@ -83,7 +92,10 @@ class CantinaScraper {
                 console.log(PossibleNullPointerException);
             });
     }
-
+    /**
+     *
+     * @returns {Promise<T>}
+     */
     async requestMenus() {
         return await _promise(options)
             .then(function($) {

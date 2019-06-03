@@ -9,10 +9,13 @@ class MenuBuilder {
     async buildMenus() {
         let menus = [];
         const rawDateTime = await this.getRawDateTime();
-        const menusPerDay = await this.getMenusPerDay();
         const menuTypes = await this.getMenuTypes();
+        const menusPerDay = await this.getMenusPerDay();
         const menuPrices = await this.prepareMenuPrices();
         const menuDescriptions = await this.prepareMenuDescriptions();
+
+        console.log(menuTypes);
+        // console.log(menuPrices);
 
         rawDateTime.forEach(function(date) {
             let numberOfMenusPerDay = menusPerDay[rawDateTime.indexOf(date)];
@@ -23,9 +26,9 @@ class MenuBuilder {
                 let menu = new Menu();
                 menu.date = parseDate.format('LL');
                 menu.day = parseDate.day();
-                menu.menuType = menuTypes[allMenus - numberOfMenusPerDay]; // TODO Contains bug, mutiplies entire list up to 5 lists, because of iteration.
+                menu.menuType = menuTypes[allMenus - numberOfMenusPerDay]; // TODO Contains bug, multiplies entire list up to 5 lists, because of iteration.
                 menu.description = menuDescriptions.shift();
-                menu.prices = menuPrices.shift(); // TODO Contains bug, mutiplies entire list up to 5 lists, because of iteration.
+                menu.prices = menuPrices.shift();
                 menus.push(menu);
                 numberOfMenusPerDay--;
             }
@@ -36,22 +39,23 @@ class MenuBuilder {
         // console.log(menus);
         // console.log(rawDateTime);
         // console.log(menusPerDay);
-        // console.log(menuTypes);
     }
 
     async prepareMenuPrices() {
         const pricesPerDay = await this.getPricesPerDay();
         const menuPrices = [];
 
-        pricesPerDay.forEach(function(price) {
-            let priceFormats = price;
+        console.log(pricesPerDay); // TODO Check raw menu prices for format. Maybe helps solving duplication of menu types.
 
-            if (priceFormats.includes('€')) {
-                menuPrices.push([' ', ' ', priceFormats]);
-            } else if (priceFormats.match(new RegExp(/\|/gm))) {
-                let studentPrice = priceFormats.split('|')[0] + '€';
-                let staffPrice = priceFormats.split('|')[1] + '€';
-                let guestPrice = priceFormats.split('|')[2] + '€';
+        pricesPerDay.forEach(function(price) {
+            let rawPrices = price;
+
+            if (rawPrices.includes('€')) {
+                menuPrices.push([' ', ' ', rawPrices]);
+            } else if (rawPrices.match(new RegExp(/\|/gm))) {
+                let studentPrice = rawPrices.split('|')[0] + '€';
+                let staffPrice = rawPrices.split('|')[1] + '€';
+                let guestPrice = rawPrices.split('|')[2] + '€';
                 menuPrices.push([studentPrice, staffPrice, guestPrice]);
             } else {
                 menuPrices.push([' ', ' ', ' ']);

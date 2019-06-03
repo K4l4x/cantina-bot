@@ -54,9 +54,6 @@ class TodaysMenuDialog extends ComponentDialog {
 
             let menu = Object.assign(new Menu(), current);
 
-            card.parse(menuCard.createMenuCard(menu));
-            attachments.push(CardFactory.adaptiveCard(card));
-
             if (menu.date === todaysDate) {
                 switch (menu.day) {
                 case WEEKDAYS.MONDAY:
