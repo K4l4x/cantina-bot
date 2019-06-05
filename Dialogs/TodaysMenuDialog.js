@@ -1,11 +1,10 @@
 const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
 const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
-var AdaptiveCards = require('adaptivecards');
-const { CantinaScraper } = require('../Scraper/CantinaScraper');
-var { Menu } = require('../Model/Menu');
-var { MenuCardSchema } = require('../Model/MenuCardSchema');
-var moment = require('moment');
-var { MenuBuilder } = require('../Scraper/MenuBuilder');
+const AdaptiveCards = require('adaptivecards');
+const { Menu } = require('../Model/Menu');
+const { MenuCardSchema } = require('../Model/MenuCardSchema');
+const moment = require('moment');
+const { MenuBuilder } = require('../Scraper/MenuBuilder');
 
 // Mensa X menu.
 // const MensaTodayMenu = require('../resources/MensaX/TodaysMenu/MainMenuCard.json');
@@ -16,7 +15,7 @@ var { MenuBuilder } = require('../Scraper/MenuBuilder');
 
 const initialId = 'menuToday';
 
-var WEEKDAYS = {
+const WEEKDAYS = {
     MONDAY: 1,
     TUESDAY: 2,
     WEDNESDAY: 3,
@@ -41,18 +40,14 @@ class TodaysMenuDialog extends ComponentDialog {
     }
 
     async scrollTroughMenus(step) {
-        let menus = await this.getToday();
-
+        let menus = await TodaysMenuDialog.getToday();
         let todaysDate = moment(Date.now()).format('LL');
-
-        let attachments = [];
-
+        const attachments = [];
         const menuCard = new MenuCardSchema();
 
         menus.forEach(function(current) {
-            let card = new AdaptiveCards.AdaptiveCard();
-
             let menu = Object.assign(new Menu(), current);
+            let card = new AdaptiveCards.AdaptiveCard();
 
             if (menu.date === todaysDate) {
                 switch (menu.day) {
@@ -63,6 +58,7 @@ class TodaysMenuDialog extends ComponentDialog {
                 case WEEKDAYS.TUESDAY:
                     card.parse(menuCard.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
+                    card.clear();
                     break;
                 case WEEKDAYS.WEDNESDAY:
                     card.parse(menuCard.createMenuCard(menu));
@@ -86,18 +82,8 @@ class TodaysMenuDialog extends ComponentDialog {
         return await step.endDialog();
     }
 
-    async getToday() {
-        // TODO: Get the today's menu and fill all relevant adaptive cards.
-
-        // console.log(await CantinaScraper.prototype.requestDateTime().then(function(dateTime) {
-        //     return dateTime;
-        // }));
-
-        // console.log(await CantinaScraper.prototype.requestMenus().then(function(menus) {
-        //     return menus;
-        // }));
-
-        let builder = new MenuBuilder();
+    static async getToday() {
+        const builder = new MenuBuilder();
         return await builder.buildMenus();
     }
 }

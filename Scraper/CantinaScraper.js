@@ -2,29 +2,33 @@ const _promise = require('request-promise-native'); // using native, because onl
 const _cheerio = require('cheerio');
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
 
+/**
+ * Uses nested cheerio to create a JQuery object with the contents of the given mensa URI.
+ * @type {{transform: (function(*=): number), json: boolean, uri: string}}
+ */
 const options = {
     uri: mensaXmenuURI,
     transform: function(body) {
         return _cheerio.load(body);
-    },
-    json: true
+    }
 };
 
+/**
+ * A simple WebCrawler and Scraper to get every menu detail from the university of bielefeld.
+ */
 class CantinaScraper {
     /**
-     *
+     * Returns the dates and matching weekdays as strings in an array.
      * @returns {Promise<T>}
      */
     async requestDateTime() {
         return await _promise(options)
             .then(function($) {
                 const rawDates = [];
-
-                // Extracting weekdays and dates. Also remove all spaces, before adding to raw array.
+                // Extracting weekdays and dates. Also remove all spaces, before adding to rawDates.
                 $('#c1367').find('h2').each(function(index, item) {
                     rawDates[index] = $(item).text().replace(/\s+/g, '');
                 });
-
                 return rawDates;
             })
             .catch(function(PossibleNullPointerException) {
@@ -32,41 +36,49 @@ class CantinaScraper {
             });
     }
     /**
-     *
+     * Returns the count of menus per day.
      * @returns {Promise<T>}
      */
     async requestCountMenusPerDay() {
         return await _promise(options)
             .then(function($) {
-                const rawOddsCounts = [];
-                const rawEvenCounts = [];
-
+                const countsPerDay = [];
+                // Extracting all menus, which are listet in '.odd' and '.even' containers.
+                // Counting them to check how many menus are on each day.
                 $('.stripedtable').each(function(index, item) {
-                    rawOddsCounts[index] = $(item).find('.odd').get().length;
-                    rawEvenCounts[index] = $(item).find('.even').get().length;
+                    countsPerDay.push($(item).find('.odd').get().length +
+                        $(item).find('.even').get().length);
                 });
-
-                return rawOddsCounts.map(function(elem, index) {
-                    return parseInt(elem + rawEvenCounts[index]);
-                });
+                return countsPerDay;
             })
             .catch(function(PossibleNullPointerException) {
                 console.log(PossibleNullPointerException);
             });
     }
     /**
-     *
+     * Returns all prices by each menu of every day of the current week.
+     * Simple array so one can simply iterate through the prices.
      * @returns {Promise<T>}
      */
     async requestPricesPerDay() {
         return await _promise(options)
             .then(function($) {
+                const priceSeparator = new RegExp(/\|/gm);
                 const rawPrices = [];
-
+                // Extracting all prices from every menu and formatting them.
                 $('.stripedtable').find('td[width="150px"]').each(function(index, item) {
-                    rawPrices[index] = $(item).text().replace(/\s+/gm, ' ');
+                    let price = $(item).text().replace(/\s+/gm, ' ');
+                    if (price.includes('€')) {
+                        rawPrices.push([' ', ' ', price]);
+                    } else if (price.match(priceSeparator)) {
+                        let studentPrice = price.split('|')[0] + '€';
+                        let staffPrice = price.split('|')[1] + '€';
+                        let guestPrice = price.split('|')[2] + '€';
+                        rawPrices.push([studentPrice, staffPrice, guestPrice]);
+                    } else {
+                        rawPrices.push([' ', ' ', ' ']);
+                    }
                 });
-
                 return rawPrices;
             })
             .catch(function(PossibleNullPointerException) {
@@ -74,18 +86,18 @@ class CantinaScraper {
             });
     }
     /**
-     *
+     * Returns all menu types from given mensa URI with cheerio.
+     * Simple array so one can simply iterate through the types.
      * @returns {Promise<T>}
      */
     async requestMenuTypes() {
         return await _promise(options)
             .then(function($) {
                 const rawTypes = [];
-
-                $('.stripedtable').find('h3').each(function(index, item) {
-                    rawTypes[index] = $(item).text().replace(/\s+/gm, ' ');
+                // Extracting all tyes of menus and removing empty lines and tabs.
+                $('.stripedtable').find('strong').each(function(index, item) {
+                    rawTypes[index] = [$(item).text().replace(/\s+/gm, ' ')];
                 });
-
                 return rawTypes;
             })
             .catch(function(PossibleNullPointerException) {
@@ -93,18 +105,37 @@ class CantinaScraper {
             });
     }
     /**
-     *
+     * Returns all menus from given mensa URI with cheerio.
+     * Also it already formats the whole description ready for presenting.
      * @returns {Promise<T>}
      */
     async requestMenus() {
         return await _promise(options)
             .then(function($) {
+                const extrasTextString = new RegExp(/Es können 3 Wahlbeilagen gewählt werden:/gm);
+                const priceByPattern = new RegExp(/Preis pro 100\s?g/gm);
+                const takeWithString = new RegExp(/auch zum Mitnehmen!/gm);
+                const otherExtrasTextString = new RegExp(/Dazu gibt es:/gm);
                 const rawMenus = [];
-
+                // Extracting all menu descriptions and reformatting them.
                 $('.stripedtable').find('.first').not(':empty').each(function(index, item) {
-                    rawMenus[index] = $(item).find('p').not('.menu-detail').text().replace(/\s+/gm, ' ');
-                });
+                    let description = $(item).find('p').not('.menu-detail').text().replace(/\s+/gm, ' ');
+                    description = description.replace(
+                        extrasTextString, '\n\n Es können 3 Wahlbeilagen gewählt werden: '
+                    );
+                    description = description.replace(
+                        otherExtrasTextString, '\n\n Dazu gibt es: '
+                    );
+                    description = description.replace(
+                        priceByPattern, '\n\n Preis pro 100g'
+                    );
 
+                    description = description.replace(
+                        takeWithString, '\n\n Auch zum Mitnehmen!'
+                    );
+
+                    rawMenus.push(description);
+                });
                 return rawMenus;
             })
             .catch(function(PossibleNullPointerException) {
@@ -112,11 +143,5 @@ class CantinaScraper {
             });
     }
 }
-
-// Sample of "prototype" in ex. request.toConsole();
-// CantinaScraper.prototype.toConsole = function() {
-//     let output = this;
-//     console.log(output);
-// };
 
 exports.CantinaScraper = CantinaScraper;
