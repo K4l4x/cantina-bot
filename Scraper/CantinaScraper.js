@@ -93,12 +93,12 @@ class CantinaScraper {
     async requestMenuTypes() {
         return await _promise(options)
             .then(function($) {
-                const rawTypes = [];
+                const rawMenuTypes = [];
                 // Extracting all tyes of menus and removing empty lines and tabs.
                 $('.stripedtable').find('strong').each(function(index, item) {
-                    rawTypes[index] = [$(item).text().replace(/\s+/gm, ' ')];
+                    rawMenuTypes[index] = [$(item).text().replace(/\s+/gm, ' ')];
                 });
-                return rawTypes;
+                return rawMenuTypes;
             })
             .catch(function(PossibleNullPointerException) {
                 console.log(PossibleNullPointerException);

@@ -40,7 +40,7 @@ class TodaysMenuDialog extends ComponentDialog {
     }
 
     async scrollTroughMenus(step) {
-        let menus = await TodaysMenuDialog.getToday();
+        let menus = await TodaysMenuDialog.getThisWeeksMenus();
         let todaysDate = moment(Date.now()).format('LL');
         const attachments = [];
         const menuCard = new MenuCardSchema();
@@ -82,7 +82,7 @@ class TodaysMenuDialog extends ComponentDialog {
         return await step.endDialog();
     }
 
-    static async getToday() {
+    static async getThisWeeksMenus() {
         const builder = new MenuBuilder();
         return await builder.buildMenus();
     }

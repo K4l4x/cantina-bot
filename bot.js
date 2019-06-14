@@ -10,6 +10,7 @@ const { DialogSet, DialogTurnStatus } = require('botbuilder-dialogs');
 // Current mensa dialog set.
 // const { MenuDialog } = require('./Dialogs/MenuDialog');
 // const { WeekMenuDialog } = require('./Dialogs/WeekMenuDialog');
+const { WelcomeDialog } = require('./Dialogs/WelcomeDialog');
 const { TodaysMenuDialog } = require('./Dialogs/TodaysMenuDialog');
 const { OpeningHoursDialog } = require('./Dialogs/OpeningHoursDialog');
 // const { AllergenicDialog } = require('./Dialogs/AllergenicDialog');
@@ -17,7 +18,6 @@ const { OpeningHoursDialog } = require('./Dialogs/OpeningHoursDialog');
 const DIALOG_STATE_PROPERTY = 'dialogStatePropertyAccessor';
 const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
 
-// const { Menu } = require('./Model/Menu');
 // const MENU_STATE_PROPERTY = 'menuState';
 
 class MyBot {
@@ -36,6 +36,7 @@ class MyBot {
 
         // Create our bot's dialog set, adding a main dialog and the three component dialogs.
         this.dialogs = new DialogSet(this.dialogStateAccessor);
+        this.dialogs.add(new WelcomeDialog('welcome'));
         // this.dialogs.add(new MenuDialog('aboutMenu'));
         // this.dialogs.add(new AllergenicDialog('aboutAllergenic'));
         this.dialogs.add(new TodaysMenuDialog('menuToday'));
@@ -53,6 +54,10 @@ class MyBot {
         if (turnContext.activity.type === ActivityTypes.Message) {
             const dialogContext = await this.dialogs.createContext(turnContext);
             await dialogContext.continueDialog();
+
+            if (dialogContext.context.activity.text.includes('hi')) {
+                await dialogContext.beginDialog('welcome');
+            }
 
             if (dialogContext.context.activity.text.includes('heute')) {
                 await dialogContext.beginDialog('menuToday');
