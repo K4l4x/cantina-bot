@@ -1,24 +1,20 @@
 const { AttachmentLayoutTypes, CardFactory } = require('botbuilder');
 const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
 
-// Sample opening hours
+// Opening hours of mensaX as json to simply be converted to an adaptive card.
 const mensaHours = require('../../resources/MensaX/OpeningHours');
 
-const initialId = 'openingHours';
+const OPENING_HOURS = 'openingHours';
 
 class OpeningHoursDialog extends ComponentDialog {
-    /**
-     *
-     * @param {dialogID} identifies this dialog.
-     */
-    constructor(dialogId) {
-        super(dialogId);
+    constructor(id) {
+        super(id || 'openingHoursDialog');
 
-        this.initialDialogId = initialId;
-
-        this.addDialog(new WaterfallDialog(initialId, [
+        this.addDialog(new WaterfallDialog(OPENING_HOURS, [
             this.showHours.bind(this)
         ]));
+
+        this.initialDialogId = OPENING_HOURS;
     }
 
     async showHours(step) {

@@ -52,8 +52,8 @@ class RootDialog extends ComponentDialog {
         }
     }
 
-    async action(stepContext) {
-        const message = stepContext.context.activity.text.toLowerCase();
+    async action(step) {
+        const message = step.context.activity.text.toLowerCase();
         let dialogId = '';
 
         switch (message) {
@@ -63,18 +63,18 @@ class RootDialog extends ComponentDialog {
         default:
             const didntUnderstandMessage = 'Entschuldigung, leider weiß' +
                 ' nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.';
-            await stepContext.context.sendActivity(MessageFactory.text(didntUnderstandMessage));
+            await step.context.sendActivity(MessageFactory.text(didntUnderstandMessage));
         }
 
         if (dialogId !== '') {
-            return await stepContext.beginDialog(dialogId);
+            return await step.beginDialog(dialogId);
         } else {
-            return await stepContext.next();
+            return await step.next();
         }
     }
 
-    async result(stepContext) {
-        return await stepContext.endDialog();
+    async result(step) {
+        return await step.endDialog();
     }
 }
 

@@ -22,7 +22,7 @@ class CantinaScraper {
      * @returns {Promise<T>}
      */
     async requestDateTime() {
-        return await _promise(options)
+        return _promise(options)
             .then(function($) {
                 const rawDates = [];
                 // Extracting weekdays and dates. Also remove all spaces, before adding to rawDates.
@@ -41,7 +41,7 @@ class CantinaScraper {
      * @returns {Promise<T>}
      */
     async requestCountMenusPerDay() {
-        return await _promise(options)
+        return _promise(options)
             .then(function($) {
                 const countsPerDay = [];
                 // Extracting all menus, which are listet in '.odd' and '.even' containers.
@@ -63,7 +63,7 @@ class CantinaScraper {
      * @returns {Promise<T>}
      */
     async requestPricesPerDay() {
-        return await _promise(options)
+        return _promise(options)
             .then(function($) {
                 const priceSeparator = new RegExp(/\|/gm);
                 const rawPrices = [];
@@ -94,7 +94,7 @@ class CantinaScraper {
      * @returns {Promise<T>}
      */
     async requestMenuTypes() {
-        return await _promise(options)
+        return _promise(options)
             .then(function($) {
                 const rawMenuTypes = [];
                 // Extracting all tyes of menus and removing empty lines and tabs.
@@ -114,7 +114,7 @@ class CantinaScraper {
      * @returns {Promise<T>}
      */
     async requestMenus() {
-        return await _promise(options)
+        return _promise(options)
             .then(function($) {
                 const extrasTextString = new RegExp(/Es können 3 Wahlbeilagen gewählt werden:/gm);
                 const priceByPattern = new RegExp(/Preis pro 100\s?g/gm);
@@ -148,4 +148,4 @@ class CantinaScraper {
     }
 }
 
-exports.CantinaScraper = CantinaScraper;
+module.exports.CantinaScraper = CantinaScraper;

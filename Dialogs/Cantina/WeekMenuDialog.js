@@ -91,4 +91,4 @@ class WeekMenuDialog extends ComponentDialog {
     }
 }
 
-exports.MenuOfWeekDialog = WeekMenuDialog;
+module.exports.MenuOfWeekDialog = WeekMenuDialog;

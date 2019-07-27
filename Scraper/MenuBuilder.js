@@ -65,4 +65,4 @@ class MenuBuilder {
     }
 }
 
-exports.MenuBuilder = MenuBuilder;
+module.exports.MenuBuilder = MenuBuilder;

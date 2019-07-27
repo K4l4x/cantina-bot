@@ -1,20 +1,14 @@
 const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
 const { WaterfallDialog } = require('botbuilder-dialogs');
 const AdaptiveCards = require('adaptivecards');
+const moment = require('moment');
+
 const { CancelAndHelpDialog } = require('../Utilities/CancelAndHelpDialog');
 const { Menu } = require('../../Model/Menu');
 const { MenuCardSchema } = require('../../Model/MenuCardSchema');
-const moment = require('moment');
 const { MenuBuilder } = require('../../Scraper/MenuBuilder');
 
-// Mensa X menu.
-// const MensaTodayMenu = require('../resources/MensaX/TodaysMenu/MainMenuCard.json');
-// const VeggieTodayMenu = require('../resources/MensaX/TodaysMenu/VeggieMenuCard.json');
-// const VitalTodayMenu = require('../resources/MensaX/TodaysMenu/VitalMenuCard.json');
-// const PastaTodayMenu = require('../resources/MensaX/TodaysMenu/MenuPastaCard.json');
-// const { TextBlock } = require('adaptivecards/lib/card-elements');
-
-const initialId = 'menuToday';
+const MENU_TODAY = 'menuToday';
 
 const WEEKDAYS = {
     MONDAY: 1,
@@ -25,19 +19,15 @@ const WEEKDAYS = {
 };
 
 class TodaysMenuDialog extends CancelAndHelpDialog {
-    /**
-     *
-     * @param {dialogID} identifies this dialog.
-     */
-    constructor(dialogId) {
-        super(dialogId);
+    constructor(id) {
+        super(id);
 
-        this.initialDialogId = initialId;
-
-        this.addDialog(new WaterfallDialog(initialId,
+        this.addDialog(new WaterfallDialog(MENU_TODAY,
             [
                 this.scrollTroughMenus.bind(this)
             ]));
+
+        this.initialDialogId = MENU_TODAY;
     }
 
     async scrollTroughMenus(step) {
