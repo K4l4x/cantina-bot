@@ -2,10 +2,10 @@ const { MessageFactory } = require('botbuilder');
 const { ComponentDialog, DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
 
 // const { WelcomeDialog } = require('./WelcomeDialog');
-const { TodaysMenuDialog } = require('./TodaysMenuDialog');
-const { OpeningHoursDialog } = require('./OpeningHoursDialog');
+const { TodaysMenuDialog } = require('./Cantina/TodaysMenuDialog');
+const { OpeningHoursDialog } = require('./Cantina/OpeningHoursDialog');
 
-const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
+// const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
 
 const ROOT_DIALOG = 'rootDialog';
 const ROOT_WATERFALL = 'rootWaterfall';
@@ -18,7 +18,8 @@ class RootDialog extends ComponentDialog {
         super(ROOT_DIALOG);
 
         // Create our state property accessors.
-        this.userStateAccessor = userState.createProperty(USER_STATE_PROPERTY);
+        // this.userStateAccessor =
+        // userState.createProperty(USER_STATE_PROPERTY);
 
         // Record the conversation and user state management objects.
         // this.conversationState = conversationState;
@@ -67,8 +68,7 @@ class RootDialog extends ComponentDialog {
 
         if (dialogId !== '') {
             return await stepContext.beginDialog(dialogId);
-        }
-        else {
+        } else {
             return await stepContext.next();
         }
     }

@@ -1,10 +1,11 @@
 const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
-const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
+const { WaterfallDialog } = require('botbuilder-dialogs');
 const AdaptiveCards = require('adaptivecards');
-const { Menu } = require('../Model/Menu');
-const { MenuCardSchema } = require('../Model/MenuCardSchema');
+const { CancelAndHelpDialog } = require('../Utilities/CancelAndHelpDialog');
+const { Menu } = require('../../Model/Menu');
+const { MenuCardSchema } = require('../../Model/MenuCardSchema');
 const moment = require('moment');
-const { MenuBuilder } = require('../Scraper/MenuBuilder');
+const { MenuBuilder } = require('../../Scraper/MenuBuilder');
 
 // Mensa X menu.
 // const MensaTodayMenu = require('../resources/MensaX/TodaysMenu/MainMenuCard.json');
@@ -23,7 +24,7 @@ const WEEKDAYS = {
     FRIDAY: 5
 };
 
-class TodaysMenuDialog extends ComponentDialog {
+class TodaysMenuDialog extends CancelAndHelpDialog {
     /**
      *
      * @param {dialogID} identifies this dialog.

@@ -2,7 +2,7 @@ const { AttachmentLayoutTypes, CardFactory } = require('botbuilder');
 const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
 
 // Sample opening hours
-const mensaHours = require('../resources/MensaX/OpeningHours');
+const mensaHours = require('../../resources/MensaX/OpeningHours');
 
 const initialId = 'openingHours';
 
@@ -30,4 +30,4 @@ class OpeningHoursDialog extends ComponentDialog {
     }
 }
 
-exports.OpeningHoursDialog = OpeningHoursDialog;
+module.exports.OpeningHoursDialog = OpeningHoursDialog;
