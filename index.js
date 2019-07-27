@@ -12,8 +12,9 @@ const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = req
 // Import required bot configuration.
 const { BotConfiguration } = require('botframework-config');
 
-// This bot's main dialog.
-const { MyBot } = require('./bot');
+// This bot's main routine and rootDialog.
+const { CantinaBot } = require('./bot');
+const { RootDialog } = require('./Dialogs/RootDialog');
 
 // Read botFilePath and botFileSecret from .env file
 // Note: Ensure you have a .env file and include botFilePath and botFileSecret.
@@ -77,13 +78,14 @@ const conversationState = new ConversationState(memoryStorage);
 const userState = new UserState(memoryStorage);
 
 // Create the main dialog.
-const myBot = new MyBot(conversationState, userState);
+const dialog = new RootDialog(userState);
+const cantinaBot = new CantinaBot(conversationState, userState, dialog);
 
 // Heart of the system.
 // Listen for incoming requests.
 server.post('/api/messages', (req, res) => {
-    adapter.processActivity(req, res, async (context) => {
+    adapter.processActivity(req, res, async (turnContext) => {
         // Route to main dialog.
-        await myBot.onTurn(context);
+        await cantinaBot.run(turnContext);
     });
 });

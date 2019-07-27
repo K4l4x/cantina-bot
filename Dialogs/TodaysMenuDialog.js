@@ -88,4 +88,4 @@ class TodaysMenuDialog extends ComponentDialog {
     }
 }
 
-exports.TodaysMenuDialog = TodaysMenuDialog;
+module.exports.TodaysMenuDialog = TodaysMenuDialog;
