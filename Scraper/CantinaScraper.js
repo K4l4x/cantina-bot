@@ -35,6 +35,7 @@ class CantinaScraper {
                 console.log(PossibleNullPointerException);
             });
     }
+
     /**
      * Returns the count of menus per day.
      * @returns {Promise<T>}
@@ -55,6 +56,7 @@ class CantinaScraper {
                 console.log(PossibleNullPointerException);
             });
     }
+
     /**
      * Returns all prices by each menu of every day of the current week.
      * Simple array so one can simply iterate through the prices.
@@ -67,13 +69,13 @@ class CantinaScraper {
                 const rawPrices = [];
                 // Extracting all prices from every menu and formatting them.
                 $('.stripedtable').find('td[width="150px"]').each(function(index, item) {
-                    let price = $(item).text().replace(/\s+/gm, ' ');
+                    const price = $(item).text().replace(/\s+/gm, ' ');
                     if (price.includes('€')) {
                         rawPrices.push([' ', ' ', price]);
                     } else if (price.match(priceSeparator)) {
-                        let studentPrice = price.split('|')[0] + '€';
-                        let staffPrice = price.split('|')[1] + '€';
-                        let guestPrice = price.split('|')[2] + '€';
+                        const studentPrice = price.split('|')[0] + '€';
+                        const staffPrice = price.split('|')[1] + '€';
+                        const guestPrice = price.split('|')[2] + '€';
                         rawPrices.push([studentPrice, staffPrice, guestPrice]);
                     } else {
                         rawPrices.push([' ', ' ', ' ']);
@@ -85,6 +87,7 @@ class CantinaScraper {
                 console.log(PossibleNullPointerException);
             });
     }
+
     /**
      * Returns all menu types from given mensa URI with cheerio.
      * Simple array so one can simply iterate through the types.
@@ -104,6 +107,7 @@ class CantinaScraper {
                 console.log(PossibleNullPointerException);
             });
     }
+
     /**
      * Returns all menus from given mensa URI with cheerio.
      * Also it already formats the whole description ready for presenting.

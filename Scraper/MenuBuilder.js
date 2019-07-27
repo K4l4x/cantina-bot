@@ -7,7 +7,7 @@ const moment = require('moment');
  */
 class MenuBuilder {
     async buildMenus() {
-        let menus = [];
+        const menus = [];
         const rawDateTime = await MenuBuilder.getRawDateTime();
         const menuTypes = await MenuBuilder.getMenuTypes();
         const menusPerDay = await MenuBuilder.getMenusPerDay();
@@ -18,9 +18,9 @@ class MenuBuilder {
             let numberOfMenusPerDay = menusPerDay[rawDateTime.indexOf(date)];
 
             while (numberOfMenusPerDay !== 0) {
-                let parseDate = moment
+                const parseDate = moment
                     .utc(date.toString().split(',')[1], 'DD-MM-YYYY', 'en');
-                let menu = new Menu();
+                const menu = new Menu();
                 menu.date = parseDate.format('LL');
                 menu.day = parseDate.day();
                 menu.menuType = menuTypes.shift();

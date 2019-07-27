@@ -26,13 +26,13 @@ class WelcomeDialog extends ComponentDialog {
     }
 
     async welcomeMessage(step) {
-        let menus = await WelcomeDialog.getThisWeeksMenus();
-        let todaysDate = moment(Date.now()).format('LL');
+        const menus = await WelcomeDialog.getThisWeeksMenus();
+        const todaysDate = moment(Date.now()).format('LL');
 
         var menuTypes = [];
 
         menus.forEach(async current => {
-            let menu = Object.assign(new Menu(), current);
+            const menu = Object.assign(new Menu(), current);
 
             if (menu.date === todaysDate) {
                 menuTypes.push(menu.menuType[0]);
@@ -49,8 +49,8 @@ class WelcomeDialog extends ComponentDialog {
     async switchTodaysDishes(step) {
         // await step.context.sendActivity(step.result.value);
 
-        let menus = await WelcomeDialog.getThisWeeksMenus();
-        let todaysDate = moment(Date.now()).format('LL');
+        // const menus = await WelcomeDialog.getThisWeeksMenus();
+        // const todaysDate = moment(Date.now()).format('LL');
 
         // menus.forEach(async current => {
         //     let menu = Object.assign(new Menu(), current);

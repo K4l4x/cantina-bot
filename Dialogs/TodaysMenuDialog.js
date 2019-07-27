@@ -40,14 +40,14 @@ class TodaysMenuDialog extends ComponentDialog {
     }
 
     async scrollTroughMenus(step) {
-        let menus = await TodaysMenuDialog.getThisWeeksMenus();
-        let todaysDate = moment(Date.now()).format('LL');
+        const menus = await TodaysMenuDialog.getThisWeeksMenus();
+        const todaysDate = moment(Date.now()).format('LL');
         const attachments = [];
         const menuCard = new MenuCardSchema();
 
         menus.forEach(function(current) {
-            let menu = Object.assign(new Menu(), current);
-            let card = new AdaptiveCards.AdaptiveCard();
+            const menu = Object.assign(new Menu(), current);
+            const card = new AdaptiveCards.AdaptiveCard();
 
             if (menu.date === todaysDate) {
                 switch (menu.day) {

@@ -53,16 +53,24 @@ class RootDialog extends ComponentDialog {
 
     async action(stepContext) {
         const message = stepContext.context.activity.text.toLowerCase();
+        let dialogId = '';
 
         switch (message) {
         case 'heute':
-            return await stepContext.beginDialog(TODAYS_MEMU_DIALOG);
+            dialogId = TODAYS_MEMU_DIALOG;
+            break;
         default:
             const didntUnderstandMessage = 'Entschuldigung, leider weiß' +
-                ' nicht was du mit ' + message + ' meinst.';
+                ' nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.';
             await stepContext.context.sendActivity(MessageFactory.text(didntUnderstandMessage));
         }
-        return await stepContext.next();
+
+        if (dialogId !== '') {
+            return await stepContext.beginDialog(dialogId);
+        }
+        else {
+            return await stepContext.next();
+        }
     }
 
     async result(stepContext) {
