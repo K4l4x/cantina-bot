@@ -1,23 +1,22 @@
 const { AttachmentLayoutTypes, CardFactory } = require('botbuilder');
-const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
+const { WaterfallDialog } = require('botbuilder-dialogs');
 
 // Opening hours of mensaX as json to simply be converted to an adaptive card.
 // const mensaHours = require('../../resources/MensaX/OpeningHours');
 
+const { CancelAndHelpDialog } = require('../Utilities/CancelAndHelpDialog');
 const { Cantina } = require('../../Model/Cantina');
 const { CardSchemaCreator } = require('../../Model/CardSchemaCreator');
 
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const OPENING_HOURS = 'openingHours';
 
-class OpeningHoursDialog extends ComponentDialog {
+class OpeningHoursDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || OPENING_HOURS_DIALOG);
-
         this.addDialog(new WaterfallDialog(OPENING_HOURS, [
             this.showHours.bind(this)
         ]));
-
         this.initialDialogId = OPENING_HOURS;
     }
 

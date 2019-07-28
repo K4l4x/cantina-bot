@@ -1,17 +1,19 @@
-const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
+const { WaterfallDialog } = require('botbuilder-dialogs');
 
-const initialId = 'aboutAllergenic';
+const { CancelAndHelpDialog } = require('/Utilities/CancelAndHelpDialog');
 
-class AllergenicDialog extends ComponentDialog {
-    /**
-     *
-     * @param {dialogID} identifies this dialog.
-     */
-    constructor(dialogId) {
-        super(dialogId);
+const ALLERGENIC_DIALOG = 'allergenicDialog';
+const ABOUT_ALLERGENIC = 'aboutAllergenic';
 
-        this.initialDialogId = initialId;
+class AllergenicDialog extends CancelAndHelpDialog {
+    constructor(id) {
+        super(id || ALLERGENIC_DIALOG);
+        this.addDialog(new WaterfallDialog(ABOUT_ALLERGENIC,
+            [
+
+            ]));
+        this.initialDialogId = ABOUT_ALLERGENIC;
     }
 }
 
-exports.AllergenicDialog = AllergenicDialog;
+module.exports.AllergenicDialog = AllergenicDialog;

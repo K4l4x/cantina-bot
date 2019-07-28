@@ -1,9 +1,9 @@
-/**
- * Represents a general cantina.
- */
 
 var openingHours;
 
+/**
+ * Represents a general cantina.
+ */
 class Cantina {
     constructor(name, hours) {
         this.name = name;

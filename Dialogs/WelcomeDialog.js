@@ -1,7 +1,9 @@
-const { ComponentDialog, WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
+const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
+const moment = require('moment');
+
+const { CancelAndHelpDialog } = require('./Utilities/CancelAndHelpDialog');
 const { Menu } = require('../Model/Menu');
 const { MenuBuilder } = require('../Scraper/MenuBuilder');
-const moment = require('moment');
 
 const WELCOME_DIALOG = 'welcomeDialog';
 const WELCOME = 'welcome';
@@ -9,17 +11,15 @@ const WELCOME = 'welcome';
 const dishesPrompt = 'dishesPrompt';
 const welcomeInfo = 'Hi, ich bin CantinaBot. \n Du hast bestimmt Hunger! \n Sieh dir die fantastische Auswahl an Gerichten für Heute an! \n';
 
-class WelcomeDialog extends ComponentDialog {
+class WelcomeDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || WELCOME_DIALOG);
-
         this.addDialog(new ChoicePrompt(dishesPrompt));
         this.addDialog(new WaterfallDialog(WELCOME,
             [
                 this.welcomeMessage.bind(this),
                 this.switchTodaysDishes.bind(this)
             ]));
-
         this.initialDialogId = WELCOME;
     }
 

@@ -22,12 +22,10 @@ const WEEKDAYS = {
 class TodaysMenuDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || TODAYS_MENU_DIALOG);
-
         this.addDialog(new WaterfallDialog(TODAYS_MENU,
             [
                 this.scrollTroughMenus.bind(this)
             ]));
-
         this.initialDialogId = TODAYS_MENU;
     }
 

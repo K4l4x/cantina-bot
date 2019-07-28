@@ -1,34 +1,18 @@
+const { WaterfallDialog } = require('botbuilder-dialogs');
 
-const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
+const { CancelAndHelpDialog } = require('/Utilities/CancelAndHelpDialog');
 
-const initialId = 'privacy';
+const DISCLAIMER_DIALOG = 'disclaimerDialog';
+const DISCLAIMER = 'disclaimer';
 
-class DisclaimerDialog extends ComponentDialog {
-    /**
-     *
-     * @param {dialogID} identifies this dialog.
-     */
-    constructor(dialogId) {
-        super(dialogId);
+class DisclaimerDialog extends CancelAndHelpDialog {
+    constructor(id) {
+        super(id || DISCLAIMER_DIALOG);
+        this.addDialog(new WaterfallDialog(DISCLAIMER,
+            [
 
-        this.initialDialogId = initialId;
-
-        // Simple disclaimer message to point out privacy policy terms.
-        const disclaimerMessage = '';
-
-        // Define the conversation flow using a waterfall model.
-        this.addDialog(
-            new WaterfallDialog(
-                initialId, [
-                    async function(step) {
-                        await step.context.sendActivity(disclaimerMessage);
-
-                        // End the dialog.
-                        return await step.endDialog();
-                    }
-                ]
-            )
-        );
+            ]));
+        this.initialDialogId = DISCLAIMER;
     }
 }
-exports.PrivacyPolicyDialog = PrivacyPolicyDialog;
+module.exports.DisclaimerDialog = DisclaimerDialog;

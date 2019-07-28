@@ -3,15 +3,18 @@ const { ComponentDialog, DialogSet, DialogTurnStatus, WaterfallDialog } = requir
 
 const { WelcomeDialog } = require('./WelcomeDialog');
 const { TodaysMenuDialog } = require('./Cantina/TodaysMenuDialog');
+const { WeekMenuDialog } = require('./Cantina/WeekMenuDialog');
 const { OpeningHoursDialog } = require('./Cantina/OpeningHoursDialog');
 
 // const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
 
 const ROOT_DIALOG = 'rootDialog';
 const ROOT_WATERFALL = 'rootWaterfall';
+
 const WELCOME_DIALOG = 'welcomeDialog';
 const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
+const WEEK_MENU_DIALOG = 'weekMenuDialog';
 
 class RootDialog extends ComponentDialog {
     constructor(userState) {
@@ -27,12 +30,12 @@ class RootDialog extends ComponentDialog {
 
         this.addDialog(new WelcomeDialog(WELCOME_DIALOG));
         this.addDialog(new TodaysMenuDialog(TODAYS_MENU_DIALOG));
+        this.addDialog(new WeekMenuDialog(WEEK_MENU_DIALOG));
         this.addDialog(new OpeningHoursDialog(OPENING_HOURS_DIALOG));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
             this.action.bind(this),
             this.result.bind(this)
         ]));
-
         this.initialDialogId = ROOT_WATERFALL;
     }
 
