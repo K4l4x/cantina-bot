@@ -24,9 +24,13 @@ class OpeningHoursDialog extends ComponentDialog {
     async showHours(step) {
         const cantina = new Cantina('MensaX', 'someHours');
         const cardSchema = new CardSchemaCreator();
-        const openingHours = cardSchema.createOpeningHoursCard(cantina);
+        let openingHours = cardSchema.loadFromJSON(cantina.name, 'OpeningHours');
 
-        await cardSchema.saveAsJSON(cantina.name, 'OpeningHours', openingHours);
+        if (openingHours === null) {
+            openingHours = cardSchema.createOpeningHoursCard(cantina);
+            cardSchema.saveAsJSON(cantina.name, 'OpeningHours', openingHours);
+        }
+
         await step.context.sendActivity({ attachments: [
             CardFactory.adaptiveCard(openingHours)],
         attachmentLayout: AttachmentLayoutTypes.Carousel });

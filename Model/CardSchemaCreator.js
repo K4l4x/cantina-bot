@@ -95,28 +95,30 @@ class CardSchemaCreator {
         };
     }
 
-    async saveAsJSON(cantinaName, name, content) {
+    saveAsJSON(cantinaName, name, content) {
         const path = 'resources/' + cantinaName + '/' + name + '.json';
         const json = JSON.stringify(content);
-        fileSystem.writeFile(path, json, function(err) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('Writing: ' + json);
-            }
-        });
+        try {
+            console.log('Trying to write to ' + path);
+            fileSystem.writeFileSync(path, json, 'utf8');
+            console.log('Writing done.');
+        } catch (err) {
+            console.error(err);
+        }
     }
 
-    async loadFromJSON(cantinaName, name) {
+    loadFromJSON(cantinaName, name) {
         const path = 'resources/' + cantinaName + '/' + name + '.json';
-        return JSON.parse(fileSystem.readFile(path, function(err, data) {
-            if (err) {
-                return console.error(err);
-            }
-            console.log('Asynchronous read: ' + data.toString());
+        var result = null;
+        try {
+            console.log('Trying to read from ' + path);
+            result = JSON.parse(fileSystem.readFileSync(path, 'utf8'));
+            console.log('Reading done.');
+        } catch (err) {
+            console.error(err);
+        }
 
-            return data;
-        }));
+        return result;
     }
 }
 
