@@ -18,7 +18,7 @@ class WelcomeDialog extends CancelAndHelpDialog {
         this.addDialog(new WaterfallDialog(WELCOME,
             [
                 this.welcomeMessage.bind(this),
-                this.switchTodaysDishes.bind(this)
+                this.switchTodaysMenus.bind(this)
             ]));
         this.initialDialogId = WELCOME;
     }
@@ -27,24 +27,24 @@ class WelcomeDialog extends CancelAndHelpDialog {
         const menus = await WelcomeDialog.getThisWeeksMenus();
         const todaysDate = moment(Date.now()).format('LL');
 
-        var menuTypes = [];
+        // var menuTypes = [];
+        //
+        // menus.forEach(async current => {
+        //     const menu = Object.assign(new Menu(), current);
+        //
+        //     if (menu.date === todaysDate) {
+        //         menuTypes.push(menu.menuType[0]);
+        //     }
+        // });
 
-        menus.forEach(async current => {
-            const menu = Object.assign(new Menu(), current);
-
-            if (menu.date === todaysDate) {
-                menuTypes.push(menu.menuType[0]);
-            }
-        });
-
-        return await step.prompt(dishesPrompt, {
-            prompt: welcomeInfo,
-            choices: ChoiceFactory.toChoices(menuTypes),
-            style: 1
-        });
+        // return await step.prompt(dishesPrompt, {
+        //     prompt: welcomeInfo,
+        //     choices: ChoiceFactory.toChoices(menuTypes),
+        //     style: 1
+        // });
     }
 
-    async switchTodaysDishes(step) {
+    async switchTodaysMenus(step) {
         // await step.context.sendActivity(step.result.value);
 
         // const menus = await WelcomeDialog.getThisWeeksMenus();
@@ -70,4 +70,4 @@ class WelcomeDialog extends CancelAndHelpDialog {
     }
 }
 
-exports.WelcomeDialog = WelcomeDialog;
+module.exports.WelcomeDialog = WelcomeDialog;

@@ -2,9 +2,10 @@
  * Simple user.
  */
 class User {
-    constructor(Id) {
-        this.Id = Id;
+    constructor(id, name) {
+        this.id = id;
+        this.name = name;
     }
 }
 
-exports.User = User;
+module.exports.User = User;

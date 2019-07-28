@@ -9,10 +9,11 @@ class CantinaBot extends ActivityHandler {
     constructor(conversationState, userState, dialog) {
         super();
 
-        if (!conversationState) throw new Error('[DialogBot]: Missing parameter. conversationState is required');
-        if (!userState) throw new Error('[DialogBot]: Missing parameter. userState is required');
-        if (!dialog) throw new Error('[DialogBot]: Missing parameter. dialog is required');
+        if (!conversationState) throw new Error('[CantinaBot]: Missing parameter. conversationState is required');
+        if (!userState) throw new Error('[CantinaBot]: Missing parameter. userState is required');
+        if (!dialog) throw new Error('[CantinaBot]: Missing parameter. dialog is required');
 
+        // Record the conversation and user state management objects.
         this.conversationState = conversationState;
         this.userState = userState;
         this.dialog = dialog;

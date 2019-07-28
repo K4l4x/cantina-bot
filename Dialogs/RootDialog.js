@@ -1,11 +1,14 @@
 const { MessageFactory } = require('botbuilder');
 const { ComponentDialog, DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
 
+const { Cantina } = require('../Model/Cantina');
+// const { User } = require('../Model/User');
 const { WelcomeDialog } = require('./WelcomeDialog');
 const { TodaysMenuDialog } = require('./Cantina/TodaysMenuDialog');
 const { WeekMenuDialog } = require('./Cantina/WeekMenuDialog');
 const { OpeningHoursDialog } = require('./Cantina/OpeningHoursDialog');
 
+const CONVERSATION_STATE_PROPERTY = 'conversationStatePropertyAccessor';
 // const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
 
 const ROOT_DIALOG = 'rootDialog';
@@ -17,16 +20,15 @@ const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
 
 class RootDialog extends ComponentDialog {
-    constructor(userState) {
+    constructor(conversationState, userState) {
         super(ROOT_DIALOG);
 
-        // Create our state property accessors.
-        // this.userStateAccessor =
-        // userState.createProperty(USER_STATE_PROPERTY);
+        if (!conversationState) throw new Error('[RootDialog]: Missing parameter. conversationState is required');
+        if (!userState) throw new Error('[RootDialog]: Missing parameter. userState is required');
 
-        // Record the conversation and user state management objects.
-        // this.conversationState = conversationState;
-        // this.userState = userState;
+        // Create our state property accessors.
+        this.cantinaProfile = conversationState.createProperty(CONVERSATION_STATE_PROPERTY);
+        // this.userProfile = userState.createProperty(USER_STATE_PROPERTY);
 
         this.addDialog(new WelcomeDialog(WELCOME_DIALOG));
         this.addDialog(new TodaysMenuDialog(TODAYS_MENU_DIALOG));
@@ -60,6 +62,8 @@ class RootDialog extends ComponentDialog {
         const message = step.context.activity.text.toLowerCase();
         let dialogId = '';
 
+        const cantinaProfile = await this.cantinaProfile.get(step.context, new Cantina('MensaX'));
+
         switch (message) {
         case '/start':
         case 'hi':
@@ -80,13 +84,14 @@ class RootDialog extends ComponentDialog {
         }
 
         if (dialogId !== '') {
-            return await step.beginDialog(dialogId);
+            return await step.beginDialog(dialogId, cantinaProfile);
         } else {
             return await step.next();
         }
     }
 
     async result(step) {
+        // Returns no result, because there is no parent dialog to resume from.
         return await step.endDialog();
     }
 }

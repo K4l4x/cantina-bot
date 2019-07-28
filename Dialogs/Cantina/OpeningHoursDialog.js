@@ -1,9 +1,6 @@
 const { AttachmentLayoutTypes, CardFactory } = require('botbuilder');
 const { WaterfallDialog } = require('botbuilder-dialogs');
 
-// Opening hours of mensaX as json to simply be converted to an adaptive card.
-// const mensaHours = require('../../resources/MensaX/OpeningHours');
-
 const { CancelAndHelpDialog } = require('../Utilities/CancelAndHelpDialog');
 const { Cantina } = require('../../Model/Cantina');
 const { CardSchemaCreator } = require('../../Model/CardSchemaCreator');
@@ -21,7 +18,7 @@ class OpeningHoursDialog extends CancelAndHelpDialog {
     }
 
     async showHours(step) {
-        const cantina = new Cantina('MensaX', 'someHours');
+        const cantina = Object.assign(new Cantina(), step.options);
         const cardSchema = new CardSchemaCreator();
         let openingHours = cardSchema.loadFromJSON(cantina.name, 'OpeningHours');
 

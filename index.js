@@ -78,7 +78,7 @@ const conversationState = new ConversationState(memoryStorage);
 const userState = new UserState(memoryStorage);
 
 // Create the main dialog.
-const dialog = new RootDialog(userState);
+const dialog = new RootDialog(conversationState, userState);
 const cantinaBot = new CantinaBot(conversationState, userState, dialog);
 
 // Heart of the system.
