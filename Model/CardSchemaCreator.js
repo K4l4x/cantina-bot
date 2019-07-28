@@ -97,7 +97,7 @@ class CardSchemaCreator {
 
     saveAsJSON(cantinaName, name, content) {
         const path = 'resources/' + cantinaName + '/' + name + '.json';
-        const json = JSON.stringify(content);
+        const json = JSON.stringify(content, null, 2);
         try {
             console.log('Trying to write to ' + path);
             fileSystem.writeFileSync(path, json, 'utf8');
