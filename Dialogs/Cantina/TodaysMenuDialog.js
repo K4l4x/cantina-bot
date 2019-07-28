@@ -4,9 +4,9 @@ const AdaptiveCards = require('adaptivecards');
 const moment = require('moment');
 
 const { CancelAndHelpDialog } = require('../Utilities/CancelAndHelpDialog');
+const { Cantina } = require('../../Model/Cantina');
 const { Menu } = require('../../Model/Menu');
 const { CardSchemaCreator } = require('../../Model/CardSchemaCreator');
-const { MenuBuilder } = require('../../Scraper/MenuBuilder');
 
 const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const TODAYS_MENU = 'todaysMenu';
@@ -22,22 +22,28 @@ const WEEKDAYS = {
 class TodaysMenuDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || TODAYS_MENU_DIALOG);
-        this.addDialog(new WaterfallDialog(TODAYS_MENU,
-            [
-                this.scrollTroughMenus.bind(this)
-            ]));
+        this.addDialog(new WaterfallDialog(TODAYS_MENU, [
+            this.scrollTroughMenus.bind(this)
+        ]));
         this.initialDialogId = TODAYS_MENU;
     }
 
     async scrollTroughMenus(step) {
-        const menus = await TodaysMenuDialog.getThisWeeksMenus();
+        const cantina = Object.assign(new Cantina(), step.options);
+        // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
+        // const todaysDate = moment(Date.now()).subtract(4,
+        // 'days').format('LL');
         const todaysDate = moment(Date.now()).format('LL');
         const attachments = [];
         const cardSchema = new CardSchemaCreator();
 
-        menus.forEach(function(current) {
+        console.log(todaysDate);
+
+        cantina.menuList.forEach(function(current) {
             const menu = Object.assign(new Menu(), current);
             const card = new AdaptiveCards.AdaptiveCard();
+
+            console.log(menu.date);
 
             if (menu.date === todaysDate) {
                 switch (menu.day) {
@@ -69,12 +75,7 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
         });
 
         await step.context.sendActivity({ attachments: attachments, attachmentLayout: AttachmentLayoutTypes.Carousel });
-        return await step.endDialog();
-    }
-
-    static async getThisWeeksMenus() {
-        const builder = new MenuBuilder();
-        return await builder.buildMenus();
+        return await step.endDialog(cantina);
     }
 }
 

@@ -1,0 +1,795 @@
+[
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Tagesmenü"
+    ],
+    "description": "Schweinelachsschnitzel im BackteigA20.1 mit Tomatensoße\n\n Es können 3 Wahlbeilagen gewählt werden: Tomatenreis, Penne RigateA20.1, Delikatessbohnen , MandelbroccoliA27.1, Beilagensalate, HaselnusspuddingA26,A27.2, Griechischer JoghurtA26,A27.2, HeidelbeerquarkA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Menü vegetarisch"
+    ],
+    "description": "MöhrenpufferA22,A20.1 mit Sauerrahm-DipA26\n\n Es können 3 Wahlbeilagen gewählt werden: Penne RigateA20.1, BulgurA20.1, MandelbroccoliA27.1, Lauchgemüse in RahmA26, Beilagensalate, HaselnusspuddingA26,A27.2, Griechischer JoghurtA26,A27.2, HeidelbeerquarkA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Mensa vital"
+    ],
+    "description": "Kürbis-Linsen-Gemüse auf Rucola-PenneA20.1 kcal: 788, F: 23g, E: 28g, KH: 120g ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Eintopf / Suppe"
+    ],
+    "description": "Exotischer Linseneintopf von roten Linsen und KokosZ2,A25,A28\n\n Dazu gibt es: gebratenes SojaA25 und gebratenes Rinderhack ",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Eintopf / Suppe"
+    ],
+    "description": "Tomaten-Melone-Suppe (kalt) ",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Pasta"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit Chili con Carne und CheddarkäseZ3,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 4,00 € "
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit Waldpilz-RagoutZ3,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 3,50 € "
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Salate"
+    ],
+    "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Beilagen"
+    ],
+    "description": "Täglich wechselnde warme Beilagen. \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": " Täglich wechselnde Dessertvariationen. ",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ]
+  },
+  {
+    "date": "July 29, 2019",
+    "day": 1,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": "Hausgemachte Milchshakes ",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Tagesmenü"
+    ],
+    "description": "Schlemmerfilet BordelaiseA23,A20.1 mit SenfsoßeZ1,A26,A30,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Petersilienkartoffeln, Langkornreis, Mischgemüse AndalouseA28, Pariser Karotten, Beilagensalate, GötterspeiseZ1, VanillepuddingA26, Sauerkirsch-DickmilchA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Menü vegetarisch"
+    ],
+    "description": "Vegetarisch gefüllte PaprikaschoteA22,A28,A30,A20.1 mit Drei-Käse-SoßeZ1,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Petersilienkartoffeln, Langkornreis, Mischgemüse AndalouseA28, Pariser Karotten, Beilagensalate, GötterspeiseZ1, VanillepuddingA26, Sauerkirsch-DickmilchA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Mensa vital"
+    ],
+    "description": "Mediterrane Hähnchenpfanne mit Mandel-Broccoli und KurkumareisZ6,A27.1 kcal: 665, F: 22g, E: 38g, KH: 80g, BS: 9g ",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Eintopf"
+    ],
+    "description": "Pilz-Kartoffel-Eintopf mit Gemüse und Käsecreme Z1,A25,A26,A28\n\n Dazu gibt es: gebratenes SojaA25 und BockwurstZ2,Z3,Z8,Z9 ",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Eintopf / Suppe"
+    ],
+    "description": "Andalusische Gazpacho (kalt) ",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Pasta"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit Hähnchengeschnetzeltem und PilzrahmsoßeZ1,Z3,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 4,50 € "
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit Möhren, Broccoli, grünem Spargel und Sauce HollandaiseZ3,A22,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 3,50 € "
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Salate"
+    ],
+    "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Beilagen"
+    ],
+    "description": "Täglich wechselnde warme Beilagen. \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": " Täglich wechselnde Dessertvariationen. ",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ]
+  },
+  {
+    "date": "July 30, 2019",
+    "day": 2,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": "Hausgemachte Milchshakes ",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Tagesmenü"
+    ],
+    "description": "Hähnchenkeule mit Chili-Pfeffer-Dip\n\n Es können 3 Wahlbeilagen gewählt werden: Pommes frites, Rosmarinkartoffeln, ErbsengemüseA28, Kaisergemüse, Beilagensalate, SahnequarkA26, ErdbeerjoghurtA26, Mandarinen-DickmilchA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Menü vegetarisch"
+    ],
+    "description": "Blumenkohl-KäsemedaillonA22,A26,A28,A20.1 mit Tomaten-Käse-SoßeZ1,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Pommes frites, bunte SpiraliA20.1, Rahmwirsing Z3,A25, Kaisergemüse, Beilagensalate, SahnequarkA26, ErdbeerjoghurtA26, Mandarinen-DickmilchA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Mensa vital"
+    ],
+    "description": "Tagliatelle mit Blattspinat-Tomaten-Frischkäse-SoßeA26,A20.1 kcal: 784, F: 21g, E: 31g, KH: 92g ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Eintopf"
+    ],
+    "description": "BäuerinsuppeZ3,A25,A28\n\n Dazu gibt es: gebratenes SojaA25 und Wiener WurstZ2,Z3,Z8,Z9,A26 ",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Eintopf / Suppe"
+    ],
+    "description": "Süßkartoffel-Kokos-SuppeZ2,Z3,A25 ",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Pasta"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit rotem Matjessalat in SahnesoßeZ2,Z3,Z9,A22,A23,A25,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 4,00 € "
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit Frischkäsecreme und Anti-Pasti-GemüseZ3,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 3,50 € "
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Salate"
+    ],
+    "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Beilagen"
+    ],
+    "description": "Täglich wechselnde warme Beilagen. \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": " Täglich wechselnde Dessertvariationen. ",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ]
+  },
+  {
+    "date": "July 31, 2019",
+    "day": 3,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": "Hausgemachte Milchshakes ",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Tagesmenü"
+    ],
+    "description": "Cordon bleu vom SchweinZ1,Z2,Z3,A26,A20.1 mit Jägersoße\n\n Es können 3 Wahlbeilagen gewählt werden: Chili-HonigkartoffelnA25,A20.1, Basmatireis, Blumenkohlgemüse, Leipziger AllerleiA28, Beilagensalate, SchokoladenpuddingA26, Zitronen-DickmilchA26, BrombeerquarkA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Menü vegan"
+    ],
+    "description": "FrühlingsröllchenA20.1 mit Sweet-Chili-Dip\n\n Es können 3 Wahlbeilagen gewählt werden: Chili-HonigkartoffelnA25,A20.1, Basmatireis, asiatische grüne BohnenA25,A29,A20.1, Blumenkohlgemüse, Beilagensalate, SchokoladenpuddingA26, Zitronen-DickmilchA26, BrombeerquarkA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Mensa vital"
+    ],
+    "description": "Putengeschnetzeltes \"Thailändische Art\" mit BasmatireisA26 kcal: 650, F: 18g, E: 40g, KH: 82g ",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Eintopf"
+    ],
+    "description": "Warmer Grießpudding klassischA26,A20.1 mit Roter Grütze ",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Eintopf / Suppe"
+    ],
+    "description": "Warmer Grießpudding veganZ3,A25,A20.1 mit Roter Grütze ",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Eintopf / Suppe"
+    ],
+    "description": "Kohlrabicremesuppe, veganA25,A20.1 ",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Pasta"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit Hähnchendönerfleisch in MetaxasoßeA20,Z3,A22,A25,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 4,00 € "
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit Hirtenkäsecreme, Rucola und gebratenen KirschtomatenA20,Z3,A22,A25,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 3,50 € "
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Salate"
+    ],
+    "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Beilagen"
+    ],
+    "description": "Täglich wechselnde warme Beilagen. \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": " Täglich wechselnde Dessertvariationen. ",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ]
+  },
+  {
+    "date": "August 1, 2019",
+    "day": 4,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": "Hausgemachte Milchshakes ",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Tagesmenü"
+    ],
+    "description": "Wirsing-Roulade mit Hackfleisch gefülltA22,A26,A28 mit Speck-Zwiebel-Soße\n\n Es können 3 Wahlbeilagen gewählt werden: Bratkartoffeln, BulgurA20.1, Ratatouille, Möhrengemüse, Beilagensalate, HimbeerjoghurtA26, Irish-Coffee-Creme-DessertA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Menü vegetarisch"
+    ],
+    "description": "Broccoli-NuggetsA22,A25,A26,A28,A20.1,A20.3 mit ChampignonrahmsoßeA26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Kartoffel-Möhren-StampfA25, BulgurA20.1, Ratatouille, Möhrengemüse, Beilagensalate, HimbeerjoghurtA26, Irish-Coffee-Creme-DessertA26 oder EisZ1,A26 ",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Mensa vital"
+    ],
+    "description": "Feuriges Gemüse-Fisch-Curry mit IngwerreisZ2,A23,A25,A26,A20.1 kcal: 691, F: 20g, E: 39g, KH: 86g, BSt: 9g ",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Eintopf"
+    ],
+    "description": "Spitzkohleintopf mit Tomaten und KäsecremeZ1,A26,A28\n\n Dazu gibt es: gebratenes SojaA25 und Krakauer WurstZ2,Z8,Z9,A26,A30 ",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Eintopf / Suppe"
+    ],
+    "description": "Kürbis-Apfel-SuppeA25 ",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Pasta"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit Rauchlachs und Sour CreamZ3,A23,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 4,00 € "
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Aktions-Theke"
+    ],
+    "description": "Riesenrösti mit Blattspinat und RühreiZ1,A20,A25,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! ",
+    "prices": [
+      " ",
+      " ",
+      " 3,50 € "
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Salate"
+    ],
+    "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Beilagen"
+    ],
+    "description": "Täglich wechselnde warme Beilagen. \n\n Preis pro 100g ",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": " Täglich wechselnde Dessertvariationen. ",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ]
+  },
+  {
+    "date": "August 2, 2019",
+    "day": 5,
+    "menuType": [
+      "Dessertbuffet"
+    ],
+    "description": "Hausgemachte Milchshakes ",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ]
+  }
+]

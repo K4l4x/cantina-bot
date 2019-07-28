@@ -3,6 +3,9 @@ const { ComponentDialog, DialogSet, DialogTurnStatus, WaterfallDialog } = requir
 
 const { Cantina } = require('../Model/Cantina');
 // const { User } = require('../Model/User');
+const { CardSchemaCreator } = require('../Model/CardSchemaCreator');
+const { MenuBuilder } = require('../Scraper/MenuBuilder');
+
 const { WelcomeDialog } = require('./WelcomeDialog');
 const { TodaysMenuDialog } = require('./Cantina/TodaysMenuDialog');
 const { WeekMenuDialog } = require('./Cantina/WeekMenuDialog');
@@ -35,6 +38,7 @@ class RootDialog extends ComponentDialog {
         this.addDialog(new WeekMenuDialog(WEEK_MENU_DIALOG));
         this.addDialog(new OpeningHoursDialog(OPENING_HOURS_DIALOG));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
+            this.prepare.bind(this),
             this.action.bind(this),
             this.result.bind(this)
         ]));
@@ -58,11 +62,29 @@ class RootDialog extends ComponentDialog {
         }
     }
 
-    async action(step) {
-        const message = step.context.activity.text.toLowerCase();
-        let dialogId = '';
+    // TODO: Should be transformed to use storage,
+    async prepare(step) {
+        // TODO: Check if saved menus are still valid or have to be updated.
+        let menus = CardSchemaCreator.prototype.loadFromJSON('MensaX', 'Menus');
+
+        if (menus === null) {
+            const builder = new MenuBuilder();
+            menus = await builder.buildMenus();
+            // menus = menus.map(n =>
+            // CardSchemaCreator.prototype.createMenuCard(n));
+            CardSchemaCreator.prototype.saveAsJSON('MensaX', 'Menus', menus);
+        }
 
         const cantinaProfile = await this.cantinaProfile.get(step.context, new Cantina('MensaX'));
+        cantinaProfile.menuList = menus;
+
+        return await step.next(cantinaProfile);
+    }
+
+    async action(step) {
+        const cantinaProfile = Object.assign(new Cantina(), step.result);
+        const message = step.context.activity.text.toLowerCase();
+        let dialogId = '';
 
         switch (message) {
         case '/start':
@@ -78,7 +100,7 @@ class RootDialog extends ComponentDialog {
             dialogId = OPENING_HOURS_DIALOG;
             break;
         default:
-            const didntUnderstandMessage = 'Entschuldigung, leider weiß' +
+            const didntUnderstandMessage = 'Entschuldigung, leider weiß ich' +
                 ' nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.';
             await step.context.sendActivity(MessageFactory.text(didntUnderstandMessage));
         }
@@ -91,6 +113,12 @@ class RootDialog extends ComponentDialog {
     }
 
     async result(step) {
+        const cantina = Object.assign(new Cantina(), step.result);
+
+        if (cantina.name !== undefined) {
+            // await this.cantinaProfile.set(step.context, cantina);
+        }
+
         // Returns no result, because there is no parent dialog to resume from.
         return await step.endDialog();
     }

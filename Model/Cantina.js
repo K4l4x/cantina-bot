@@ -29,6 +29,14 @@ class Cantina {
         return openingHours;
     }
 
+    set menuList(list) {
+        menus = list;
+    }
+
+    get menuList() {
+        return menus;
+    }
+
     addMenu(menu) {
         menus.push(Object.assign(new Menu(), menu));
     }

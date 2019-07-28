@@ -44,7 +44,7 @@ class CantinaScraper {
         return _promise(options)
             .then(function($) {
                 const countsPerDay = [];
-                // Extracting all menus, which are listet in '.odd' and '.even' containers.
+                // Extracting all menus, which are listed in '.odd' and '.even' containers.
                 // Counting them to check how many menus are on each day.
                 $('.stripedtable').each(function(index, item) {
                     countsPerDay.push($(item).find('.odd').get().length +
