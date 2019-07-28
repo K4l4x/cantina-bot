@@ -5,10 +5,11 @@ const moment = require('moment');
 
 const { CancelAndHelpDialog } = require('../Utilities/CancelAndHelpDialog');
 const { Menu } = require('../../Model/Menu');
-const { MenuCardSchema } = require('../../Model/MenuCardSchema');
+const { CardSchemaCreator } = require('../../Model/CardSchemaCreator');
 const { MenuBuilder } = require('../../Scraper/MenuBuilder');
 
-const MENU_TODAY = 'menuToday';
+const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
+const TODAYS_MENU = 'todaysMenu';
 
 const WEEKDAYS = {
     MONDAY: 1,
@@ -20,21 +21,21 @@ const WEEKDAYS = {
 
 class TodaysMenuDialog extends CancelAndHelpDialog {
     constructor(id) {
-        super(id);
+        super(id || TODAYS_MENU_DIALOG);
 
-        this.addDialog(new WaterfallDialog(MENU_TODAY,
+        this.addDialog(new WaterfallDialog(TODAYS_MENU,
             [
                 this.scrollTroughMenus.bind(this)
             ]));
 
-        this.initialDialogId = MENU_TODAY;
+        this.initialDialogId = TODAYS_MENU;
     }
 
     async scrollTroughMenus(step) {
         const menus = await TodaysMenuDialog.getThisWeeksMenus();
         const todaysDate = moment(Date.now()).format('LL');
         const attachments = [];
-        const menuCard = new MenuCardSchema();
+        const cardSchema = new CardSchemaCreator();
 
         menus.forEach(function(current) {
             const menu = Object.assign(new Menu(), current);
@@ -43,24 +44,24 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
             if (menu.date === todaysDate) {
                 switch (menu.day) {
                 case WEEKDAYS.MONDAY:
-                    card.parse(menuCard.createMenuCard(menu));
+                    card.parse(cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
                     break;
                 case WEEKDAYS.TUESDAY:
-                    card.parse(menuCard.createMenuCard(menu));
+                    card.parse(cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
                     card.clear();
                     break;
                 case WEEKDAYS.WEDNESDAY:
-                    card.parse(menuCard.createMenuCard(menu));
+                    card.parse(cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
                     break;
                 case WEEKDAYS.THURSDAY:
-                    card.parse(menuCard.createMenuCard(menu));
+                    card.parse(cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
                     break;
                 case WEEKDAYS.FRIDAY:
-                    card.parse(menuCard.createMenuCard(menu));
+                    card.parse(cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
                     break;
                 default:

@@ -1,17 +1,13 @@
-const { ComponentDialog, WaterfallDialog } = require('botbuilder-dialogs');
+const { ComponentDialog } = require('botbuilder-dialogs');
 
-const initialId = 'aboutMenu';
+const ABOUT_MENU = 'aboutMenu';
 
 class MenuDialog extends ComponentDialog {
-    /**
-     *
-     * @param {dialogID} identifies this dialog.
-     */
-    constructor(dialogId) {
-        super(dialogId);
+    constructor(id) {
+        super(id);
 
-        this.initialDialogId = initialId;
+        this.initialDialogId = ABOUT_MENU;
     }
 }
 
-exports.MenuDialog = MenuDialog;
+module.exports.MenuDialog = MenuDialog;

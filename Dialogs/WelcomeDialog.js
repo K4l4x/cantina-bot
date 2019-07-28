@@ -3,26 +3,24 @@ const { Menu } = require('../Model/Menu');
 const { MenuBuilder } = require('../Scraper/MenuBuilder');
 const moment = require('moment');
 
-const initialId = 'welcome';
+const WELCOME_DIALOG = 'welcomeDialog';
+const WELCOME = 'welcome';
+
 const dishesPrompt = 'dishesPrompt';
 const welcomeInfo = 'Hi, ich bin CantinaBot. \n Du hast bestimmt Hunger! \n Sieh dir die fantastische Auswahl an Gerichten für Heute an! \n';
 
 class WelcomeDialog extends ComponentDialog {
-    /**
-     *
-     * @param dialogId
-     */
-    constructor(dialogId) {
-        super(dialogId);
-
-        this.initialDialogId = initialId;
+    constructor(id) {
+        super(id || WELCOME_DIALOG);
 
         this.addDialog(new ChoicePrompt(dishesPrompt));
-        this.addDialog(new WaterfallDialog(initialId,
+        this.addDialog(new WaterfallDialog(WELCOME,
             [
                 this.welcomeMessage.bind(this),
                 this.switchTodaysDishes.bind(this)
             ]));
+
+        this.initialDialogId = WELCOME;
     }
 
     async welcomeMessage(step) {

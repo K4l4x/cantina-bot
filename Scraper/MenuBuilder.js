@@ -3,7 +3,7 @@ const { Menu } = require('../Model/Menu');
 const moment = require('moment');
 
 /**
- *
+ * Simple MenuBuilder to build menu cards.
  */
 class MenuBuilder {
     async buildMenus() {

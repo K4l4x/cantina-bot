@@ -18,12 +18,8 @@ const thursdayMenu = '';
 const fridayMenu = '';
 
 class WeekMenuDialog extends ComponentDialog {
-    /**
-     *
-     * @param {dialogID} identifies this dialog.
-     */
-    constructor(dialogId) {
-        super(dialogId);
+    constructor(id) {
+        super(id);
 
         this.initialDialogId = initialId;
 

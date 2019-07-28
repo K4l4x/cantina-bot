@@ -1,7 +1,7 @@
 const { MessageFactory } = require('botbuilder');
 const { ComponentDialog, DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
 
-// const { WelcomeDialog } = require('./WelcomeDialog');
+const { WelcomeDialog } = require('./WelcomeDialog');
 const { TodaysMenuDialog } = require('./Cantina/TodaysMenuDialog');
 const { OpeningHoursDialog } = require('./Cantina/OpeningHoursDialog');
 
@@ -9,8 +9,8 @@ const { OpeningHoursDialog } = require('./Cantina/OpeningHoursDialog');
 
 const ROOT_DIALOG = 'rootDialog';
 const ROOT_WATERFALL = 'rootWaterfall';
-// const WELCOME_DIALOG = 'welcomeDialog';
-const TODAYS_MEMU_DIALOG = 'todaysMenuDialog';
+const WELCOME_DIALOG = 'welcomeDialog';
+const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 
 class RootDialog extends ComponentDialog {
@@ -25,7 +25,8 @@ class RootDialog extends ComponentDialog {
         // this.conversationState = conversationState;
         // this.userState = userState;
 
-        this.addDialog(new TodaysMenuDialog(TODAYS_MEMU_DIALOG));
+        this.addDialog(new WelcomeDialog(WELCOME_DIALOG));
+        this.addDialog(new TodaysMenuDialog(TODAYS_MENU_DIALOG));
         this.addDialog(new OpeningHoursDialog(OPENING_HOURS_DIALOG));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
             this.action.bind(this),
@@ -57,8 +58,17 @@ class RootDialog extends ComponentDialog {
         let dialogId = '';
 
         switch (message) {
+        case '/start':
+        case 'hi':
+        case 'hallo':
+        case 'moin':
+            // dialogId = WELCOME_DIALOG;
+            break;
         case 'heute':
-            dialogId = TODAYS_MEMU_DIALOG;
+            dialogId = TODAYS_MENU_DIALOG;
+            break;
+        case 'öffnungszeiten':
+            dialogId = OPENING_HOURS_DIALOG;
             break;
         default:
             const didntUnderstandMessage = 'Entschuldigung, leider weiß' +
