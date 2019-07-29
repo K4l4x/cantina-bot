@@ -62,9 +62,19 @@ class RootDialog extends ComponentDialog {
         }
     }
 
-    // TODO: Should be transformed to use storage,
+    // TODO: Should be transformed to use storage.
+    /**
+     * Preparing cantina and menus by loading from storage/file or building
+     * a new kind.
+     * @param step
+     * @returns {Promise<*>}
+     */
     async prepare(step) {
         // TODO: Check if saved menus are still valid or have to be updated.
+        // Further more:
+        // Loading menus from storage/file, checking if new menus are available,
+        // if so, prepare new menus and save them to storage/file. If not
+        // just load menus from storage/file.
         let menus = CardSchemaCreator.prototype.loadFromJSON('MensaX', 'Menus');
 
         if (menus === null) {
@@ -81,6 +91,11 @@ class RootDialog extends ComponentDialog {
         return await step.next(cantinaProfile);
     }
 
+    /**
+     * Just handle incoming messages and begin new dialogs from here.
+     * @param step
+     * @returns {Promise<*>}
+     */
     async action(step) {
         const cantinaProfile = Object.assign(new Cantina(), step.result);
         const message = step.context.activity.text.toLowerCase();
@@ -112,6 +127,11 @@ class RootDialog extends ComponentDialog {
         }
     }
 
+    /**
+     * Handling results from the ended dialogs.
+     * @param step
+     * @returns {Promise<*>}
+     */
     async result(step) {
         const cantina = Object.assign(new Cantina(), step.result);
 
