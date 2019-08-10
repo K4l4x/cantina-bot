@@ -1,6 +1,8 @@
 const { MessageFactory } = require('botbuilder');
 const { ComponentDialog, DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
 
+const moment = require('moment');
+
 const { Cantina } = require('../Model/Cantina');
 // const { User } = require('../Model/User');
 const { CardSchemaCreator } = require('../Model/CardSchemaCreator');
@@ -71,18 +73,25 @@ class RootDialog extends ComponentDialog {
      */
     async prepare(step) {
         // TODO: Check if saved menus are still valid or have to be updated.
+        // TODO: If it gets more complex, this should be done elsewhere.
         // Further more:
         // Loading menus from storage/file, checking if new menus are available,
         // if so, prepare new menus and save them to storage/file. If not
         // just load menus from storage/file.
-        let menus = CardSchemaCreator.prototype.loadFromJSON('MensaX', 'Menus');
+        // const today = moment(Date.now()).format('LL');
 
-        if (menus === null) {
+        // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
+        const todaysDate = moment(Date.now()).subtract(4,
+            'days').format('LL');
+
+        let menus = await CardSchemaCreator.prototype.loadFromJSON('MensaX', 'Menus');
+
+        if (menus === null || menus.includes(menu => menu.date !== todaysDate)) {
             const builder = new MenuBuilder();
             menus = await builder.buildMenus();
             // menus = menus.map(n =>
             // CardSchemaCreator.prototype.createMenuCard(n));
-            CardSchemaCreator.prototype.saveAsJSON('MensaX', 'Menus', menus);
+            await CardSchemaCreator.prototype.saveAsJSON('MensaX', 'Menus', menus);
         }
 
         const cantinaProfile = await this.cantinaProfile.get(step.context, new Cantina('MensaX'));
@@ -106,7 +115,7 @@ class RootDialog extends ComponentDialog {
         case 'hi':
         case 'hallo':
         case 'moin':
-            // dialogId = WELCOME_DIALOG;
+            dialogId = WELCOME_DIALOG;
             break;
         case 'heute':
             dialogId = TODAYS_MENU_DIALOG;

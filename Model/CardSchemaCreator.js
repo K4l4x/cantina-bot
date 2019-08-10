@@ -4,7 +4,7 @@ const fileSystem = require('fs');
  * Creating card schemas. Currently the easiest way I can think off.
  */
 class CardSchemaCreator {
-    createMenuCard(menu) {
+    async createMenuCard(menu) {
         return {
             type: 'AdaptiveCard',
             body: [
@@ -42,7 +42,7 @@ class CardSchemaCreator {
         };
     }
 
-    createOpeningHoursCard(cantina) {
+    async createOpeningHoursCard(cantina) {
         return {
             type: 'AdaptiveCard',
             body: [
@@ -95,7 +95,7 @@ class CardSchemaCreator {
         };
     }
 
-    saveAsJSON(cantinaName, name, content) {
+    async saveAsJSON(cantinaName, name, content) {
         const path = 'resources/' + cantinaName + '/' + name + '.json';
         const json = JSON.stringify(content, null, 2);
         try {
@@ -107,7 +107,7 @@ class CardSchemaCreator {
         }
     }
 
-    loadFromJSON(cantinaName, name) {
+    async loadFromJSON(cantinaName, name) {
         const path = 'resources/' + cantinaName + '/' + name + '.json';
         var result = null;
         try {

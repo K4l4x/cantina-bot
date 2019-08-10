@@ -1,72 +1,82 @@
+const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
 const moment = require('moment');
 
 const { CancelAndHelpDialog } = require('./Utilities/CancelAndHelpDialog');
-const { Menu } = require('../Model/Menu');
-const { MenuBuilder } = require('../Scraper/MenuBuilder');
+const { CardSchemaCreator } = require('../Model/CardSchemaCreator');
+const { TodaysMenuDialog } = require('./Cantina/TodaysMenuDialog');
+const { Cantina } = require('../Model/Cantina');
 
 const WELCOME_DIALOG = 'welcomeDialog';
 const WELCOME = 'welcome';
 
 const dishesPrompt = 'dishesPrompt';
-const welcomeInfo = 'Hi, ich bin CantinaBot. \n Du hast bestimmt Hunger! \n Sieh dir die fantastische Auswahl an Gerichten für Heute an! \n';
+const welcomeInfo = 'Hi, ich bin CantinaBot. \n Du hast bestimmt Hunger! \n' +
+    ' Sieh dir die fantastische Auswahl an Gerichten für Heute an! \n';
+const welcomeChoices = ['Über CantinaBot', 'Ansprechpartner', 'Persönliches' +
+' Profil', 'Menü Heute'];
+
+const LABELS = {
+    ABOUT: 0,
+    CONTACT: 1,
+    PROFILE: 2,
+    TODAYMENU: 3
+};
+
+const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 
 class WelcomeDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || WELCOME_DIALOG);
+        this.addDialog(new TodaysMenuDialog(TODAYS_MENU_DIALOG));
         this.addDialog(new ChoicePrompt(dishesPrompt));
         this.addDialog(new WaterfallDialog(WELCOME,
             [
                 this.welcomeMessage.bind(this),
-                this.switchTodaysMenus.bind(this)
+                this.switchTodaysMenus.bind(this),
+                this.showContact.bind(this)
             ]));
         this.initialDialogId = WELCOME;
     }
 
     async welcomeMessage(step) {
-        const menus = await WelcomeDialog.getThisWeeksMenus();
-        const todaysDate = moment(Date.now()).format('LL');
-
-        // var menuTypes = [];
-        //
-        // menus.forEach(async current => {
-        //     const menu = Object.assign(new Menu(), current);
-        //
-        //     if (menu.date === todaysDate) {
-        //         menuTypes.push(menu.menuType[0]);
-        //     }
-        // });
-
-        // return await step.prompt(dishesPrompt, {
-        //     prompt: welcomeInfo,
-        //     choices: ChoiceFactory.toChoices(menuTypes),
-        //     style: 1
-        // });
+        return await step.prompt(dishesPrompt, {
+            prompt: welcomeInfo,
+            choices: ChoiceFactory.toChoices(welcomeChoices),
+            style: 1
+        });
     }
 
     async switchTodaysMenus(step) {
-        // await step.context.sendActivity(step.result.value);
+        const result = step.result.value;
+        const cantina = Object.assign(new Cantina(), step.options);
 
-        // const menus = await WelcomeDialog.getThisWeeksMenus();
-        // const todaysDate = moment(Date.now()).format('LL');
-
-        // menus.forEach(async current => {
-        //     let menu = Object.assign(new Menu(), current);
-        //
-        //     if (menu.date === todaysDate
-        //         && menu.menuType === step.result.value.toString()) {
-        //         step.context.sendActivity('Im heutigen '
-        //             + step.result.value.toString() + ' gibt es ' + menu.);
-        //     }
-        //
-        // })
-
-        return await step.endDialog();
+        switch (result) {
+        case welcomeChoices[LABELS.ABOUT]:
+            // TODO: Begin AboutBot Dialog.
+            console.log(result);
+            break;
+        case welcomeChoices[LABELS.CONTACT]:
+            console.log(result);
+            return await step.next();
+        case welcomeChoices[LABELS.PROFILE]:
+            // TODO: Begin Profile Dialog.
+            console.log(result);
+            break;
+        case welcomeChoices[LABELS.TODAYMENU]:
+            console.log(result);
+            return await step.beginDialog(TODAYS_MENU_DIALOG, cantina);
+        default:
+            return await step.endDialog();
+        }
     }
 
-    static async getThisWeeksMenus() {
-        const builder = new MenuBuilder();
-        return await builder.buildMenus();
+    async showContact(step) {
+        const card = await CardSchemaCreator.prototype.loadFromJSON('ContactCards', 'hbCard');
+        const attachments = [CardFactory.adaptiveCard(card)];
+
+        await step.context.sendActivity({ attachments: attachments, attachmentLayout: AttachmentLayoutTypes.Carousel });
+        return await step.endDialog();
     }
 }
 

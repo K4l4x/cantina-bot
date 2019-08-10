@@ -31,15 +31,16 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
     async scrollTroughMenus(step) {
         const cantina = Object.assign(new Cantina(), step.options);
         // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
-        // const todaysDate = moment(Date.now()).subtract(4,
-        // 'days').format('LL');
-        const todaysDate = moment(Date.now()).format('LL');
+        const todaysDate = moment(Date.now()).subtract(4,
+            'days').format('LL');
+
+        // const todaysDate = moment(Date.now()).format('LL');
         const attachments = [];
         const cardSchema = new CardSchemaCreator();
 
         console.log(todaysDate);
 
-        cantina.menuList.forEach(function(current) {
+        for (const current of cantina.menuList) {
             const menu = Object.assign(new Menu(), current);
             const card = new AdaptiveCards.AdaptiveCard();
 
@@ -48,31 +49,30 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
             if (menu.date === todaysDate) {
                 switch (menu.day) {
                 case WEEKDAYS.MONDAY:
-                    card.parse(cardSchema.createMenuCard(menu));
+                    card.parse(await cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
                     break;
                 case WEEKDAYS.TUESDAY:
-                    card.parse(cardSchema.createMenuCard(menu));
+                    card.parse(await cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
-                    card.clear();
                     break;
                 case WEEKDAYS.WEDNESDAY:
-                    card.parse(cardSchema.createMenuCard(menu));
+                    card.parse(await cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
                     break;
                 case WEEKDAYS.THURSDAY:
-                    card.parse(cardSchema.createMenuCard(menu));
+                    card.parse(await cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
                     break;
                 case WEEKDAYS.FRIDAY:
-                    card.parse(cardSchema.createMenuCard(menu));
+                    card.parse(await cardSchema.createMenuCard(menu));
                     attachments.push(CardFactory.adaptiveCard(card));
                     break;
                 default:
                     break;
                 }
             }
-        });
+        }
 
         await step.context.sendActivity({ attachments: attachments, attachmentLayout: AttachmentLayoutTypes.Carousel });
         return await step.endDialog(cantina);

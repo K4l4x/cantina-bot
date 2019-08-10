@@ -1,0 +1,85 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "Ansprechpartner"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "Image",
+              "style": "Person",
+              "url": "https://ekvv.uni-bielefeld.de/pers_publ/download/n/i/z/147572303/Original_9618254.jpeg",
+              "size": "Small"
+            }
+          ],
+          "width": "auto"
+        },
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "weight": "Bolder",
+              "text": "Dr.-Ing. Hendrik Buschmeier",
+              "wrap": true
+            }
+          ],
+          "width": "stretch"
+        }
+      ]
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Email:"
+        },
+        {
+          "title": "Phone:"
+        },
+        {
+          "title": "Office:"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.ShowCard",
+      "title": "Homepage",
+      "card": {
+        "type": "AdaptiveCard",
+        "body": [
+          {
+            "type": "Input.Date",
+            "id": "dueDate"
+          },
+          {
+            "type": "Input.Text",
+            "id": "comment",
+            "placeholder": "Add a comment",
+            "isMultiline": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "OK",
+            "url": "http://adaptivecards.io"
+          }
+        ],
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+      }
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}
