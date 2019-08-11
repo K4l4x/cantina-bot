@@ -48,6 +48,10 @@ class Cantina {
     clearMenus() {
         menus = [];
     }
+
+    async menusOfDay(dayOfWeek) {
+        return menus[dayOfWeek];
+    }
 }
 
 // TODO: list of menus: add, remove, clear, findByDay, findByType,

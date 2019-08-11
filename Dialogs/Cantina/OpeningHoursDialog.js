@@ -20,11 +20,13 @@ class OpeningHoursDialog extends CancelAndHelpDialog {
     async showHours(step) {
         const cantina = Object.assign(new Cantina(), step.options);
         const cardSchema = new CardSchemaCreator();
-        let openingHours = await cardSchema.loadFromJSON(cantina.name, 'OpeningHours');
+        let openingHours = await cardSchema.loadFromJSON(cantina.name,
+            'OpeningHours');
 
         if (openingHours === null) {
             openingHours = cardSchema.createOpeningHoursCard(cantina);
-            await cardSchema.saveAsJSON(cantina.name, 'OpeningHours', openingHours);
+            await cardSchema.saveAsJSON(cantina.name, 'OpeningHours',
+                openingHours);
         }
 
         await step.context.sendActivity({ attachments: [

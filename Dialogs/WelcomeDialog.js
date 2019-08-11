@@ -1,6 +1,5 @@
 const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
-const moment = require('moment');
 
 const { CancelAndHelpDialog } = require('./Utilities/CancelAndHelpDialog');
 const { CardSchemaCreator } = require('../Model/CardSchemaCreator');
@@ -72,10 +71,12 @@ class WelcomeDialog extends CancelAndHelpDialog {
     }
 
     async showContact(step) {
-        const card = await CardSchemaCreator.prototype.loadFromJSON('ContactCards', 'hbCard');
+        const card = await CardSchemaCreator.prototype
+            .loadFromJSON('ContactCards', 'hbCard');
         const attachments = [CardFactory.adaptiveCard(card)];
 
-        await step.context.sendActivity({ attachments: attachments, attachmentLayout: AttachmentLayoutTypes.Carousel });
+        await step.context.sendActivity({ attachments: attachments,
+            attachmentLayout: AttachmentLayoutTypes.Carousel });
         return await step.endDialog();
     }
 }

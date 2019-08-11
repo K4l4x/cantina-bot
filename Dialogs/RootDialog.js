@@ -28,11 +28,18 @@ class RootDialog extends ComponentDialog {
     constructor(conversationState, userState) {
         super(ROOT_DIALOG);
 
-        if (!conversationState) throw new Error('[RootDialog]: Missing parameter. conversationState is required');
-        if (!userState) throw new Error('[RootDialog]: Missing parameter. userState is required');
+        if (!conversationState) {
+            throw new Error('[RootDialog]: Missing parameter.' +
+            ' conversationState is required');
+        }
+        if (!userState) {
+            throw new Error('[RootDialog]: Missing parameter.' +
+            ' userState is required');
+        }
 
         // Create our state property accessors.
-        this.cantinaProfile = conversationState.createProperty(CONVERSATION_STATE_PROPERTY);
+        this.cantinaProfile = conversationState
+            .createProperty(CONVERSATION_STATE_PROPERTY);
         // this.userProfile = userState.createProperty(USER_STATE_PROPERTY);
 
         this.addDialog(new WelcomeDialog(WELCOME_DIALOG));
@@ -48,7 +55,8 @@ class RootDialog extends ComponentDialog {
     }
 
     /**
-     * The run method handles the incoming activity (in the form of a TurnContext) and passes it through the dialog system.
+     * The run method handles the incoming activity (in the form of a TurnContext)
+     * and passes it through the dialog system.
      * If no dialog is active, it will start the default dialog.
      * @param {*} turnContext
      * @param {*} accessor
@@ -84,17 +92,20 @@ class RootDialog extends ComponentDialog {
         const todaysDate = moment(Date.now()).subtract(4,
             'days').format('LL');
 
-        let menus = await CardSchemaCreator.prototype.loadFromJSON('MensaX', 'Menus');
+        let menus = await CardSchemaCreator.prototype
+            .loadFromJSON('MensaX', 'Menus');
 
         if (menus === null || menus.includes(menu => menu.date !== todaysDate)) {
             const builder = new MenuBuilder();
             menus = await builder.buildMenus();
             // menus = menus.map(n =>
             // CardSchemaCreator.prototype.createMenuCard(n));
-            await CardSchemaCreator.prototype.saveAsJSON('MensaX', 'Menus', menus);
+            await CardSchemaCreator.prototype
+                .saveAsJSON('MensaX', 'Menus', menus);
         }
 
-        const cantinaProfile = await this.cantinaProfile.get(step.context, new Cantina('MensaX'));
+        const cantinaProfile = await this.cantinaProfile
+            .get(step.context, new Cantina('MensaX'));
         cantinaProfile.menuList = menus;
 
         return await step.next(cantinaProfile);
@@ -120,13 +131,17 @@ class RootDialog extends ComponentDialog {
         case 'heute':
             dialogId = TODAYS_MENU_DIALOG;
             break;
+        case 'woche':
+            dialogId = WEEK_MENU_DIALOG;
+            break;
         case 'öffnungszeiten':
             dialogId = OPENING_HOURS_DIALOG;
             break;
         default:
             const didntUnderstandMessage = 'Entschuldigung, leider weiß ich' +
                 ' nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.';
-            await step.context.sendActivity(MessageFactory.text(didntUnderstandMessage));
+            await step.context
+                .sendActivity(MessageFactory.text(didntUnderstandMessage));
         }
 
         if (dialogId !== '') {
