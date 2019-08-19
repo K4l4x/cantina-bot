@@ -86,16 +86,16 @@ class RootDialog extends ComponentDialog {
         // Loading menus from storage/file, checking if new menus are available,
         // if so, prepare new menus and save them to storage/file. If not
         // just load menus from storage/file.
-        // const today = moment(Date.now()).format('LL');
+        const today = moment(Date.now()).format('LL');
 
-        // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
-        const todaysDate = moment(Date.now()).subtract(4,
-            'days').format('LL');
+        // // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
+        // const today = moment(Date.now()).subtract(4,
+        //     'days').format('LL');
 
         let menus = await CardSchemaCreator.prototype
             .loadFromJSON('MensaX', 'Menus');
 
-        if (menus === null || menus.includes(menu => menu.date !== todaysDate)) {
+        if (menus === null || menus.length === 0 || menus.some(menu => menu.date !== today)) {
             const builder = new MenuBuilder();
             menus = await builder.buildMenus();
             // menus = menus.map(n =>

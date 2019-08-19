@@ -31,20 +31,20 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
     async scrollTroughMenus(step) {
         const cantina = Object.assign(new Cantina(), step.options);
         const attachments = [];
-        // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
-        const todaysDate = moment(Date.now()).subtract(4,
-            'days').format('LL');
+        // // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
+        // const todaysDate = moment(Date.now()).subtract(4,
+        //     'days').format('LL');
 
-        // const todaysDate = moment(Date.now()).format('LL');
+        const todaysDate = moment(Date.now()).format('LL');
         const cardSchema = new CardSchemaCreator();
 
-        console.log(todaysDate);
+        // console.log(todaysDate);
 
         for (const current of cantina.menuList) {
             const menu = Object.assign(new Menu(), current);
             const card = new AdaptiveCards.AdaptiveCard();
 
-            console.log(menu.date);
+            // console.log(menu.date);
 
             if (menu.date === todaysDate) {
                 switch (menu.day) {
