@@ -3,6 +3,7 @@ const { ComponentDialog, DialogSet, DialogTurnStatus, WaterfallDialog } = requir
 
 const moment = require('moment');
 
+const { CancelAndHelpDialog } = require('./Utilities/CancelAndHelpDialog');
 const { Cantina } = require('../Model/Cantina');
 // const { User } = require('../Model/User');
 const { CardSchemaCreator } = require('../Model/CardSchemaCreator');
@@ -24,7 +25,7 @@ const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
 
-class RootDialog extends ComponentDialog {
+class RootDialog extends CancelAndHelpDialog {
     constructor(conversationState, userState) {
         super(ROOT_DIALOG);
 
@@ -86,7 +87,7 @@ class RootDialog extends ComponentDialog {
         // Loading menus from storage/file, checking if new menus are available,
         // if so, prepare new menus and save them to storage/file. If not
         // just load menus from storage/file.
-        const today = moment(Date.now()).format('LL');
+        // const today = moment(Date.now()).format('LL');
 
         // // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
         // const today = moment(Date.now()).subtract(4,
@@ -95,7 +96,7 @@ class RootDialog extends ComponentDialog {
         let menus = await CardSchemaCreator.prototype
             .loadFromJSON('MensaX', 'Menus');
 
-        if (menus === null || menus.length === 0 || menus.some(menu => menu.date !== today)) {
+        if (menus === null || menus.length === 0) {
             const builder = new MenuBuilder();
             menus = await builder.buildMenus();
             // menus = menus.map(n =>
