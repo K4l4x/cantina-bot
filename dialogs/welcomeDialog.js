@@ -1,10 +1,10 @@
 const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
 
-const { CancelAndHelpDialog } = require('./Utilities/CancelAndHelpDialog');
-const { CardSchemaCreator } = require('../Model/CardSchemaCreator');
-const { TodaysMenuDialog } = require('./Cantina/TodaysMenuDialog');
-const { Cantina } = require('../Model/Cantina');
+const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
+const { CardSchemaCreator } = require('../model/cardSchemaCreator');
+const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
+const { Cantina } = require('../model/cantina');
 
 const WELCOME_DIALOG = 'welcomeDialog';
 const WELCOME = 'welcome';
@@ -72,7 +72,7 @@ class WelcomeDialog extends CancelAndHelpDialog {
 
     async showContact(step) {
         const card = await CardSchemaCreator.prototype
-            .loadFromJSON('ContactCards', 'hbCard');
+            .loadFromJSON('contactCards', 'hbCard');
         const attachments = [CardFactory.adaptiveCard(card)];
 
         await step.context.sendActivity({

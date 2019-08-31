@@ -1,5 +1,5 @@
-const { CantinaScraper } = require('../Scraper/CantinaScraper');
-const { Menu } = require('../Model/Menu');
+const { CantinaScraper } = require('../scraper/cantinaScraper');
+const { Menu } = require('../model/menu');
 const moment = require('moment');
 
 /**

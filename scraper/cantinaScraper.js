@@ -14,7 +14,7 @@ const options = {
 };
 
 /**
- * A simple WebCrawler and Scraper to get every menu detail from the university of bielefeld.
+ * A simple WebCrawler and scraper to get every menu detail from the university of bielefeld.
  */
 class CantinaScraper {
     // -----------------------------------------------------------------

@@ -3,10 +3,10 @@ const { WaterfallDialog } = require('botbuilder-dialogs');
 const AdaptiveCards = require('adaptivecards');
 const moment = require('moment');
 
-const { CancelAndHelpDialog } = require('../Utilities/CancelAndHelpDialog');
-const { Cantina } = require('../../Model/Cantina');
-const { Menu } = require('../../Model/Menu');
-const { CardSchemaCreator } = require('../../Model/CardSchemaCreator');
+const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
+const { Cantina } = require('../../model/cantina');
+const { Menu } = require('../../model/menu');
+const { CardSchemaCreator } = require('../../model/cardSchemaCreator');
 
 const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const TODAYS_MENU = 'todaysMenu';

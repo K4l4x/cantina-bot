@@ -1,18 +1,16 @@
 const { MessageFactory } = require('botbuilder');
 const { DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
 
-const moment = require('moment');
+const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
+const { Cantina } = require('../model/cantina');
 
-const { CancelAndHelpDialog } = require('./Utilities/CancelAndHelpDialog');
-const { Cantina } = require('../Model/Cantina');
-// const { User } = require('../Model/User');
-const { CardSchemaCreator } = require('../Model/CardSchemaCreator');
-const { MenuBuilder } = require('../Scraper/MenuBuilder');
+const { CardSchemaCreator } = require('../model/cardSchemaCreator');
+const { MenuBuilder } = require('../scraper/menuBuilder');
 
-const { WelcomeDialog } = require('./WelcomeDialog');
-const { TodaysMenuDialog } = require('./Cantina/TodaysMenuDialog');
-const { WeekMenuDialog } = require('./Cantina/WeekMenuDialog');
-const { OpeningHoursDialog } = require('./Cantina/OpeningHoursDialog');
+const { WelcomeDialog } = require('./welcomeDialog');
+const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
+const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
+const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
 
 const CONVERSATION_STATE_PROPERTY = 'conversationStatePropertyAccessor';
 // const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
@@ -94,7 +92,7 @@ class RootDialog extends CancelAndHelpDialog {
         //     'days').format('LL');
 
         let menus = await CardSchemaCreator.prototype
-            .loadFromJSON('MensaX', 'Menus');
+            .loadFromJSON('mensaX', 'menus');
 
         if (menus === null || menus.length === 0) {
             const builder = new MenuBuilder();
@@ -102,11 +100,11 @@ class RootDialog extends CancelAndHelpDialog {
             // menus = menus.map(n =>
             // CardSchemaCreator.prototype.createMenuCard(n));
             await CardSchemaCreator.prototype
-                .saveAsJSON('MensaX', 'Menus', menus);
+                .saveAsJSON('mensaX', 'menus', menus);
         }
 
         const cantinaProfile = await this.cantinaProfile
-            .get(step.context, new Cantina('MensaX'));
+            .get(step.context, new Cantina('mensaX'));
         cantinaProfile.menuList = menus;
 
         return await step.next(cantinaProfile);

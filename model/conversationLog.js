@@ -1,5 +1,5 @@
 /**
- * A simple conversation log, to gather everthing needed for evaluations.
+ * A simple conversation log, to gather everyåthing needed for evaluations.
  */
 class ConversationLog {
     constructor(Id, userId, transcript) {

@@ -2,10 +2,10 @@ const { AttachmentLayoutTypes, CardFactory } = require('botbuilder');
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
 const AdaptiveCards = require('adaptivecards');
 
-const { CancelAndHelpDialog } = require('../Utilities/CancelAndHelpDialog');
-const { CardSchemaCreator } = require('../../Model/CardSchemaCreator');
-const { Cantina } = require('../../Model/Cantina');
-const { Menu } = require('../../Model/Menu');
+const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
+const { CardSchemaCreator } = require('../../model/cardSchemaCreator');
+const { Cantina } = require('../../model/cantina');
+const { Menu } = require('../../model/menu');
 
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
 const WEEK_MENU = 'weekMenu';

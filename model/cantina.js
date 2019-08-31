@@ -1,4 +1,4 @@
-const { Menu } = require('./Menu');
+const { Menu } = require('./menu');
 
 var openingHours;
 

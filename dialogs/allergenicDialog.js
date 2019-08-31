@@ -1,6 +1,6 @@
 const { WaterfallDialog } = require('botbuilder-dialogs');
 
-const { CancelAndHelpDialog } = require('./Utilities/CancelAndHelpDialog');
+const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
 
 const ALLERGENIC_DIALOG = 'allergenicDialog';
 const ABOUT_ALLERGENIC = 'aboutAllergenic';
