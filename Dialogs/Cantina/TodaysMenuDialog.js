@@ -32,10 +32,10 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
         const cantina = Object.assign(new Cantina(), step.options);
         const attachments = [];
         // // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
-        // const todaysDate = moment(Date.now()).subtract(4,
-        //     'days').format('LL');
+        const todaysDate = moment(Date.now()).subtract(4,
+            'days').format('LL');
 
-        const todaysDate = moment(Date.now()).format('LL');
+        // const todaysDate = moment(Date.now()).format('LL');
         const cardSchema = new CardSchemaCreator();
 
         // console.log(todaysDate);
@@ -74,8 +74,10 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
             }
         }
 
-        await step.context.sendActivity({ attachments: attachments,
-            attachmentLayout: AttachmentLayoutTypes.Carousel });
+        await step.context.sendActivity({
+            attachments: attachments,
+            attachmentLayout: AttachmentLayoutTypes.Carousel
+        });
         return await step.endDialog(cantina);
     }
 }

@@ -75,8 +75,10 @@ class WelcomeDialog extends CancelAndHelpDialog {
             .loadFromJSON('ContactCards', 'hbCard');
         const attachments = [CardFactory.adaptiveCard(card)];
 
-        await step.context.sendActivity({ attachments: attachments,
-            attachmentLayout: AttachmentLayoutTypes.Carousel });
+        await step.context.sendActivity({
+            attachments: attachments,
+            attachmentLayout: AttachmentLayoutTypes.Carousel
+        });
         return await step.endDialog();
     }
 }

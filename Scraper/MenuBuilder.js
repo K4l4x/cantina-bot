@@ -29,7 +29,9 @@ class MenuBuilder {
 
             while (numberOfMenusPerDay !== 0) {
                 const parseDate = moment
-                    .utc(date.toString().split(',')[1], 'DD-MM-YYYY', 'en');
+                    .utc(date.toString().split(',')[1],
+                        'DD-MM-YYYY',
+                        'en');
                 const menu = new Menu();
                 menu.date = parseDate.format('LL');
                 menu.day = parseDate.day();
@@ -45,33 +47,38 @@ class MenuBuilder {
     }
 
     static async getRawDateTime() {
-        return await CantinaScraper.prototype.requestDateTime().then(function(rawDateTime) {
-            return rawDateTime;
-        });
+        return await CantinaScraper.prototype.requestDateTime()
+            .then(function(rawDateTime) {
+                return rawDateTime;
+            });
     }
 
     static async getMenusPerDay() {
-        return await CantinaScraper.prototype.requestCountMenusPerDay().then(function(menusPerDay) {
-            return menusPerDay;
-        });
+        return await CantinaScraper.prototype.requestCountMenusPerDay()
+            .then(function(menusPerDay) {
+                return menusPerDay;
+            });
     }
 
     static async getPricesPerDay() {
-        return await CantinaScraper.prototype.requestPricesPerDay().then(function(pricesPerDay) {
-            return pricesPerDay;
-        });
+        return await CantinaScraper.prototype.requestPricesPerDay()
+            .then(function(pricesPerDay) {
+                return pricesPerDay;
+            });
     }
 
     static async getMenuTypes() {
-        return await CantinaScraper.prototype.requestMenuTypes().then(function(menuTypes) {
-            return menuTypes;
-        });
+        return await CantinaScraper.prototype.requestMenuTypes()
+            .then(function(menuTypes) {
+                return menuTypes;
+            });
     }
 
     static async getRawMenus() {
-        return await CantinaScraper.prototype.requestMenus().then(function(rawMenus) {
-            return rawMenus;
-        });
+        return await CantinaScraper.prototype.requestMenus()
+            .then(function(rawMenus) {
+                return rawMenus;
+            });
     }
 }
 

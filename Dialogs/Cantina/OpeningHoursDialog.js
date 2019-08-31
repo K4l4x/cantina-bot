@@ -29,9 +29,12 @@ class OpeningHoursDialog extends CancelAndHelpDialog {
                 openingHours);
         }
 
-        await step.context.sendActivity({ attachments: [
-            CardFactory.adaptiveCard(openingHours)],
-        attachmentLayout: AttachmentLayoutTypes.Carousel });
+        await step.context.sendActivity({
+            attachments: [
+                CardFactory.adaptiveCard(openingHours)
+            ],
+            attachmentLayout: AttachmentLayoutTypes.Carousel
+        });
 
         return await step.endDialog();
     }

@@ -109,7 +109,7 @@ class CardSchemaCreator {
 
     async loadFromJSON(cantinaName, name) {
         const path = 'resources/' + cantinaName + '/' + name + '.json';
-        var result = null;
+        let result = null;
         try {
             console.log('Trying to read from ' + path);
             result = JSON.parse(fileSystem.readFileSync(path, 'utf8'));

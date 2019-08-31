@@ -78,8 +78,10 @@ class WeekMenuDialog extends CancelAndHelpDialog {
             attachments.push(CardFactory.adaptiveCard(card));
         }
 
-        await step.context.sendActivity({ attachments: attachments,
-            attachmentLayout: AttachmentLayoutTypes.Carousel });
+        await step.context.sendActivity({
+            attachments: attachments,
+            attachmentLayout: AttachmentLayoutTypes.Carousel
+        });
         return await step.endDialog(cantina);
     }
 }

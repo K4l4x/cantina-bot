@@ -1,5 +1,5 @@
 const { MessageFactory } = require('botbuilder');
-const { ComponentDialog, DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
+const { DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
 
 const moment = require('moment');
 
@@ -82,7 +82,7 @@ class RootDialog extends CancelAndHelpDialog {
      */
     async prepare(step) {
         // TODO: Check if saved menus are still valid or have to be updated.
-        // TODO: If it gets more complex, this should be done elsewhere.
+        //       If it gets more complex, this should be done elsewhere.
         // Further more:
         // Loading menus from storage/file, checking if new menus are available,
         // if so, prepare new menus and save them to storage/file. If not
