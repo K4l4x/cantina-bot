@@ -2,7 +2,7 @@
 const { MessageFactory } = require('botbuilder');
 const { DialogTestClient, DialogTestLogger } = require('botbuilder-testing');
 const { TextPrompt, WaterfallDialog } = require('botbuilder-dialogs');
-const { CancelAndHelpDialog } = require('../Dialogs/Utilities/CancelAndHelpDialog');
+const { CancelAndHelpDialog } = require('../dialogs/utilities/cancelAndHelpDialog');
 const { describe } = require('mocha');
 const assert = require('assert');
 
