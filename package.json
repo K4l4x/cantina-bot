@@ -6,9 +6,9 @@
     "license": "MIT",
     "main": "index.js",
     "scripts": {
-        "lint": "./node_modules/.bin/eslint .",
+        "lint": "eslint .",
         "start": "node ./index.js",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "nyc mocha tests/**/*.test.js",
         "watch": "nodemon ./index.js"
     },
     "repository": {
@@ -20,7 +20,6 @@
         "botbuilder": "^4.5.3",
         "botbuilder-dialogs": "^4.5.3",
         "botbuilder-testing": "^4.5.3",
-        "botframework-config": "^4.5.3",
         "cheerio": "^1.0.0-rc.3",
         "dotenv": "^8.1.0",
         "moment": "^2.24.0",
