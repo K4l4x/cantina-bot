@@ -1,3 +1,4 @@
+const { MenuList } = require('../model/menuList');
 const { MessageFactory } = require('botbuilder');
 const { DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
 
@@ -137,10 +138,8 @@ class RootDialog extends CancelAndHelpDialog {
             dialogId = OPENING_HOURS_DIALOG;
             break;
         default:
-            const didntUnderstandMessage = 'Entschuldigung, leider weiß ich' +
-                ' nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.';
-            await step.context
-                .sendActivity(MessageFactory.text(didntUnderstandMessage));
+            await step.context.sendActivity(MessageFactory.text('Entschuldiging, leider' +
+                ' weiß ich nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.'));
         }
 
         if (dialogId !== '') {

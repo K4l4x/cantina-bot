@@ -1,8 +1,8 @@
+const { MenuList } = require('./menuList');
 const { Menu } = require('./menu');
 
-var openingHours;
-
-let menus = [];
+let openingHours;
+const menus = new MenuList();
 
 /**
  * Represents a general cantina.
@@ -10,7 +10,6 @@ let menus = [];
 class Cantina {
     constructor(name) {
         this.name = name;
-
         this.setOpeningHours();
     }
 
@@ -25,37 +24,20 @@ class Cantina {
         };
     }
 
-    getOpeningHours() {
-        return openingHours;
+    async createMenu() {
+        await menus.fill();
     }
 
-    set menuList(list) {
-        menus = list;
+    getOpeningHours() {
+        return openingHours;
     }
 
     get menuList() {
         return menus;
     }
-
-    addMenu(menu) {
-        menus.push(Object.assign(new Menu(), menu));
-    }
-
-    removeMenu(index) {
-        menus.splice(index - 1, index);
-    }
-
-    clearMenus() {
-        menus = [];
-    }
-
-    async menusOfDay(dayOfWeek) {
-        return menus[dayOfWeek];
-    }
 }
 
 // TODO: list of menus: add, remove, clear, findByDay, findByType,
-//  findByStatus,
 //  findByPrice
 
 module.exports.Cantina = Cantina;

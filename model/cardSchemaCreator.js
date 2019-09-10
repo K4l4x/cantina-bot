@@ -95,8 +95,8 @@ class CardSchemaCreator {
         };
     }
 
-    async saveAsJSON(cantinaName, name, content) {
-        const path = 'resources/' + cantinaName + '/' + name + '.json';
+    async saveAsJSON(folder, name, content) {
+        const path = 'resources/' + folder + '/' + name + '.json';
         const json = JSON.stringify(content, null, 2);
         try {
             console.log('Trying to write to ' + path);
@@ -107,8 +107,8 @@ class CardSchemaCreator {
         }
     }
 
-    async loadFromJSON(cantinaName, name) {
-        const path = 'resources/' + cantinaName + '/' + name + '.json';
+    async loadFromJSON(folder, name) {
+        const path = 'resources/' + folder + '/' + name + '.json';
         let result = null;
         try {
             console.log('Trying to read from ' + path);
