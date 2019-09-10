@@ -1,5 +1,4 @@
 const { MenuList } = require('./menuList');
-const { Menu } = require('./menu');
 
 let openingHours;
 const menus = new MenuList();
@@ -10,11 +9,10 @@ const menus = new MenuList();
 class Cantina {
     constructor(name) {
         this.name = name;
-        this.setOpeningHours();
     }
 
     // TODO: Get hours from website of cantina and fill openingHours.
-    setOpeningHours() {
+    set openingHours(hours) {
         openingHours = {
             monday: '11:30 - 14:30Uhr',
             tuesday: '11:30 - 14:30Uhr',
@@ -24,20 +22,21 @@ class Cantina {
         };
     }
 
-    async createMenu() {
+    async createMenuList() {
         await menus.fill();
     }
 
-    getOpeningHours() {
+    get openingHours() {
         return openingHours;
     }
 
     get menuList() {
         return menus;
     }
-}
 
-// TODO: list of menus: add, remove, clear, findByDay, findByType,
-//  findByPrice
+    async restoreMenuList(week = 'menus') {
+        await menus.loadList(this.name, week);
+    }
+}
 
 module.exports.Cantina = Cantina;

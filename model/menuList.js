@@ -8,6 +8,7 @@ class MenuList extends Array {
         super();
     }
 
+    // TODO: Check if menus are already build and just load them.
     async fill() {
         Object.assign(this, await new MenuBuilder().buildMenus());
     }
@@ -20,14 +21,14 @@ class MenuList extends Array {
         return this.filter(menu => menu.day === weekday);
     }
 
-    async loadList(cantinaName = 'mensaX') {
+    async loadList(cantinaName = 'mensaX', name = 'menus') {
         Object.assign(this, await CardSchemaCreator.prototype
-            .loadFromJSON(cantinaName, 'menus'));
+            .loadFromJSON(cantinaName, name));
     }
 
-    async save(cantinaName = 'mensaX', menus = this) {
+    async save(cantinaName = 'mensaX', name = 'menus', menus = this) {
         await CardSchemaCreator.prototype
-            .saveAsJSON(cantinaName, 'menus', menus);
+            .saveAsJSON(cantinaName, name, menus);
     }
 }
 
