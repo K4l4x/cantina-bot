@@ -103,7 +103,8 @@ class CardSchemaCreator {
             fileSystem.writeFileSync(path, json, 'utf8');
             console.log('Writing done.');
         } catch (err) {
-            console.error(err);
+            console.error('Error writing JSON file:' +
+                '\n => path: ' + path + '\n => message' + err);
         }
     }
 
@@ -115,7 +116,8 @@ class CardSchemaCreator {
             result = JSON.parse(fileSystem.readFileSync(path, 'utf8'));
             console.log('Reading done.');
         } catch (err) {
-            console.error(err);
+            console.error('Error loading JSON file:' +
+                '\n => path: ' + path + '\n => message: ' + err);
         }
 
         return result;

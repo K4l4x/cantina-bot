@@ -1,12 +1,8 @@
-const { MenuList } = require('../model/menuList');
 const { MessageFactory } = require('botbuilder');
 const { DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
 const { Cantina } = require('../model/cantina');
-
-const { CardSchemaCreator } = require('../model/cardSchemaCreator');
-const { MenuBuilder } = require('../scraper/menuBuilder');
 
 const { WelcomeDialog } = require('./welcomeDialog');
 const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
@@ -23,6 +19,8 @@ const WELCOME_DIALOG = 'welcomeDialog';
 const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
+
+const cant = new Cantina('mensaX');
 
 class RootDialog extends CancelAndHelpDialog {
     constructor(conversationState, userState) {
@@ -92,23 +90,27 @@ class RootDialog extends CancelAndHelpDialog {
         // const today = moment(Date.now()).subtract(4,
         //     'days').format('LL');
 
-        let menus = await CardSchemaCreator.prototype
-            .loadFromJSON('mensaX', 'menus');
+        // let menus = await CardSchemaCreator.prototype
+        //     .loadFromJSON('mensaX', 'menus');
+        //
+        // if (menus === null || menus.length === 0) {
+        //     const builder = new MenuBuilder();
+        //     menus = await builder.buildMenus();
+        //     // menus = menus.map(n =>
+        //     // CardSchemaCreator.prototype.createMenuCard(n));
+        //     await CardSchemaCreator.prototype
+        //         .saveAsJSON('mensaX', 'menus', menus);
+        // }
 
-        if (menus === null || menus.length === 0) {
-            const builder = new MenuBuilder();
-            menus = await builder.buildMenus();
-            // menus = menus.map(n =>
-            // CardSchemaCreator.prototype.createMenuCard(n));
-            await CardSchemaCreator.prototype
-                .saveAsJSON('mensaX', 'menus', menus);
+        if (cant.menuList === null || cant.menuList.length === 0) {
+            await cant.menuList.fill();
+            await cant.menuList.save();
+
+            this.cantinaProfile = await this.cantinaProfile
+                .get(step.context, cant);
         }
 
-        const cantinaProfile = await this.cantinaProfile
-            .get(step.context, new Cantina('mensaX'));
-        cantinaProfile.menuList = menus;
-
-        return await step.next(cantinaProfile);
+        return await step.next(this.cantinaProfile);
     }
 
     /**
@@ -155,12 +157,6 @@ class RootDialog extends CancelAndHelpDialog {
      * @returns {Promise<*>}
      */
     async result(step) {
-        const cantina = Object.assign(new Cantina(), step.result);
-
-        if (cantina.name !== undefined) {
-            // await this.cantinaProfile.set(step.context, cantina);
-        }
-
         // Returns no result, because there is no parent dialog to resume from.
         return await step.endDialog();
     }

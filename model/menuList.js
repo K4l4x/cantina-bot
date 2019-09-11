@@ -1,5 +1,5 @@
-const { MenuBuilder } = require('../scraper/menuBuilder');
 const { CardSchemaCreator } = require('./cardSchemaCreator');
+const { MenuScraper } = require('../scraper/menuScraper');
 
 // TODO: Add cantinaName to constructor and use it to build, load, save menus.
 class MenuList extends Array {
@@ -10,7 +10,10 @@ class MenuList extends Array {
 
     // TODO: Check if menus are already build and just load them.
     async fill() {
-        Object.assign(this, await new MenuBuilder().buildMenus());
+        // Object.assign(this, await new MenuBuilder().buildMenus());
+        Object.assign(this, await new MenuScraper().scrape().then(function(menus) {
+            return menus;
+        }));
     }
 
     async today() {
