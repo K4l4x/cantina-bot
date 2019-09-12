@@ -21,10 +21,6 @@ class Study {
     set disclaimer(content) {
         disclaimer = content;
     }
-
-    clearDiscalimer() {
-        disclaimer = '';
-    }
 }
 
 module.exports.Study = Study;
