@@ -25,7 +25,8 @@
         "moment": "^2.24.0",
         "request": "^2.88.0",
         "request-promise-native": "^1.0.7",
-        "restify": "^8.4.0"
+        "restify": "^8.4.0",
+        "botframework-connector": "latest"
     },
     "devDependencies": {
         "eslint": "^6.3.0",

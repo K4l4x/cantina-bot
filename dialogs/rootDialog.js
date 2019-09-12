@@ -3,6 +3,7 @@ const { DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dia
 
 const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
 const { Cantina } = require('../model/cantina');
+const { Study } = require('../model/study');
 
 const { CardSchemaCreator } = require('../model/cardSchemaCreator');
 const { MenuBuilder } = require('../scraper/menuBuilder');
@@ -11,8 +12,10 @@ const { WelcomeDialog } = require('./welcomeDialog');
 const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
 const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
 const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
+const { DisclaimerDialog } = require('./disclaimerDialog');
 
 const CONVERSATION_STATE_PROPERTY = 'conversationStatePropertyAccessor';
+const STUDY_STATE_PROPERTY = 'studyStatePropertyAccessor';
 // const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
 
 const ROOT_DIALOG = 'rootDialog';
@@ -22,6 +25,7 @@ const WELCOME_DIALOG = 'welcomeDialog';
 const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
+const DISCLAIMER_DIALOG = 'disclaimerDialog';
 
 class RootDialog extends CancelAndHelpDialog {
     constructor(conversationState, userState) {
@@ -39,12 +43,15 @@ class RootDialog extends CancelAndHelpDialog {
         // Create our state property accessors.
         this.cantinaProfile = conversationState
             .createProperty(CONVERSATION_STATE_PROPERTY);
+        this.studyProfile = conversationState
+            .createProperty(STUDY_STATE_PROPERTY);
         // this.userProfile = userState.createProperty(USER_STATE_PROPERTY);
 
         this.addDialog(new WelcomeDialog(WELCOME_DIALOG));
         this.addDialog(new TodaysMenuDialog(TODAYS_MENU_DIALOG));
         this.addDialog(new WeekMenuDialog(WEEK_MENU_DIALOG));
         this.addDialog(new OpeningHoursDialog(OPENING_HOURS_DIALOG));
+        this.addDialog(new DisclaimerDialog(DISCLAIMER_DIALOG));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
             this.prepare.bind(this),
             this.action.bind(this),
@@ -119,6 +126,7 @@ class RootDialog extends CancelAndHelpDialog {
         const cantinaProfile = Object.assign(new Cantina(), step.result);
         const message = step.context.activity.text.toLowerCase();
         let dialogId = '';
+        let options = {};
 
         switch (message) {
         case '/start':
@@ -126,17 +134,27 @@ class RootDialog extends CancelAndHelpDialog {
         case 'hallo':
         case 'moin':
             dialogId = WELCOME_DIALOG;
+            options = cantinaProfile;
             break;
         case 'heute':
             dialogId = TODAYS_MENU_DIALOG;
+            options = cantinaProfile;
             break;
         case 'woche':
             dialogId = WEEK_MENU_DIALOG;
+            options = cantinaProfile;
             break;
         case 'öffnungszeiten':
             dialogId = OPENING_HOURS_DIALOG;
+            options = cantinaProfile;
+            break;
+        case 'disclaimer':
+            dialogId = DISCLAIMER_DIALOG;
+            options = await this.studyProfile
+                .get(step.context, new Study());
             break;
         default:
+            // eslint-disable-next-line no-case-declarations
             const didntUnderstandMessage = 'Entschuldigung, leider weiß ich' +
                 ' nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.';
             await step.context
@@ -144,7 +162,7 @@ class RootDialog extends CancelAndHelpDialog {
         }
 
         if (dialogId !== '') {
-            return await step.beginDialog(dialogId, cantinaProfile);
+            return await step.beginDialog(dialogId, options);
         } else {
             return await step.next();
         }
