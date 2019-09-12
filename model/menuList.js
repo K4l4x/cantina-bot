@@ -6,6 +6,7 @@ class MenuList extends Array {
     // eslint-disable-next-line no-useless-constructor
     constructor() {
         super();
+        this.today = new Date().getDay();
     }
 
     // TODO: Check if menus are already build and just load them.
@@ -16,11 +17,7 @@ class MenuList extends Array {
         }));
     }
 
-    async today() {
-        return this.filter(menu => menu.day === new Date().getDay());
-    }
-
-    async getDay(weekday) {
+    async getDay(weekday = this.today) {
         return this.filter(menu => menu.day === weekday);
     }
 

@@ -3,6 +3,7 @@ const _promise = require('request-promise-native');
 const _cheerio = require('cheerio');
 const moment = require('moment');
 const { Menu } = require('../model/menu');
+const { CardSchemaCreator } = require('../model/cardSchemaCreator');
 
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
 
@@ -25,12 +26,14 @@ const options = {
 class MenuScraper {
     async scrape() {
         return _promise(options)
-            .then(async function getDates($) {
+            .then(async ($) => {
                 const dates = await MenuScraper.prototype.prepareDates($);
                 const menusPerDay = await MenuScraper.prototype.countMenusPerDay($);
                 const menuPrices = await MenuScraper.prototype.prepareMenuPrices($);
                 const menuTypes = await MenuScraper.prototype.prepareMenuTypes($);
                 const menuDescriptions = await MenuScraper.prototype.prepareMenuDescriptions($);
+
+                // await MenuScraper.prototype.prepareAllergiesInfo($);
 
                 return await MenuScraper.prototype.buildMenus(
                     dates,
@@ -39,7 +42,7 @@ class MenuScraper {
                     menuTypes,
                     menuDescriptions);
             })
-            .catch(function(err) {
+            .catch((err) => {
                 console.log('Error scraping menu web page with message: ' + err);
             });
     }
@@ -49,7 +52,7 @@ class MenuScraper {
 
         // Extracting weekdays and dates. Also remove all spaces,
         // before adding to rawDates.
-        $('#c1367').find('h2').each(function(index, item) {
+        $('#c1367').find('h2').each((index, item) => {
             const rawDate = $(item).text().replace(/\s+/g, '');
             dates[index] = moment.utc(rawDate.toString().split(',')[1],
                 'DD-MM-YYYY',
@@ -65,8 +68,8 @@ class MenuScraper {
 
         // Extracting all menus, which are listed in '.odd' and
         // '.even' containers.
-        // Counting them to check how many menus are on each day.
-        $('.stripedtable').each(function(index, item) {
+        // Counting them to check how many menus exist on each day.
+        $('.stripedtable').each((index, item) => {
             countsPerDay.push($(item).find('.odd').get().length +
                 $(item).find('.even').get().length);
         });
@@ -102,7 +105,7 @@ class MenuScraper {
         const rawMenuTypes = [];
 
         // Extracting all types of menus and removing empty lines and tabs.
-        $('.stripedtable').find('strong').each(function(index, item) {
+        $('.stripedtable').find('strong').each((index, item) => {
             rawMenuTypes[index] = $(item).text().replace(/\s+/gm, ' ');
         });
 
@@ -115,11 +118,13 @@ class MenuScraper {
         const priceByPattern = new RegExp(/Preis pro 100\s?g/gm);
         const takeWithString = new RegExp(/auch zum Mitnehmen!/gm);
         const otherExtrasTextString = new RegExp(/Dazu gibt es:/gm);
+        // const allergiesRegular = new RegExp(/(<sup>.+<\/sup>)/gm);
         const rawMenus = [];
 
         // Extracting all menu descriptions and reformatting them.
-        $('.stripedtable').find('.first').not(':empty').each(function(index, item) {
+        $('.stripedtable').find('.first').not(':empty').each((index, item) => {
             let description = $(item).find('p').not('.menu-detail').text().replace(/\s+/gm, ' ');
+
             description = description.replace(
                 extrasTextString, '\n\n Es können 3 Wahlbeilagen gewählt werden: '
             );
@@ -137,8 +142,33 @@ class MenuScraper {
             rawMenus.push(description);
         });
 
-        // console.log(rawMenus);
+        console.log(rawMenus);
         return rawMenus;
+    }
+
+    async prepareAllergiesInfo($) {
+        const allergies = await MenuScraper.prototype.prepareDictionary('allergiesRegister');
+
+        const countAllergies = [];
+
+        $('.stripedtable').find('.first').not(':empty').each((index, item) => {
+            countAllergies[index] = $(item).find('p').find('sup').not('.menu-detail').text();
+        });
+
+        const reg = new RegExp(/[A-Z][0-9]{2},|[A-Z][0-9]{2}\.[0-9],|[A-Z][0-9]{2}\.[0-9]|[A-Z][0-9]{2}/gm);
+
+        const count = (str) => {
+            return str.match(reg);
+        };
+
+        console.log(countAllergies[0]);
+        console.log(count(countAllergies[0]));
+    }
+
+    // TODO: Should be moved to utilities or something, same as loadFromJSON.
+    async prepareDictionary(name) {
+        return new Map(await CardSchemaCreator.prototype
+            .loadFromJSON('utilities', name));
     }
 
     async buildMenus(dates, menusPerDay, menuPrices, menuTypes, menuDescriptions) {
@@ -151,7 +181,7 @@ class MenuScraper {
                     date.day(),
                     menuTypes.shift(),
                     menuPrices.shift(),
-                    menuDescriptions.shift(),
+                    menuDescriptions.shift()
                 );
 
                 menus.push(menu);
@@ -159,7 +189,7 @@ class MenuScraper {
             }
         });
 
-        console.log(menus);
+        // console.log(menus);
         return menus;
     }
 }

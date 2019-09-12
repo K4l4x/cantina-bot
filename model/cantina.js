@@ -33,10 +33,6 @@ class Cantina {
     get menuList() {
         return menus;
     }
-
-    async restoreMenuList(week = 'menus') {
-        await menus.loadList(this.name, week);
-    }
 }
 
 module.exports.Cantina = Cantina;
