@@ -1,4 +1,5 @@
 let disclaimer = '';
+let questionair = null;
 
 class Study {
     // eslint-disable-next-line no-useless-constructor
@@ -7,11 +8,20 @@ class Study {
     }
 
     start() {
-
+        this.questionair();
     }
 
     end() {
 
+    }
+
+    get questionair() {
+        return questionair;
+    }
+
+    loadQuestionair(name) {
+        Object.assign(this, await CardSchemaCreator.prototype
+            .loadFromJSON('questionairs', name));
     }
 
     get disclaimer() {
