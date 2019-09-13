@@ -8,7 +8,11 @@ const { Study } = require('../model/study');
 
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const DISCLAIMER_PROMPT = 'disclaimerPrompt';
-const DISCLAIMER_PROMPT_TEXT = 'Das ist ein Disclaimer...';
+const DISCLAIMER_PROMPT_TEXT = 'Im Rahmen einer Abschlussarbeit werden die' +
+    ' Eingaben die du in diesem Chat tätigst aufgezeichnet und ausgewertet.' +
+    ' Diese Daten können und werden nicht mit dir in Verbindung gebracht und' +
+    ' absolut Annonym gespeichert. Bist du mit dieser Tatsache einverstanden' +
+    ' und nimmst mit deinem Einverständnis auch an der Studie teil?';
 const DISCLAIMER_RETRY_TEXT = '';
 const DISCLAIMER = 'disclaimer';
 const disclaimerChoices = ['Nein', 'Ja'];
@@ -44,15 +48,12 @@ class DisclaimerDialog extends CancelAndHelpDialog {
 
     async getUserAnswer(step) {
         const choice = step.result.value;
-
         if (disclaimerChoices[CHOICE.YES] === choice) {
             const study = Object.assign(new Study(), step.options);
-            study.disclaimer = 'disclaimer text';
-
-            await step.context.sendActivity(MessageFactory.text(study.disclaimer));
             return await step.replaceDialog(STUDY_DIALOG, study);
         } else {
-            await step.context.sendActivity(MessageFactory.text('nein'));
+            await step.context.sendActivity(MessageFactory.text('you said:' +
+                ' no'));
             return await step.endDialog();
         }
     }

@@ -1,5 +1,6 @@
-let disclaimer = '';
-let questionair = null;
+const { CardSchemaCreator } = require('./cardSchemaCreator');
+
+let questionnaire = null;
 
 class Study {
     // eslint-disable-next-line no-useless-constructor
@@ -8,28 +9,20 @@ class Study {
     }
 
     start() {
-        this.questionair();
+        this.questionnaire();
     }
 
     end() {
 
     }
 
-    get questionair() {
-        return questionair;
+    get questionnaire() {
+        return questionnaire;
     }
 
-    loadQuestionair(name) {
+    async loadQuestionnaire(name) {
         Object.assign(this, await CardSchemaCreator.prototype
-            .loadFromJSON('questionairs', name));
-    }
-
-    get disclaimer() {
-        return disclaimer;
-    }
-
-    set disclaimer(content) {
-        disclaimer = content;
+            .loadFromJSON('questionnaire', name));
     }
 }
 
