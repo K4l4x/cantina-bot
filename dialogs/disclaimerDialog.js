@@ -1,18 +1,13 @@
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
-const { MessageFactory } = require('botbuilder');
+const { MessageFactory, CardFactory } = require('botbuilder');
 
 const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog.js');
-
+const { CardSchemaCreator } = require('../model/cardSchemaCreator');
 const { StudyDialog } = require('../dialogs/studyDialog');
 const { Study } = require('../model/study');
 
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const DISCLAIMER_PROMPT = 'disclaimerPrompt';
-const DISCLAIMER_PROMPT_TEXT = 'Im Rahmen einer Abschlussarbeit werden die' +
-    ' Eingaben die du in diesem Chat tätigst aufgezeichnet und ausgewertet.' +
-    ' Diese Daten können und werden nicht mit dir in Verbindung gebracht und' +
-    ' absolut Annonym gespeichert. Bist du mit dieser Tatsache einverstanden' +
-    ' und nimmst mit deinem Einverständnis auch an der Studie teil?';
 const DISCLAIMER_RETRY_TEXT = '';
 const DISCLAIMER = 'disclaimer';
 const disclaimerChoices = ['Nein', 'Ja'];
@@ -38,6 +33,11 @@ class DisclaimerDialog extends CancelAndHelpDialog {
     }
 
     async promptDisclaimer(step) {
+        const DISCLAIMER_PROMPT_TEXT = MessageFactory
+            .attachment(CardFactory
+                .adaptiveCard(await CardSchemaCreator.prototype
+                    .loadFromJSON('utilities', 'disclaimer')));
+
         return await step.prompt(DISCLAIMER_PROMPT, {
             prompt: DISCLAIMER_PROMPT_TEXT,
             choices: ChoiceFactory.toChoices(disclaimerChoices),

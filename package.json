@@ -6,10 +6,10 @@
     "license": "MIT",
     "main": "index.js",
     "scripts": {
-        "lint": "eslint .",
         "start": "node ./index.js",
-        "test": "nyc mocha tests/**/*.test.js",
-        "watch": "nodemon ./index.js"
+        "watch": "nodemon ./index.js",
+        "lint": "eslint .",
+        "test": "nyc mocha tests/**/*.test.js"
     },
     "repository": {
         "type": "git",
