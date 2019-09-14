@@ -24,11 +24,10 @@ const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 
-const cant = new Cantina('mensaX');
-
 class RootDialog extends CancelAndHelpDialog {
     constructor(conversationState, userState) {
         super(ROOT_DIALOG);
+        this.cant = new Cantina('mensaX');
 
         if (!conversationState) {
             throw new Error('[RootDialog]: Missing parameter.' +
@@ -109,12 +108,12 @@ class RootDialog extends CancelAndHelpDialog {
         //         .saveAsJSON('mensaX', 'menus', menus);
         // }
 
-        if (cant.menuList === null || cant.menuList.length === 0) {
-            await cant.menuList.fill();
-            await cant.menuList.save();
+        if (this.cant.menuList === null || this.cant.menuList.length === 0) {
+            await this.cant.menuList.fill();
+            await this.cant.menuList.save();
 
             this.cantinaProfile = await this.cantinaProfile
-                .get(step.context, cant);
+                .get(step.context, this.cant);
         }
 
         return await step.next(this.cantinaProfile);
@@ -126,7 +125,7 @@ class RootDialog extends CancelAndHelpDialog {
      * @returns {Promise<*>}
      */
     async action(step) {
-        const cantinaProfile = Object.assign(new Cantina(), step.result);
+        const cantinaProfile = step.result;
         const message = step.context.activity.text.toLowerCase();
         let dialogId = '';
         let options = {};

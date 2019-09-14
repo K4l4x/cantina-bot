@@ -4,7 +4,6 @@ const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dia
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { JsonOps } = require('../../utilities/jsonOps');
 const { TodaysMenuDialog } = require('../cantina/todaysMenuDialog');
-const { Cantina } = require('../../model/cantina');
 
 const WELCOME_DIALOG = 'welcomeDialog';
 const WELCOME = 'welcome';
@@ -46,7 +45,6 @@ class WelcomeDialog extends CancelAndHelpDialog {
 
     async switchTodaysMenus(step) {
         const result = step.result.value;
-        const cantina = Object.assign(new Cantina(), step.options);
 
         switch (result) {
         case welcomeChoices[LABELS.ABOUT]:
@@ -58,7 +56,7 @@ class WelcomeDialog extends CancelAndHelpDialog {
             return await step.next();
         case welcomeChoices[LABELS.TODAYSMENU]:
             console.log(result);
-            return await step.replaceDialog(TODAYS_MENU_DIALOG, cantina);
+            return await step.replaceDialog(TODAYS_MENU_DIALOG, step.options);
         default:
             return await step.endDialog();
         }
