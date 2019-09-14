@@ -14,7 +14,7 @@ const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = req
 
 // This bot's main routine and rootDialog.
 const { CantinaBot } = require('./bot');
-const { RootDialog } = require('./Dialogs/RootDialog');
+const { RootDialog } = require('./dialogs/rootDialog');
 
 // Read botFilePath and botFileSecret from .env file
 // Note: Ensure you have a .env file and include botFilePath and botFileSecret.
