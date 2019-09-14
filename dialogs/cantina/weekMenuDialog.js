@@ -3,7 +3,7 @@ const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dia
 const AdaptiveCards = require('adaptivecards');
 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
-const { CardSchemaCreator } = require('../../model/cardSchemaCreator');
+const { CardSchema } = require('../../utilities/cardSchema');
 const { Cantina } = require('../../model/cantina');
 const { Menu } = require('../../model/menu');
 
@@ -48,34 +48,40 @@ class WeekMenuDialog extends CancelAndHelpDialog {
         const card = new AdaptiveCards.AdaptiveCard();
         const attachments = [];
 
-        const result = step.result.value;
-        const cantina = Object.assign(new Cantina(), step.options);
         let menus = [];
+        const result = step.result.value;
+        const cantina = new Cantina();
+        Object.assign(cantina, step.options);
+
 
         switch (result) {
         case weekdayChoices[WEEKDAYS.MONDAY]:
-            menus = await cantina.menusOfDay(WEEKDAYS.MONDAY);
+            menus = await cantina.menuList.getDay(WEEKDAYS.MONDAY);
             break;
         case weekdayChoices[WEEKDAYS.TUESDAY]:
-            menus = await cantina.menusOfDay(WEEKDAYS.TUESDAY);
+            menus = await cantina.menuList.getDay(WEEKDAYS.TUESDAY);
             break;
         case weekdayChoices[WEEKDAYS.WEDNESDAY]:
-            menus = await cantina.menusOfDay(WEEKDAYS.WEDNESDAY);
+            menus = await cantina.menuList.getDay(WEEKDAYS.WEDNESDAY);
             break;
         case weekdayChoices[WEEKDAYS.THURSDAY]:
-            menus = await cantina.menusOfDay(WEEKDAYS.THURSDAY);
+            menus = await cantina.menuList.getDay(WEEKDAYS.THURSDAY);
             break;
         case weekdayChoices[WEEKDAYS.FRIDAY]:
-            menus = await cantina.menusOfDay(WEEKDAYS.FRIDAY);
+            menus = await cantina.menuList.getDay(WEEKDAYS.FRIDAY);
             break;
         default:
             break;
         }
 
         for (const current of menus) {
-            const menu = Object.assign(new Menu(), current);
-            card.parse(await CardSchemaCreator.prototype.createMenuCard(menu));
-            attachments.push(CardFactory.adaptiveCard(card));
+            const menu = new Menu();
+            const cardSchema = new CardSchema();
+            Object.assign(menu, current);
+            attachments.push(CardFactory
+                .adaptiveCard(card
+                    .parse(await cardSchema
+                        .createMenuCard(menu))));
         }
 
         await step.context.sendActivity({

@@ -2,7 +2,7 @@ const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
-const { CardSchemaCreator } = require('../model/cardSchemaCreator');
+const { JsonOps } = require('../utilities/jsonOps');
 const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
 const { Cantina } = require('../model/cantina');
 
@@ -19,7 +19,7 @@ const LABELS = {
     ABOUT: 0,
     CONTACT: 1,
     PROFILE: 2,
-    TODAYMENU: 3
+    TODAYSMENU: 3
 };
 
 const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
@@ -48,7 +48,8 @@ class WelcomeDialog extends CancelAndHelpDialog {
 
     async switchTodaysMenus(step) {
         const result = step.result.value;
-        const cantina = Object.assign(new Cantina(), step.options);
+        const cantina = new Cantina();
+        Object.assign(cantina, step.options);
 
         switch (result) {
         case welcomeChoices[LABELS.ABOUT]:
@@ -62,7 +63,7 @@ class WelcomeDialog extends CancelAndHelpDialog {
             // TODO: Begin Profile Dialog.
             console.log(result);
             break;
-        case welcomeChoices[LABELS.TODAYMENU]:
+        case welcomeChoices[LABELS.TODAYSMENU]:
             console.log(result);
             return await step.beginDialog(TODAYS_MENU_DIALOG, cantina);
         default:
@@ -71,9 +72,8 @@ class WelcomeDialog extends CancelAndHelpDialog {
     }
 
     async showContact(step) {
-        const card = await CardSchemaCreator.prototype
-            .loadFromJSON('contactCards', 'hbCard');
-        const attachments = [CardFactory.adaptiveCard(card)];
+        const attachments = [CardFactory.adaptiveCard(await JsonOps.prototype
+            .loadFromJSON('contactCards', 'hbCard'))];
 
         await step.context.sendActivity({
             attachments: attachments,

@@ -3,7 +3,7 @@ const _promise = require('request-promise-native');
 const _cheerio = require('cheerio');
 const moment = require('moment');
 const { Menu } = require('../model/menu');
-const { CardSchemaCreator } = require('../model/cardSchemaCreator');
+const { jsonOps } = require('../utilities/jsonOps');
 
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
 
@@ -142,7 +142,7 @@ class MenuScraper {
             rawMenus.push(description);
         });
 
-        console.log(rawMenus);
+        // console.log(rawMenus);
         return rawMenus;
     }
 
@@ -167,7 +167,7 @@ class MenuScraper {
 
     // TODO: Should be moved to utilities or something, same as loadFromJSON.
     async prepareDictionary(name) {
-        return new Map(await CardSchemaCreator.prototype
+        return new Map(await jsonOps.prototype
             .loadFromJSON('utilities', name));
     }
 
