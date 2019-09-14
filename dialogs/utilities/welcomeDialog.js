@@ -12,14 +12,12 @@ const WELCOME = 'welcome';
 const dishesPrompt = 'dishesPrompt';
 const welcomeInfo = 'Hi, ich bin CantinaBot. \n Du hast bestimmt Hunger! \n' +
     ' Sieh dir die fantastische Auswahl an Gerichten für Heute an! \n';
-const welcomeChoices = ['Über CantinaBot', 'Ansprechpartner', 'Persönliches' +
-' Profil', 'Menü Heute'];
+const welcomeChoices = ['Über CantinaBot', 'Ansprechpartner', 'Menü Heute'];
 
 const LABELS = {
     ABOUT: 0,
     CONTACT: 1,
-    PROFILE: 2,
-    TODAYSMENU: 3
+    TODAYSMENU: 2
 };
 
 const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
@@ -59,10 +57,6 @@ class WelcomeDialog extends CancelAndHelpDialog {
         case welcomeChoices[LABELS.CONTACT]:
             console.log(result);
             return await step.next();
-        case welcomeChoices[LABELS.PROFILE]:
-            // TODO: Begin Profile Dialog.
-            console.log(result);
-            break;
         case welcomeChoices[LABELS.TODAYSMENU]:
             console.log(result);
             return await step.replaceDialog(TODAYS_MENU_DIALOG, cantina);
