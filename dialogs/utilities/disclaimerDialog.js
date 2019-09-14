@@ -1,10 +1,10 @@
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
 const { MessageFactory, CardFactory } = require('botbuilder');
 
-const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog.js');
-const { CardSchemaCreator } = require('../model/cardSchemaCreator');
-const { StudyDialog } = require('../dialogs/studyDialog');
-const { Study } = require('../model/study');
+const { JsonOps } = require('../../utilities/jsonOps');
+const { StudyDialog } = require('../studyDialog');
+const { Study } = require('../../model/study');
+const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const DISCLAIMER_PROMPT = 'disclaimerPrompt';
@@ -35,8 +35,8 @@ class DisclaimerDialog extends CancelAndHelpDialog {
     async promptDisclaimer(step) {
         const DISCLAIMER_PROMPT_TEXT = MessageFactory
             .attachment(CardFactory
-                .adaptiveCard(await CardSchemaCreator.prototype
-                    .loadFromJSON('utilities', 'disclaimer')));
+                .adaptiveCard(await JsonOps.prototype
+                    .loadFrom('utilities', 'disclaimer')));
 
         return await step.prompt(DISCLAIMER_PROMPT, {
             prompt: DISCLAIMER_PROMPT_TEXT,

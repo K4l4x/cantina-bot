@@ -5,10 +5,7 @@ const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
 const { Cantina } = require('../model/cantina');
 const { Study } = require('../model/study');
 
-const { CardSchemaCreator } = require('../model/cardSchemaCreator');
-const { MenuBuilder } = require('../scraper/menuBuilder');
-
-const { WelcomeDialog } = require('./welcomeDialog');
+const { WelcomeDialog } = require('./utilities/welcomeDialog');
 const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
 const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
 const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
@@ -26,6 +23,8 @@ const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
+
+const cant = new Cantina('mensaX');
 
 class RootDialog extends CancelAndHelpDialog {
     constructor(conversationState, userState) {
@@ -98,23 +97,27 @@ class RootDialog extends CancelAndHelpDialog {
         // const today = moment(Date.now()).subtract(4,
         //     'days').format('LL');
 
-        let menus = await CardSchemaCreator.prototype
-            .loadFromJSON('mensaX', 'menus');
+        // let menus = await CardSchemaCreator.prototype
+        //     .loadFromJSON('mensaX', 'menus');
+        //
+        // if (menus === null || menus.length === 0) {
+        //     const builder = new MenuBuilder();
+        //     menus = await builder.buildMenus();
+        //     // menus = menus.map(n =>
+        //     // CardSchemaCreator.prototype.createMenuCard(n));
+        //     await CardSchemaCreator.prototype
+        //         .saveAsJSON('mensaX', 'menus', menus);
+        // }
 
-        if (menus === null || menus.length === 0) {
-            const builder = new MenuBuilder();
-            menus = await builder.buildMenus();
-            // menus = menus.map(n =>
-            // CardSchemaCreator.prototype.createMenuCard(n));
-            await CardSchemaCreator.prototype
-                .saveAsJSON('mensaX', 'menus', menus);
+        if (cant.menuList === null || cant.menuList.length === 0) {
+            await cant.menuList.fill();
+            await cant.menuList.save();
+
+            this.cantinaProfile = await this.cantinaProfile
+                .get(step.context, cant);
         }
 
-        const cantinaProfile = await this.cantinaProfile
-            .get(step.context, new Cantina('mensaX'));
-        cantinaProfile.menuList = menus;
-
-        return await step.next(cantinaProfile);
+        return await step.next(this.cantinaProfile);
     }
 
     /**
@@ -154,11 +157,8 @@ class RootDialog extends CancelAndHelpDialog {
                 .get(step.context, new Study());
             break;
         default:
-            // eslint-disable-next-line no-case-declarations
-            const didntUnderstandMessage = 'Entschuldigung, leider weiß ich' +
-                ' nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.';
-            await step.context
-                .sendActivity(MessageFactory.text(didntUnderstandMessage));
+            await step.context.sendActivity(MessageFactory.text('Entschuldiging, leider' +
+                ' weiß ich nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.'));
         }
 
         if (dialogId !== '') {
@@ -174,12 +174,6 @@ class RootDialog extends CancelAndHelpDialog {
      * @returns {Promise<*>}
      */
     async result(step) {
-        const cantina = Object.assign(new Cantina(), step.result);
-
-        if (cantina.name !== undefined) {
-            // await this.cantinaProfile.set(step.context, cantina);
-        }
-
         // Returns no result, because there is no parent dialog to resume from.
         return await step.endDialog();
     }

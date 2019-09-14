@@ -3,7 +3,7 @@ const { WaterfallDialog } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { Cantina } = require('../../model/cantina');
-const { CardSchemaCreator } = require('../../model/cardSchemaCreator');
+const { CardSchema } = require('../../utilities/cardSchema');
 
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const OPENING_HOURS = 'openingHours';
@@ -19,21 +19,12 @@ class OpeningHoursDialog extends CancelAndHelpDialog {
 
     async showHours(step) {
         const cantina = Object.assign(new Cantina(), step.options);
-        const cardSchema = new CardSchemaCreator();
-        let openingHours = await cardSchema.loadFromJSON(cantina.name,
-            'openingHours');
-
-        if (openingHours === null) {
-            openingHours = cardSchema.createOpeningHoursCard(cantina);
-            await cardSchema.saveAsJSON(cantina.name, 'openingHours',
-                openingHours);
-        }
-
         await step.context.sendActivity({
-            attachments: [
-                CardFactory.adaptiveCard(openingHours)
+            attachments: [CardFactory
+                .adaptiveCard(await CardSchema.prototype
+                    .createOpeningHoursCard(cantina))
             ],
-            attachmentLayout: AttachmentLayoutTypes.Carousel
+            attachmentLayout: AttachmentLayoutTypes.List
         });
 
         return await step.endDialog();

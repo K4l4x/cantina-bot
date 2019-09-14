@@ -1,9 +1,7 @@
-const fileSystem = require('fs');
-
 /**
  * Creating card schemas. Currently the easiest way I can think off.
  */
-class CardSchemaCreator {
+class CardSchema {
     async createMenuCard(menu) {
         return {
             type: 'AdaptiveCard',
@@ -12,7 +10,7 @@ class CardSchemaCreator {
                     type: 'TextBlock',
                     size: 'Medium',
                     weight: 'Bolder',
-                    text: menu.menuType[0]
+                    text: menu.type
                 },
                 {
                     type: 'TextBlock',
@@ -65,61 +63,33 @@ class CardSchemaCreator {
                             facts: [
                                 {
                                     title: 'Montag:',
-                                    value: cantina.getOpeningHours().monday
+                                    value: cantina.openingHours.monday
                                 },
                                 {
                                     title: 'Dienstag:',
-                                    value: cantina.getOpeningHours().tuesday
+                                    value: cantina.openingHours.tuesday
                                 },
                                 {
                                     title: 'Mittwoch:',
-                                    value: cantina.getOpeningHours().wednesday
+                                    value: cantina.openingHours.wednesday
                                 },
                                 {
                                     title: 'Donnerstag:',
-                                    value: cantina.getOpeningHours().thursday
+                                    value: cantina.openingHours.thursday
                                 },
                                 {
                                     title: 'Freitag:',
-                                    value: cantina.getOpeningHours().friday
+                                    value: cantina.openingHours.friday
                                 }
                             ]
                         }
                     ]
                 }
             ],
-            actions: [
-            ],
             $schema: 'http://adaptivecards.io/schemas/adaptive-card.json',
             version: '1.0'
         };
     }
-
-    async saveAsJSON(cantinaName, name, content) {
-        const path = 'resources/' + cantinaName + '/' + name + '.json';
-        const json = JSON.stringify(content, null, 2);
-        try {
-            console.log('Trying to write to ' + path);
-            fileSystem.writeFileSync(path, json, 'utf8');
-            console.log('Writing done.');
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    async loadFromJSON(cantinaName, name) {
-        const path = 'resources/' + cantinaName + '/' + name + '.json';
-        let result = null;
-        try {
-            console.log('Trying to read from ' + path);
-            result = JSON.parse(fileSystem.readFileSync(path, 'utf8'));
-            console.log('Reading done.');
-        } catch (err) {
-            console.error(err);
-        }
-
-        return result;
-    }
 }
 
-module.exports.CardSchemaCreator = CardSchemaCreator;
+module.exports.CardSchema = CardSchema;

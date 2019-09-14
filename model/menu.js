@@ -5,14 +5,14 @@
  * @param day represents a weekday in numbers e.g. Monday = 1, Tuesday = 2, ..., Friday = 5.
  */
 class Menu {
-    constructor(date, day, menuType, description, allergenic, prices, additionalInfo) {
+    constructor(date, day, type, prices, description, allergenic, additionalInfo) {
         this.date = date;
         this.day = day;
-        this.menuType = menuType;
-        this.description = description;
-        this.allergenic = allergenic;
+        this.type = type;
         this.prices = prices;
-        this.additionalInfo = additionalInfo;
+        this.description = description;
+        // this.allergenic = allergenic;
+        // this.additionalInfo = additionalInfo;
         // this.ingredients = ingredients;
         // this.price = price;
         // this.isVegan = isVegan;
