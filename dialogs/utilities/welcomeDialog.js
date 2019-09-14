@@ -65,7 +65,7 @@ class WelcomeDialog extends CancelAndHelpDialog {
             break;
         case welcomeChoices[LABELS.TODAYSMENU]:
             console.log(result);
-            return await step.beginDialog(TODAYS_MENU_DIALOG, cantina);
+            return await step.replaceDialog(TODAYS_MENU_DIALOG, cantina);
         default:
             return await step.endDialog();
         }

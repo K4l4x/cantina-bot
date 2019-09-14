@@ -24,7 +24,7 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
         const attachments = [];
 
         // For testing just give getDay() a weekday from 1-5.
-        const todaysMenu = await cantina.menuList.getDay();
+        const todaysMenu = await cantina.menuList.getDay(1);
 
         for (const menu of todaysMenu) {
             const prepareMenu = new Menu();
