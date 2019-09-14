@@ -1,6 +1,5 @@
 const { AttachmentLayoutTypes, CardFactory } = require('botbuilder');
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
-const AdaptiveCards = require('adaptivecards');
 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { CardSchema } = require('../../utilities/cardSchema');
@@ -45,7 +44,6 @@ class WeekMenuDialog extends CancelAndHelpDialog {
     }
 
     async showDayMenu(step) {
-        const card = new AdaptiveCards.AdaptiveCard();
         const attachments = [];
 
         let menus = [];
@@ -76,12 +74,12 @@ class WeekMenuDialog extends CancelAndHelpDialog {
 
         for (const current of menus) {
             const menu = new Menu();
-            const cardSchema = new CardSchema();
             Object.assign(menu, current);
-            attachments.push(CardFactory
-                .adaptiveCard(card
-                    .parse(await cardSchema
-                        .createMenuCard(menu))));
+
+            attachments
+                .push(CardFactory
+                    .adaptiveCard(await CardSchema.prototype
+                        .createMenuCard(menu)));
         }
 
         await step.context.sendActivity({
