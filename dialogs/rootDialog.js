@@ -9,7 +9,7 @@ const { WelcomeDialog } = require('./utilities/welcomeDialog');
 const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
 const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
 const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
-const { DisclaimerDialog } = require('./disclaimerDialog');
+const { DisclaimerDialog } = require('./utilities/disclaimerDialog');
 
 const CONVERSATION_STATE_PROPERTY = 'conversationStatePropertyAccessor';
 const STUDY_STATE_PROPERTY = 'studyStatePropertyAccessor';

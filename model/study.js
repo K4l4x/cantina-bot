@@ -1,4 +1,4 @@
-const { CardSchemaCreator } = require('./cardSchemaCreator');
+const { JsonOps } = require('../utilities/jsonOps');
 
 let questionnaire = null;
 
@@ -21,8 +21,8 @@ class Study {
     }
 
     async loadQuestionnaire(name) {
-        Object.assign(this, await CardSchemaCreator.prototype
-            .loadFromJSON('questionnaire', name));
+        Object.assign(this, await JsonOps.prototype
+            .loadFrom('questionnaire', name));
     }
 }
 
