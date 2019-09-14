@@ -1,14 +1,17 @@
 const { WaterfallDialog } = require('botbuilder-dialogs');
-const { MessageFactory } = require('botbuilder');
+const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 
-const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
+const { GuidedCantinaDialog } = require('./guidedCantinaDialog');
 
 const STUDY_DIALOG = 'studyDialog';
 const STUDY = 'study';
 
+const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
+
 class StudyDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || STUDY_DIALOG);
+        this.addDialog(new GuidedCantinaDialog(GUIDED_CANTINA_DIALOG));
         this.addDialog(new WaterfallDialog(STUDY, [
             this.startStudy.bind(this)
         ]));
@@ -16,10 +19,8 @@ class StudyDialog extends CancelAndHelpDialog {
     }
 
     async startStudy(step) {
-        await step.context.sendActivity(MessageFactory.text('Studie' +
-            ' starten...'));
-
-        return await step.endDialog();
+        console.log('Studie starten...');
+        return await step.replaceDialog(GUIDED_CANTINA_DIALOG, step.options);
     }
 }
 

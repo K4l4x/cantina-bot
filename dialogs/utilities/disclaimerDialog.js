@@ -2,7 +2,7 @@ const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dia
 const { MessageFactory, CardFactory } = require('botbuilder');
 
 const { JsonOps } = require('../../utilities/jsonOps');
-const { StudyDialog } = require('../studyDialog');
+const { StudyDialog } = require('../study/studyDialog');
 const { Study } = require('../../model/study');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 
