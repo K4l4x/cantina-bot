@@ -3,7 +3,6 @@ const { MessageFactory, CardFactory } = require('botbuilder');
 
 const { JsonOps } = require('../../utilities/jsonOps');
 const { StudyDialog } = require('../study/studyDialog');
-const { Study } = require('../../model/study');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
@@ -49,11 +48,10 @@ class DisclaimerDialog extends CancelAndHelpDialog {
     async getUserAnswer(step) {
         const choice = step.result.value;
         if (disclaimerChoices[CHOICE.YES] === choice) {
-            const study = Object.assign(new Study(), step.options);
-            return await step.replaceDialog(STUDY_DIALOG, study);
+            return await step.replaceDialog(STUDY_DIALOG, step.options);
         } else {
-            await step.context.sendActivity(MessageFactory.text('you said:' +
-                ' no'));
+            await step.context.sendActivity(MessageFactory
+                .text('you said: no'));
             return await step.endDialog();
         }
     }
