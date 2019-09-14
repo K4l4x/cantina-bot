@@ -18,9 +18,7 @@ class OpeningHoursDialog extends CancelAndHelpDialog {
     }
 
     async showHours(step) {
-        const cantina = new Cantina();
-        Object.assign(cantina, step.options);
-
+        const cantina = Object.assign(new Cantina(), step.options);
         await step.context.sendActivity({
             attachments: [CardFactory
                 .adaptiveCard(await CardSchema.prototype

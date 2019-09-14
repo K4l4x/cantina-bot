@@ -46,8 +46,7 @@ class WelcomeDialog extends CancelAndHelpDialog {
 
     async switchTodaysMenus(step) {
         const result = step.result.value;
-        const cantina = new Cantina();
-        Object.assign(cantina, step.options);
+        const cantina = Object.assign(new Cantina(), step.options);
 
         switch (result) {
         case welcomeChoices[LABELS.ABOUT]:

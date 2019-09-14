@@ -19,17 +19,13 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
     }
 
     async scrollTroughMenus(step) {
-        const cantina = new Cantina();
-        Object.assign(cantina, step.options);
+        const cantina = Object.assign(new Cantina(), step.options);
         const attachments = [];
-
         // For testing just give getDay() a weekday from 1-5.
         const todaysMenu = await cantina.menuList.getDay(1);
 
         for (const menu of todaysMenu) {
-            const prepareMenu = new Menu();
-            Object.assign(prepareMenu, menu);
-
+            const prepareMenu = Object.assign(new Menu(), menu);
             attachments.push(CardFactory
                 .adaptiveCard(await CardSchema.prototype
                     .createMenuCard(prepareMenu)));

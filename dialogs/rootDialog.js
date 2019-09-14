@@ -119,8 +119,7 @@ class RootDialog extends CancelAndHelpDialog {
      * @returns {Promise<*>}
      */
     async action(step) {
-        const cantinaProfile = new Cantina();
-        Object.assign(cantinaProfile, step.result);
+        const cantinaProfile = Object.assign(new Cantina(), step.result);
         const message = step.context.activity.text.toLowerCase();
         let dialogId = '';
 
