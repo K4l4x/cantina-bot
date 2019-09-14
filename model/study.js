@@ -1,6 +1,6 @@
 const { JsonOps } = require('../utilities/jsonOps');
 
-let questionnaire = null;
+const questionnaire = null;
 
 class Study {
     // eslint-disable-next-line no-useless-constructor
