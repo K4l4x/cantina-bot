@@ -1,7 +1,7 @@
 const fileSystem = require('fs');
 
 class JsonOps {
-    async saveAsJSON(folder, name, content) {
+    async saveAs(folder, name, content) {
         const path = 'resources/' + folder + '/' + name + '.json';
         const json = JSON.stringify(content, null, 2);
         try {
@@ -14,7 +14,7 @@ class JsonOps {
         }
     }
 
-    async loadFromJSON(folder, name) {
+    async loadFrom(folder, name) {
         const path = 'resources/' + folder + '/' + name + '.json';
         let result = null;
         try {

@@ -21,6 +21,7 @@ class CancelAndHelpDialog extends ComponentDialog {
      * @returns {Promise<{status: DialogTurnStatus.waiting}|{status}|DialogTurnResult>}
      */
     async interrupt(innerDialogContext) {
+        let message = '';
         if (innerDialogContext.context.activity.text) {
             const text = innerDialogContext.context.activity.text.toLowerCase();
 
@@ -28,14 +29,14 @@ class CancelAndHelpDialog extends ComponentDialog {
             case 'hilfe':
             case '?':
                 // TODO: Handling user helplessness.
-                const helpText = 'Hier wird bald geholfen!';
-                await innerDialogContext.context.sendActivity(MessageFactory.text(helpText));
+                message = 'Hier wird bald geholfen!';
+                await innerDialogContext.context.sendActivity(MessageFactory.text(message));
                 return { status: DialogTurnStatus.waiting };
             case 'abbrechen':
             case 'stopp':
                 // TODO: Handling lost user, after everything has been canceled.
-                const cancelText = 'Okay, ich stoppe...';
-                await innerDialogContext.context.sendActivity(MessageFactory.text(cancelText));
+                message = 'Okay, ich stoppe...';
+                await innerDialogContext.context.sendActivity(MessageFactory.text(message));
                 return await innerDialogContext.cancelAllDialogs();
             }
         }

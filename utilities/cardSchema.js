@@ -63,30 +63,28 @@ class CardSchema {
                             facts: [
                                 {
                                     title: 'Montag:',
-                                    value: cantina.getOpeningHours().monday
+                                    value: cantina.openingHours.monday
                                 },
                                 {
                                     title: 'Dienstag:',
-                                    value: cantina.getOpeningHours().tuesday
+                                    value: cantina.openingHours.tuesday
                                 },
                                 {
                                     title: 'Mittwoch:',
-                                    value: cantina.getOpeningHours().wednesday
+                                    value: cantina.openingHours.wednesday
                                 },
                                 {
                                     title: 'Donnerstag:',
-                                    value: cantina.getOpeningHours().thursday
+                                    value: cantina.openingHours.thursday
                                 },
                                 {
                                     title: 'Freitag:',
-                                    value: cantina.getOpeningHours().friday
+                                    value: cantina.openingHours.friday
                                 }
                             ]
                         }
                     ]
                 }
-            ],
-            actions: [
             ],
             $schema: 'http://adaptivecards.io/schemas/adaptive-card.json',
             version: '1.0'

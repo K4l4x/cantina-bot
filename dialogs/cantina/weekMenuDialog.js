@@ -51,7 +51,6 @@ class WeekMenuDialog extends CancelAndHelpDialog {
         const cantina = new Cantina();
         Object.assign(cantina, step.options);
 
-
         switch (result) {
         case weekdayChoices[WEEKDAYS.MONDAY]:
             menus = await cantina.menuList.getDay(WEEKDAYS.MONDAY);

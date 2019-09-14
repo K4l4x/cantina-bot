@@ -3,7 +3,7 @@ const _promise = require('request-promise-native');
 const _cheerio = require('cheerio');
 const moment = require('moment');
 const { Menu } = require('../model/menu');
-const { jsonOps } = require('./jsonOps');
+const { JsonOps } = require('./jsonOps');
 
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
 
@@ -167,8 +167,8 @@ class MenuScraper {
 
     // TODO: Should be moved to utilities or something, same as loadFromJSON.
     async prepareDictionary(name) {
-        return new Map(await jsonOps.prototype
-            .loadFromJSON('utilities', name));
+        return new Map(await JsonOps.prototype
+            .loadFrom('utilities', name));
     }
 
     async buildMenus(dates, menusPerDay, menuPrices, menuTypes, menuDescriptions) {

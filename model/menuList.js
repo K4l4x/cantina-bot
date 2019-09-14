@@ -12,7 +12,7 @@ class MenuList extends Array {
     // TODO: Check if menus are already build and just load them.
     async fill() {
         // Object.assign(this, await new MenuBuilder().buildMenus());
-        Object.assign(this, await new MenuScraper().scrape().then(function(menus) {
+        Object.assign(this, await MenuScraper.prototype.scrape().then(function(menus) {
             return menus;
         }));
     }
@@ -23,11 +23,11 @@ class MenuList extends Array {
 
     async loadList(cantinaName = 'mensaX', name = 'menus') {
         Object.assign(this, await JsonOps.prototype
-            .loadFromJSON(cantinaName, name));
+            .loadFrom(cantinaName, name));
     }
 
     async save(cantinaName = 'mensaX', name = 'menus', menus = this) {
-        await JsonOps.prototype.saveAsJSON(cantinaName, name, menus);
+        await JsonOps.prototype.saveAs(cantinaName, name, menus);
     }
 }
 

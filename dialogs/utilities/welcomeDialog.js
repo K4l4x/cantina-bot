@@ -67,7 +67,7 @@ class WelcomeDialog extends CancelAndHelpDialog {
 
     async showContact(step) {
         const attachments = [CardFactory.adaptiveCard(await JsonOps.prototype
-            .loadFromJSON('contactCards', 'hbCard'))];
+            .loadFrom('contactCards', 'hbCard'))];
 
         await step.context.sendActivity({
             attachments: attachments,
