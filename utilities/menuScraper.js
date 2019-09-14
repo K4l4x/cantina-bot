@@ -3,7 +3,7 @@ const _promise = require('request-promise-native');
 const _cheerio = require('cheerio');
 const moment = require('moment');
 const { Menu } = require('../model/menu');
-const { jsonOps } = require('../utilities/jsonOps');
+const { jsonOps } = require('./jsonOps');
 
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
 

@@ -1,5 +1,5 @@
 const { JsonOps } = require('../utilities/jsonOps');
-const { MenuScraper } = require('../scraper/menuScraper');
+const { MenuScraper } = require('../utilities/menuScraper');
 
 // TODO: Add cantinaName to constructor and use it to build, load, save menus.
 class MenuList extends Array {
