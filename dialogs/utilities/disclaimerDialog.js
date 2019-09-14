@@ -1,6 +1,6 @@
 const { WaterfallDialog } = require('botbuilder-dialogs');
 
-const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
+const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const DISCLAIMER = 'disclaimer';

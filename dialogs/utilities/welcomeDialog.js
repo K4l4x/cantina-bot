@@ -1,10 +1,10 @@
 const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
 
-const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
-const { JsonOps } = require('../utilities/jsonOps');
-const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
-const { Cantina } = require('../model/cantina');
+const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
+const { JsonOps } = require('../../utilities/jsonOps');
+const { TodaysMenuDialog } = require('../cantina/todaysMenuDialog');
+const { Cantina } = require('../../model/cantina');
 
 const WELCOME_DIALOG = 'welcomeDialog';
 const WELCOME = 'welcome';

@@ -4,7 +4,7 @@ const { DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dia
 const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
 const { Cantina } = require('../model/cantina');
 
-const { WelcomeDialog } = require('./welcomeDialog');
+const { WelcomeDialog } = require('./utilities/welcomeDialog');
 const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
 const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
 const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
