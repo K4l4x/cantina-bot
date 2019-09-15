@@ -8,14 +8,14 @@ const openingHours = {
     friday: '11:30 - 14:30Uhr'
 };
 
-const menus = new MenuList();
-
+// TODO: Let Cantina handle all menu and dishes stuff. Yes! Menu and Dishes.
 /**
  * Represents a general cantina.
  */
 class Cantina {
     constructor(name) {
         this.name = name;
+        this.menus = new MenuList();
     }
 
     get openingHours() {
@@ -23,7 +23,7 @@ class Cantina {
     }
 
     get menuList() {
-        return menus;
+        return this.menus;
     }
 }
 
