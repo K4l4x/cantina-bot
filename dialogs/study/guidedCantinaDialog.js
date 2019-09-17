@@ -17,7 +17,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async firstTest(step) {
-        const study = Object.assign(new Study(), step.options);
+        const study = new Study();
+        Object.assign(study, step.options);
         console.log(study);
         return await step.endDialog();
     }

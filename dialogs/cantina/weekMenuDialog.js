@@ -47,7 +47,8 @@ class WeekMenuDialog extends CancelAndHelpDialog {
         const attachments = [];
         let menus = [];
         const result = step.result.value;
-        const cantina = Object.assign(new Cantina(), step.options);
+        const cantina = new Cantina();
+        Object.assign(cantina, step.options);
 
         switch (result) {
         case weekdayChoices[WEEKDAYS.MONDAY]:
@@ -70,7 +71,8 @@ class WeekMenuDialog extends CancelAndHelpDialog {
         }
 
         for (const current of menus) {
-            const menu = Object.assign(new Menu(), current);
+            const menu = new Menu();
+            Object.assign(menu, current);
             attachments
                 .push(CardFactory
                     .adaptiveCard(await CardSchema.prototype
