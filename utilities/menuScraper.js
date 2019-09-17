@@ -171,7 +171,7 @@ class MenuScraper {
             .loadFrom('utilities', name));
     }
 
-    async buildMenus(dates, menusPerDay, menuPrices, menuTypes, menuDescriptions) {
+    async buildMenus(dates, menusPerDay, prices, types, descriptions) {
         const menus = [];
         dates.forEach(function(date) {
             let numberOfMenusPerDay = menusPerDay[dates.indexOf(date)];
@@ -179,9 +179,9 @@ class MenuScraper {
                 const menu = new Menu(
                     date.format('LL'),
                     date.day(),
-                    menuTypes.shift(),
-                    menuPrices.shift(),
-                    menuDescriptions.shift()
+                    types.shift(),
+                    prices.shift(),
+                    descriptions.shift()
                 );
 
                 menus.push(menu);

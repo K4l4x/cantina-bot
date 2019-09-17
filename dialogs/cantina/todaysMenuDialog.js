@@ -19,10 +19,11 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
     }
 
     async scrollTroughMenus(step) {
-        const cantina = Object.assign(new Cantina(), step.options);
+        const cantina = new Cantina();
+        Object.assign(cantina, step.options);
         const attachments = [];
         // For testing just give getDay() a weekday from 1-5.
-        const todaysMenu = await cantina.menuList.getDay();
+        const todaysMenu = await Cantina.menuList.getDay();
 
         for (const menu of todaysMenu) {
             const prepareMenu = Object.assign(new Menu(), menu);
