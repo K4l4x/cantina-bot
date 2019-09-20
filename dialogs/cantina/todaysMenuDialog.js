@@ -23,7 +23,7 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
         Object.assign(cantina, step.options);
         const attachments = [];
         // For testing just give getDay() a weekday from 1-5.
-        const todaysMenu = await Cantina.prototype.menu.getDay();
+        const todaysMenu = await cantina.menu.getDay();
 
         for (const dish of todaysMenu) {
             const menuPart = Object.assign(new Dish(), dish);

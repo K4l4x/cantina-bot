@@ -45,31 +45,15 @@ class WeekMenuDialog extends CancelAndHelpDialog {
 
     async showDayMenu(step) {
         const attachments = [];
-        let menus = [];
         const result = step.result.value;
         const cantina = new Cantina();
         Object.assign(cantina, step.options);
 
-        switch (result) {
-        case weekdayChoices[WEEKDAYS.MONDAY]:
-            menus = await cantina.menu.getDay(WEEKDAYS.MONDAY);
-            break;
-        case weekdayChoices[WEEKDAYS.TUESDAY]:
-            menus = await cantina.menu.getDay(WEEKDAYS.TUESDAY);
-            break;
-        case weekdayChoices[WEEKDAYS.WEDNESDAY]:
-            menus = await cantina.menu.getDay(WEEKDAYS.WEDNESDAY);
-            break;
-        case weekdayChoices[WEEKDAYS.THURSDAY]:
-            menus = await cantina.menu.getDay(WEEKDAYS.THURSDAY);
-            break;
-        case weekdayChoices[WEEKDAYS.FRIDAY]:
-            menus = await cantina.menu.getDay(WEEKDAYS.FRIDAY);
-            break;
-        default:
-            break;
-        }
-
+        // FIXME: getDay() starts at 1 for monday. Should start at 0 for
+        //  monday. But either way it saves me ~10 lines.
+        // console.log(weekdayChoices.indexOf(result) + 1);
+        const menus = await cantina.menu.getDay(weekdayChoices.indexOf(result) + 1);
+        
         for (const current of menus) {
             const dish = new Dish();
             Object.assign(dish, current);
