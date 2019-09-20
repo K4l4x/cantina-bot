@@ -2,7 +2,7 @@
 const _promise = require('request-promise-native');
 const _cheerio = require('cheerio');
 const moment = require('moment');
-const { Menu } = require('../model/menu');
+const { Dish } = require('../model/dish');
 const { JsonOps } = require('./jsonOps');
 
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
@@ -171,12 +171,12 @@ class MenuScraper {
             .loadFrom('utilities', name));
     }
 
-    async buildMenus(dates, menusPerDay, prices, types, descriptions) {
-        const menus = [];
+    async buildMenus(dates, dishesPerDay, prices, types, descriptions) {
+        const menu = [];
         dates.forEach(function(date) {
-            let numberOfMenusPerDay = menusPerDay[dates.indexOf(date)];
-            while (numberOfMenusPerDay !== 0) {
-                const menu = new Menu(
+            let numberOfDishesPerDay = dishesPerDay[dates.indexOf(date)];
+            while (numberOfDishesPerDay !== 0) {
+                const dish = new Dish(
                     date.format('LL'),
                     date.day(),
                     types.shift(),
@@ -184,13 +184,13 @@ class MenuScraper {
                     descriptions.shift()
                 );
 
-                menus.push(menu);
-                numberOfMenusPerDay--;
+                menu.push(dish);
+                numberOfDishesPerDay--;
             }
         });
 
         // console.log(menus);
-        return menus;
+        return menu;
     }
 }
 

@@ -108,9 +108,9 @@ class RootDialog extends CancelAndHelpDialog {
         //         .saveAsJSON('mensaX', 'menus', menus);
         // }
 
-        if (this.cant.menuList === null || this.cant.menuList.length === 0) {
-            await this.cant.menuList.fill();
-            await this.cant.menuList.save();
+        if (this.cant.menu === null || this.cant.menu.length === 0) {
+            await this.cant.menu.fill();
+            await this.cant.menu.save();
 
             this.cantinaProfile = await this.cantinaProfile
                 .get(step.context, this.cant);

@@ -1,4 +1,6 @@
-const { MenuList } = require('./menuList');
+const { Menu } = require('./menu');
+
+const menu = new Menu(); // TODO: is this okay or bad practice?
 
 const openingHours = {
     monday: '11:30 - 14:30Uhr',
@@ -15,15 +17,14 @@ const openingHours = {
 class Cantina {
     constructor(name) {
         this.name = name;
-        this.menus = new MenuList();
     }
 
     get openingHours() {
         return openingHours;
     }
 
-    get menuList() {
-        return this.menus;
+    get menu() {
+        return menu;
     }
 }
 

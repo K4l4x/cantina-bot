@@ -4,7 +4,7 @@ const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dia
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { CardSchema } = require('../../utilities/cardSchema');
 const { Cantina } = require('../../model/cantina');
-const { Menu } = require('../../model/menu');
+const { Dish } = require('../../model/dish');
 
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
 const WEEK_MENU = 'weekMenu';
@@ -52,31 +52,31 @@ class WeekMenuDialog extends CancelAndHelpDialog {
 
         switch (result) {
         case weekdayChoices[WEEKDAYS.MONDAY]:
-            menus = await cantina.menuList.getDay(WEEKDAYS.MONDAY);
+            menus = await cantina.menu.getDay(WEEKDAYS.MONDAY);
             break;
         case weekdayChoices[WEEKDAYS.TUESDAY]:
-            menus = await cantina.menuList.getDay(WEEKDAYS.TUESDAY);
+            menus = await cantina.menu.getDay(WEEKDAYS.TUESDAY);
             break;
         case weekdayChoices[WEEKDAYS.WEDNESDAY]:
-            menus = await cantina.menuList.getDay(WEEKDAYS.WEDNESDAY);
+            menus = await cantina.menu.getDay(WEEKDAYS.WEDNESDAY);
             break;
         case weekdayChoices[WEEKDAYS.THURSDAY]:
-            menus = await cantina.menuList.getDay(WEEKDAYS.THURSDAY);
+            menus = await cantina.menu.getDay(WEEKDAYS.THURSDAY);
             break;
         case weekdayChoices[WEEKDAYS.FRIDAY]:
-            menus = await cantina.menuList.getDay(WEEKDAYS.FRIDAY);
+            menus = await cantina.menu.getDay(WEEKDAYS.FRIDAY);
             break;
         default:
             break;
         }
 
         for (const current of menus) {
-            const menu = new Menu();
-            Object.assign(menu, current);
+            const dish = new Dish();
+            Object.assign(dish, current);
             attachments
                 .push(CardFactory
                     .adaptiveCard(await CardSchema.prototype
-                        .createMenuCard(menu)));
+                        .createMenuCard(dish)));
         }
 
         await step.context.sendActivity({
