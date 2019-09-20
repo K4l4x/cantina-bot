@@ -174,6 +174,7 @@ class MenuScraper {
     async buildMenus(dates, dishesPerDay, prices, types, descriptions) {
         const menu = [];
         dates.forEach(function(date) {
+            // console.log('[menuScraper.buildMenus]: ' + date);
             let numberOfDishesPerDay = dishesPerDay[dates.indexOf(date)];
             while (numberOfDishesPerDay !== 0) {
                 const dish = new Dish(

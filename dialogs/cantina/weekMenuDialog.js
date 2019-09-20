@@ -49,11 +49,11 @@ class WeekMenuDialog extends CancelAndHelpDialog {
         const cantina = new Cantina();
         Object.assign(cantina, step.options);
 
-        // FIXME: getDay() starts at 1 for monday. Should start at 0 for
-        //  monday. But either way it saves me ~10 lines.
+        // Adding one because monday starts at one and friday is represented
+        // by five. Either way, this saves ~10 lines of a switch-case.
         // console.log(weekdayChoices.indexOf(result) + 1);
         const menus = await cantina.menu.getDay(weekdayChoices.indexOf(result) + 1);
-        
+
         for (const current of menus) {
             const dish = new Dish();
             Object.assign(dish, current);
