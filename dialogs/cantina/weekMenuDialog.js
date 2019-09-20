@@ -15,14 +15,6 @@ const WEEK_DAYS_MESSAGE = 'Von welchem Tag soll ich dir das Menü zeigen?';
 const weekdayChoices = ['Montag', 'Dienstag', 'Mittwoch',
     'Donnerstag', 'Freitag'];
 
-const WEEKDAYS = {
-    MONDAY: 0,
-    TUESDAY: 1,
-    WEDNESDAY: 2,
-    THURSDAY: 3,
-    FRIDAY: 4
-};
-
 class WeekMenuDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || WEEK_MENU_DIALOG);
@@ -52,7 +44,8 @@ class WeekMenuDialog extends CancelAndHelpDialog {
         // Adding one because monday starts at one and friday is represented
         // by five. Either way, this saves ~10 lines of a switch-case.
         // console.log(weekdayChoices.indexOf(result) + 1);
-        const menus = await cantina.menu.getDay(weekdayChoices.indexOf(result) + 1);
+        const selectedDay = weekdayChoices.indexOf(result) + 1;
+        const menus = await cantina.menu.getDay(selectedDay);
 
         for (const current of menus) {
             const dish = new Dish();
