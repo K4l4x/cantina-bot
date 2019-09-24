@@ -9,7 +9,23 @@ class Menu extends Array {
     // eslint-disable-next-line no-useless-constructor
     constructor() {
         super();
-        this.today = new Date().getDay();
+    }
+
+    isLatest() {
+        // console.log('[Menu]: isNotLatest: todaysDate => ' + new Date().getDate());
+        // console.log('[Menu]: isNotLatest: todaysTime =>' + new Date().getTime());
+        let logMessage = '[Menu]: isLatest => true';
+        let status = true;
+        if (this.length !== 0) {
+            const lastWeeksFirstDishDate = (new Date().getDate() - 7);
+            const currentfirstDishDate = new Date(this[0].date).getDate();
+            if (lastWeeksFirstDishDate >= currentfirstDishDate) {
+                logMessage = '[Menu]: isLatest => false';
+                status = false;
+            }
+        }
+        console.log(logMessage);
+        return status;
     }
 
     // TODO: Check if menus are already build and just load them.
@@ -20,7 +36,7 @@ class Menu extends Array {
         }));
     }
 
-    async getDay(weekday = this.today) {
+    async getDay(weekday = new Date().getDay()) {
         return this.filter(dish => dish.day === weekday);
     }
 

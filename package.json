@@ -20,19 +20,19 @@
         "botbuilder": "^4.5.3",
         "botbuilder-dialogs": "^4.5.3",
         "botbuilder-testing": "^4.5.3",
+        "botframework-connector": "latest",
         "cheerio": "^1.0.0-rc.3",
         "dotenv": "^8.1.0",
+        "eslint-plugin-node": "^10.0.0",
         "moment": "^2.24.0",
         "request": "^2.88.0",
         "request-promise-native": "^1.0.7",
-        "restify": "^8.4.0",
-        "botframework-connector": "latest"
+        "restify": "^8.4.0"
     },
     "devDependencies": {
-        "eslint": "^6.3.0",
+        "eslint": "^6.4.0",
         "eslint-config-standard": "^14.1.0",
         "eslint-plugin-import": "^2.18.2",
-        "eslint-plugin-node": "^10.0.0",
         "eslint-plugin-promise": "^4.2.1",
         "eslint-plugin-standard": "^4.0.1",
         "mocha": "^6.2.0",

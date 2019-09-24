@@ -149,6 +149,8 @@ class MenuScraper {
     async prepareAllergiesInfo($) {
         const allergies = await MenuScraper.prototype.prepareDictionary('allergiesRegister');
 
+        // console.log(allergies);
+
         const countAllergies = [];
 
         $('.stripedtable').find('.first').not(':empty').each((index, item) => {
@@ -161,8 +163,9 @@ class MenuScraper {
             return str.match(reg);
         };
 
-        console.log(countAllergies[0]);
-        console.log(count(countAllergies[0]));
+        // console.log(count(countAllergies[0]));
+        // console.log(countAllergies);
+        // console.log(count(countAllergies));
     }
 
     // TODO: Should be moved to utilities or something, same as loadFromJSON.
