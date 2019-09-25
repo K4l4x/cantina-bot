@@ -72,7 +72,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async considerVegetarianDishes(step) {
-        // const considerVegetarian = step.result.value;
+        const considerVegetarian = step.result.value;
         // if (considerVegetarian === userAccepts) {
         //     return await step.next();
         // } else {
@@ -108,7 +108,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async considerVeganDishes(step) {
-        // const considerVegan = step.result.value;
+        const considerVegan = step.result.value;
         // if (considerVegan === userAccepts) {
         //     return await step.next();
         // } else {
@@ -126,9 +126,10 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async guidedResult(step) {
-        const study = Object.assign(new Study(), step.result);
-        console.log(study);
+        const study = new Study();
+        Object.assign(study, step.result);
 
+        console.log(study);
         await step.endDialog();
     }
 }
