@@ -32,8 +32,10 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         this.addDialog(new WaterfallDialog(GUIDED,
             [
                 this.prepare.bind(this),
+                this.prepareVegetarian.bind(this),
                 this.vegetarianCheck.bind(this),
                 this.considerVegetarianDishes.bind(this),
+                this.prepareVegan.bind(this),
                 this.veganCheck.bind(this),
                 this.considerVeganDishes.bind(this),
                 this.allergyCheck.bind(this),
@@ -44,6 +46,11 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
 
     async prepare(step) {
         // TODO: Prepare stuff.
+        return await step.next();
+    }
+
+    async prepareVegetarian(step) {
+        // TODO: Prepare vegetarian.
         return await step.prompt(VEGETARIAN_PROMPT, {
             prompt: VEGETARIAN_PROMPT_MESSAGE,
             choices: ChoiceFactory.toChoices(userChoices),
@@ -65,19 +72,21 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async considerVegetarianDishes(step) {
-        const considerVegetarian = step.result.value;
-        if (considerVegetarian === userAccepts) {
-            return await step.next();
-        } else {
-            return await step.prompt(CONSIDER_VEGETARIAN_PROMPT, {
-                prompt: CONSIDER_VEGETARIAN_PROMPT_MESSAGE,
-                choices: ChoiceFactory.toChoices(userChoices),
-                style: 1
-            });
-        }
+        // const considerVegetarian = step.result.value;
+        // if (considerVegetarian === userAccepts) {
+        //     return await step.next();
+        // } else {
+        //     return await step.prompt(CONSIDER_VEGETARIAN_PROMPT, {
+        //         prompt: CONSIDER_VEGETARIAN_PROMPT_MESSAGE,
+        //         choices: ChoiceFactory.toChoices(userChoices),
+        //         style: 1
+        //     });
+        // }
+        return await step.next();
     }
 
-    async veganCheck(step) {
+    async prepareVegan(step) {
+        // TODO: Prepare vegan.
         return await step.prompt(VEGAN_PROMPT, {
             prompt: VEGAN_PROMPT_MESSAGE,
             choices: ChoiceFactory.toChoices(userChoices),
@@ -85,9 +94,9 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         });
     }
 
-    async considerVeganDishes(step) {
-        const considerVegan = step.result.value;
-        if (considerVegan === userAccepts) {
+    async veganCheck(step) {
+        const isVegan = step.result.value;
+        if (isVegan === userAccepts) {
             return await step.next();
         } else {
             return await step.prompt(CONSIDER_VEGAN_PROMPT, {
@@ -98,8 +107,22 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         }
     }
 
-    async allergyCheck(step) {
+    async considerVeganDishes(step) {
+        // const considerVegan = step.result.value;
+        // if (considerVegan === userAccepts) {
+        //     return await step.next();
+        // } else {
+        //     return await step.prompt(CONSIDER_VEGAN_PROMPT, {
+        //         prompt: ,
+        //         choices: ChoiceFactory.toChoices(userChoices),
+        //         style: 1
+        //     });
+        // }
+        return await step.next();
+    }
 
+    async allergyCheck(step) {
+        return await step.next();
     }
 
     async guidedResult(step) {
