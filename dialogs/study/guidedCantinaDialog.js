@@ -1,3 +1,4 @@
+const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog, ChoiceFactory, ChoicePrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 
@@ -22,6 +23,13 @@ const CONSIDER_VEGAN_PROMPT = 'considerVeganPrompt';
 const CONSIDER_VEGAN_PROMPT_MESSAGE = 'Soll ich vegane Gerichte trotzdem' +
     ' berücksichtigen?';
 
+const studySample = {
+    isVegetarian: false,
+    isVegan: false,
+    considerVegetarian: true,
+    considerVegan: true
+};
+
 class GuidedCantinaDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || GUIDED_CANTINA_DIALOG);
@@ -45,6 +53,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async prepare(step) {
+        // const study = new Study();
+        // Object.assign(study, step.result);
         // TODO: Prepare stuff.
         return await step.next();
     }
@@ -61,6 +71,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async vegetarianCheck(step) {
         const isVegetarian = step.result.value;
         if (isVegetarian === userAccepts) {
+            studySample.isVegetarian = true;
             return await step.next();
         } else {
             return await step.prompt(CONSIDER_VEGETARIAN_PROMPT, {
@@ -72,17 +83,17 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async considerVegetarianDishes(step) {
-        const considerVegetarian = step.result.value;
-        // if (considerVegetarian === userAccepts) {
-        //     return await step.next();
-        // } else {
-        //     return await step.prompt(CONSIDER_VEGETARIAN_PROMPT, {
-        //         prompt: CONSIDER_VEGETARIAN_PROMPT_MESSAGE,
-        //         choices: ChoiceFactory.toChoices(userChoices),
-        //         style: 1
-        //     });
-        // }
-        return await step.next();
+        if (typeof step.result === 'undefined') {
+            return await step.next();
+        } else {
+            const considerVegetarian = step.result.value;
+            if (considerVegetarian === userAccepts) {
+                return await step.next();
+            } else {
+                studySample.considerVegetarian = false;
+                return await step.next();
+            }
+        }
     }
 
     async prepareVegan(step) {
@@ -97,6 +108,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async veganCheck(step) {
         const isVegan = step.result.value;
         if (isVegan === userAccepts) {
+            studySample.isVegan = true;
             return await step.next();
         } else {
             return await step.prompt(CONSIDER_VEGAN_PROMPT, {
@@ -108,29 +120,28 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async considerVeganDishes(step) {
-        const considerVegan = step.result.value;
-        // if (considerVegan === userAccepts) {
-        //     return await step.next();
-        // } else {
-        //     return await step.prompt(CONSIDER_VEGAN_PROMPT, {
-        //         prompt: ,
-        //         choices: ChoiceFactory.toChoices(userChoices),
-        //         style: 1
-        //     });
-        // }
-        return await step.next();
+        if (typeof step.result === 'undefined') {
+            return await step.next();
+        } else {
+            const considerVegan = step.result.value;
+            if (considerVegan === userAccepts) {
+                return await step.next();
+            } else {
+                studySample.considerVegan = false;
+                return await step.next();
+            }
+        }
     }
 
     async allergyCheck(step) {
+        await step.context.sendActivity(MessageFactory
+            .text(JSON.stringify(studySample)));
         return await step.next();
     }
 
     async guidedResult(step) {
-        const study = new Study();
-        Object.assign(study, step.result);
-
-        console.log(study);
-        await step.endDialog();
+        // console.log(study);
+        return await step.endDialog();
     }
 }
 
