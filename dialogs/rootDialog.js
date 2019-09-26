@@ -10,6 +10,7 @@ const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
 const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
 const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
 const { DisclaimerDialog } = require('./utilities/disclaimerDialog');
+const { ContactDialog } = require('./utilities/contactDialog');
 
 const CANTINA_STATE_PROPERTY = 'cantinaStatePropertyAccessor';
 const STUDY_STATE_PROPERTY = 'studyStatePropertyAccessor';
@@ -23,6 +24,7 @@ const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
+const CONTACT_DIALOG = 'contactDialog';
 
 class RootDialog extends CancelAndHelpDialog {
     constructor(conversationState, userState) {
@@ -49,6 +51,7 @@ class RootDialog extends CancelAndHelpDialog {
         this.addDialog(new WeekMenuDialog(WEEK_MENU_DIALOG));
         this.addDialog(new OpeningHoursDialog(OPENING_HOURS_DIALOG));
         this.addDialog(new DisclaimerDialog(DISCLAIMER_DIALOG));
+        this.addDialog(new ContactDialog(CONTACT_DIALOG));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
             this.prepare.bind(this),
             this.action.bind(this),
@@ -141,6 +144,9 @@ class RootDialog extends CancelAndHelpDialog {
         case 'öffnungszeiten':
             dialogId = OPENING_HOURS_DIALOG;
             options = cantina;
+            break;
+        case 'kontakt':
+            dialogId = CONTACT_DIALOG;
             break;
         case 'disclaimer':
             dialogId = DISCLAIMER_DIALOG;
