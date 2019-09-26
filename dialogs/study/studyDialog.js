@@ -19,8 +19,24 @@ class StudyDialog extends CancelAndHelpDialog {
     }
 
     async startStudy(step) {
+        const randomNum = this.getRandomNum(10, 20);
+        console.log('[Randomizer Result]: ' + randomNum);
         console.log('Studie starten...');
-        return await step.replaceDialog(GUIDED_CANTINA_DIALOG, step.options);
+        if (randomNum < 15) {
+            console.log('guided dialog');
+            return await step.replaceDialog(GUIDED_CANTINA_DIALOG, step.options);
+        } else {
+            console.log('nlp dialog');
+            // return await step.replaceDialog(GUIDED_CANTINA_DIALOG,
+            // step.options);
+            return await step.endDialog();
+        }
+    }
+
+    getRandomNum(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
     }
 }
 
