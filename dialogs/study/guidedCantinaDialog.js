@@ -23,6 +23,9 @@ const CONSIDER_VEGAN_PROMPT = 'considerVeganPrompt';
 const CONSIDER_VEGAN_PROMPT_MESSAGE = 'Soll ich vegane Gerichte trotzdem' +
     ' berücksichtigen?';
 
+const WELCOME_TO_DIALOG = MessageFactory.text('Ich werde dir nun ein paar' +
+    ' Fragen stellen und so das richtige Gericht für dich finden.');
+
 const studySample = {
     isVegetarian: false,
     isVegan: false,
@@ -53,9 +56,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async prepare(step) {
-        // const study = new Study();
-        // Object.assign(study, step.result);
-        // TODO: Prepare stuff.
+        await step.context.sendActivity(WELCOME_TO_DIALOG);
         return await step.next();
     }
 

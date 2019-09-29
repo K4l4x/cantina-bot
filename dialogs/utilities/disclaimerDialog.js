@@ -51,7 +51,10 @@ class DisclaimerDialog extends CancelAndHelpDialog {
             return await step.replaceDialog(STUDY_DIALOG, step.options);
         } else {
             await step.context.sendActivity(MessageFactory
-                .text('you said: no'));
+                .text('Aller klar. Du kannst mich nach dem heutigen Menü' +
+                    ' fragen oder eine Wochenübersicht durchblättern. Falls' +
+                    ' du deine Meinung ändern möchtest schreibe mir doch' +
+                    ' einfach YYY.'));
             return await step.endDialog();
         }
     }

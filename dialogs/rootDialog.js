@@ -9,7 +9,6 @@ const { WelcomeDialog } = require('./utilities/welcomeDialog');
 const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
 const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
 const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
-const { DisclaimerDialog } = require('./utilities/disclaimerDialog');
 const { ContactDialog } = require('./utilities/contactDialog');
 
 const CANTINA_STATE_PROPERTY = 'cantinaStatePropertyAccessor';
@@ -23,8 +22,16 @@ const WELCOME_DIALOG = 'welcomeDialog';
 const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
-const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const CONTACT_DIALOG = 'contactDialog';
+
+const validMessages = {
+    START: '/start',
+    TODAY: 'heute',
+    NOW: 'jetzt',
+    WEEK: 'woche',
+    OPENINGHOURS: 'öffnungszeiten',
+    OPEN: 'offen'
+};
 
 class RootDialog extends CancelAndHelpDialog {
     constructor(conversationState, userState) {
@@ -50,12 +57,11 @@ class RootDialog extends CancelAndHelpDialog {
         this.addDialog(new TodaysMenuDialog(TODAYS_MENU_DIALOG));
         this.addDialog(new WeekMenuDialog(WEEK_MENU_DIALOG));
         this.addDialog(new OpeningHoursDialog(OPENING_HOURS_DIALOG));
-        this.addDialog(new DisclaimerDialog(DISCLAIMER_DIALOG));
         this.addDialog(new ContactDialog(CONTACT_DIALOG));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
-            this.prepare.bind(this),
-            this.action.bind(this),
-            this.result.bind(this)
+            this.prepareStorage.bind(this),
+            this.handleRequests.bind(this),
+            this.analyseResults.bind(this)
         ]));
         this.initialDialogId = ROOT_WATERFALL;
     }
@@ -85,7 +91,7 @@ class RootDialog extends CancelAndHelpDialog {
      * @param step
      * @returns {Promise<*>}
      */
-    async prepare(step) {
+    async prepareStorage(step) {
         const cantina = new Cantina('mensaX');
         await this.cantinaProfile.get(step.context, cantina);
         // TODO: Check if saved menus are still valid or have to be updated.
@@ -114,48 +120,80 @@ class RootDialog extends CancelAndHelpDialog {
         return await step.next(cantina);
     }
 
-    /**
-     * Just handle incoming messages and begin new dialogs from here.
-     * @param step
-     * @returns {Promise<*>}
-     */
-    async action(step) {
-        const cantina = step.result;
-        const message = step.context.activity.text.toLowerCase();
+    // /**
+    //  * Just handle incoming messages and begin new dialogs from here.
+    //  * @param step
+    //  * @returns {Promise<*>}
+    //  */
+    // async handleRequests(step) {
+    //     const cantina = step.result;
+    //     const message = step.context.activity.text.toLowerCase();
+    //     let dialogId = '';
+    //     let options = {};
+    //
+    //     switch (message) {
+    //     case '/start':
+    //     case 'hi':
+    //     case 'hallo':
+    //     case 'moin':
+    //         dialogId = WELCOME_DIALOG;
+    //         options = cantina;
+    //         break;
+    //     case 'heute':
+    //         dialogId = TODAYS_MENU_DIALOG;
+    //         options = cantina;
+    //         break;
+    //     case 'woche':
+    //         dialogId = WEEK_MENU_DIALOG;
+    //         options = cantina;
+    //         break;
+    //     case 'öffnungszeiten':
+    //         dialogId = OPENING_HOURS_DIALOG;
+    //         options = cantina;
+    //         break;
+    //     case 'kontakt':
+    //         dialogId = CONTACT_DIALOG;
+    //         break;
+    //     case 'disclaimer':
+    //         dialogId = DISCLAIMER_DIALOG;
+    //         options = await this.studyProfile
+    //             .get(step.context, new Study());
+    //         break;
+    //     default:
+    //         await step.context.sendActivity(MessageFactory.text('Entschuldiging, leider' +
+    //             ' weiß ich nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.'));
+    //     }
+    //
+    //     if (dialogId !== '') {
+    //         return await step.beginDialog(dialogId, options);
+    //     } else {
+    //         return await step.next();
+    //     }
+    // }
+
+    // /**
+    //  * Handling results from the ended dialogs.
+    //  * @param step
+    //  * @returns {Promise<*>}
+    //  */
+    // async analyseResults(step) {
+    //     // const cantina = step.result;
+    //     // Returns no result, because there is no parent dialog to resume from.
+    //     return await step.endDialog();
+    // }
+
+    async handleRequests(step) {
         let dialogId = '';
         let options = {};
+        const message = step.context.activity.text.toLowerCase();
 
-        switch (message) {
-        case '/start':
-        case 'hi':
-        case 'hallo':
-        case 'moin':
+        if (message.includes(validMessages.START)) {
             dialogId = WELCOME_DIALOG;
-            options = cantina;
-            break;
-        case 'heute':
-            dialogId = TODAYS_MENU_DIALOG;
-            options = cantina;
-            break;
-        case 'woche':
-            dialogId = WEEK_MENU_DIALOG;
-            options = cantina;
-            break;
-        case 'öffnungszeiten':
-            dialogId = OPENING_HOURS_DIALOG;
-            options = cantina;
-            break;
-        case 'kontakt':
-            dialogId = CONTACT_DIALOG;
-            break;
-        case 'disclaimer':
-            dialogId = DISCLAIMER_DIALOG;
-            options = await this.studyProfile
-                .get(step.context, new Study());
-            break;
-        default:
-            await step.context.sendActivity(MessageFactory.text('Entschuldiging, leider' +
-                ' weiß ich nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.'));
+            options = await this.studyProfile.get(step.context, new Study());
+        } else {
+            await step.context.sendActivity(MessageFactory.text(
+                'Entschuldiging, leider weiß ich nicht was du ' +
+                'mit ' + '**\'' + message + '\'**' + ' meinst.'));
         }
 
         if (dialogId !== '') {
@@ -165,14 +203,7 @@ class RootDialog extends CancelAndHelpDialog {
         }
     }
 
-    /**
-     * Handling results from the ended dialogs.
-     * @param step
-     * @returns {Promise<*>}
-     */
-    async result(step) {
-        // const cantina = step.result;
-        // Returns no result, because there is no parent dialog to resume from.
+    async analyseResults(step) {
         return await step.endDialog();
     }
 }
