@@ -17,8 +17,11 @@ class OpeningHoursDialog extends CancelAndHelpDialog {
         this.initialDialogId = OPENING_HOURS;
     }
 
+    // TODO: Remove reference to CardSchema and move it to cantina, so we
+    //  just need cantina here and get the opening hours in the right format.
     async showHours(step) {
-        const cantina = Object.assign(new Cantina(), step.options);
+        const cantina = new Cantina();
+        Object.assign(cantina, step.options);
         await step.context.sendActivity({
             attachments: [CardFactory
                 .adaptiveCard(await CardSchema.prototype

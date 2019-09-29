@@ -1,21 +1,52 @@
+const { JsonOps } = require('../utilities/jsonOps');
+const { MenuScraper } = require('../utilities/menuScraper');
+
+// TODO: Add cantinaName to constructor and use it to build, load, save menus.
 /**
- * Represents an entire menu.
- * The description holds all parts of the dish served.
- * @param date represents a date in javascript format with time at the end.
- * @param day represents a weekday in numbers e.g. Monday = 1, Tuesday = 2, ..., Friday = 5.
+ * A Menu contains the all dishes of a week.
  */
-class Menu {
-    constructor(date, day, type, prices, description, allergenic, additionalInfo) {
-        this.date = date;
-        this.day = day;
-        this.type = type;
-        this.prices = prices;
-        this.description = description;
-        // this.allergenic = allergenic;
-        // this.additionalInfo = additionalInfo;
-        // this.ingredients = ingredients;
-        // this.price = price;
-        // this.isVegan = isVegan;
+class Menu extends Array {
+    // eslint-disable-next-line no-useless-constructor
+    constructor() {
+        super();
+    }
+
+    isLatest() {
+        // console.log('[Menu]: isNotLatest: todaysDate => ' + new Date().getDate());
+        // console.log('[Menu]: isNotLatest: todaysTime =>' + new Date().getTime());
+        let logMessage = '[Menu]: isLatest => true';
+        let status = true;
+        if (this.length !== 0) {
+            const lastWeeksFirstDishDate = (new Date().getDate() - 7);
+            const currentfirstDishDate = new Date(this[0].date).getDate();
+            if (lastWeeksFirstDishDate >= currentfirstDishDate) {
+                logMessage = '[Menu]: isLatest => false';
+                status = false;
+            }
+        }
+        console.log(logMessage);
+        return status;
+    }
+
+    // TODO: Check if menus are already build and just load them.
+    async fill() {
+        // Object.assign(this, await new MenuBuilder().buildMenus());
+        Object.assign(this, await MenuScraper.prototype.scrape().then(function(menus) {
+            return menus;
+        }));
+    }
+
+    async getDay(weekday = new Date().getDay()) {
+        return this.filter(dish => dish.day === weekday);
+    }
+
+    async loadList(cantinaName = 'mensaX', name = 'menus') {
+        Object.assign(this, await JsonOps.prototype
+            .loadFrom(cantinaName, name));
+    }
+
+    async save(cantinaName = 'mensaX', name = 'menus', menus = this) {
+        await JsonOps.prototype.saveAs(cantinaName, name, menus);
     }
 }
 

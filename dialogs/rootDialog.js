@@ -11,7 +11,7 @@ const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
 const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
 const { DisclaimerDialog } = require('./utilities/disclaimerDialog');
 
-const CONVERSATION_STATE_PROPERTY = 'conversationStatePropertyAccessor';
+const CANTINA_STATE_PROPERTY = 'cantinaStatePropertyAccessor';
 const STUDY_STATE_PROPERTY = 'studyStatePropertyAccessor';
 // const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
 
@@ -27,7 +27,6 @@ const DISCLAIMER_DIALOG = 'disclaimerDialog';
 class RootDialog extends CancelAndHelpDialog {
     constructor(conversationState, userState) {
         super(ROOT_DIALOG);
-        this.cant = new Cantina('mensaX');
 
         if (!conversationState) {
             throw new Error('[RootDialog]: Missing parameter.' +
@@ -40,7 +39,7 @@ class RootDialog extends CancelAndHelpDialog {
 
         // Create our state property accessors.
         this.cantinaProfile = conversationState
-            .createProperty(CONVERSATION_STATE_PROPERTY);
+            .createProperty(CANTINA_STATE_PROPERTY);
         this.studyProfile = conversationState
             .createProperty(STUDY_STATE_PROPERTY);
         // this.userProfile = userState.createProperty(USER_STATE_PROPERTY);
@@ -84,39 +83,32 @@ class RootDialog extends CancelAndHelpDialog {
      * @returns {Promise<*>}
      */
     async prepare(step) {
+        const cantina = new Cantina('mensaX');
+        await this.cantinaProfile.get(step.context, cantina);
         // TODO: Check if saved menus are still valid or have to be updated.
         //       If it gets more complex, this should be done elsewhere.
         // Further more:
         // Loading menus from storage/file, checking if new menus are available,
         // if so, prepare new menus and save them to storage/file. If not
         // just load menus from storage/file.
-        // const today = moment(Date.now()).format('LL');
 
-        // // Test for weekends SATURDAY -> THURSDAY; SUNDAY -> WEDNESDAY.
-        // const today = moment(Date.now()).subtract(4,
-        //     'days').format('LL');
-
-        // let menus = await CardSchemaCreator.prototype
-        //     .loadFromJSON('mensaX', 'menus');
-        //
-        // if (menus === null || menus.length === 0) {
-        //     const builder = new MenuBuilder();
-        //     menus = await builder.buildMenus();
-        //     // menus = menus.map(n =>
-        //     // CardSchemaCreator.prototype.createMenuCard(n));
-        //     await CardSchemaCreator.prototype
-        //         .saveAsJSON('mensaX', 'menus', menus);
-        // }
-
-        if (this.cant.menuList === null || this.cant.menuList.length === 0) {
-            await this.cant.menuList.fill();
-            await this.cant.menuList.save();
-
-            this.cantinaProfile = await this.cantinaProfile
-                .get(step.context, this.cant);
+        if (cantina.menu.length !== 0) {
+            if (cantina.menu.isLatest()) {
+                console.log('[RootDialog]: cantina menu is latest -> going' +
+                    ' to action');
+            } else {
+                await cantina.menu.fill();
+                console.log('[RootDialog]: cantina menu not latest -> filling' +
+                    ' up');
+                await cantina.menu.save();
+            }
+        } else {
+            await cantina.menu.fill();
+            console.log('[RootDialog]: cantina menu empty -> filling up');
+            await cantina.menu.save();
         }
 
-        return await step.next(this.cantinaProfile);
+        return await step.next(cantina);
     }
 
     /**
@@ -125,7 +117,7 @@ class RootDialog extends CancelAndHelpDialog {
      * @returns {Promise<*>}
      */
     async action(step) {
-        const cantinaProfile = step.result;
+        const cantina = step.result;
         const message = step.context.activity.text.toLowerCase();
         let dialogId = '';
         let options = {};
@@ -136,19 +128,19 @@ class RootDialog extends CancelAndHelpDialog {
         case 'hallo':
         case 'moin':
             dialogId = WELCOME_DIALOG;
-            options = cantinaProfile;
+            options = cantina;
             break;
         case 'heute':
             dialogId = TODAYS_MENU_DIALOG;
-            options = cantinaProfile;
+            options = cantina;
             break;
         case 'woche':
             dialogId = WEEK_MENU_DIALOG;
-            options = cantinaProfile;
+            options = cantina;
             break;
         case 'öffnungszeiten':
             dialogId = OPENING_HOURS_DIALOG;
-            options = cantinaProfile;
+            options = cantina;
             break;
         case 'disclaimer':
             dialogId = DISCLAIMER_DIALOG;
@@ -173,6 +165,7 @@ class RootDialog extends CancelAndHelpDialog {
      * @returns {Promise<*>}
      */
     async result(step) {
+        // const cantina = step.result;
         // Returns no result, because there is no parent dialog to resume from.
         return await step.endDialog();
     }

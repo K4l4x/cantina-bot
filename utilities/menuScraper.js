@@ -2,7 +2,7 @@
 const _promise = require('request-promise-native');
 const _cheerio = require('cheerio');
 const moment = require('moment');
-const { Menu } = require('../model/menu');
+const { Dish } = require('../model/dish');
 const { JsonOps } = require('./jsonOps');
 
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
@@ -149,6 +149,8 @@ class MenuScraper {
     async prepareAllergiesInfo($) {
         const allergies = await MenuScraper.prototype.prepareDictionary('allergiesRegister');
 
+        // console.log(allergies);
+
         const countAllergies = [];
 
         $('.stripedtable').find('.first').not(':empty').each((index, item) => {
@@ -161,8 +163,9 @@ class MenuScraper {
             return str.match(reg);
         };
 
-        console.log(countAllergies[0]);
-        console.log(count(countAllergies[0]));
+        // console.log(count(countAllergies[0]));
+        // console.log(countAllergies);
+        // console.log(count(countAllergies));
     }
 
     // TODO: Should be moved to utilities or something, same as loadFromJSON.
@@ -171,26 +174,27 @@ class MenuScraper {
             .loadFrom('utilities', name));
     }
 
-    async buildMenus(dates, menusPerDay, menuPrices, menuTypes, menuDescriptions) {
-        const menus = [];
+    async buildMenus(dates, dishesPerDay, prices, types, descriptions) {
+        const menu = [];
         dates.forEach(function(date) {
-            let numberOfMenusPerDay = menusPerDay[dates.indexOf(date)];
-            while (numberOfMenusPerDay !== 0) {
-                const menu = new Menu(
+            // console.log('[menuScraper.buildMenus]: ' + date);
+            let numberOfDishesPerDay = dishesPerDay[dates.indexOf(date)];
+            while (numberOfDishesPerDay !== 0) {
+                const dish = new Dish(
                     date.format('LL'),
                     date.day(),
-                    menuTypes.shift(),
-                    menuPrices.shift(),
-                    menuDescriptions.shift()
+                    types.shift(),
+                    prices.shift(),
+                    descriptions.shift()
                 );
 
-                menus.push(menu);
-                numberOfMenusPerDay--;
+                menu.push(dish);
+                numberOfDishesPerDay--;
             }
         });
 
         // console.log(menus);
-        return menus;
+        return menu;
     }
 }
 

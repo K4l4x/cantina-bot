@@ -1,4 +1,6 @@
-const { MenuList } = require('./menuList');
+const { Menu } = require('./menu');
+
+const menu = new Menu(); // TODO: is this okay or bad practice?
 
 const openingHours = {
     monday: '11:30 - 14:30Uhr',
@@ -8,8 +10,7 @@ const openingHours = {
     friday: '11:30 - 14:30Uhr'
 };
 
-const menus = new MenuList();
-
+// TODO: Let Cantina handle all menu and dishes stuff. Yes! Menu and Dishes.
 /**
  * Represents a general cantina.
  */
@@ -22,8 +23,8 @@ class Cantina {
         return openingHours;
     }
 
-    get menuList() {
-        return menus;
+    get menu() {
+        return menu;
     }
 }
 
