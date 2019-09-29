@@ -2,9 +2,9 @@
  * Simple user.
  */
 class User {
-    constructor(id, name) {
+    constructor(id, handeldStudy) {
         this.id = id;
-        this.name = name;
+        this.handeldStudy = handeldStudy;
     }
 }
 
