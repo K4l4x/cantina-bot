@@ -8,6 +8,7 @@ const restify = require('restify');
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
+const { CantinaRequestsRecognizer } = require('./utilities/CantinaRequestsRecognizer');
 
 // Import required bot configuration.
 // const { BotConfiguration } = require('botframework-config');
@@ -56,6 +57,12 @@ adapter.onTurnError = async (context, error) => {
     await context.sendActivity('Leider ist da etwas total schiefgelaufen.');
 };
 
+// If configured, pass in the FlightBookingRecognizer.  (Defining it externally allows it to be mocked for tests)
+const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
+const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
+
+const luisRecognizer = new CantinaRequestsRecognizer(luisConfig);
+
 // Define state store for your bot.
 const memoryStorage = new MemoryStorage();
 
@@ -64,7 +71,7 @@ const conversationState = new ConversationState(memoryStorage);
 const userState = new UserState(memoryStorage);
 
 // Create the main dialog.
-const dialog = new RootDialog(conversationState, userState);
+const dialog = new RootDialog(conversationState, userState, luisRecognizer);
 const cantinaBot = new CantinaBot(conversationState, userState, dialog);
 
 // Heart of the system.

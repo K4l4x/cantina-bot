@@ -30,6 +30,7 @@
         "restify": "^8.4.0"
     },
     "devDependencies": {
+        "botbuilder-ai": "^4.5.3",
         "eslint": "^6.4.0",
         "eslint-config-standard": "^14.1.0",
         "eslint-plugin-import": "^2.18.2",
