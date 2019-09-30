@@ -19,7 +19,8 @@ class StudyDialog extends CancelAndHelpDialog {
     }
 
     async startStudy(step) {
-        const randomNum = this.getRandomNum(10, 20);
+        // const randomNum = this.getRandomNum(10, 20);
+        const randomNum = 11;
         console.log('[Randomizer Result]: ' + randomNum);
         console.log('Studie starten...');
         if (randomNum < 15) {
