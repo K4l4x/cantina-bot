@@ -6,10 +6,12 @@ class Study {
     // eslint-disable-next-line no-useless-constructor
     constructor(conversationReference) {
         this.conversationRef = conversationReference;
+        this.likesMeet = false;
         this.isVegetarian = false;
-        this.isVegan = false;
-        this.considerVegetarian = true;
-        this.considerVegan = true;
+        this.isVegan = true;
+        this.notWantedMeets = [];
+        this.allergies = [];
+        this.other = [];
     }
 
     start() {

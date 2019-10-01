@@ -28,12 +28,12 @@ const VEGAN_PROMPT_MESSAGE = 'Bist du Veganer?';
 const SECOND_PROMPT_WITHOUT_SPECIFIC = 'withoutSpecificPrompt';
 const SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC = 'Alle Arten Fleisch? Oder' +
     ' verzichtest du auf Gewisse? Du kannst sie mir mit Kommata getrennt' +
-    ' auflisten. -> "Schwein, Rind,...';
+    ' auflisten. Z.B. Schwein, Rind,...';
 
 const THIRD_PROMPT_ALLERGIES = 'allergiesPrompt';
 const THIRD_PROMPT_MESSAGE_ALLERGIES = 'Ich hoffe du hast keine Allergien!' +
-    ' Falls doch, scheib sie mir mit Kommata gerennt auf. -> "Erdnüsse,' +
-    ' Dinkel, ..." oder "A20, A23, ...". Mischen geht auch.';
+    ' Falls doch, scheib sie mir mit Kommata gerennt auf. Z.B. Erdnüsse,' +
+    ' Dinkel, ... oder A20, A23, ....';
 
 const FORTH_PROMPT_OTHER = 'othersPrompt';
 const FORTH_PROMPT_MESSAGE_OTHER = 'Soll ich auf sonstige Ergänzungen' +
@@ -43,8 +43,9 @@ const studySample = {
     likesMeet: false,
     isVegetarian: false,
     isVegan: false,
-    considerVegetarian: true,
-    considerVegan: true
+    notWantedMeets: [],
+    allergies: [],
+    other: []
 };
 
 class GuidedCantinaDialog extends CancelAndHelpDialog {
@@ -54,8 +55,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         this.addDialog(new ChoicePrompt(VEGETARIAN_PROMPT));
         this.addDialog(new ChoicePrompt(VEGAN_PROMPT));
         this.addDialog(new TextPrompt(SECOND_PROMPT_WITHOUT_SPECIFIC));
-        this.addDialog(new ChoicePrompt(THIRD_PROMPT_ALLERGIES));
-        this.addDialog(new ChoicePrompt(FORTH_PROMPT_OTHER));
+        this.addDialog(new TextPrompt(THIRD_PROMPT_ALLERGIES));
+        this.addDialog(new TextPrompt(FORTH_PROMPT_OTHER));
         this.addDialog(new WaterfallDialog(GUIDED,
             [
                 this.welcomeUser.bind(this),
@@ -63,8 +64,9 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
                 this.meetCheck.bind(this),
                 this.vegetarianCheck.bind(this),
                 this.veganCheck.bind(this),
-                // this.checkNotWantedMeets.bind(this),
-                // this.collectNotWantedMeets.bind(this),
+                this.checkNotWantedMeets.bind(this),
+                this.checkAllergies.bind(this),
+                this.checkOther.bind(this),
                 this.guidedResult.bind(this)
             ]));
         this.initialDialogId = GUIDED;
@@ -117,52 +119,45 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             if (isVegan === userAccepts) {
                 studySample.isVegan = true;
             }
+            return await step.next();
+        } else {
+            return await step.prompt(SECOND_PROMPT_WITHOUT_SPECIFIC, {
+                prompt: SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC
+            });
+        }
+    }
+
+    async checkNotWantedMeets(step) {
+        if (typeof step.result !== 'undefined') {
+            const result = step.result;
+            studySample.notWantedMeets = result.split(',');
+        }
+        return await step.prompt(THIRD_PROMPT_ALLERGIES, {
+            prompt: THIRD_PROMPT_MESSAGE_ALLERGIES
+        });
+    }
+
+    async checkAllergies(step) {
+        if (typeof step.result !== 'undefined') {
+            const result = step.result;
+            studySample.allergies = result.split(',');
+        }
+        return await step.prompt(FORTH_PROMPT_OTHER, {
+            prompt: FORTH_PROMPT_MESSAGE_OTHER
+        });
+    }
+
+    async checkOther(step) {
+        if (typeof step.result !== 'undefined') {
+            const result = step.result;
+            studySample.other = result.split(',');
         }
         return await step.next();
     }
 
-    // async checkNotWantedMeets(step) {
-    //     return await step.prompt(SECOND_PROMPT_WITHOUT_SPECIFIC, {
-    //         prompt: SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC
-    //     });
-    // }
-    //
-    // async collectNotWantedMeets(step) {
-    //     if (typeof step.result !== 'undefined') {
-    //         const notWantedMeets = step.result;
-    //         // format content
-    //         const labels = await JsonOps.prototype
-    //             .loadFrom('utilities', 'labels');
-    //
-    //         for (const key in labels) {
-    //             console.log(key[0]);
-    //         }
-    //     }
-    // }
-
-    //
-    // async considerVeganDishes(step) {
-    //     if (typeof step.result === 'undefined') {
-    //         return await step.next();
-    //     } else {
-    //         const considerVegan = step.result.value;
-    //         if (considerVegan === userAccepts) {
-    //             return await step.next();
-    //         } else {
-    //             studySample.considerVegan = false;
-    //             return await step.next();
-    //         }
-    //     }
-    // }
-    //
-    // async allergyCheck(step) {
-    //     await step.context.sendActivity(MessageFactory
-    //         .text(JSON.stringify(studySample)));
-    //     return await step.next();
-    // }
-
     async guidedResult(step) {
-        // console.log(study);
+        await step.context.sendActivity(MessageFactory
+            .text(JSON.stringify(studySample)));
         return await step.endDialog();
     }
 }
