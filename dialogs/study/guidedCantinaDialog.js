@@ -63,8 +63,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
                 this.meetCheck.bind(this),
                 this.vegetarianCheck.bind(this),
                 this.veganCheck.bind(this),
-                this.checkNotWantedMeets.bind(this),
-                this.collectNotWantedMeets.bind(this),
+                // this.checkNotWantedMeets.bind(this),
+                // this.collectNotWantedMeets.bind(this),
                 this.guidedResult.bind(this)
             ]));
         this.initialDialogId = GUIDED;

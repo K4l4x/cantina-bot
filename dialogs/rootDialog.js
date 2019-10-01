@@ -1,6 +1,5 @@
 const { MessageFactory } = require('botbuilder');
 const { DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
-const { LuisRecognizer } = require('botbuilder-ai');
 
 const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
 const { Cantina } = require('../model/cantina');
@@ -60,7 +59,7 @@ class RootDialog extends CancelAndHelpDialog {
         this.luisRecognizer = luisRecognizer;
 
 
-        this.addDialog(new WelcomeDialog(WELCOME_DIALOG));
+        this.addDialog(new WelcomeDialog(WELCOME_DIALOG, this.luisRecognizer));
         this.addDialog(new TodaysMenuDialog(TODAYS_MENU_DIALOG));
         this.addDialog(new WeekMenuDialog(WEEK_MENU_DIALOG));
         this.addDialog(new OpeningHoursDialog(OPENING_HOURS_DIALOG));

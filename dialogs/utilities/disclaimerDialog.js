@@ -19,10 +19,11 @@ const CHOICE = {
 };
 
 class DisclaimerDialog extends CancelAndHelpDialog {
-    constructor(id) {
+    constructor(id, luisRecognizer) {
         super(id || DISCLAIMER_DIALOG);
+        this.luisRecognizer = luisRecognizer;
         this.addDialog(new ChoicePrompt(DISCLAIMER_PROMPT));
-        this.addDialog(new StudyDialog(STUDY_DIALOG));
+        this.addDialog(new StudyDialog(STUDY_DIALOG, this.luisRecognizer));
         this.addDialog(new WaterfallDialog(DISCLAIMER,
             [
                 this.promptDisclaimer.bind(this),

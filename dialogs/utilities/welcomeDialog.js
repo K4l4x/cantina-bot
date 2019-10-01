@@ -17,10 +17,12 @@ const WELCOME_CHOICE = ['Okay, cool und weiter?'];
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 
 class WelcomeDialog extends CancelAndHelpDialog {
-    constructor(id) {
+    constructor(id, luisRecognizer) {
         super(id || WELCOME_DIALOG);
+        this.luisRecognizer = luisRecognizer;
         this.addDialog(new ChoicePrompt(WELCOME_PROMPT));
-        this.addDialog(new DisclaimerDialog(DISCLAIMER_DIALOG));
+        this.addDialog(new DisclaimerDialog(
+            DISCLAIMER_DIALOG, this.luisRecognizer));
         this.addDialog(new WaterfallDialog(WELCOME,
             [
                 this.welcomeMessage.bind(this),

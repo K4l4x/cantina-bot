@@ -16,7 +16,7 @@ class CantinaRequestsRecognizer {
      * Returns an object with preformatted LUIS results for the bot's dialogs to consume.
      * @param {TurnContext} context
      */
-    async executeLuisQuery(context) {
+    async executeQuery(context) {
         return await this.recognizer.recognize(context);
     }
 }

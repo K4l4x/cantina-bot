@@ -2,16 +2,21 @@ const { WaterfallDialog } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 
 const { GuidedCantinaDialog } = require('./guidedCantinaDialog');
+const { OpenCantinaDialog } = require('./openCantinaDialog');
 
 const STUDY_DIALOG = 'studyDialog';
 const STUDY = 'study';
 
 const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
+const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
 
 class StudyDialog extends CancelAndHelpDialog {
-    constructor(id) {
+    constructor(id, luisRecognizer) {
         super(id || STUDY_DIALOG);
+        this.luisRecognizer = luisRecognizer;
         this.addDialog(new GuidedCantinaDialog(GUIDED_CANTINA_DIALOG));
+        this.addDialog(new OpenCantinaDialog(
+            OPEN_CANTINA_DIALOG, this.luisRecognizer));
         this.addDialog(new WaterfallDialog(STUDY, [
             this.startStudy.bind(this)
         ]));
@@ -19,18 +24,20 @@ class StudyDialog extends CancelAndHelpDialog {
     }
 
     async startStudy(step) {
-        // const randomNum = this.getRandomNum(10, 20);
-        const randomNum = 11;
+        // For testing: set number below 15 for guided, above 15 for open.
+        // const randomNum = 11;
+        // const randomNum = 16;
+        const randomNum = this.getRandomNum(10, 20);
+
         console.log('[Randomizer Result]: ' + randomNum);
         console.log('Studie starten...');
+
         if (randomNum < 15) {
             console.log('guided dialog');
             return await step.replaceDialog(GUIDED_CANTINA_DIALOG, step.options);
         } else {
             console.log('nlp dialog');
-            // return await step.replaceDialog(GUIDED_CANTINA_DIALOG,
-            // step.options);
-            return await step.endDialog();
+            return await step.replaceDialog(OPEN_CANTINA_DIALOG, step.options);
         }
     }
 
