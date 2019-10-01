@@ -1,12 +1,15 @@
 const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog, ChoiceFactory, ChoicePrompt, TextPrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
+const { MatchingDishDialog } = require('./matchingDishDialog');
 
 const { Study } = require('../../model/study');
 const { JsonOps } = require('../../utilities/jsonOps');
 
 const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 const GUIDED = 'guided';
+
+const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
 const userDeclines = 'nein';
 const userAccepts = 'ja';
@@ -39,6 +42,9 @@ const FORTH_PROMPT_OTHER = 'othersPrompt';
 const FORTH_PROMPT_MESSAGE_OTHER = 'Soll ich auf sonstige Ergänzungen' +
     ' achten? Zum Beispiel Alkohol oder Farbstoff.';
 
+const THANK_USER = 'Das war\'s schon, vielen Dank! Lass mich kurz nach dem' +
+    ' passenden Gericht suchen.';
+
 const studySample = {
     likesMeet: false,
     isVegetarian: false,
@@ -57,6 +63,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         this.addDialog(new TextPrompt(SECOND_PROMPT_WITHOUT_SPECIFIC));
         this.addDialog(new TextPrompt(THIRD_PROMPT_ALLERGIES));
         this.addDialog(new TextPrompt(FORTH_PROMPT_OTHER));
+        this.addDialog(new MatchingDishDialog(MATCHING_DISH_DIALOG));
         this.addDialog(new WaterfallDialog(GUIDED,
             [
                 this.welcomeUser.bind(this),
@@ -156,9 +163,12 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async guidedResult(step) {
+        // await step.context.sendActivity(MessageFactory
+        //     .text(JSON.stringify(studySample)));
+
         await step.context.sendActivity(MessageFactory
-            .text(JSON.stringify(studySample)));
-        return await step.endDialog();
+            .text(THANK_USER));
+        return await step.replaceDialog(MATCHING_DISH_DIALOG);
     }
 }
 
