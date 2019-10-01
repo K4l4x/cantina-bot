@@ -1,5 +1,6 @@
 const { MessageFactory } = require('botbuilder');
 const { DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
+const { LuisRecognizer } = require('botbuilder-ai');
 
 const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
 const { Cantina } = require('../model/cantina');
@@ -34,7 +35,7 @@ const validMessages = {
 };
 
 class RootDialog extends CancelAndHelpDialog {
-    constructor(conversationState, userState) {
+    constructor(conversationState, userState, luisRecognizer) {
         super(ROOT_DIALOG);
 
         if (!conversationState) {
@@ -45,6 +46,10 @@ class RootDialog extends CancelAndHelpDialog {
             throw new Error('[RootDialog]: Missing parameter.' +
             ' userState is required');
         }
+        if (!luisRecognizer) {
+            throw new Error('[RootDialog]: Missing' +
+                ' parameter \'luisRecognizer\' is required');
+        }
 
         // Create our state property accessors.
         this.cantinaProfile = conversationState
@@ -52,6 +57,8 @@ class RootDialog extends CancelAndHelpDialog {
         this.studyProfile = conversationState
             .createProperty(STUDY_STATE_PROPERTY);
         // this.userProfile = userState.createProperty(USER_STATE_PROPERTY);
+        this.luisRecognizer = luisRecognizer;
+
 
         this.addDialog(new WelcomeDialog(WELCOME_DIALOG));
         this.addDialog(new TodaysMenuDialog(TODAYS_MENU_DIALOG));
