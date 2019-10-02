@@ -33,10 +33,10 @@ class StudyDialog extends CancelAndHelpDialog {
         console.log('Studie starten...');
 
         if (randomNum < 15) {
-            console.log('guided dialog');
+            console.log('[StudyDialog]: guided dialog');
             return await step.replaceDialog(GUIDED_CANTINA_DIALOG, step.options);
         } else {
-            console.log('nlp dialog');
+            console.log('[StudyDialog]: nlp dialog');
             return await step.replaceDialog(OPEN_CANTINA_DIALOG, step.options);
         }
     }

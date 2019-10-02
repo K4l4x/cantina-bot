@@ -31,16 +31,16 @@ const VEGAN_PROMPT_MESSAGE = 'Bist du Veganer?';
 const SECOND_PROMPT_WITHOUT_SPECIFIC = 'withoutSpecificPrompt';
 const SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC = 'Alle Arten Fleisch? Oder' +
     ' verzichtest du auf Gewisse? Du kannst sie mir mit Kommata getrennt' +
-    ' auflisten. Z.B. Schwein, Rind,...';
+    ' auflisten z.B. Schwein, Rind,...';
 
 const THIRD_PROMPT_ALLERGIES = 'allergiesPrompt';
 const THIRD_PROMPT_MESSAGE_ALLERGIES = 'Ich hoffe du hast keine Allergien!' +
-    ' Falls doch, scheib sie mir mit Kommata gerennt auf. Z.B. Erdnüsse,' +
+    ' Falls doch, scheib sie mir mit Kommata gerennt auf z.B. Erdnüsse,' +
     ' Dinkel, ... oder A20, A23, ....';
 
 const FORTH_PROMPT_OTHER = 'othersPrompt';
 const FORTH_PROMPT_MESSAGE_OTHER = 'Soll ich auf sonstige Ergänzungen' +
-    ' achten? Zum Beispiel Alkohol oder Farbstoff.';
+    ' achten? Zum Beispiel Süßungsmittel oder Farbstoff.';
 
 const THANK_USER = 'Das war\'s schon, vielen Dank! Lass mich kurz nach dem' +
     ' passenden Gericht suchen.';
@@ -51,7 +51,8 @@ const studySample = {
     isVegan: false,
     notWantedMeets: [],
     allergies: [],
-    other: []
+    other: [],
+    cantina: {}
 };
 
 class GuidedCantinaDialog extends CancelAndHelpDialog {
@@ -168,7 +169,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
 
         await step.context.sendActivity(MessageFactory
             .text(THANK_USER));
-        return await step.replaceDialog(MATCHING_DISH_DIALOG);
+        return await step.replaceDialog(MATCHING_DISH_DIALOG, studySample);
     }
 }
 

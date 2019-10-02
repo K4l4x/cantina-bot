@@ -58,7 +58,6 @@ class RootDialog extends CancelAndHelpDialog {
         // this.userProfile = userState.createProperty(USER_STATE_PROPERTY);
         this.luisRecognizer = luisRecognizer;
 
-
         this.addDialog(new WelcomeDialog(WELCOME_DIALOG, this.luisRecognizer));
         this.addDialog(new TodaysMenuDialog(TODAYS_MENU_DIALOG));
         this.addDialog(new WeekMenuDialog(WEEK_MENU_DIALOG));
@@ -189,6 +188,7 @@ class RootDialog extends CancelAndHelpDialog {
     // }
 
     async handleRequests(step) {
+        const cantina = step.result;
         let dialogId = '';
         let options = {};
         const message = step.context.activity.text.toLowerCase();
@@ -196,6 +196,17 @@ class RootDialog extends CancelAndHelpDialog {
         if (message.includes(validMessages.START)) {
             dialogId = WELCOME_DIALOG;
             options = await this.studyProfile.get(step.context, new Study());
+        // if (message.includes(validMessages.START)) {
+        //     await step.context.sendActivity(MessageFactory
+        //         .text('Hi, ich bin CantinaBot. \n\n Blättere' +
+        //             ' einfach durch das Menü von heute oder eines anderen' +
+        //             ' Tages der Woche.'));
+        } else if (message.includes(validMessages.TODAY)) {
+            dialogId = TODAYS_MENU_DIALOG;
+            options = cantina;
+        } else if (message.includes(validMessages.WEEK)) {
+            dialogId = WEEK_MENU_DIALOG;
+            options = cantina;
         } else {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldiging, leider weiß ich nicht was du ' +
