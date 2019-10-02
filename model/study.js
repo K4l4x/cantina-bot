@@ -5,9 +5,9 @@ class Study {
         this.likesMeet = false;
         this.isVegetarian = false;
         this.isVegan = false;
-        this.notWantedMeets = [];
+        this.notWantedMeets = []; // TODO: Should later be renamed to labels.
         this.allergies = [];
-        this.other = [];
+        this.supplements = [];
         this.cantina = cantina;
     }
 }

@@ -47,6 +47,9 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         const supplementsKeys = Object.keys(supplements);
         const supplementsValues = Object.values(supplements);
 
+        // TODO: If true look into json.
+        const todaysMenu = await sampleStudy.cantina.menu.getDay();
+
         for (const entry of sampleStudy.notWantedMeets) {
             const meetType = entry.toLowerCase()
                 .replace(/\s+/g, '');
@@ -63,7 +66,6 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             if (labelValues.includes(meetType)) {
                 console.log('(LabelValues):' + meetType);
                 // TODO: If true look into json.
-                const todaysMenu = await sampleStudy.cantina.menu.getDay();
                 for (const entry of todaysMenu) {
                     const dish = new Dish();
                     Object.assign(dish, entry);
@@ -78,15 +80,21 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             const allergyType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 
+            // TODO: Works only for first entry (example: A30, A25; A30
+            //  works, but A25 gets the old menu list, like A30 never existed.
             if (allergiesKeys.includes(allergyType)) {
                 console.log('(AllergiesKeys):' + allergyType);
-                // TODO: If true look into json.
-                const todaysMenu = await sampleStudy.cantina.menu.getDay();
-                for (const entry of todaysMenu) {
-                    const dish = new Dish();
-                    Object.assign(dish, entry);
-                    if (dish.description.includes(allergyType.toUpperCase())) {
+                console.log('(Menus today): ' + todaysMenu.length);
+                // for (const entry of todaysMenu) {
+                for (let i = todaysMenu.length - 1; i >= 0; i--) {
+                    const entry = todaysMenu[i];
+                    if (entry.description.includes(allergyType.toUpperCase())) {
                         console.log('(LookIntoMenus.allergyKeys): ' + allergyType);
+                        const indexDish = todaysMenu.indexOf(entry);
+                        console.log('(Index of ' + entry.type + '): ' + indexDish);
+                        todaysMenu.splice(indexDish, 1);
+                        console.log('(Menus after algo): ' + todaysMenu.length);
+                        console.log('(Menus after algo): ' + JSON.stringify(todaysMenu));
                     }
                 }
             }
@@ -99,7 +107,6 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                 console.log('(AllergiesValues.findKey): ' + allergyType + ' -> ' +
                     allergyTypeKey);
                 // TODO: If true look into json.
-                const todaysMenu = await sampleStudy.cantina.menu.getDay();
                 for (const entry of todaysMenu) {
                     const dish = new Dish();
                     Object.assign(dish, entry);
@@ -129,16 +136,6 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                     otherTypeKey);
             }
         }
-        //
-        // for (const entry of sampleStudy.allergies) {
-        //     await step.context.sendActivity(MessageFactory
-        //         .text(entry));
-        // }
-        //
-        // for (const entry of sampleStudy.other) {
-        //     await step.context.sendActivity(MessageFactory
-        //         .text(entry));
-        // }
 
         // await step.context.sendActivity(MessageFactory
         //     .text(JSON.stringify(sampleStudy)));
