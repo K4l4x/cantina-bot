@@ -193,14 +193,14 @@ class RootDialog extends CancelAndHelpDialog {
         let options = {};
         const message = step.context.activity.text.toLowerCase();
 
-        if (message.includes(validMessages.START)) {
-            dialogId = WELCOME_DIALOG;
-            options = await this.studyProfile.get(step.context, new Study());
         // if (message.includes(validMessages.START)) {
-        //     await step.context.sendActivity(MessageFactory
-        //         .text('Hi, ich bin CantinaBot. \n\n Blättere' +
-        //             ' einfach durch das Menü von heute oder eines anderen' +
-        //             ' Tages der Woche.'));
+        //     dialogId = WELCOME_DIALOG;
+        //     options = await this.studyProfile.get(step.context, new Study());
+        if (message.includes(validMessages.START)) {
+            await step.context.sendActivity(MessageFactory
+                .text('Hi, ich bin CantinaBot. \n\n Blättere' +
+                    ' einfach durch das Menü von heute oder eines anderen' +
+                    ' Tages der Woche.'));
         } else if (message.includes(validMessages.TODAY)) {
             dialogId = TODAYS_MENU_DIALOG;
             options = cantina;
@@ -210,7 +210,8 @@ class RootDialog extends CancelAndHelpDialog {
         } else {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldiging, leider weiß ich nicht was du ' +
-                'mit ' + '**\'' + message + '\'**' + ' meinst.'));
+                'mit ' + '**\'' + message + '\'**' + ' meinst. Frag mich' +
+                ' doch z.B. "Was gibt es heute zu essen?".'));
         }
 
         if (dialogId !== '') {
