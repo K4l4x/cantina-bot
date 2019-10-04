@@ -193,14 +193,14 @@ class RootDialog extends CancelAndHelpDialog {
         let options = {};
         const message = step.context.activity.text.toLowerCase();
 
-        // if (message.includes(validMessages.START)) {
-        //     dialogId = WELCOME_DIALOG;
-        //     options = await this.studyProfile.get(step.context, new Study());
         if (message.includes(validMessages.START)) {
-            await step.context.sendActivity(MessageFactory
-                .text('Hi, ich bin CantinaBot. \n\n Blättere' +
-                    ' einfach durch das Menü von heute oder eines anderen' +
-                    ' Tages der Woche.'));
+            dialogId = WELCOME_DIALOG;
+            options = await this.studyProfile.get(step.context, new Study());
+        // if (message.includes(validMessages.START)) {
+        //     await step.context.sendActivity(MessageFactory
+        //         .text('Hi, ich bin CantinaBot. \n\n Blättere' +
+        //             ' einfach durch das Menü von heute oder eines anderen' +
+        //             ' Tages der Woche.'));
         } else if (message.includes(validMessages.TODAY)) {
             dialogId = TODAYS_MENU_DIALOG;
             options = cantina;
