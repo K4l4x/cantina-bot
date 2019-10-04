@@ -1,4 +1,4 @@
-const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
+const { MessageFactory, CardFactory, AttachmentLayoutTypes } = require('botbuilder');
 const { WaterfallDialog } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
@@ -32,6 +32,8 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
                     .createMenuCard(menuPart)));
         }
 
+        await step.context.sendActivity(MessageFactory.text('Das sind die' +
+            ' Gerichte von heute.'));
         await step.context.sendActivity({
             attachments: attachments,
             attachmentLayout: AttachmentLayoutTypes.Carousel
