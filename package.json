@@ -18,6 +18,7 @@
     "dependencies": {
         "adaptivecards": "^1.2.0",
         "botbuilder": "^4.5.3",
+        "botbuilder-azure": "^4.5.3",
         "botbuilder-dialogs": "^4.5.3",
         "botbuilder-testing": "^4.5.3",
         "botframework-connector": "latest",

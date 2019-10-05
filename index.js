@@ -1,6 +1,5 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
-
 const dotenv = require('dotenv');
 const path = require('path');
 const restify = require('restify');
@@ -9,26 +8,48 @@ const restify = require('restify');
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
 const { CantinaRequestsRecognizer } = require('./utilities/CantinaRequestsRecognizer');
-
-// Import required bot configuration.
-// const { BotConfiguration } = require('botframework-config');
+const { BlobStorage } = require('botbuilder-azure');
 
 // This bot's main routine and rootDialog.
 const { CantinaBot } = require('./bot');
 const { RootDialog } = require('./dialogs/rootDialog');
 
-// Read botFilePath and botFileSecret from .env file
-// Note: Ensure you have a .env file and include botFilePath and botFileSecret.
+// Read .env file for configuration
 const ENV_FILE = path.join(__dirname, '.env');
 dotenv.config({ path: ENV_FILE });
 
-// bot endpoint name as defined in .bot file
-// See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration.
-// const DEV_ENVIRONMENT = 'development';
+// const blobStorage = new BlobStorage({
+//     containerName: process.env.Container,
+//     storageAccessKey: process.env.StorageKey,
+//     storageAccountOrConnectionString: process.env.ConnectionString
+// });
 
-// bot name as defined in .bot file
-// See https://aka.ms/about-bot-file to learn more about .bot file its use and bot configuration.
-// const BOT_CONFIGURATION = (process.env.NODE_ENV || DEV_ENVIRONMENT);
+// If configured, pass in the recognizer.  (Defining it externally allows it
+// to be mocked for tests)
+const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
+const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
+
+// Create adapter.
+// See https://aka.ms/about-bot-adapter to learn more about .bot file its use and bot configuration.
+const adapter = new BotFrameworkAdapter({
+    appId: process.env.MicrosoftAppId,
+    appPassword: process.env.MicrosoftAppPassword
+});
+
+// Create cantina request recognizer.
+const luisRecognizer = new CantinaRequestsRecognizer(luisConfig);
+
+// Define state store (In-Memory) for your bot.
+const memoryStorage = new MemoryStorage();
+// Define state store (Blob) for bot.
+
+// Create conversation and user state with in-memory storage provider.
+const conversationState = new ConversationState(memoryStorage);
+const userState = new UserState(memoryStorage);
+
+// Create conversation and user state with blob storage provider.
+// const conversationState = new ConversationState(blobStorage);
+// const userState = new UserState(blobStorage);
 
 // Create HTTP server
 const server = restify.createServer();
@@ -39,16 +60,6 @@ server.listen(process.env.port || process.env.PORT || 3000, () => {
     console.log(`\nTo talk to your bot, open CantinaBot.bot file in the Emulator`);
 });
 
-// // Get bot endpoint configuration by service name
-// const endpointConfig = botConfig.findServiceByNameOrId(BOT_CONFIGURATION);
-
-// Create adapter.
-// See https://aka.ms/about-bot-adapter to learn more about .bot file its use and bot configuration.
-const adapter = new BotFrameworkAdapter({
-    appId: process.env.MicrosoftAppId,
-    appPassword: process.env.MicrosoftAppPassword
-});
-
 // Catch-all for errors.
 adapter.onTurnError = async (context, error) => {
     // This check writes out errors to console log .vs. app insights.
@@ -56,19 +67,6 @@ adapter.onTurnError = async (context, error) => {
     // Send a message to the user
     await context.sendActivity('Leider ist da etwas total schiefgelaufen.');
 };
-
-// If configured, pass in the FlightBookingRecognizer.  (Defining it externally allows it to be mocked for tests)
-const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
-const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
-
-const luisRecognizer = new CantinaRequestsRecognizer(luisConfig);
-
-// Define state store for your bot.
-const memoryStorage = new MemoryStorage();
-
-// Create conversation and user state with in-memory storage provider.
-const conversationState = new ConversationState(memoryStorage);
-const userState = new UserState(memoryStorage);
 
 // Create the main dialog.
 const dialog = new RootDialog(conversationState, userState, luisRecognizer);
