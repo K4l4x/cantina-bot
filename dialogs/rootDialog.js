@@ -211,7 +211,7 @@ class RootDialog extends CancelAndHelpDialog {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldiging, leider weiß ich nicht was du ' +
                 'mit ' + '**\'' + message + '\'**' + ' meinst. Frag mich' +
-                ' doch z.B. "Was gibt es heute zu essen?".'));
+                ' doch z.B. "Was gibt es diese Woche zu essen?".'));
         }
 
         if (dialogId !== '') {
