@@ -125,68 +125,6 @@ class RootDialog extends CancelAndHelpDialog {
         return await step.next(cantina);
     }
 
-    // /**
-    //  * Just handle incoming messages and begin new dialogs from here.
-    //  * @param step
-    //  * @returns {Promise<*>}
-    //  */
-    // async handleRequests(step) {
-    //     const cantina = step.result;
-    //     const message = step.context.activity.text.toLowerCase();
-    //     let dialogId = '';
-    //     let options = {};
-    //
-    //     switch (message) {
-    //     case '/start':
-    //     case 'hi':
-    //     case 'hallo':
-    //     case 'moin':
-    //         dialogId = WELCOME_DIALOG;
-    //         options = cantina;
-    //         break;
-    //     case 'heute':
-    //         dialogId = TODAYS_MENU_DIALOG;
-    //         options = cantina;
-    //         break;
-    //     case 'woche':
-    //         dialogId = WEEK_MENU_DIALOG;
-    //         options = cantina;
-    //         break;
-    //     case 'öffnungszeiten':
-    //         dialogId = OPENING_HOURS_DIALOG;
-    //         options = cantina;
-    //         break;
-    //     case 'kontakt':
-    //         dialogId = CONTACT_DIALOG;
-    //         break;
-    //     case 'disclaimer':
-    //         dialogId = DISCLAIMER_DIALOG;
-    //         options = await this.studyProfile
-    //             .get(step.context, new Study());
-    //         break;
-    //     default:
-    //         await step.context.sendActivity(MessageFactory.text('Entschuldiging, leider' +
-    //             ' weiß ich nicht was du mit ' + '**\'' + message + '\'**' + ' meinst.'));
-    //     }
-    //
-    //     if (dialogId !== '') {
-    //         return await step.beginDialog(dialogId, options);
-    //     } else {
-    //         return await step.next();
-    //     }
-    // }
-
-    // /**
-    //  * Handling results from the ended dialogs.
-    //  * @param step
-    //  * @returns {Promise<*>}
-    //  */
-    // async analyseResults(step) {
-    //     // const cantina = step.result;
-    //     // Returns no result, because there is no parent dialog to resume from.
-    //     return await step.endDialog();
-    // }
-
     async handleRequests(step) {
         const cantina = step.result;
         let dialogId = '';
