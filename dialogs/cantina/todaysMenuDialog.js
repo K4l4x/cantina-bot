@@ -25,19 +25,25 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
         // For testing just give getDay() a weekday from 1-5.
         const todaysMenu = await cantina.menu.getDay();
 
-        for (const dish of todaysMenu) {
-            const menuPart = Object.assign(new Dish(), dish);
-            attachments.push(CardFactory
-                .adaptiveCard(await CardSchema.prototype
-                    .createMenuCard(menuPart)));
+        if (todaysMenu.length > 0) {
+            for (const dish of todaysMenu) {
+                const menuPart = Object.assign(new Dish(), dish);
+                attachments.push(CardFactory
+                    .adaptiveCard(await CardSchema.prototype
+                        .createMenuCard(menuPart)));
+            }
+
+            await step.context.sendActivity(MessageFactory.text('Das sind' +
+                ' die Gerichte von heute.'));
+            await step.context.sendActivity({
+                attachments: attachments,
+                attachmentLayout: AttachmentLayoutTypes.Carousel
+            });
+        } else {
+            await step.context.sendActivity(MessageFactory.text('Am' +
+                ' Wochenende ist die Mensa geschlossen.'));
         }
 
-        await step.context.sendActivity(MessageFactory.text('Das sind die' +
-            ' Gerichte von heute.'));
-        await step.context.sendActivity({
-            attachments: attachments,
-            attachmentLayout: AttachmentLayoutTypes.Carousel
-        });
         return await step.endDialog(cantina);
     }
 }
