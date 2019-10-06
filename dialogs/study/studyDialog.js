@@ -63,6 +63,7 @@ class StudyDialog extends CancelAndHelpDialog {
         }
     }
 
+    // TODO: Has to be moved to own Dialog class.
     async promptNLP(step) {
         return await step.prompt(OPEN_WELCOME_PROMPT, {
             prompt: OPEN_WELCOME_PROMPT_MESSAGE,
@@ -72,6 +73,7 @@ class StudyDialog extends CancelAndHelpDialog {
         });
     }
 
+    // TODO: Has to be moved to own Dialog class.
     async handleNLPChoice(step) {
         const choice = step.result.value;
         if (userChoices[CHOICE.YES] === choice) {
