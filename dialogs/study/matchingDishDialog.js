@@ -50,6 +50,30 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         // TODO: If true look into json.
         const todaysMenu = await sampleStudy.cantina.menu.getDay();
 
+        if (sampleStudy.isVegetarian) {
+            for (const entry of todaysMenu) {
+                const dish = new Dish();
+                Object.assign(dish, entry);
+                if (dish.type.includes('vegetarisch')) {
+                    console.log('(LookIntoMenus.type): ' + 'is vegetarian');
+                } else if (dish.description.includes('vegetarisch')) {
+                    console.log('(LookIntoMenus.description): ' + 'is vegetarian');
+                }
+            }
+        }
+
+        if (sampleStudy.isVegan) {
+            for (const entry of todaysMenu) {
+                const dish = new Dish();
+                Object.assign(dish, entry);
+                if (dish.type.includes('vegan')) {
+                    console.log('(LookIntoMenus.type): ' + 'is vegan');
+                } else if (dish.description.includes('vegan')) {
+                    console.log('(LookIntoMenus.description): ' + 'is vegan');
+                }
+            }
+        }
+
         for (const entry of sampleStudy.notWantedMeets) {
             const meetType = entry.toLowerCase()
                 .replace(/\s+/g, '');
