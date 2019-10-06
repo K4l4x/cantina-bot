@@ -6,10 +6,9 @@ const { MatchingDishDialog } = require('./matchingDishDialog');
 const { Study } = require('../../model/study');
 const { JsonOps } = require('../../utilities/jsonOps');
 
+const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 const GUIDED = 'guided';
-
-const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
 const userDeclines = 'nein';
 const userAccepts = 'ja';
@@ -19,12 +18,14 @@ const WELCOME_TO_DIALOG = MessageFactory.text('Ich werde dir nun ein paar' +
     ' Fragen stellen und durch deine Antworten das richtige Gericht für' +
     ' dich finden.');
 
+// Start of step tree.
 const FIRST_PROMPT_MEET = 'meetPrompt';
 const FIRST_PROMPT_MESSAGE_MEET = 'Magst du fleischhaltiges Essen?';
 
+// Have no prefixing number, because they are part of the FIRST_PROMPT. If
+// the user declines FIRST_PROMPT this will be the next two prompts.
 const VEGETARIAN_PROMPT = 'vegetarianPrompt';
 const VEGETARIAN_PROMPT_MESSAGE = 'Bist du Vegetarier?';
-
 const VEGAN_PROMPT = 'veganPrompt';
 const VEGAN_PROMPT_MESSAGE = 'Bist du Veganer?';
 
@@ -42,8 +43,9 @@ const FORTH_PROMPT_OTHER = 'othersPrompt';
 const FORTH_PROMPT_MESSAGE_OTHER = 'Soll ich auf sonstige Ergänzungen' +
     ' achten? Zum Beispiel Süßungsmittel oder Farbstoff.';
 
-const THANK_USER = 'Das war\'s schon, vielen Dank! Lass mich kurz nach dem' +
-    ' passenden Gericht suchen.';
+// End of strep tree.
+const THANK_USER = MessageFactory.text('Das war\'s schon, vielen Dank! ' +
+    'Lass mich kurz nach dem passenden Gericht suchen...');
 
 const studySample = {
     likesMeet: false,
@@ -167,8 +169,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         // await step.context.sendActivity(MessageFactory
         //     .text(JSON.stringify(studySample)));
 
-        await step.context.sendActivity(MessageFactory
-            .text(THANK_USER));
+        // TODO Go back to studyDialog with result.
+        await step.context.sendActivity(THANK_USER);
         return await step.replaceDialog(MATCHING_DISH_DIALOG, studySample);
     }
 }

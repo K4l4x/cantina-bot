@@ -163,7 +163,6 @@ class RootDialog extends CancelAndHelpDialog {
         // const possibleCantina = new Study();
         // Object.assign(possibleCantina, step.result);
         // const cantina = await this.studyProfile.set(step.context, possibleCantina);
-        // return await step.endDialog(cantina);
         return await step.endDialog();
     }
 }
