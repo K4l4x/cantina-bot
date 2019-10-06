@@ -10,8 +10,8 @@ const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
 const OPEN = 'open';
 
-const WELCOME_PROMPT = 'welcomePrompt';
-const WELCOME_PROMPT_MESSAGE = MessageFactory.text('I WELCOME YOU');
+const ANKER_PROMPT = 'ankerPrompt';
+let ANKER_PROMPT_TEXT = 'Okay, leg los';
 
 // End of strep tree.
 const THANK_USER = MessageFactory.text('Das war\'s schon, vielen Dank! ' +
@@ -32,19 +32,19 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
         super(id || OPEN_CANTINA_DIALOG);
         this.luisRecognizer = luisRecognizer;
         this.addDialog(new MatchingDishDialog(MATCHING_DISH_DIALOG));
-        this.addDialog(new TextPrompt(WELCOME_PROMPT));
+        this.addDialog(new TextPrompt(ANKER_PROMPT));
         this.addDialog(new WaterfallDialog(OPEN,
             [
-                this.welcomeUser.bind(this),
+                this.anker.bind(this),
                 this.switchIntention.bind(this),
                 this.openResults.bind(this)
             ]));
         this.initialDialogId = OPEN;
     }
 
-    async welcomeUser(step) {
-        return await step.prompt(WELCOME_PROMPT, {
-            prompt: WELCOME_PROMPT_MESSAGE
+    async anker(step) {
+        return await step.prompt(ANKER_PROMPT, {
+            prompt: ANKER_PROMPT_TEXT
         });
     }
 
@@ -54,9 +54,11 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
             if (LuisRecognizer.topIntent(luisResult) === 'isVegetarian') {
                 console.log('[OpenCantinaDialog]: isVegetarian Intent hit.');
                 studySample.isVegetarian = true;
+                ANKER_PROMPT_TEXT = 'Alles klar, vegetarisch.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'isVegan') {
                 console.log('[OpenCantinaDialog]: isVegan Intent hit.');
                 studySample.isVegan = true;
+                ANKER_PROMPT_TEXT = 'Alles klar, vegan';
             } else if (LuisRecognizer.topIntent(luisResult) === 'hasAllergies') {
                 console.log('[OpenCantinaDialog]: hasAllergies Intent hit.');
 
@@ -65,6 +67,9 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
                 const value = (luisResult.entities['Allergies'][0]).toString();
                 console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
                 studySample.allergies.push(value);
+                ANKER_PROMPT_TEXT = 'Alles klar.';
+            } else if (LuisRecognizer.topIntent(luisResult) === 'isFinished') {
+                await step.context.sendActivity('okay, fertig');
             } else {
                 await step.context.sendActivity(
                     MessageFactory.text('None Intent hit'));
