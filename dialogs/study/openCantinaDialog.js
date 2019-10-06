@@ -70,27 +70,26 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
                 ANKER_PROMPT_TEXT = 'Alles klar.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'isFinished') {
                 await step.context.sendActivity('okay, fertig');
+                return await step.next('finished');
             } else {
                 await step.context.sendActivity(
-                    MessageFactory.text('None Intent hit'));
+                    MessageFactory.text('hm, dass habe ich leider nicht' +
+                        ' verstanden'));
             }
         }
-
         return await step.next();
     }
 
     async openResults(step) {
-        // await step.context.sendActivity(MessageFactory
-        //     .text(JSON.stringify(studySample)));
-
-        // TODO: Should have two options:
-        //  1) Just end this dialog and start the matchingDialog (go back to
-        //  studyDialog with result?)
-        //  2) Loop this dialog to reuse the code for more "data mining"
-        //  with LUIS.
-        // await step.context.sendActivity(JSON.stringify(studySample));
-        // await step.context.sendActivity(THANK_USER);
-        return await step.replaceDialog(OPEN_CANTINA_DIALOG, studySample);
+        if (typeof step.result === 'undefined') {
+            // Just loop this dialog because the is not finished yet.
+            return await step.replaceDialog(OPEN_CANTINA_DIALOG, studySample);
+        } else {
+            if (step.result === 'finished') {
+                await step.context.sendActivity(THANK_USER);
+                return await step.replaceDialog(MATCHING_DISH_DIALOG, studySample);
+            }
+        }
     }
 }
 
