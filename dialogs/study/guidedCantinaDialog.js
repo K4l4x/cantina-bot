@@ -137,6 +137,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         }
     }
 
+    // Only hit, if user is not vegetarian or vegan.
     async checkNotWantedMeets(step) {
         if (typeof step.result !== 'undefined') {
             const result = step.result;
