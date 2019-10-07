@@ -20,16 +20,16 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
     }
 
     async prepare(step) {
-        // if (this.luisRecognizer.isConfigured) {
-        //     const luisResult = await this.luisRecognizer.executeQuery(step.context);
-        //     if (LuisRecognizer.topIntent(luisResult) === 'Greeting') {
-        //         await step.context.sendActivity(
-        //             MessageFactory.text('Hit Greeting Intent'));
-        //     } else {
-        //         await step.context.sendActivity(
-        //             MessageFactory.text('None Intent hit'));
-        //     }
-        // }
+        if (this.luisRecognizer.isConfigured) {
+            const luisResult = await this.luisRecognizer.executeQuery(step.context);
+            if (LuisRecognizer.topIntent(luisResult) === 'isVegan') {
+                await step.context.sendActivity(
+                    MessageFactory.text('Hit isVegan Intent'));
+            } else {
+                await step.context.sendActivity(
+                    MessageFactory.text('None Intent hit'));
+            }
+        }
         return await step.endDialog();
     }
 }
