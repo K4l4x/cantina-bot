@@ -51,7 +51,7 @@ class CardSchema {
                             type: 'TextBlock',
                             size: 'Medium',
                             weight: 'Bolder',
-                            text: 'Öffnungszeiten: ' + cantina.name
+                            text: 'Mensa X'
                         }
                     ]
                 },

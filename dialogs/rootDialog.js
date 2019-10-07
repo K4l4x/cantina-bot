@@ -151,6 +151,9 @@ class RootDialog extends CancelAndHelpDialog {
         } else if (message.includes(validMessages.WEEK)) {
             dialogId = WEEK_MENU_DIALOG;
             options = cantina;
+        } else if (message.includes(validMessages.OPENINGHOURS)) {
+            dialogId = OPENING_HOURS_DIALOG;
+            options = cantina;
         } else {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldiging, leider weiß ich nicht was du ' +
