@@ -10,10 +10,10 @@ const { TodaysMenuDialog } = require('./cantina/todaysMenuDialog');
 const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
 const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
 const { ContactDialog } = require('./utilities/contactDialog');
+const { DisclaimerDialog } = require('./utilities/disclaimerDialog');
 
 const CANTINA_STATE_PROPERTY = 'cantinaStatePropertyAccessor';
 const STUDY_STATE_PROPERTY = 'studyStatePropertyAccessor';
-// const USER_STATE_PROPERTY = 'userStatePropertyAccessor';
 
 const ROOT_DIALOG = 'rootDialog';
 const ROOT_WATERFALL = 'rootWaterfall';
@@ -23,6 +23,7 @@ const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
 const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
 const CONTACT_DIALOG = 'contactDialog';
+const DISCLAIMER_DIALOG = 'disclaimerDialog';
 
 const validMessages = {
     START: '/start',
@@ -30,7 +31,8 @@ const validMessages = {
     NOW: 'jetzt',
     WEEK: 'woche',
     OPENINGHOURS: 'öffnungszeiten',
-    OPEN: 'offen'
+    OPEN: 'offen',
+    FIND_DISH: 'finde mein gericht'
 };
 
 class RootDialog extends CancelAndHelpDialog {
@@ -63,6 +65,7 @@ class RootDialog extends CancelAndHelpDialog {
         this.addDialog(new WeekMenuDialog(WEEK_MENU_DIALOG));
         this.addDialog(new OpeningHoursDialog(OPENING_HOURS_DIALOG));
         this.addDialog(new ContactDialog(CONTACT_DIALOG));
+        this.addDialog(new DisclaimerDialog(DISCLAIMER_DIALOG, this.luisRecognizer));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
             this.prepareStorage.bind(this),
             this.handleRequests.bind(this),
@@ -134,11 +137,14 @@ class RootDialog extends CancelAndHelpDialog {
         if (message.includes(validMessages.START)) {
             dialogId = WELCOME_DIALOG;
             options = await this.studyProfile.get(step.context, new Study());
-        // if (message.includes(validMessages.START)) {
-        //     await step.context.sendActivity(MessageFactory
-        //         .text('Hi, ich bin CantinaBot. \n\n Blättere' +
-        //             ' einfach durch das Menü von heute oder eines anderen' +
-        //             ' Tages der Woche.'));
+            // if (message.includes(validMessages.START)) {
+            //     await step.context.sendActivity(MessageFactory
+            //         .text('Hi, ich bin CantinaBot. \n\n Blättere' +
+            //             ' einfach durch das Menü von heute oder eines anderen' +
+            //             ' Tages der Woche.'));
+        } else if (message.includes(validMessages.FIND_DISH)) {
+            dialogId = DISCLAIMER_DIALOG;
+            options = await this.studyProfile.get(step.context, new Study());
         } else if (message.includes(validMessages.TODAY)) {
             dialogId = TODAYS_MENU_DIALOG;
             options = cantina;
@@ -163,7 +169,7 @@ class RootDialog extends CancelAndHelpDialog {
         const study = new Study();
         Object.assign(study, step.result);
         await this.studyProfile.set(step.context, study);
-        await step.context.sendActivity(JSON.stringify(study));
+        // await step.context.sendActivity(JSON.stringify(study));
         return await step.endDialog();
     }
 }

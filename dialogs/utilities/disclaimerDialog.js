@@ -55,7 +55,7 @@ class DisclaimerDialog extends CancelAndHelpDialog {
                 .text('Aller klar. Du kannst mich nach dem heutigen Menü' +
                     ' fragen oder eine Wochenübersicht durchblättern. Falls' +
                     ' du deine Meinung ändern möchtest schreibe mir doch' +
-                    ' einfach YYY.'));
+                    ' einfach "finde mein gericht".'));
             return await step.endDialog();
         }
     }
