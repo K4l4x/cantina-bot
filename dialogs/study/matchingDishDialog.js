@@ -1,10 +1,10 @@
-const { MessageFactory } = require('botbuilder');
-const { WaterfallDialog, ChoiceFactory, ChoicePrompt } = require('botbuilder-dialogs');
-const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
+const { CardFactory, AttachmentLayoutTypes } = require('botbuilder');
+const { WaterfallDialog } = require('botbuilder-dialogs');
 
+const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
+const { CardSchema } = require('../../utilities/cardSchema');
 const { Cantina } = require('../../model/cantina');
 const { Dish } = require('../../model/dish');
-
 const { JsonOps } = require('../../utilities/jsonOps');
 
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
@@ -26,10 +26,10 @@ class MatchingDishDialog extends CancelAndHelpDialog {
     //  duplicates before searching in the descriptions. Only with "lables"
     //  the description should also be searched with values.
     async prepare(step) {
-        const sampleStudy = step.options;
+        const study = step.options;
         const tmpCantina = new Cantina('mensaX');
         await tmpCantina.menu.loadList();
-        sampleStudy.cantina = tmpCantina;
+        study.cantina = tmpCantina;
 
         // TODO: Should be done in root dialog or even before that.
         const labels = await JsonOps.prototype
@@ -48,9 +48,33 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         const supplementsValues = Object.values(supplements);
 
         // TODO: If true look into json.
-        const todaysMenu = await sampleStudy.cantina.menu.getDay();
+        const todaysMenu = await study.cantina.menu.getDay();
 
-        for (const entry of sampleStudy.notWantedMeets) {
+        if (study.isVegetarian) {
+            for (const entry of todaysMenu) {
+                const dish = new Dish();
+                Object.assign(dish, entry);
+                if (dish.type.includes('vegetarisch')) {
+                    console.log('(LookIntoMenus.type): ' + 'is vegetarian');
+                } else if (dish.description.includes('vegetarisch')) {
+                    console.log('(LookIntoMenus.description): ' + 'is vegetarian');
+                }
+            }
+        }
+
+        if (study.isVegan) {
+            for (const entry of todaysMenu) {
+                const dish = new Dish();
+                Object.assign(dish, entry);
+                if (dish.type.includes('vegan')) {
+                    console.log('(LookIntoMenus.type): ' + 'is vegan');
+                } else if (dish.description.includes('vegan')) {
+                    console.log('(LookIntoMenus.description): ' + 'is vegan');
+                }
+            }
+        }
+
+        for (const entry of study.notWantedMeets) {
             const meetType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 
@@ -61,22 +85,37 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                 const meetTypeValue = labels[meetType];
                 console.log('(LabelKeys.findValue): ' + meetType + ' -> ' +
                     meetTypeValue);
+                for (let i = todaysMenu.length - 1; i >= 0; i--) {
+                    const entry = todaysMenu[i];
+                    if (entry.description.toLowerCase().includes(meetTypeValue)) {
+                        console.log('(LookIntoMenus.meetTypeValue): ' + meetTypeValue);
+                        const indexDish = todaysMenu.indexOf(entry);
+                        console.log('(Index of ' + entry.type + '): ' + indexDish);
+                        todaysMenu.splice(indexDish, 1);
+                        console.log('(Menus after algo): ' + todaysMenu.length);
+                        console.log('(Menus after algo): ' + JSON.stringify(todaysMenu));
+                    }
+                }
             }
 
             if (labelValues.includes(meetType)) {
                 console.log('(LabelValues):' + meetType);
                 // TODO: If true look into json.
-                for (const entry of todaysMenu) {
-                    const dish = new Dish();
-                    Object.assign(dish, entry);
-                    if (dish.description.includes(meetType)) {
+                for (let i = todaysMenu.length - 1; i >= 0; i--) {
+                    const entry = todaysMenu[i];
+                    if (entry.description.toLowerCase().includes(meetType)) {
                         console.log('(LookIntoMenus.meetType): ' + meetType);
+                        const indexDish = todaysMenu.indexOf(entry);
+                        console.log('(Index of ' + entry.type + '): ' + indexDish);
+                        todaysMenu.splice(indexDish, 1);
+                        console.log('(Menus after algo): ' + todaysMenu.length);
+                        console.log('(Menus after algo): ' + JSON.stringify(todaysMenu));
                     }
                 }
             }
         }
 
-        for (const entry of sampleStudy.allergies) {
+        for (const entry of study.allergies) {
             const allergyType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 
@@ -85,7 +124,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             if (allergiesKeys.includes(allergyType)) {
                 console.log('(AllergiesKeys):' + allergyType);
                 console.log('(Menus today): ' + todaysMenu.length);
-                // for (const entry of todaysMenu) {
+
                 for (let i = todaysMenu.length - 1; i >= 0; i--) {
                     const entry = todaysMenu[i];
                     if (entry.description.includes(allergyType.toUpperCase())) {
@@ -106,12 +145,16 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                 const allergyTypeKey = allergiesKeys.find(key => allergies[key] === allergyType);
                 console.log('(AllergiesValues.findKey): ' + allergyType + ' -> ' +
                     allergyTypeKey);
-                // TODO: If true look into json.
-                for (const entry of todaysMenu) {
-                    const dish = new Dish();
-                    Object.assign(dish, entry);
-                    if (dish.description.includes(allergyType)) {
-                        console.log('(LookIntoMenus.allergyValues): ' + allergyType);
+
+                for (let i = todaysMenu.length - 1; i >= 0; i--) {
+                    const entry = todaysMenu[i];
+                    if (entry.description.includes(allergyTypeKey.toUpperCase())) {
+                        console.log('(LookIntoMenus.allergyTypeKey): ' + allergyTypeKey);
+                        const indexDish = todaysMenu.indexOf(entry);
+                        console.log('(Index of ' + entry.type + '): ' + indexDish);
+                        todaysMenu.splice(indexDish, 1);
+                        console.log('(Menus after algo): ' + todaysMenu.length);
+                        console.log('(Menus after algo): ' + JSON.stringify(todaysMenu));
                     }
                 }
             }
@@ -119,13 +162,23 @@ class MatchingDishDialog extends CancelAndHelpDialog {
 
         // TODO: if true get key by value and search with key in
         //  description.
-        for (const entry of sampleStudy.other) {
+        for (const entry of study.other) {
             const otherType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 
             if (supplementsKeys.includes(otherType)) {
                 console.log('(SupplementsKeys):' + otherType);
-                // TODO: If true look into json.
+                for (let i = todaysMenu.length - 1; i >= 0; i--) {
+                    const entry = todaysMenu[i];
+                    if (entry.description.includes(otherType.toUpperCase())) {
+                        console.log('(LookIntoMenus.otherType): ' + otherType);
+                        const indexDish = todaysMenu.indexOf(entry);
+                        console.log('(Index of ' + entry.type + '): ' + indexDish);
+                        todaysMenu.splice(indexDish, 1);
+                        console.log('(Menus after algo): ' + todaysMenu.length);
+                        console.log('(Menus after algo): ' + JSON.stringify(todaysMenu));
+                    }
+                }
             }
 
             if (supplementsValues.includes(otherType)) {
@@ -134,12 +187,36 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                 const otherTypeKey = supplementsKeys.find(key => supplements[key] === otherType);
                 console.log('(SupplementsValues.findKey): ' + otherType + ' -> ' +
                     otherTypeKey);
+
+                for (let i = todaysMenu.length - 1; i >= 0; i--) {
+                    const entry = todaysMenu[i];
+                    if (entry.description.includes(otherTypeKey.toUpperCase())) {
+                        console.log('(LookIntoMenus.otherTypeKey): ' + otherTypeKey);
+                        const indexDish = todaysMenu.indexOf(entry);
+                        console.log('(Index of ' + entry.type + '): ' + indexDish);
+                        todaysMenu.splice(indexDish, 1);
+                        console.log('(Menus after algo): ' + todaysMenu.length);
+                        console.log('(Menus after algo): ' + JSON.stringify(todaysMenu));
+                    }
+                }
             }
         }
 
-        // await step.context.sendActivity(MessageFactory
-        //     .text(JSON.stringify(sampleStudy)));
-        return await step.endDialog();
+        const attachments = [];
+
+        for (const dish of todaysMenu) {
+            const menuPart = Object.assign(new Dish(), dish);
+            attachments.push(CardFactory
+                .adaptiveCard(await CardSchema.prototype
+                    .createMenuCard(menuPart)));
+        }
+
+        await step.context.sendActivity({
+            attachments: attachments,
+            attachmentLayout: AttachmentLayoutTypes.Carousel
+        });
+
+        return await step.endDialog(study);
     }
 }
 

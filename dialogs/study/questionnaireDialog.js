@@ -4,6 +4,7 @@ const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const QUESTIONNAIRE_DIALOG = 'questionnaireDialog';
 const QUESTIONNAIRE = 'questionnaire';
 
+// TODO: Look into the lecture of "human computer interaction".
 class QuestionnaireDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || QUESTIONNAIRE_DIALOG);
