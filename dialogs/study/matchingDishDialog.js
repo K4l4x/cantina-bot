@@ -26,10 +26,10 @@ class MatchingDishDialog extends CancelAndHelpDialog {
     //  duplicates before searching in the descriptions. Only with "lables"
     //  the description should also be searched with values.
     async prepare(step) {
-        const sampleStudy = step.options;
+        const study = step.options;
         const tmpCantina = new Cantina('mensaX');
         await tmpCantina.menu.loadList();
-        sampleStudy.cantina = tmpCantina;
+        study.cantina = tmpCantina;
 
         // TODO: Should be done in root dialog or even before that.
         const labels = await JsonOps.prototype
@@ -48,9 +48,9 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         const supplementsValues = Object.values(supplements);
 
         // TODO: If true look into json.
-        const todaysMenu = await sampleStudy.cantina.menu.getDay();
+        const todaysMenu = await study.cantina.menu.getDay();
 
-        if (sampleStudy.isVegetarian) {
+        if (study.isVegetarian) {
             for (const entry of todaysMenu) {
                 const dish = new Dish();
                 Object.assign(dish, entry);
@@ -62,7 +62,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             }
         }
 
-        if (sampleStudy.isVegan) {
+        if (study.isVegan) {
             for (const entry of todaysMenu) {
                 const dish = new Dish();
                 Object.assign(dish, entry);
@@ -74,7 +74,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             }
         }
 
-        for (const entry of sampleStudy.notWantedMeets) {
+        for (const entry of study.notWantedMeets) {
             const meetType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 
@@ -115,7 +115,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             }
         }
 
-        for (const entry of sampleStudy.allergies) {
+        for (const entry of study.allergies) {
             const allergyType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 
@@ -162,7 +162,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
 
         // TODO: if true get key by value and search with key in
         //  description.
-        for (const entry of sampleStudy.other) {
+        for (const entry of study.other) {
             const otherType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 
@@ -216,7 +216,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             attachmentLayout: AttachmentLayoutTypes.Carousel
         });
 
-        return await step.endDialog();
+        return await step.endDialog(study);
     }
 }
 

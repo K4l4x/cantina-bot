@@ -160,9 +160,10 @@ class RootDialog extends CancelAndHelpDialog {
     }
 
     async analyseResults(step) {
-        // const possibleCantina = new Study();
-        // Object.assign(possibleCantina, step.result);
-        // const cantina = await this.studyProfile.set(step.context, possibleCantina);
+        const study = new Study();
+        Object.assign(study, step.result);
+        await this.studyProfile.set(step.context, study);
+        await step.context.sendActivity(JSON.stringify(study));
         return await step.endDialog();
     }
 }
