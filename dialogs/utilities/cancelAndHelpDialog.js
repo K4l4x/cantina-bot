@@ -29,7 +29,12 @@ class CancelAndHelpDialog extends ComponentDialog {
             case 'hilfe':
             case '?':
                 // TODO: Handling user helplessness.
-                message = 'Hier wird bald geholfen!';
+                message = 'Mit **stopp** und **abbrechen** kannst du mich' +
+                    ' jederzeit unterbrechen.\n\n' +
+                    ' Sonst frage mich z.B. gerne:\n\n' +
+                    ' "was gibt es heute zu essen?"\n\n' +
+                    ' "was gibt es diese woche zu essen?"\n\n' +
+                    ' "sag mir die öffnungszeiten"';
                 await innerDialogContext.context.sendActivity(MessageFactory.text(message));
                 return { status: DialogTurnStatus.waiting };
             case 'abbrechen':

@@ -45,6 +45,9 @@ class StudyDialog extends CancelAndHelpDialog {
 
     async analyseStudyResult(step) {
         const result = step.result;
+
+
+
         return await step.endDialog(result);
     }
 

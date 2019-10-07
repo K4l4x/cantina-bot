@@ -167,9 +167,6 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async guidedResult(step) {
-        // await step.context.sendActivity(MessageFactory
-        //     .text(JSON.stringify(studySample)));
-
         // TODO Go back to studyDialog with result.
         await step.context.sendActivity(THANK_USER);
         return await step.replaceDialog(MATCHING_DISH_DIALOG, studySample);

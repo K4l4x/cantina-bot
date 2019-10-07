@@ -52,10 +52,11 @@ class DisclaimerDialog extends CancelAndHelpDialog {
             return await step.replaceDialog(STUDY_DIALOG, step.options);
         } else {
             await step.context.sendActivity(MessageFactory
-                .text('Aller klar. Du kannst mich nach dem heutigen Menü' +
-                    ' fragen oder eine Wochenübersicht durchblättern. Falls' +
+                .text('Aller klar, allerdings kann ich dir nun leider nicht' +
+                    ' das passende Gericht heraussuchen. Du kannst mich aber' +
+                    ' nach dem heutigen Menü fragen oder eine Wochenübersicht durchblättern. Falls' +
                     ' du deine Meinung ändern möchtest schreibe mir doch' +
-                    ' einfach "finde mein gericht".'));
+                    ' einfach **finde mein gericht**.'));
             return await step.endDialog();
         }
     }
