@@ -59,6 +59,22 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
                 console.log('[OpenCantinaDialog]: isVegan Intent hit.');
                 studySample.isVegan = true;
                 ANKER_PROMPT_TEXT = 'Alles klar, vegan';
+            } else if (LuisRecognizer.topIntent(luisResult) === 'withoutMeets') {
+                console.log('[OpenCantinaDialog]: withoutMeets Intent hit.');
+                // Get the normalized value from luis to search in the
+                // labels.
+                const value = (luisResult.entities['Meets'][0]).toString();
+                console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
+                studySample.notWantedMeets.push(value);
+                ANKER_PROMPT_TEXT = 'Alles klar.';
+            } else if (LuisRecognizer.topIntent(luisResult) === 'noSupplements') {
+                console.log('[OpenCantinaDialog]: noSupplements Intent hit.');
+                // Get the normalized value from luis to search in the
+                // labels.
+                const value = (luisResult.entities['Supplements'][0]).toString();
+                console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
+                studySample.other.push(value);
+                ANKER_PROMPT_TEXT = 'Alles klar.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'hasAllergies') {
                 console.log('[OpenCantinaDialog]: hasAllergies Intent hit.');
 
