@@ -1,0 +1,827 @@
+[
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Hähnchengeschnetzeltes indische ArtA20,A25,A26,A28\n\n Es können 3 Wahlbeilagen gewählt werden: Pommes frites, Kurkumareis, Blumenkohl, BalkangemüseA28, Beilagensalate, HaselnusspuddingA26,A27.2, Pfirsich-Vanille-QuarkA26, Erdbeer-DickmilchA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Menü vegetarisch",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Griechische ReisnudelpfanneA20,Z3,Z6,A22,A26,A28 mit mediterranem Hirtenkäse-DipA20,A25,A26\n\n Es können 3 Wahlbeilagen gewählt werden: Pommes frites, SesamkartoffelnA29, Blumenkohl, BalkangemüseA28, Beilagensalate, HaselnusspuddingA26,A27.2, Pfirsich-Vanille-QuarkA26, Erdbeer-DickmilchA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Mensa vital",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ],
+    "description": "Seelachs in Kartoffelsenfkruste mit Kerbelsoße und buntem MöhrengemüseA20,A22,A23,A26,A30 kcal: 753, F: 28g, E: 43 g, KH: 84g "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Eintopf / Suppe",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ],
+    "description": "Exotischer Eintopf von roten Linsen und KürbisA20,Z2,Z9,A25,A28\n\n Dazu gibt es: gebratenes SojaA25 und gebratenes Rinderhack "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Eintopf / Suppe",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ],
+    "description": "Französische ZwiebelsuppeZ1,A25,A28,A20.1 "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Pasta",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 4,50 € "
+    ],
+    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatA20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Wiener Kalbsrahmgulasch, dazu Spätzle, Preiselbeeren und rote Bete SalatZ2,Z9,F13,A20.1,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Schweinshaxn, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F13,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Braustüberl-Spießbraten, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F12,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Herbstlicher Alpensalatteller mit karamellisierten Birnen, gebackenem Kürbis, gegrillten Roastbeeftranchen vom Alpenrind, Dressing von Feigen und steirischem KürbiskernölZ1,Z3,F13,A26,A31 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Salate",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Beilagen",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ],
+    "description": "Täglich wechselnde Dessertvariationen. "
+  },
+  {
+    "date": "October 7, 2019",
+    "day": 1,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ],
+    "description": "Hausgemachte Milchshakes "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Hähnchenbrust gefüllt mit Chorizo und Paprika, dazu Jalapeño-Käse-SoßeA26,A28,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Salzkartoffeln, Gemüse-CouscousA20.1, Tomaten-Zucchini-Gemüse, Pariser Karotten, Beilagensalate, GötterspeiseZ1, HimbeerjoghurtA26, VanillepuddingA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Menü vegetarisch",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Gemüse-Knusper-BagelA28,A20.1,A20.5 mit Tomatenrahmsoße veganA25\n\n Es können 3 Wahlbeilagen gewählt werden: Salzkartoffeln, Gemüse-CouscousA20.1, Tomaten-Zucchini-Gemüse, Pariser Karotten, Beilagensalate, GötterspeiseZ1, HimbeerjoghurtA26, VanillepuddingA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Mensa vital",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ],
+    "description": "Hähnchenbrust in Kardamom-Marinade auf Paprika-Tomaten-Apfel-Gemüse mit Bambusstreifen und BasmatireisA20.1 kcal: 751, F: 18g, E: 40g, KH: 98g "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Eintopf",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ],
+    "description": "Pilz-Kartoffel-Eintopf mit Gemüse und Käsecreme Z1,A25,A26,A28\n\n Dazu gibt es: gebratenes SojaA25 und BockwurstZ2,Z3,Z8,Z9 "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Eintopf / Suppen",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ],
+    "description": "Tomatencremesüppchen veganZ1,Z3,A25,A20.1 "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Pasta",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 4,50 € "
+    ],
+    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatA20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Wiener Kalbsrahmgulasch, dazu Spätzle, Preiselbeeren und rote Bete SalatZ2,Z9,F13,A20.1,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Schweinshaxn, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F13,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Braustüberl-Spießbraten, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F12,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Herbstlicher Alpensalatteller mit karamellisierten Birnen, gebackenem Kürbis, gegrillten Roastbeeftranchen vom Alpenrind, Dressing von Feigen und steirischem KürbiskernölZ1,Z3,F13,A26,A31 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Salate",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Beilagen",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ],
+    "description": "Täglich wechselnde Dessertvariationen. "
+  },
+  {
+    "date": "October 8, 2019",
+    "day": 2,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ],
+    "description": "Hausgemachte Milchshakes "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Hähnchenbrustfilet \"Piccata\"A26,A20.1 mit Tomatensoße\n\n Es können 3 Wahlbeilagen gewählt werden: Kartoffel-Sellerie-StampfA25,A28, Penne RigateA20.1, Broccoli, Bohnengemüse, Beilagensalate, SchokoladenpuddingA26, KokosjoghurtA26, HimbeerquarkA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Menü vegetarisch",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Hirtenkäse im Blätterteig mit Ratatouillefüllung und BasilikumsoßeA22,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Djuvecreis , Kartoffel-Sellerie-StampfA25,A28, Broccoli, Bohnengemüse, Beilagensalate, SchokoladenpuddingA26, KokosjoghurtA26, HimbeerquarkA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Mensa vital",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ],
+    "description": "Rinderfrikadelle, hausgemacht, mit Kohlrabigemüse in Sahne dazu Salzkartoffeln A22,A26,A30,A20.1 kcal: 808, F: 42g, E: 36g, KH: 68g "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Eintopf",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ],
+    "description": "Türkischer Eintopf mit Gemüse und KartoffelnA25\n\n Dazu gibt es: gebratenes SojaA25 und gebratenes Rinderhack "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Eintopf / Suppe",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ],
+    "description": "Süßkartoffel-Kokos-SuppeZ2,Z3,A25 "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Pasta",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 4,50 € "
+    ],
+    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatA20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Wiener Kalbsrahmgulasch, dazu Spätzle, Preiselbeeren und rote Bete SalatZ2,Z9,F13,A20.1,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Schweinshaxn, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F13,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Braustüberl-Spießbraten, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F12,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Herbstlicher Alpensalatteller mit karamellisierten Birnen, gebackenem Kürbis, gegrillten Roastbeeftranchen vom Alpenrind, Dressing von Feigen und steirischem KürbiskernölZ1,Z3,F13,A26,A31 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Salate",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "\n\n Es können 3 Wahlbeilagen gewählt werden: Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Beilagen",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ],
+    "description": "Täglich wechselnde Dessertvariationen. "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ],
+    "description": "Hausgemachte Milchshakes "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Rindergulasch mit PaprikaA20.1\n\n Es können 3 Wahlbeilagen gewählt werden: SpätzleA22,A20.1, KlößeZ3,A26,A28, RotkohlZ3,Z9, Kaisergemüse, Beilagensalate, Grießpudding vegan A25,A20.1, Pfirsich-DickmilchA26, SauerkirschjoghurtA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Menü vegetarisch",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "2 Süßkartoffel-Rucola-RöstiA20.1 mit pikantem Tomaten-Paprika-Dip\n\n Es können 3 Wahlbeilagen gewählt werden: SpätzleA22,A20.1, BulgurA20.1, RotkohlZ3,Z9, Kaisergemüse, Beilagensalate, Grießpudding vegan A25,A20.1, Pfirsich-DickmilchA26, SauerkirschjoghurtA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Mensa vital",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Couscous-Pilz-Gemüse-Pfanne mit Limettenjoghurt-DipA26,A20.1,A27.1 kcal: 726, F: 24g, E: 24g, KH: 93g "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Eintopf",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ],
+    "description": "Warmer Grießpudding klassischA26,A20.1 mit Roter Grütze "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Eintopf / Suppe",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ],
+    "description": "Warmer Grießpudding veganZ3,A25,A20.1 mit Roter Grütze "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Eintopf / Suppe",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ],
+    "description": "Kohlrabicremesuppe, veganA25,A20.1 "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Pasta",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 4,50 € "
+    ],
+    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatA20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Wiener Kalbsrahmgulasch, dazu Spätzle, Preiselbeeren und rote Bete SalatZ2,Z9,F13,A20.1,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Schweinshaxn, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F13,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Braustüberl-Spießbraten, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F12,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Salate",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Beilagen",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ],
+    "description": "Täglich wechselnde Dessertvariationen. "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ],
+    "description": "Hausgemachte Milchshakes "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Seelachs im BackteigA23,A26,A30,A20.1 mit TatarensoßeZ2,Z9,A22,A26,A28,A30,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Wildreismischung, Salzkartoffeln, Leipziger AllerleiA28, Kohlrabigemüse in RahmA26, Beilagensalate, ZitronenquarkA26, MangoquarkA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Menü vegetarisch",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Schupfnudelpfanne A22,A20.1 mit Tomaten-Käse-SoßeZ1,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, Wildreismischung, Leipziger AllerleiA28, Kohlrabigemüse in RahmA26, Beilagensalate, ZitronenquarkA26, MangoquarkA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Mensa vital",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ],
+    "description": "Seelachsfilet auf Kürbis-Trauben-Gemüse, dazu Zitronensoße und LauchreisA23,A26,A20.1 kcal: 848, F: 20g, E: 47g, KH: 119g "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Eintopf",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ],
+    "description": "PusztasuppeZ1,Z3,A26,A28\n\n Dazu gibt es: gebratenes SojaA25 und Krakauer WurstZ2,Z8,Z9,A26,A30 "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Eintopf / Suppe",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ],
+    "description": "Kürbis-Apfel-SuppeA25 "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Pasta",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 4,50 € "
+    ],
+    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatA20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Wiener Kalbsrahmgulasch, dazu Spätzle, Preiselbeeren und rote Bete SalatZ2,Z9,F13,A20.1,A22,A26 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Schweinshaxn, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F13,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Braustüberl-Spießbraten, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F12,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Herbstlicher Alpensalatteller mit karamellisierten Birnen, gebackenem Kürbis, gegrillten Roastbeeftranchen vom Alpenrind, Dressing von Feigen und steirischem KürbiskernölZ1,Z3,F13,A26,A31 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Salate",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Beilagen",
+    "prices": [
+      " 0,75 €",
+      " 0,90 €",
+      " 1,10 €"
+    ],
+    "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " "
+    ],
+    "description": "Täglich wechselnde Dessertvariationen. "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,20 € "
+    ],
+    "description": "Hausgemachte Milchshakes "
+  }
+]

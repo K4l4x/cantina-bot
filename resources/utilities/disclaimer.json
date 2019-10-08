@@ -1,0 +1,51 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Ich muss dir noch mitteilen, dass im Rahmen einer Abschlussarbeit die Eingaben die du in diesem Chat tätigst aufgezeichnet und ausgewertet werden. Diese Daten können und werden nicht mit dir in Verbindung gebracht und annonym gespeichert. Bist du mit diesen Bedingungen einverstanden?",
+      "size": "Small",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "Als Ansprechpartner stehen dir die zwei aufgeführten Kontakte zur Verfügung.",
+      "size": "Small",
+      "wrap": true
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "FactSet",
+              "facts": [
+                {
+                  "title": "Kontakt:",
+                  "value": "Tobias Hartker"
+                },
+                {
+                  "title": "E-Mail:",
+                  "value": "thartker@techfak.uni-bielefeld.de"
+                },
+                {
+                  "title": "Kontakt:",
+                  "value": "Hendrik Buschmeier"
+                },
+                {
+                  "title": "E-Mail:",
+                  "value": "hbuschme@uni-bielefeld.de"
+                }
+              ]
+            }
+          ],
+          "width": "stretch"
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}

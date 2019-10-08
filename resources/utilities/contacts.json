@@ -1,0 +1,45 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "Kontakte"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "FactSet",
+              "facts": [
+                {
+                  "title": "Ansprechpartner:",
+                  "value": "Tobias Hartker"
+                },
+                {
+                  "title": "E-Mail:",
+                  "value": "thartker@techfak.uni-bielefeld.de"
+                },
+                {
+                  "title": "Ansprechpartner:",
+                  "value": "Hendrik Buschmeier"
+                },
+                {
+                  "title": "E-Mail:",
+                  "value": "hbuschme@uni-bielefeld.de"
+                }
+              ]
+            }
+          ],
+          "width": "stretch"
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}

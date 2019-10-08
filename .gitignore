@@ -7,8 +7,6 @@ lib
 ### Personally added ###
 ########################
 
-resources/*/*.json
-
 *.icloud
 
 ### Linux ###
