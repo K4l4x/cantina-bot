@@ -32,7 +32,9 @@ const validMessages = {
     WEEK: 'woche',
     OPENINGHOURS: 'öffnungszeiten',
     OPEN: 'offen',
-    FIND_DISH: 'finde mein gericht'
+    FIND_DISH: 'finde mein gericht',
+    HELP: 'hilfe',
+    _HELP: '?'
 };
 
 class RootDialog extends CancelAndHelpDialog {
@@ -154,6 +156,16 @@ class RootDialog extends CancelAndHelpDialog {
         } else if (message.includes(validMessages.OPENINGHOURS)) {
             dialogId = OPENING_HOURS_DIALOG;
             options = cantina;
+        } else if (
+            message.includes(validMessages.HELP) ||
+            message.includes(validMessages._HELP)) {
+            await step.context.sendActivity(MessageFactory.text('Mit' +
+                ' **stopp** und **abbrechen** kannst du mich' +
+                ' jederzeit unterbrechen.\n\n' +
+                ' Sonst frage mich z.B. gerne:\n\n' +
+                ' "was gibt es heute zu essen?"\n\n' +
+                ' "was gibt es diese woche zu essen?"\n\n' +
+                ' "sag mir die öffnungszeiten"'));
         } else {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldiging, leider weiß ich nicht was du ' +
