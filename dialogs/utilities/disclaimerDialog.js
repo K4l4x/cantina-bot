@@ -1,4 +1,4 @@
-const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
+const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
 const { MessageFactory, CardFactory } = require('botbuilder');
 
 const { JsonOps } = require('../../utilities/jsonOps');
@@ -51,8 +51,9 @@ class DisclaimerDialog extends CancelAndHelpDialog {
             await step.context.sendActivity(MessageFactory
                 .text('Aller klar, allerdings kann ich dir nun leider nicht' +
                     ' das passende Gericht heraussuchen. Du kannst mich aber' +
-                    ' nach dem heutigen Menü fragen oder eine Wochenübersicht durchblättern. Falls' +
-                    ' du deine Meinung ändern möchtest schreibe mir doch' +
+                    ' nach dem heutigen Menü fragen oder eine' +
+                    ' Wochenübersicht durchblättern. Falls' +
+                    ' du deine Meinung ändern möchtest schreibe mir' +
                     ' einfach **finde mein gericht**.'));
             return await step.endDialog();
         }

@@ -33,7 +33,8 @@ class WelcomeDialog extends CancelAndHelpDialog {
     async welcomeMessage(step) {
         return await step.prompt(WELCOME_PROMPT, {
             prompt: WELCOME_MESSAGE,
-            choices: ChoiceFactory.toChoices(WELCOME_CHOICE)
+            choices: ChoiceFactory.toChoices(WELCOME_CHOICE),
+            style: ListStyle.suggestedAction
         });
     }
 

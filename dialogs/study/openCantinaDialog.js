@@ -1,5 +1,5 @@
 const { MessageFactory } = require('botbuilder');
-const { WaterfallDialog, ChoiceFactory, ChoicePrompt } = require('botbuilder-dialogs');
+const { WaterfallDialog, ChoiceFactory, ChoicePrompt, ListStyle } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { OpenCantinaWorkerDialog } = require('./openCantinaWorkerDialog');
 
@@ -54,7 +54,8 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
     async welcomeUser(step) {
         return await step.prompt(OPEN_WELCOME_PROMPT, {
             prompt: OPEN_WELCOME_PROMPT_MESSAGE,
-            choices: ChoiceFactory.toChoices(userChoices)
+            choices: ChoiceFactory.toChoices(userChoices),
+            style: ListStyle.suggestedAction
         });
     }
 
