@@ -70,12 +70,13 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         }
 
         if (study.isVegan) {
-            for (let i = todaysMenu.length - 1; i >= 0; i--) {
-                const entry = todaysMenu[i];
-                if (listOfMeets.some(meet => entry.description.toLowerCase().includes(meet))) {
-
+            const notVegan = ['a22', 'a23', 'a26'];
+            for (const part of notVegan) {
+                if (!study.allergies.includes(part)) {
+                    study.allergies.push(part);
                 }
             }
+            console.log('(Is Vegan, auto add specific allergies)');
         }
 
         for (const entry of study.notWantedMeets) {
