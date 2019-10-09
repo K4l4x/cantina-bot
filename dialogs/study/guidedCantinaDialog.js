@@ -10,12 +10,14 @@ const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 const GUIDED = 'guided';
 
+const userCanOnlyAccept = ['Ja'];
 const userDeclines = 'nein';
 const userAccepts = 'ja';
 const userChoices = [userAccepts, userDeclines];
 
-const WELCOME_TO_DIALOG = MessageFactory.text('Ich werde dir nun ein paar' +
-    ' Fragen stellen und durch deine Antworten das richtige Gericht für' +
+const WELCOME_GUIDED_PROMPT = 'welcomeGuidedPrompt';
+const WELCOME_GUIDED_PROMPT_TEXT = MessageFactory.text('Ich werde dir nun ein' +
+    ' paar Fragen stellen und durch deine Antworten das richtige Gericht für' +
     ' dich finden.');
 
 // Start of step tree.
@@ -70,6 +72,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         this.addDialog(new WaterfallDialog(GUIDED,
             [
                 this.welcomeUser.bind(this),
+                this.handleUserWelcome.bind(this),
                 this.prepareMeet.bind(this),
                 this.meetCheck.bind(this),
                 this.vegetarianCheck.bind(this),
@@ -83,8 +86,17 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async welcomeUser(step) {
-        await step.context.sendActivity(WELCOME_TO_DIALOG);
-        return await step.next();
+        return await step.prompt(WELCOME_GUIDED_PROMPT, {
+            prompt: WELCOME_GUIDED_PROMPT_TEXT,
+            choices: ChoiceFactory.toChoices(userCanOnlyAccept)
+        });
+    }
+
+    async handleUserWelcome(step) {
+        const choice = step.result.value;
+        if (userCanOnlyAccept[userAccepts] === choice) {
+            return await step.next();
+        }
     }
 
     async prepareMeet(step) {
