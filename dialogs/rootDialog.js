@@ -34,7 +34,9 @@ const validMessages = {
     OPEN: 'offen',
     FIND_DISH: 'finde mein gericht',
     HELP: 'hilfe',
-    _HELP: '?'
+    _HELP: '?',
+    STOP: 'stop',
+    CANCEL: 'abbrechen'
 };
 
 class RootDialog extends CancelAndHelpDialog {
@@ -166,6 +168,11 @@ class RootDialog extends CancelAndHelpDialog {
                 ' "was gibt es heute zu essen?"\n\n' +
                 ' "was gibt es diese woche zu essen?"\n\n' +
                 ' "sag mir die öffnungszeiten"'));
+        } else if (
+            message.includes(validMessages.STOP) ||
+            message.includes(validMessages.CANCEL)) {
+            await step.context.sendActivity(MessageFactory.text('Gerade gibt' +
+                ' es nichts, was ich abbrechen könnte.'));
         } else {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldigung, leider weiß ich nicht was du ' +
