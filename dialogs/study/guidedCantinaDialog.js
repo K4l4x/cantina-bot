@@ -65,6 +65,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         this.addDialog(new ChoicePrompt(FIRST_PROMPT_MEET));
         this.addDialog(new ChoicePrompt(VEGETARIAN_PROMPT));
         this.addDialog(new ChoicePrompt(VEGAN_PROMPT));
+        this.addDialog(new ChoicePrompt(WELCOME_GUIDED_PROMPT));
         this.addDialog(new TextPrompt(SECOND_PROMPT_WITHOUT_SPECIFIC));
         this.addDialog(new TextPrompt(THIRD_PROMPT_ALLERGIES));
         this.addDialog(new TextPrompt(FORTH_PROMPT_OTHER));
