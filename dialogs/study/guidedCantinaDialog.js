@@ -10,7 +10,7 @@ const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 const GUIDED = 'guided';
 
-const userCanOnlyAccept = ['Ja'];
+const userCanOnlyAccept = ['Leg los!'];
 const userDeclines = 'nein';
 const userAccepts = 'ja';
 const userChoices = [userAccepts, userDeclines];
@@ -18,7 +18,7 @@ const userChoices = [userAccepts, userDeclines];
 const WELCOME_GUIDED_PROMPT = 'welcomeGuidedPrompt';
 const WELCOME_GUIDED_PROMPT_TEXT = MessageFactory.text('Ich werde dir nun ein' +
     ' paar Fragen stellen und durch deine Antworten das richtige Gericht für' +
-    ' dich finden.');
+    ' dich finden. Alles klar?');
 
 // Start of step tree.
 const FIRST_PROMPT_MEET = 'meetPrompt';
@@ -95,7 +95,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
 
     async handleUserWelcome(step) {
         const choice = step.result.value;
-        if (userCanOnlyAccept[userAccepts] === choice) {
+        if (userCanOnlyAccept[0] === choice) {
             return await step.next();
         }
     }
