@@ -55,7 +55,7 @@ const studySample = {
     isVegan: false,
     notWantedMeets: [],
     allergies: [],
-    other: [],
+    supplements: [],
     cantina: {}
 };
 
@@ -174,7 +174,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async checkOther(step) {
         if (typeof step.result !== 'undefined') {
             const result = step.result;
-            studySample.other = result.split(',');
+            studySample.supplements = result.split(',');
         }
         return await step.next();
     }

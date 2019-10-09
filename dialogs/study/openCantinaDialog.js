@@ -32,7 +32,7 @@ const studySample = {
     isVegan: false,
     notWantedMeets: [],
     allergies: [],
-    other: [],
+    supplements: [],
     cantina: {}
 };
 

@@ -23,7 +23,7 @@ const studySample = {
     isVegan: false,
     notWantedMeets: [],
     allergies: [],
-    other: [],
+    supplements: [],
     cantina: {}
 };
 
@@ -73,11 +73,10 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
                 // labels.
                 const value = (luisResult.entities['Supplements'][0]).toString();
                 console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
-                studySample.other.push(value);
+                studySample.supplements.push(value);
                 ANKER_PROMPT_TEXT = 'Alles klar.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'hasAllergies') {
                 console.log('[OpenCantinaDialog]: hasAllergies Intent hit.');
-
                 // Get the normalized value from luis to search in the
                 // allergiesRegister.
                 const value = (luisResult.entities['Allergies'][0]).toString();

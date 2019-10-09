@@ -143,7 +143,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             }
         }
 
-        for (const entry of study.other) {
+        for (const entry of study.supplements) {
             const otherType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 

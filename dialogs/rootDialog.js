@@ -1,7 +1,6 @@
 const { MessageFactory } = require('botbuilder');
-const { DialogSet, DialogTurnStatus, WaterfallDialog } = require('botbuilder-dialogs');
+const { DialogSet, DialogTurnStatus, WaterfallDialog, ComponentDialog } = require('botbuilder-dialogs');
 
-const { CancelAndHelpDialog } = require('./utilities/cancelAndHelpDialog');
 const { Cantina } = require('../model/cantina');
 const { Study } = require('../model/study');
 
@@ -11,7 +10,9 @@ const { WeekMenuDialog } = require('./cantina/weekMenuDialog');
 const { OpeningHoursDialog } = require('./cantina/openingHoursDialog');
 const { ContactDialog } = require('./utilities/contactDialog');
 const { DisclaimerDialog } = require('./utilities/disclaimerDialog');
+const { MatchingDishDialog } = require('./study/matchingDishDialog');
 
+const CONVERSATION_STATE_PROPERTY = 'conversationStatePropertyAccessor';
 const CANTINA_STATE_PROPERTY = 'cantinaStatePropertyAccessor';
 const STUDY_STATE_PROPERTY = 'studyStatePropertyAccessor';
 
@@ -24,6 +25,7 @@ const OPENING_HOURS_DIALOG = 'openingHoursDialog';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
 const CONTACT_DIALOG = 'contactDialog';
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
+const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
 const validMessages = {
     START: '/start',
@@ -33,13 +35,14 @@ const validMessages = {
     OPENINGHOURS: 'öffnungszeiten',
     OPEN: 'offen',
     FIND_DISH: 'finde mein gericht',
+    WHATS_FOR_ME: 'was gibts',
     HELP: 'hilfe',
     _HELP: '?',
     STOP: 'stop',
     CANCEL: 'abbrechen'
 };
 
-class RootDialog extends CancelAndHelpDialog {
+class RootDialog extends ComponentDialog {
     constructor(conversationState, userState, luisRecognizer) {
         super(ROOT_DIALOG);
 
@@ -57,11 +60,12 @@ class RootDialog extends CancelAndHelpDialog {
         }
 
         // Create our state property accessors.
+        this.conversationData = conversationState
+            .createProperty(CONVERSATION_STATE_PROPERTY);
         this.cantinaProfile = conversationState
             .createProperty(CANTINA_STATE_PROPERTY);
-        this.studyProfile = conversationState
+        this.studyProfile = userState
             .createProperty(STUDY_STATE_PROPERTY);
-        // this.userProfile = userState.createProperty(USER_STATE_PROPERTY);
         this.luisRecognizer = luisRecognizer;
 
         this.addDialog(new WelcomeDialog(WELCOME_DIALOG, this.luisRecognizer));
@@ -70,6 +74,7 @@ class RootDialog extends CancelAndHelpDialog {
         this.addDialog(new OpeningHoursDialog(OPENING_HOURS_DIALOG));
         this.addDialog(new ContactDialog(CONTACT_DIALOG));
         this.addDialog(new DisclaimerDialog(DISCLAIMER_DIALOG, this.luisRecognizer));
+        this.addDialog(new MatchingDishDialog(MATCHING_DISH_DIALOG));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
             this.prepareStorage.bind(this),
             this.handleRequests.bind(this),
@@ -134,13 +139,20 @@ class RootDialog extends CancelAndHelpDialog {
 
     async handleRequests(step) {
         const cantina = step.result;
+        const study = await this.studyProfile.get(step.context, new Study());
+
+        const conversationData = await this.conversationData
+            .get(step.context, { promptedStudy: false });
+
         let dialogId = '';
         let options = {};
         const message = step.context.activity.text.toLowerCase();
 
-        if (message.includes(validMessages.START)) {
+        if (message.includes(validMessages.START) &&
+            conversationData.promptedStudy === false) {
             dialogId = WELCOME_DIALOG;
-            options = await this.studyProfile.get(step.context, new Study());
+            options = study;
+            await this.conversationData.set(step.context, { promptedStudy: true });
             // if (message.includes(validMessages.START)) {
             //     await step.context.sendActivity(MessageFactory
             //         .text('Hi, ich bin CantinaBot. \n\n Blättere' +
@@ -148,7 +160,11 @@ class RootDialog extends CancelAndHelpDialog {
             //             ' Tages der Woche.'));
         } else if (message.includes(validMessages.FIND_DISH)) {
             dialogId = DISCLAIMER_DIALOG;
-            options = await this.studyProfile.get(step.context, new Study());
+            options = study;
+        } else if (message.includes(validMessages.WHATS_FOR_ME) &&
+            conversationData.promptedStudy === true) {
+            dialogId = MATCHING_DISH_DIALOG;
+            options = study;
         } else if (message.includes(validMessages.TODAY)) {
             dialogId = TODAYS_MENU_DIALOG;
             options = cantina;
