@@ -25,7 +25,8 @@ class WelcomeDialog extends CancelAndHelpDialog {
         this.addDialog(new WaterfallDialog(WELCOME,
             [
                 this.welcomeMessage.bind(this),
-                this.prepareDisclaimer.bind(this)
+                this.prepareDisclaimer.bind(this),
+                this.endWelcome.bind(this)
             ]));
         this.initialDialogId = WELCOME;
     }
@@ -39,7 +40,11 @@ class WelcomeDialog extends CancelAndHelpDialog {
     }
 
     async prepareDisclaimer(step) {
-        return await step.replaceDialog(DISCLAIMER_DIALOG, step.options);
+        return await step.beginDialog(DISCLAIMER_DIALOG, step.options);
+    }
+
+    async endWelcome(step) {
+        return await step.endDialog(step.result);
     }
 }
 

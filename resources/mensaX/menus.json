@@ -338,7 +338,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Hähnchenbrustfilet \"Piccata\"A26,A20.1 mit Tomatensoße\n\n Es können 3 Wahlbeilagen gewählt werden: Kartoffel-Sellerie-StampfA25,A28, Penne RigateA20.1, Broccoli, Bohnengemüse, Beilagensalate, SchokoladenpuddingA26, KokosjoghurtA26, HimbeerquarkA26 oder EisZ1,A26 "
+    "description": "Hähnchenbrustfilet \"Piccata\"A26,A20.1 mit Tomatensoße\n\n Es können 3 Wahlbeilagen gewählt werden: Kartoffel-Sellerie-StampfA25,A28, Penne RigateA20.1, Broccoli, Bohnengemüse, Beilagensalate, SchokoladenpuddingA26, KokosjoghurtA26, HeidelbeerquarkA26 oder EisZ1,A26 "
   },
   {
     "date": "October 9, 2019",
@@ -349,7 +349,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Hirtenkäse im Blätterteig mit Ratatouillefüllung und BasilikumsoßeA22,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Djuvecreis , Kartoffel-Sellerie-StampfA25,A28, Broccoli, Bohnengemüse, Beilagensalate, SchokoladenpuddingA26, KokosjoghurtA26, HimbeerquarkA26 oder EisZ1,A26 "
+    "description": "Hirtenkäse im Blätterteig mit Ratatouillefüllung und BasilikumsoßeA22,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Djuvecreis , Kartoffel-Sellerie-StampfA25,A28, Broccoli, Bohnengemüse, Beilagensalate, SchokoladenpuddingA26, KokosjoghurtA26, HeidelbeerquarkA26 oder EisZ1,A26 "
   },
   {
     "date": "October 9, 2019",
@@ -404,7 +404,7 @@
       " ",
       " 4,50 € "
     ],
-    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatA20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
+    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatF17,A20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
   },
   {
     "date": "October 9, 2019",
@@ -479,9 +479,20 @@
     "prices": [
       " ",
       " ",
-      " "
+      " 1,50 € "
     ],
-    "description": "Täglich wechselnde Dessertvariationen. "
+    "description": "ObstsalatA26 "
+  },
+  {
+    "date": "October 9, 2019",
+    "day": 3,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,50 € "
+    ],
+    "description": "Mini Windbeutel mit SchokosoßeA20,A22,A25,A26 "
   },
   {
     "date": "October 9, 2019",
@@ -580,7 +591,7 @@
       " ",
       " 4,50 € "
     ],
-    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatA20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
+    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatF17,A20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
   },
   {
     "date": "October 10, 2019",
@@ -614,6 +625,17 @@
       " 5,50 € "
     ],
     "description": "Braustüberl-Spießbraten, wahlweise mit Sauerkraut oder Blaukraut und Kartoffelklöße oder Rahmpüree, dazu BraunbiersoßeZ3,Z9,F12,A20.1,A20.3,A26,A28 \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 5,50 € "
+    ],
+    "description": "Herbstlicher Alpensalatteller mit karamellisierten Birnen, gebackenem Kürbis, gegrillten Roastbeeftranchen vom Alpenrind, Dressing von Feigen und steirischem KürbiskernölZ1,Z3,F13,A26,A31 \n\n Auch zum Mitnehmen! "
   },
   {
     "date": "October 10, 2019",
@@ -734,7 +756,7 @@
       " ",
       " 4,50 € "
     ],
-    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatA20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
+    "description": "Hausgemachte Breznknödel mit Schweizer Käse, frischen Kräutern, Pilzpfanne in Rahm, Röstzwiebeln und buntem SalatF17,A20.1,A20.3,A22,A26 \n\n Auch zum Mitnehmen! "
   },
   {
     "date": "October 11, 2019",
