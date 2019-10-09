@@ -38,7 +38,7 @@ class DisclaimerDialog extends CancelAndHelpDialog {
                     .loadFrom('utilities', 'disclaimer')));
 
         return await step.prompt(DISCLAIMER_PROMPT, {
-            prompt: DISCLAIMER_PROMPT_TEXT,
+            prompt: 'Some other prompt text',
             choices: ChoiceFactory.toChoices(disclaimerChoices)
         });
     }
