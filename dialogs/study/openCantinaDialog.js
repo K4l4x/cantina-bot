@@ -54,8 +54,7 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
     async welcomeUser(step) {
         return await step.prompt(OPEN_WELCOME_PROMPT, {
             prompt: OPEN_WELCOME_PROMPT_MESSAGE,
-            choices: ChoiceFactory.toChoices(userChoices),
-            style: 1
+            choices: ChoiceFactory.toChoices(userChoices)
         });
     }
 

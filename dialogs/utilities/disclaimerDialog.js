@@ -7,7 +7,6 @@ const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const DISCLAIMER_PROMPT = 'disclaimerPrompt';
-const DISCLAIMER_RETRY_TEXT = '';
 const DISCLAIMER = 'disclaimer';
 const disclaimerChoices = ['Nein', 'Ja'];
 
@@ -40,9 +39,7 @@ class DisclaimerDialog extends CancelAndHelpDialog {
 
         return await step.prompt(DISCLAIMER_PROMPT, {
             prompt: DISCLAIMER_PROMPT_TEXT,
-            choices: ChoiceFactory.toChoices(disclaimerChoices),
-            retryPrompt: DISCLAIMER_RETRY_TEXT,
-            style: 1
+            choices: ChoiceFactory.toChoices(disclaimerChoices)
         });
     }
 
