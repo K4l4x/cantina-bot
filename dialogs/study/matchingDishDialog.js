@@ -10,6 +10,10 @@ const { JsonOps } = require('../../utilities/jsonOps');
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 const MATCHING_DISH = 'matchingDish';
 
+const listOfMeets = ['pulled pork', 'lamm', 'schwein', 'rind', 'kalb', 'hack',
+    'hühnchen', 'hähnchen', 'chicken', 'fisch', 'scholle', 'barsch',
+    'kibbelinge', 'lachs', 'spießbraten', 'wurst'];
+
 class MatchingDishDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || MATCHING_DISH_DIALOG);
@@ -50,26 +54,26 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         // TODO: If true look into json.
         const todaysMenu = await study.cantina.menu.getDay();
 
-        if (study.isVegetarian) {
-            for (const entry of todaysMenu) {
-                const dish = new Dish();
-                Object.assign(dish, entry);
-                if (dish.type.includes('vegetarisch')) {
-                    console.log('(LookIntoMenus.type): ' + 'is vegetarian');
-                } else if (dish.description.includes('vegetarisch')) {
-                    console.log('(LookIntoMenus.description): ' + 'is vegetarian');
+        if (study.isVegetarian || study.isVegan) {
+            for (let i = todaysMenu.length - 1; i >= 0; i--) {
+                const entry = todaysMenu[i];
+                if (listOfMeets.some(meet => entry.description.toLowerCase().includes(meet))) {
+                    console.log('(LookIntoMenus.meets): ' + entry.type + ' has' +
+                        ' meet');
+                    const indexDish = todaysMenu.indexOf(entry);
+                    console.log('(Index of ' + entry.type + '): ' + indexDish);
+                    todaysMenu.splice(indexDish, 1);
+                    console.log('(Menus after algo): ' + todaysMenu.length);
+                    console.log('(Menus after algo): ' + JSON.stringify(todaysMenu));
                 }
             }
         }
 
         if (study.isVegan) {
-            for (const entry of todaysMenu) {
-                const dish = new Dish();
-                Object.assign(dish, entry);
-                if (dish.type.includes('vegan')) {
-                    console.log('(LookIntoMenus.type): ' + 'is vegan');
-                } else if (dish.description.includes('vegan')) {
-                    console.log('(LookIntoMenus.description): ' + 'is vegan');
+            for (let i = todaysMenu.length - 1; i >= 0; i--) {
+                const entry = todaysMenu[i];
+                if (listOfMeets.some(meet => entry.description.toLowerCase().includes(meet))) {
+
                 }
             }
         }
