@@ -27,9 +27,9 @@ class StudyDialog extends CancelAndHelpDialog {
 
     async startStudy(step) {
         // For testing: set number below 15 for guided, above 15 for open.
-        const randomNum = 11;
+        // const randomNum = 11;
         // const randomNum = 16;
-        // const randomNum = this.getRandomNum(10, 20);
+        const randomNum = this.getRandomNum(10, 20);
 
         console.log('[Randomizer Result]: ' + randomNum);
         console.log('Studie starten...');
@@ -53,9 +53,6 @@ class StudyDialog extends CancelAndHelpDialog {
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min;
     }
-
-    // TODO: Add possibility to just show todays menu, because algo could be
-    //  meh.
 }
 
 module.exports.StudyDialog = StudyDialog;
