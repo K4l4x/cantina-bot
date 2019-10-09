@@ -10,9 +10,15 @@ const { JsonOps } = require('../../utilities/jsonOps');
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 const MATCHING_DISH = 'matchingDish';
 
-const listOfMeets = ['pulled pork', 'lamm', 'schwein', 'rind', 'kalb', 'hack',
+const listOfMeets = ['pulled pork', 'pork', 'lamm', 'schwein', 'rind', 'kalb', 'hack',
     'hühnchen', 'hähnchen', 'chicken', 'fisch', 'scholle', 'barsch',
-    'kibbelinge', 'lachs', 'spießbraten', 'wurst', 'ente'];
+    'kibbelinge', 'lachs', 'spießbraten', 'wurst', 'ente', 'beef'];
+
+const meetsMain = ['rind', 'schwein', 'fisch', 'hähnchen', 'pork'];
+const beefList = ['kalb', 'hack', 'wurst', 'beef'];
+const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten'];
+const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs'];
+const chickenList = ['hühnchen', 'hähnchen', 'chicken'];
 
 class MatchingDishDialog extends CancelAndHelpDialog {
     constructor(id) {
@@ -76,15 +82,38 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                     study.allergies.push(part);
                 }
             }
-            console.log('(Is Vegan, auto add specific allergies)');
+            console.log('[Matching]: Is Vegan, auto add specific' +
+                ' "allergies"');
         }
+
+        let tmp = study.notWantedMeets;
+        for (const meet of study.notWantedMeets) {
+            if (meetsMain.includes(meet)) {
+                switch (meet) {
+                case 'rind':
+                    tmp = tmp.concat(beefList);
+                    break;
+                case 'schwein':
+                case 'pork':
+                    tmp = tmp.concat(porkList);
+                    break;
+                case 'fisch':
+                    tmp = tmp.concat(fishList);
+                    break;
+                case 'hähnchen':
+                    tmp = tmp.concat(chickenList);
+                    break;
+                }
+            }
+        }
+
+        study.notWantedMeets = tmp;
 
         for (const entry of study.notWantedMeets) {
             const meetType = entry.toLowerCase()
                 .replace(/\s+/g, '');
-
             if (listOfMeets.includes(meetType)) {
-                console.log('(LabelValues):' + meetType);
+                console.log('(Meets):' + meetType);
                 // TODO: If true look into json.
                 for (let i = todaysMenu.length - 1; i >= 0; i--) {
                     const entry = todaysMenu[i];
