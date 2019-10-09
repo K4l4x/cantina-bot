@@ -60,7 +60,7 @@ class WeekMenuDialog extends CancelAndHelpDialog {
             attachments: attachments,
             attachmentLayout: AttachmentLayoutTypes.Carousel
         });
-        return await step.endDialog(cantina);
+        return await step.endDialog();
     }
 }
 

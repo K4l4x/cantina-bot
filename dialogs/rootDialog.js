@@ -188,10 +188,12 @@ class RootDialog extends CancelAndHelpDialog {
     }
 
     async analyseResults(step) {
-        const study = new Study();
-        Object.assign(study, step.result);
-        await this.studyProfile.set(step.context, study);
-        // await step.context.sendActivity(JSON.stringify(study));
+        if (typeof step.result !== 'undefined') {
+            const study = new Study();
+            Object.assign(study, step.result);
+            await this.studyProfile.set(step.context, study);
+        }
+
         return await step.endDialog();
     }
 }

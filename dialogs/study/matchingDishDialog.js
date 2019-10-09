@@ -12,7 +12,7 @@ const MATCHING_DISH = 'matchingDish';
 
 const listOfMeets = ['pulled pork', 'lamm', 'schwein', 'rind', 'kalb', 'hack',
     'hühnchen', 'hähnchen', 'chicken', 'fisch', 'scholle', 'barsch',
-    'kibbelinge', 'lachs', 'spießbraten', 'wurst'];
+    'kibbelinge', 'lachs', 'spießbraten', 'wurst', 'ente'];
 
 class MatchingDishDialog extends CancelAndHelpDialog {
     constructor(id) {
@@ -51,7 +51,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         const supplementsKeys = Object.keys(supplements);
         const supplementsValues = Object.values(supplements);
 
-        // TODO: If true look into json.
+        // Get todays menu to search in it.
         const todaysMenu = await study.cantina.menu.getDay();
 
         if (study.isVegetarian || study.isVegan) {
@@ -83,27 +83,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             const meetType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 
-            // TODO: if true use meetTypeValue and search in description.
-            if (labelKeys.includes(meetType)) {
-                console.log('(LabelKeys):' + meetType);
-                // TODO: If true look into json.
-                const meetTypeValue = labels[meetType];
-                console.log('(LabelKeys.findValue): ' + meetType + ' -> ' +
-                    meetTypeValue);
-                for (let i = todaysMenu.length - 1; i >= 0; i--) {
-                    const entry = todaysMenu[i];
-                    if (entry.description.toLowerCase().includes(meetTypeValue)) {
-                        console.log('(LookIntoMenus.meetTypeValue): ' + meetTypeValue);
-                        const indexDish = todaysMenu.indexOf(entry);
-                        console.log('(Index of ' + entry.type + '): ' + indexDish);
-                        todaysMenu.splice(indexDish, 1);
-                        console.log('(Menus after algo): ' + todaysMenu.length);
-                        console.log('(Menus after algo): ' + JSON.stringify(todaysMenu));
-                    }
-                }
-            }
-
-            if (labelValues.includes(meetType)) {
+            if (listOfMeets.includes(meetType)) {
                 console.log('(LabelValues):' + meetType);
                 // TODO: If true look into json.
                 for (let i = todaysMenu.length - 1; i >= 0; i--) {
@@ -143,8 +123,6 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                 }
             }
 
-            // TODO: if true get key by value and search with key in
-            //  description.
             if (allergiesValues.includes(allergyType)) {
                 console.log('(AllergiesValues):' + allergyType);
                 const allergyTypeKey = allergiesKeys.find(key => allergies[key] === allergyType);
@@ -165,8 +143,6 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             }
         }
 
-        // TODO: if true get key by value and search with key in
-        //  description.
         for (const entry of study.other) {
             const otherType = entry.toLowerCase()
                 .replace(/\s+/g, '');

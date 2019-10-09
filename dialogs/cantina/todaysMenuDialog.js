@@ -44,7 +44,7 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
                 ' Wochenende ist die Mensa geschlossen.'));
         }
 
-        return await step.endDialog(cantina);
+        return await step.endDialog();
     }
 }
 
