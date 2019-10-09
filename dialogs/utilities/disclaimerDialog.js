@@ -7,6 +7,11 @@ const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const DISCLAIMER_PROMPT = 'disclaimerPrompt';
+const DISCLAIMER_PROMPT_TEXT = 'Ich muss dir noch mitteilen, dass im Rahmen' +
+    ' einer Abschlussarbeit die Eingaben die du in diesem Chat tätigst' +
+    ' aufgezeichnet und ausgewertet werden. Diese Daten können und werden' +
+    ' nicht mit dir in Verbindung gebracht und annonym gespeichert. Bist du' +
+    ' mit diesen Bedingungen einverstanden?';
 const DISCLAIMER = 'disclaimer';
 const disclaimerChoices = ['Nein', 'Ja'];
 
@@ -32,20 +37,21 @@ class DisclaimerDialog extends CancelAndHelpDialog {
     }
 
     async promptDisclaimer(step) {
-        const DISCLAIMER_PROMPT_TEXT = MessageFactory
-            .attachment(CardFactory
-                .adaptiveCard(await JsonOps.prototype
-                    .loadFrom('utilities', 'disclaimer')));
-
         return await step.prompt(DISCLAIMER_PROMPT, {
-            prompt: 'Some other prompt text',
-            choices: ChoiceFactory.toChoices(disclaimerChoices)
+            prompt: DISCLAIMER_PROMPT_TEXT,
+            choices: ChoiceFactory.toChoices(disclaimerChoices),
+            style: ListStyle.suggestedAction
         });
     }
 
     async getUserAnswer(step) {
         const choice = step.result.value;
         if (disclaimerChoices[CHOICE.YES] === choice) {
+            const CONTACTS = MessageFactory
+                .attachment(CardFactory
+                    .adaptiveCard(await JsonOps.prototype
+                        .loadFrom('utilities', 'disclaimer')));
+            await step.context.sendActivity(CONTACTS);
             return await step.replaceDialog(STUDY_DIALOG, step.options);
         } else {
             await step.context.sendActivity(MessageFactory

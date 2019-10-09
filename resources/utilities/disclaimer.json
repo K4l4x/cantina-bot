@@ -3,13 +3,7 @@
   "body": [
     {
       "type": "TextBlock",
-      "text": "Ich muss dir noch mitteilen, dass im Rahmen einer Abschlussarbeit die Eingaben die du in diesem Chat tätigst aufgezeichnet und ausgewertet werden. Diese Daten können und werden nicht mit dir in Verbindung gebracht und annonym gespeichert. Bist du mit diesen Bedingungen einverstanden?",
-      "size": "Small",
-      "wrap": true
-    },
-    {
-      "type": "TextBlock",
-      "text": "Als Ansprechpartner stehen dir die zwei aufgeführten Kontakte zur Verfügung.",
+      "text": "Als Ansprechpartner stehen dir die zwei aufgeführten Kontakte zu Verfügung.",
       "size": "Small",
       "wrap": true
     },
