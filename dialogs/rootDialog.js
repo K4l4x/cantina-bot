@@ -168,7 +168,7 @@ class RootDialog extends CancelAndHelpDialog {
                 ' "sag mir die öffnungszeiten"'));
         } else {
             await step.context.sendActivity(MessageFactory.text(
-                'Entschuldiging, leider weiß ich nicht was du ' +
+                'Entschuldigung, leider weiß ich nicht was du ' +
                 'mit ' + '**\'' + message + '\'**' + ' meinst. Frag mich' +
                 ' doch z.B. **"Was gibt es diese Woche zu essen?"**.'));
         }
