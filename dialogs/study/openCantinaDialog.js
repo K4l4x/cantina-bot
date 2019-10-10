@@ -1,39 +1,26 @@
 const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog, ChoiceFactory, ChoicePrompt, ListStyle } = require('botbuilder-dialogs');
+
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { OpenCantinaWorkerDialog } = require('./openCantinaWorkerDialog');
 
-const { Study } = require('../../model/study');
-
 const OPEN_CANTINA_WORKER_DIALOG = 'openCantinaWorkerDialog';
-const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
-const OPEN = 'open';
 
+const OPEN = 'open';
+const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
 const OPEN_WELCOME_PROMPT = 'welcomePrompt';
-const OPEN_WELCOME_PROMPT_MESSAGE = MessageFactory.text('Lass mich' +
+// TODO: Should be outsourced to json.
+const OPEN_WELCOME_PROMPT_MESSAGE = 'Lass mich' +
     ' herausfinden, welches das richtige Gericht für' +
     ' dich ist. Du kannst mir z.B. sagen "ich würde gerne etwas veganes' +
     ' essen", "bitte ohne erdnüsse", "ich bin allergisch gegen soja" oder' +
     ' "ich vertrage kein sesam". Wenn du fertig bist, sag einfach "fertig".\n' +
-    ' Alles klar?');
+    ' Alles klar?';
 
-// const OPEN_WELCOME_RETRY_TEXT = MessageFactory.text('Das steht leider nicht' +
-//     ' zur Auswahl. Ein ganz einfaches "Ja" oder "Nein" reicht.');
-
+// TODO: Why so complicated?
 const userChoices = ['Ja'];
-
 const CHOICE = {
     YES: 0
-};
-
-const studySample = {
-    likesMeet: false,
-    isVegetarian: false,
-    isVegan: false,
-    notWantedMeets: [],
-    allergies: [],
-    supplements: [],
-    cantina: {}
 };
 
 class OpenCantinaDialog extends CancelAndHelpDialog {
@@ -46,23 +33,25 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
         this.addDialog(new WaterfallDialog(OPEN,
             [
                 this.welcomeUser.bind(this),
-                this.runOpenWorker.bind(this)
+                this.runWorker.bind(this)
             ]));
         this.initialDialogId = OPEN;
     }
 
     async welcomeUser(step) {
+        console.log('[OpenCantinaDialog]: welcome user');
         return await step.prompt(OPEN_WELCOME_PROMPT, {
-            prompt: OPEN_WELCOME_PROMPT_MESSAGE,
+            prompt: MessageFactory.text(OPEN_WELCOME_PROMPT_MESSAGE),
             choices: ChoiceFactory.toChoices(userChoices),
             style: ListStyle.suggestedAction
         });
     }
 
-    async runOpenWorker(step) {
+    async runWorker(step) {
         const choice = step.result.value;
         if (userChoices[CHOICE.YES] === choice) {
-            return await step.replaceDialog(OPEN_CANTINA_WORKER_DIALOG, step.options);
+            console.log('[OpenCantinaDialog]: start worker...');
+            return await step.replaceDialog(OPEN_CANTINA_WORKER_DIALOG);
         }
     }
 }

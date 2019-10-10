@@ -5,18 +5,27 @@ const { JsonOps } = require('../../utilities/jsonOps');
 const { StudyDialog } = require('../study/studyDialog');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 
+const STUDY_DIALOG = 'studyDialog';
+
+const DISCLAIMER = 'disclaimer';
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const DISCLAIMER_PROMPT = 'disclaimerPrompt';
+// TODO: Should be outsourced to json.
 const DISCLAIMER_PROMPT_TEXT = 'Ich muss dir noch mitteilen, dass im Rahmen' +
     ' einer Abschlussarbeit die Eingaben die du in diesem Chat tätigst' +
     ' aufgezeichnet und ausgewertet werden. Diese Daten können und werden' +
     ' nicht mit dir in Verbindung gebracht und annonym gespeichert. Bist du' +
     ' mit diesen Bedingungen einverstanden?';
-const DISCLAIMER = 'disclaimer';
+
+const USER_DECLINED_TEXT = 'Aller klar, allerdings kann ich dir nun leider' +
+    ' nicht das passende Gericht heraussuchen. Du kannst mich aber' +
+    ' nach dem heutigen Menü fragen oder eine' +
+    ' Wochenübersicht durchblättern. Falls' +
+    ' du deine Meinung ändern möchtest schreibe mir' +
+    ' einfach **finde mein gericht**.';
+
+// TODO: Why so complicated?
 const disclaimerChoices = ['Nein', 'Ja'];
-
-const STUDY_DIALOG = 'studyDialog';
-
 const CHOICE = {
     YES: 1,
     NO: 0
@@ -31,36 +40,35 @@ class DisclaimerDialog extends CancelAndHelpDialog {
         this.addDialog(new WaterfallDialog(DISCLAIMER,
             [
                 this.promptDisclaimer.bind(this),
-                this.getUserAnswer.bind(this)
+                this.analyseReply.bind(this)
             ]));
         this.initialDialogId = DISCLAIMER;
     }
 
     async promptDisclaimer(step) {
+        console.log('[DiscalimerDialog]: prompt for disclaimer');
         return await step.prompt(DISCLAIMER_PROMPT, {
-            prompt: DISCLAIMER_PROMPT_TEXT,
+            prompt: MessageFactory.text(DISCLAIMER_PROMPT_TEXT),
             choices: ChoiceFactory.toChoices(disclaimerChoices),
             style: ListStyle.suggestedAction
         });
     }
 
-    async getUserAnswer(step) {
+    async analyseReply(step) {
         const choice = step.result.value;
         if (disclaimerChoices[CHOICE.YES] === choice) {
+            console.log('[DiscalimerDialog]: user agreed');
+            // TODO: Should be done only once.
             const CONTACTS = MessageFactory
                 .attachment(CardFactory
                     .adaptiveCard(await JsonOps.prototype
                         .loadFrom('utilities', 'disclaimer')));
             await step.context.sendActivity(CONTACTS);
-            return await step.replaceDialog(STUDY_DIALOG, step.options);
+            return await step.replaceDialog(STUDY_DIALOG);
         } else {
+            console.log('[DiscalimerDialog]: user declined');
             await step.context.sendActivity(MessageFactory
-                .text('Aller klar, allerdings kann ich dir nun leider nicht' +
-                    ' das passende Gericht heraussuchen. Du kannst mich aber' +
-                    ' nach dem heutigen Menü fragen oder eine' +
-                    ' Wochenübersicht durchblättern. Falls' +
-                    ' du deine Meinung ändern möchtest schreibe mir' +
-                    ' einfach **finde mein gericht**.'));
+                .text(USER_DECLINED_TEXT));
             return await step.endDialog();
         }
     }

@@ -27,6 +27,25 @@ const CONTACT_DIALOG = 'contactDialog';
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
+const WHATS_FOR_ME_FAILED = 'Du hast leider noch keine Preferenzen gesetzt.' +
+    ' Mit **Finde mein Gericht** helfe ich dir ein passendes und leckeres' +
+    ' Gericht zu finden und merke mir deine Preferenzen.';
+
+const HELP_TEXT = 'Mit **stopp** und **abbrechen** kannst du mich' +
+    ' jederzeit unterbrechen.\n\n' +
+    'Sonst frage mich z.B.\n\n' +
+    '-> "Was gibt es heute zu essen?"\n\n' +
+    '-> "Was gibt es diese Woche zu essen?"\n\n' +
+    '-> "Sag mir die Öffnungszeiten"\n\n\n' +
+    'Mit **Finde mein Gericht** helfe ich dir ein passendes' +
+    ' und leckeres Gericht zu finden. Falls ich dir dabei' +
+    ' schon geholfen habe, kannst du das natürlich noch mal' +
+    ' ändern.\n\n\n' +
+    'Mit **Was gibts?** versuche ich das passende Gericht' +
+    ' basierend auf deinen Preferenzen zu finden.';
+
+const FAILED_CANCEL = 'Gerade gibt es nichts, was ich abbrechen könnte.';
+
 const validMessages = {
     START: '/start',
     TODAY: 'heute',
@@ -78,7 +97,7 @@ class RootDialog extends ComponentDialog {
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
             this.prepareStorage.bind(this),
             this.handleRequests.bind(this),
-            this.analyseResults.bind(this)
+            this.saveResults.bind(this)
         ]));
         this.initialDialogId = ROOT_WATERFALL;
     }
@@ -109,6 +128,7 @@ class RootDialog extends ComponentDialog {
      * @returns {Promise<*>}
      */
     async prepareStorage(step) {
+        console.log('[RootDialog]: prepare storage and cantina...');
         const cantina = new Cantina('mensaX');
         await this.cantinaProfile.get(step.context, cantina);
         // TODO: Check if saved menus are still valid or have to be updated.
@@ -138,6 +158,7 @@ class RootDialog extends ComponentDialog {
     }
 
     async handleRequests(step) {
+        console.log('[RootDialog]: handle user requests...');
         const cantina = step.result;
         const study = await this.studyProfile.get(step.context, new Study());
 
@@ -150,8 +171,8 @@ class RootDialog extends ComponentDialog {
 
         if (message.includes(validMessages.START) &&
             conversationData.promptedStudy === false) {
+            console.log('[RootDialog]: user first contact');
             dialogId = WELCOME_DIALOG;
-            options = study;
             await this.conversationData.set(step.context, { promptedStudy: true });
             // if (message.includes(validMessages.START)) {
             //     await step.context.sendActivity(MessageFactory
@@ -159,36 +180,38 @@ class RootDialog extends ComponentDialog {
             //             ' einfach durch das Menü von heute oder eines anderen' +
             //             ' Tages der Woche.'));
         } else if (message.includes(validMessages.FIND_DISH)) {
+            console.log('[RootDialog]: user runs study again');
             dialogId = DISCLAIMER_DIALOG;
-            options = study;
-        } else if (message.includes(validMessages.WHATS_FOR_ME) &&
-            conversationData.promptedStudy === true) {
-            dialogId = MATCHING_DISH_DIALOG;
-            options = study;
+        } else if (message.includes(validMessages.WHATS_FOR_ME)) {
+            if (conversationData.promptedStudy === true) {
+                console.log('[RootDialog]: user runs matching');
+                dialogId = MATCHING_DISH_DIALOG;
+                options = study;
+            } else {
+                console.log('[RootDialog]: user not yet finished study');
+                await step.context
+                    .sendActivity(MessageFactory.text(WHATS_FOR_ME_FAILED));
+            }
         } else if (message.includes(validMessages.TODAY)) {
+            console.log('[RootDialog]: user runs todaysMenuDialog');
             dialogId = TODAYS_MENU_DIALOG;
             options = cantina;
         } else if (message.includes(validMessages.WEEK)) {
+            console.log('[RootDialog]: user runs weekMenuDialog');
             dialogId = WEEK_MENU_DIALOG;
             options = cantina;
         } else if (message.includes(validMessages.OPENINGHOURS)) {
+            console.log('[RootDialog]: user runs openingHours');
             dialogId = OPENING_HOURS_DIALOG;
             options = cantina;
         } else if (
             message.includes(validMessages.HELP) ||
             message.includes(validMessages._HELP)) {
-            await step.context.sendActivity(MessageFactory.text('Mit' +
-                ' **stopp** und **abbrechen** kannst du mich' +
-                ' jederzeit unterbrechen.\n\n' +
-                ' Sonst frage mich z.B. gerne:\n\n' +
-                ' "was gibt es heute zu essen?"\n\n' +
-                ' "was gibt es diese woche zu essen?"\n\n' +
-                ' "sag mir die öffnungszeiten"'));
+            await step.context.sendActivity(MessageFactory.text(HELP_TEXT));
         } else if (
             message.includes(validMessages.STOP) ||
             message.includes(validMessages.CANCEL)) {
-            await step.context.sendActivity(MessageFactory.text('Gerade gibt' +
-                ' es nichts, was ich abbrechen könnte.'));
+            await step.context.sendActivity(MessageFactory.text(FAILED_CANCEL));
         } else {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldigung, leider weiß ich nicht was du ' +
@@ -203,8 +226,9 @@ class RootDialog extends ComponentDialog {
         }
     }
 
-    async analyseResults(step) {
+    async saveResults(step) {
         if (typeof step.result !== 'undefined') {
+            // Save new user input.
             const study = new Study();
             Object.assign(study, step.result);
             await this.studyProfile.set(step.context, study);

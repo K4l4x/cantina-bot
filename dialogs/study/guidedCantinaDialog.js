@@ -1,24 +1,22 @@
 const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog, ChoiceFactory, ChoicePrompt, TextPrompt } = require('botbuilder-dialogs');
+
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { MatchingDishDialog } = require('./matchingDishDialog');
-
 const { Study } = require('../../model/study');
-const { JsonOps } = require('../../utilities/jsonOps');
 
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
-const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
+
 const GUIDED = 'guided';
+const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 
-const userCanOnlyAccept = ['Leg los!'];
-const userDeclines = 'nein';
-const userAccepts = 'ja';
-const userChoices = [userAccepts, userDeclines];
-
+// TODO: Should be outsourced to json.
+// ----------------------------------------------------
+// Dialog prompts and fellow messages.
 const WELCOME_GUIDED_PROMPT = 'welcomeGuidedPrompt';
-const WELCOME_GUIDED_PROMPT_TEXT = MessageFactory.text('Ich werde dir nun ein' +
+const WELCOME_GUIDED_PROMPT_TEXT = 'Ich werde dir nun ein' +
     ' paar Fragen stellen und durch deine Antworten das richtige Gericht für' +
-    ' dich finden. Alles klar?');
+    ' dich finden. Alles klar?';
 
 // Start of step tree.
 const FIRST_PROMPT_MEET = 'meetPrompt';
@@ -46,19 +44,18 @@ const FORTH_PROMPT_MESSAGE_OTHER = 'Soll ich auf sonstige Ergänzungen' +
     ' achten? Zum Beispiel Süßungsmittel oder Farbstoff.';
 
 // End of strep tree.
-const THANK_USER = MessageFactory.text('Das war\'s schon, vielen Dank! ' +
-    'Lass mich kurz nach dem passenden Gericht suchen...');
+const THANK_USER = 'Das war\'s schon, vielen Dank! ' +
+    'Lass mich kurz nach dem passenden Gericht suchen...';
+// End of dialog basically.
+// ----------------------------------------------------
 
-const study = {
-    likesMeet: false,
-    isVegetarian: false,
-    isVegan: false,
-    notWantedMeets: [],
-    allergies: [],
-    supplements: [],
-    cantina: {}
-};
+// TODO: Why so complicated?
+const userCanOnlyAccept = ['Leg los!'];
+const userDeclines = 'nein';
+const userAccepts = 'ja';
+const userChoices = [userAccepts, userDeclines];
 
+// TODO: Should be outsourced to json.
 const meetsMain = ['rind', 'schwein', 'fisch', 'hähnchen', 'pork'];
 const beefList = ['kalb', 'hack', 'wurst', 'beef'];
 const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten'];
@@ -79,14 +76,14 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         this.addDialog(new WaterfallDialog(GUIDED,
             [
                 this.welcomeUser.bind(this),
-                this.handleUserWelcome.bind(this),
-                this.prepareMeet.bind(this),
-                this.meetCheck.bind(this),
-                this.vegetarianCheck.bind(this),
-                this.veganCheck.bind(this),
+                this.handleWelcomeReply.bind(this),
+                this.prepareMeetPrompt.bind(this),
+                this.checkLikesMeet.bind(this),
+                this.checkVegetarian.bind(this),
+                this.checkVegan.bind(this),
                 this.checkNotWantedMeets.bind(this),
                 this.checkAllergies.bind(this),
-                this.checkOther.bind(this),
+                this.checkSupplements.bind(this),
                 this.guidedResult.bind(this)
             ]));
         this.initialDialogId = GUIDED;
@@ -94,47 +91,46 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
 
     async welcomeUser(step) {
         return await step.prompt(WELCOME_GUIDED_PROMPT, {
-            prompt: WELCOME_GUIDED_PROMPT_TEXT,
+            prompt: MessageFactory.text(WELCOME_GUIDED_PROMPT_TEXT),
             choices: ChoiceFactory.toChoices(userCanOnlyAccept)
         });
     }
 
-    async handleUserWelcome(step) {
+    async handleWelcomeReply(step) {
         const choice = step.result.value;
         if (userCanOnlyAccept[0] === choice) {
+            step.values.study = new Study();
             return await step.next();
         }
     }
 
-    async prepareMeet(step) {
+    async prepareMeetPrompt(step) {
         return await step.prompt(FIRST_PROMPT_MEET, {
-            prompt: FIRST_PROMPT_MESSAGE_MEET,
+            prompt: MessageFactory.text(FIRST_PROMPT_MESSAGE_MEET),
             choices: ChoiceFactory.toChoices(userChoices)
         });
     }
 
-    async meetCheck(step) {
+    async checkLikesMeet(step) {
         const likesMeet = step.result.value;
         if (likesMeet === userAccepts) {
-            study.likesMeet = true;
+            step.values.study.likesMeet = true;
             return await step.next();
         }
-
         return await step.prompt(VEGETARIAN_PROMPT, {
-            prompt: VEGETARIAN_PROMPT_MESSAGE,
+            prompt: MessageFactory.text(VEGETARIAN_PROMPT_MESSAGE),
             choices: ChoiceFactory.toChoices(userChoices)
         });
     }
 
-    async vegetarianCheck(step) {
+    async checkVegetarian(step) {
         if (typeof step.result !== 'undefined') {
             const isVegetarian = step.result.value;
             if (isVegetarian === userAccepts) {
-                study.isVegetarian = true;
+                step.values.study.isVegetarian = true;
             }
-
             return await step.prompt(VEGAN_PROMPT, {
-                prompt: VEGAN_PROMPT_MESSAGE,
+                prompt: MessageFactory.text(VEGAN_PROMPT_MESSAGE),
                 choices: ChoiceFactory.toChoices(userChoices)
             });
         } else {
@@ -142,16 +138,17 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         }
     }
 
-    async veganCheck(step) {
+    async checkVegan(step) {
         if (typeof step.result !== 'undefined') {
             const isVegan = step.result.value;
             if (isVegan === userAccepts) {
-                study.isVegan = true;
+                step.values.study.isVegan = true;
             }
             return await step.next();
         } else {
             return await step.prompt(SECOND_PROMPT_WITHOUT_SPECIFIC, {
-                prompt: SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC
+                prompt: MessageFactory
+                    .text(SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC)
             });
         }
     }
@@ -160,56 +157,56 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async checkNotWantedMeets(step) {
         if (typeof step.result !== 'undefined') {
             const result = step.result;
-            study.notWantedMeets = result.split(',');
-
-            let tmp = study.notWantedMeets;
-            for (const meet of study.notWantedMeets) {
-                if (meetsMain.includes(meet.toLowerCase())) {
-                    switch (meet.toLowerCase()) {
+            step.values.study.notWantedMeets = result.split(',');
+            let meets = step.values.study.notWantedMeets;
+            for (let meet of step.values.study.notWantedMeets) {
+                meet = meet.toLowerCase();
+                if (meetsMain.includes(meet)) {
+                    switch (meet) {
                     case 'rind':
-                        tmp = tmp.concat(beefList);
+                        meets = meets.concat(beefList);
                         break;
                     case 'schwein':
                     case 'pork':
-                        tmp = tmp.concat(porkList);
+                        meets = meets.concat(porkList);
                         break;
                     case 'fisch':
-                        tmp = tmp.concat(fishList);
+                        meets = meets.concat(fishList);
                         break;
                     case 'hähnchen':
-                        tmp = tmp.concat(chickenList);
+                        meets = meets.concat(chickenList);
                         break;
                     }
                 }
             }
-            study.notWantedMeets = tmp;
+            step.values.study.notWantedMeets = meets;
         }
         return await step.prompt(THIRD_PROMPT_ALLERGIES, {
-            prompt: THIRD_PROMPT_MESSAGE_ALLERGIES
+            prompt: MessageFactory.text(THIRD_PROMPT_MESSAGE_ALLERGIES)
         });
     }
 
     async checkAllergies(step) {
         if (typeof step.result !== 'undefined') {
             const result = step.result;
-            study.allergies = result.split(',');
+            step.values.study.allergies = result.split(',');
         }
         return await step.prompt(FORTH_PROMPT_OTHER, {
-            prompt: FORTH_PROMPT_MESSAGE_OTHER
+            prompt: MessageFactory.text(FORTH_PROMPT_MESSAGE_OTHER)
         });
     }
 
-    async checkOther(step) {
+    async checkSupplements(step) {
         if (typeof step.result !== 'undefined') {
             const result = step.result;
-            study.supplements = result.split(',');
+            step.values.study.supplements = result.split(',');
         }
         return await step.next();
     }
 
     async guidedResult(step) {
-        // TODO Go back to studyDialog with result.
-        await step.context.sendActivity(THANK_USER);
+        const study = step.values.study;
+        await step.context.sendActivity(MessageFactory.text(THANK_USER));
         return await step.replaceDialog(MATCHING_DISH_DIALOG, study);
     }
 }

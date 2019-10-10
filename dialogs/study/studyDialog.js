@@ -1,15 +1,14 @@
-const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog } = require('botbuilder-dialogs');
-const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 
+const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { GuidedCantinaDialog } = require('./guidedCantinaDialog');
 const { OpenCantinaDialog } = require('./openCantinaDialog');
 
-const STUDY_DIALOG = 'studyDialog';
-const STUDY = 'study';
-
 const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
+
+const STUDY = 'study';
+const STUDY_DIALOG = 'studyDialog';
 
 class StudyDialog extends CancelAndHelpDialog {
     constructor(id, luisRecognizer) {
@@ -19,31 +18,28 @@ class StudyDialog extends CancelAndHelpDialog {
         this.addDialog(new OpenCantinaDialog(
             OPEN_CANTINA_DIALOG, this.luisRecognizer));
         this.addDialog(new WaterfallDialog(STUDY, [
-            this.startStudy.bind(this),
-            this.analyseStudyResult.bind(this)
+            this.begin.bind(this),
+            this.restoreResult.bind(this)
         ]));
         this.initialDialogId = STUDY;
     }
 
-    async startStudy(step) {
-        // For testing: set number below 15 for guided, above 15 for open.
-        const randomNum = 11;
-        // const randomNum = 16;
-        // const randomNum = this.getRandomNum(10, 20);
-
-        console.log('[Randomizer Result]: ' + randomNum);
-        console.log('Studie starten...');
+    async begin(step) {
+        console.log('[StudyDialog]: begin study...');
+        const randomNum = this.getRandomNum(10, 20);
+        console.log('[StudyDialog]: Randomizer Result => ' + randomNum);
 
         if (randomNum < 15) {
-            console.log('[StudyDialog]: guided dialog');
-            return await step.beginDialog(GUIDED_CANTINA_DIALOG, step.options);
+            console.log('[StudyDialog]: run guidedDialog');
+            return await step.beginDialog(GUIDED_CANTINA_DIALOG);
         } else {
-            console.log('[StudyDialog]: nlp dialog');
-            return await step.beginDialog(OPEN_CANTINA_DIALOG, step.options);
+            console.log('[StudyDialog]: run openDialog');
+            return await step.beginDialog(OPEN_CANTINA_DIALOG);
         }
     }
 
-    async analyseStudyResult(step) {
+    async restoreResult(step) {
+        console.log('[StudyDialog]: end study');
         const result = step.result;
         return await step.endDialog(result);
     }
@@ -51,7 +47,10 @@ class StudyDialog extends CancelAndHelpDialog {
     getRandomNum(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
+        // For testing: set number below 15 for guided, above 15 for open.
+        // return Math.floor(Math.random() * (max - min)) + min;
+        return 11;
+        // return 16;
     }
 }
 

@@ -1,14 +1,11 @@
-const { AttachmentLayoutTypes, CardFactory } = require('botbuilder');
-const { WaterfallDialog, ChoicePrompt, ChoiceFactory } = require('botbuilder-dialogs');
+const { MessageFactory, AttachmentLayoutTypes, CardFactory } = require('botbuilder');
+const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { CardSchema } = require('../../utilities/cardSchema');
-const { Cantina } = require('../../model/cantina');
-const { Dish } = require('../../model/dish');
 
-const WEEK_MENU_DIALOG = 'weekMenuDialog';
 const WEEK_MENU = 'weekMenu';
-
+const WEEK_MENU_DIALOG = 'weekMenuDialog';
 const WEEK_DAYS_PROMPT = 'weekDaysPrompt';
 const WEEK_DAYS_MESSAGE = 'Von welchem Tag soll ich dir das Menü zeigen?';
 
@@ -28,18 +25,19 @@ class WeekMenuDialog extends CancelAndHelpDialog {
     }
 
     async prepareWeek(step) {
+        console.log('[WeekMenuDialog]: prepare week menu and show weekdays');
         return await step.prompt(WEEK_DAYS_PROMPT, {
-            prompt: WEEK_DAYS_MESSAGE,
+            prompt: MessageFactory.text(WEEK_DAYS_MESSAGE),
             choices: ChoiceFactory.toChoices(weekdayChoices),
-            style: 1
+            style: ListStyle.suggestedAction
         });
     }
 
     async showDayMenu(step) {
+        console.log('[WeekMenuDialog]: show menu of day');
         const attachments = [];
         const result = step.result.value;
-        const cantina = new Cantina();
-        Object.assign(cantina, step.options);
+        const cantina = step.options;
 
         // Adding one because monday starts at one and friday is represented
         // by five. Either way, this saves ~10 lines of a switch-case.
@@ -47,9 +45,7 @@ class WeekMenuDialog extends CancelAndHelpDialog {
         const selectedDay = weekdayChoices.indexOf(result) + 1;
         const menus = await cantina.menu.getDay(selectedDay);
 
-        for (const current of menus) {
-            const dish = new Dish();
-            Object.assign(dish, current);
+        for (const dish of menus) {
             attachments
                 .push(CardFactory
                     .adaptiveCard(await CardSchema.prototype

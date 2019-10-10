@@ -3,16 +3,16 @@ const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('bot
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DisclaimerDialog } = require('./disclaimerDialog');
 
-const WELCOME_DIALOG = 'welcomeDialog';
-const WELCOME = 'welcome';
+const DISCLAIMER_DIALOG = 'disclaimerDialog';
 
+const WELCOME = 'welcome';
+const WELCOME_DIALOG = 'welcomeDialog';
 const WELCOME_PROMPT = 'welcomePrompt';
 const WELCOME_MESSAGE = 'Hi, ich bin CantinaBot. \n\n Finde mit meiner Hilfe' +
     ' heraus, welches Gericht heute genau zu dir passt. Oder blättere' +
     ' einfach durch das Menü von heute oder eines anderen Tages der Woche.';
 
 const WELCOME_CHOICE = ['Okay, cool und weiter?'];
-const DISCLAIMER_DIALOG = 'disclaimerDialog';
 
 class WelcomeDialog extends CancelAndHelpDialog {
     constructor(id, luisRecognizer) {
@@ -23,13 +23,14 @@ class WelcomeDialog extends CancelAndHelpDialog {
             DISCLAIMER_DIALOG, this.luisRecognizer));
         this.addDialog(new WaterfallDialog(WELCOME,
             [
-                this.welcomeMessage.bind(this),
-                this.prepareDisclaimer.bind(this),
+                this.welcomeUser.bind(this),
+                this.prepareDisclaimer.bind(this)
             ]));
         this.initialDialogId = WELCOME;
     }
 
-    async welcomeMessage(step) {
+    async welcomeUser(step) {
+        console.log('[WelcomeDialog]: prompt user with welcome');
         return await step.prompt(WELCOME_PROMPT, {
             prompt: WELCOME_MESSAGE,
             choices: ChoiceFactory.toChoices(WELCOME_CHOICE),
@@ -38,7 +39,9 @@ class WelcomeDialog extends CancelAndHelpDialog {
     }
 
     async prepareDisclaimer(step) {
-        return await step.replaceDialog(DISCLAIMER_DIALOG, step.options);
+        console.log('[WelcomeDialog]: replace with disclaimerDialog to keep' +
+            ' stack small');
+        return await step.replaceDialog(DISCLAIMER_DIALOG);
     }
 }
 
