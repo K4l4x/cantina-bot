@@ -17,7 +17,7 @@ let ANKER_PROMPT_TEXT = 'Okay, leg los';
 const THANK_USER = MessageFactory.text('Das war\'s schon, vielen Dank! ' +
     'Lass mich kurz nach dem passenden Gericht suchen...');
 
-const studySample = {
+const study = {
     likesMeet: false,
     isVegetarian: false,
     isVegan: false,
@@ -26,6 +26,12 @@ const studySample = {
     supplements: [],
     cantina: {}
 };
+
+const meetsMain = ['rind', 'schwein', 'fisch', 'hähnchen', 'pork'];
+const beefList = ['kalb', 'hack', 'wurst', 'beef'];
+const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten'];
+const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs'];
+const chickenList = ['hühnchen', 'hähnchen', 'chicken'];
 
 class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
     constructor(id, luisRecognizer) {
@@ -53,35 +59,58 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
             const luisResult = await this.luisRecognizer.executeQuery(step.context);
             if (LuisRecognizer.topIntent(luisResult) === 'isVegetarian') {
                 console.log('[OpenCantinaDialog]: isVegetarian Intent hit.');
-                studySample.isVegetarian = true;
+                study.isVegetarian = true;
                 ANKER_PROMPT_TEXT = 'Alles klar, vegetarisch.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'isVegan') {
                 console.log('[OpenCantinaDialog]: isVegan Intent hit.');
-                studySample.isVegan = true;
+                study.isVegan = true;
                 ANKER_PROMPT_TEXT = 'Alles klar, vegan';
             } else if (LuisRecognizer.topIntent(luisResult) === 'withoutMeets') {
                 console.log('[OpenCantinaDialog]: withoutMeets Intent hit.');
                 // Get the normalized value from luis to search in the
                 // labels.
-                const value = (luisResult.entities['Meets'][0]).toString();
+                const value = (luisResult.entities.Meets[0]).toString();
                 console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
-                studySample.notWantedMeets.push(value);
+                study.notWantedMeets.push(value);
+
+                let tmp = study.notWantedMeets;
+                for (const meet of study.notWantedMeets) {
+                    if (meetsMain.includes(meet.toLowerCase())) {
+                        switch (meet.toLowerCase()) {
+                        case 'rind':
+                            tmp = tmp.concat(beefList);
+                            break;
+                        case 'schwein':
+                        case 'pork':
+                            tmp = tmp.concat(porkList);
+                            break;
+                        case 'fisch':
+                            tmp = tmp.concat(fishList);
+                            break;
+                        case 'hähnchen':
+                            tmp = tmp.concat(chickenList);
+                            break;
+                        }
+                    }
+                }
+                study.notWantedMeets = tmp;
+
                 ANKER_PROMPT_TEXT = 'Alles klar.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'noSupplements') {
                 console.log('[OpenCantinaDialog]: noSupplements Intent hit.');
                 // Get the normalized value from luis to search in the
                 // labels.
-                const value = (luisResult.entities['Supplements'][0]).toString();
+                const value = (luisResult.entities.Supplements[0]).toString();
                 console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
-                studySample.supplements.push(value);
+                study.supplements.push(value);
                 ANKER_PROMPT_TEXT = 'Alles klar.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'hasAllergies') {
                 console.log('[OpenCantinaDialog]: hasAllergies Intent hit.');
                 // Get the normalized value from luis to search in the
                 // allergiesRegister.
-                const value = (luisResult.entities['Allergies'][0]).toString();
+                const value = (luisResult.entities.Allergies[0]).toString();
                 console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
-                studySample.allergies.push(value);
+                study.allergies.push(value);
                 ANKER_PROMPT_TEXT = 'Alles klar.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'isFinished') {
                 await step.context.sendActivity('okay, fertig');
@@ -98,11 +127,11 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
     async openResults(step) {
         if (typeof step.result === 'undefined') {
             // Just loop this dialog because the is not finished yet.
-            return await step.replaceDialog(OPEN_CANTINA_WORKER_DIALOG, studySample);
+            return await step.replaceDialog(OPEN_CANTINA_WORKER_DIALOG, study);
         } else {
             if (step.result === 'finished') {
                 await step.context.sendActivity(THANK_USER);
-                return await step.replaceDialog(MATCHING_DISH_DIALOG, studySample);
+                return await step.replaceDialog(MATCHING_DISH_DIALOG, study);
             }
         }
     }

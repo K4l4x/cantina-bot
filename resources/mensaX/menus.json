@@ -514,7 +514,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Rindergulasch mit PaprikaA20.1\n\n Es können 3 Wahlbeilagen gewählt werden: SpätzleA22,A20.1, KlößeZ3,A26,A28, RotkohlZ3,Z9, Kaisergemüse, Beilagensalate, Grießpudding vegan A25,A20.1, Pfirsich-DickmilchA26, SauerkirschjoghurtA26 oder EisZ1,A26 "
+    "description": "Rindergulasch mit PaprikaA20.1\n\n Es können 3 Wahlbeilagen gewählt werden: SpätzleA22,A20.1, KlößeZ3,A26,A28, RotkohlZ3,Z9, Kaisergemüse, Beilagensalate, Grießpudding vegan A25,A20.1, SauerkirschjoghurtA26, HeidelbeerquarkA26 oder EisZ1,A26 "
   },
   {
     "date": "October 10, 2019",
@@ -525,7 +525,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "2 Süßkartoffel-Rucola-RöstiA20.1 mit pikantem Tomaten-Paprika-Dip\n\n Es können 3 Wahlbeilagen gewählt werden: SpätzleA22,A20.1, BulgurA20.1, RotkohlZ3,Z9, Kaisergemüse, Beilagensalate, Grießpudding vegan A25,A20.1, Pfirsich-DickmilchA26, SauerkirschjoghurtA26 oder EisZ1,A26 "
+    "description": "2 Süßkartoffel-Rucola-RöstiA20.1 mit pikantem Tomaten-Paprika-Dip\n\n Es können 3 Wahlbeilagen gewählt werden: SpätzleA22,A20.1, BulgurA20.1, RotkohlZ3,Z9, Kaisergemüse, Beilagensalate, Grießpudding vegan A25,A20.1, SauerkirschjoghurtA26, HeidelbeerquarkA26 oder EisZ1,A26 "
   },
   {
     "date": "October 10, 2019",
@@ -666,9 +666,20 @@
     "prices": [
       " ",
       " ",
-      " "
+      " 1,50 € "
     ],
-    "description": "Täglich wechselnde Dessertvariationen. "
+    "description": "Pflaumen-Schicht-DessertA26,A20.1,A20.4 "
+  },
+  {
+    "date": "October 10, 2019",
+    "day": 4,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,50 € "
+    ],
+    "description": "Karamell-Panna-Cotta mit HimbeersoßeA26 "
   },
   {
     "date": "October 10, 2019",

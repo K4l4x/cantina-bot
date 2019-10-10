@@ -49,7 +49,7 @@ const FORTH_PROMPT_MESSAGE_OTHER = 'Soll ich auf sonstige Ergänzungen' +
 const THANK_USER = MessageFactory.text('Das war\'s schon, vielen Dank! ' +
     'Lass mich kurz nach dem passenden Gericht suchen...');
 
-const studySample = {
+const study = {
     likesMeet: false,
     isVegetarian: false,
     isVegan: false,
@@ -58,6 +58,12 @@ const studySample = {
     supplements: [],
     cantina: {}
 };
+
+const meetsMain = ['rind', 'schwein', 'fisch', 'hähnchen', 'pork'];
+const beefList = ['kalb', 'hack', 'wurst', 'beef'];
+const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten'];
+const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs'];
+const chickenList = ['hühnchen', 'hähnchen', 'chicken'];
 
 class GuidedCantinaDialog extends CancelAndHelpDialog {
     constructor(id) {
@@ -110,7 +116,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async meetCheck(step) {
         const likesMeet = step.result.value;
         if (likesMeet === userAccepts) {
-            studySample.likesMeet = true;
+            study.likesMeet = true;
             return await step.next();
         }
 
@@ -124,7 +130,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         if (typeof step.result !== 'undefined') {
             const isVegetarian = step.result.value;
             if (isVegetarian === userAccepts) {
-                studySample.isVegetarian = true;
+                study.isVegetarian = true;
             }
 
             return await step.prompt(VEGAN_PROMPT, {
@@ -140,7 +146,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         if (typeof step.result !== 'undefined') {
             const isVegan = step.result.value;
             if (isVegan === userAccepts) {
-                studySample.isVegan = true;
+                study.isVegan = true;
             }
             return await step.next();
         } else {
@@ -154,7 +160,29 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async checkNotWantedMeets(step) {
         if (typeof step.result !== 'undefined') {
             const result = step.result;
-            studySample.notWantedMeets = result.split(',');
+            study.notWantedMeets = result.split(',');
+
+            let tmp = study.notWantedMeets;
+            for (const meet of study.notWantedMeets) {
+                if (meetsMain.includes(meet.toLowerCase())) {
+                    switch (meet.toLowerCase()) {
+                    case 'rind':
+                        tmp = tmp.concat(beefList);
+                        break;
+                    case 'schwein':
+                    case 'pork':
+                        tmp = tmp.concat(porkList);
+                        break;
+                    case 'fisch':
+                        tmp = tmp.concat(fishList);
+                        break;
+                    case 'hähnchen':
+                        tmp = tmp.concat(chickenList);
+                        break;
+                    }
+                }
+            }
+            study.notWantedMeets = tmp;
         }
         return await step.prompt(THIRD_PROMPT_ALLERGIES, {
             prompt: THIRD_PROMPT_MESSAGE_ALLERGIES
@@ -164,7 +192,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async checkAllergies(step) {
         if (typeof step.result !== 'undefined') {
             const result = step.result;
-            studySample.allergies = result.split(',');
+            study.allergies = result.split(',');
         }
         return await step.prompt(FORTH_PROMPT_OTHER, {
             prompt: FORTH_PROMPT_MESSAGE_OTHER
@@ -174,7 +202,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async checkOther(step) {
         if (typeof step.result !== 'undefined') {
             const result = step.result;
-            studySample.supplements = result.split(',');
+            study.supplements = result.split(',');
         }
         return await step.next();
     }
@@ -182,7 +210,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async guidedResult(step) {
         // TODO Go back to studyDialog with result.
         await step.context.sendActivity(THANK_USER);
-        return await step.replaceDialog(MATCHING_DISH_DIALOG, studySample);
+        return await step.replaceDialog(MATCHING_DISH_DIALOG, study);
     }
 }
 

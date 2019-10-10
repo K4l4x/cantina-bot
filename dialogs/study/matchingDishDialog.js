@@ -14,12 +14,6 @@ const listOfMeets = ['pulled pork', 'pork', 'lamm', 'schwein', 'rind', 'kalb', '
     'hühnchen', 'hähnchen', 'chicken', 'fisch', 'scholle', 'barsch',
     'kibbelinge', 'lachs', 'spießbraten', 'wurst', 'ente', 'beef'];
 
-const meetsMain = ['rind', 'schwein', 'fisch', 'hähnchen', 'pork'];
-const beefList = ['kalb', 'hack', 'wurst', 'beef'];
-const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten'];
-const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs'];
-const chickenList = ['hühnchen', 'hähnchen', 'chicken'];
-
 class MatchingDishDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || MATCHING_DISH_DIALOG);
@@ -84,30 +78,9 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             }
             console.log('[Matching]: Is Vegan, auto add specific' +
                 ' "allergies"');
+            console.log('[Matching]: Size of allergies list: ' +
+                study.allergies.length);
         }
-
-        let tmp = study.notWantedMeets;
-        for (const meet of study.notWantedMeets) {
-            if (meetsMain.includes(meet)) {
-                switch (meet) {
-                case 'rind':
-                    tmp = tmp.concat(beefList);
-                    break;
-                case 'schwein':
-                case 'pork':
-                    tmp = tmp.concat(porkList);
-                    break;
-                case 'fisch':
-                    tmp = tmp.concat(fishList);
-                    break;
-                case 'hähnchen':
-                    tmp = tmp.concat(chickenList);
-                    break;
-                }
-            }
-        }
-
-        study.notWantedMeets = tmp;
 
         for (const entry of study.notWantedMeets) {
             const meetType = entry.toLowerCase()
@@ -128,6 +101,9 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                 }
             }
         }
+
+        console.log('[Matching]: Size of notWanted Meets: ' +
+            study.notWantedMeets.length);
 
         for (const entry of study.allergies) {
             const allergyType = entry.toLowerCase()
