@@ -7,8 +7,12 @@ const restify = require('restify');
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
+const { DialogSet, DialogTurnStatus} = require('botbuilder-dialogs');
 const { CantinaRequestsRecognizer } = require('./utilities/CantinaRequestsRecognizer');
 const { BlobStorage } = require('botbuilder-azure');
+
+const { Cantina } = require('./model/cantina');
+const { TodaysMenuDialog } = require('./dialogs/cantina/todaysMenuDialog');
 
 // This bot's main routine and rootDialog.
 const { CantinaBot } = require('./bot');
@@ -58,8 +62,8 @@ const server = restify.createServer();
 // server.listen(process.env.port || process.env.PORT || 3978, () => {
 server.listen(process.env.port || process.env.PORT || 3000, () => {
     console.log(`\n${ server.name } listening to ${ server.url }`);
-    console.log(`\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator`);
-    console.log(`\nTo talk to your bot, open CantinaBot.bot file in the Emulator`);
+    console.log('\nGet Bot Framework Emulator: https://aka.ms/botframework-emulator');
+    console.log('\nTo talk to your bot, open CantinaBot.bot file in the Emulator');
 });
 
 // Catch-all for errors.
@@ -69,10 +73,12 @@ adapter.onTurnError = async (context, error) => {
     // Send a message to the user
     await context.sendActivity('Leider ist da etwas total schiefgelaufen.');
 };
+// Create conversation references object.
+const conversationReferences = {};
 
 // Create the main dialog.
 const dialog = new RootDialog(cantinaState, conversationState, userState, luisRecognizer);
-const cantinaBot = new CantinaBot(cantinaState, conversationState, userState, dialog);
+const cantinaBot = new CantinaBot(cantinaState, conversationState, userState, dialog, conversationReferences);
 
 // Heart of the system.
 // Listen for incoming requests.
@@ -82,3 +88,69 @@ server.post('/api/messages', (req, res) => {
         await cantinaBot.run(turnContext);
     });
 });
+
+// Listen for incoming trigger and start proactive dialog with user.
+// server.get('/api/questionnaire', async (require, res) => {
+//     for (const conversationReference of Object.values(conversationReferences)) {
+//         await adapter.continueConversation(conversationReference, async turnContext => {
+//             // await cantinaBot.run(turnContext);
+//             await turnContext.sendActivity('proactive trigger');
+//         });
+//     }
+//
+//     res.setHeader('Content-Type', 'text/html');
+//     res.writeHead(200);
+//     res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');
+//     res.end();
+// });
+
+// TODO: This works! Currently sending proactively the menu of today. Also
+//  on azure there is no need to add another endpoint, because posts on
+//  stackoverflow say, that we can just add endpoints.
+// Listen for incoming trigger and start proactive dialog with user.
+server.get('/api/questionnaire', async (require, res) => {
+    for (const conversationReference of Object.values(conversationReferences)) {
+        await adapter.continueConversation(conversationReference, async turnContext => {
+
+            const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
+
+            const dialogSet = new DialogSet(questionnaireAccessor);
+            dialogSet.add(new TodaysMenuDialog('todaysMenuDialog'));
+
+            const dialogContext = await dialogSet.createContext(turnContext);
+            const results = await dialogContext.continueDialog();
+            if (results.status === DialogTurnStatus.empty) {
+                const cantina = new Cantina('mensaX');
+                await cantina.menu.loadList();
+                await dialogContext.beginDialog('todaysMenuDialog', cantina);
+            }
+        });
+    }
+
+    res.setHeader('Content-Type', 'text/html');
+    res.writeHead(200);
+    res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');
+    res.end();
+});
+
+// try
+// {
+//     var conversationStateAccessors = _ConversationState.CreateProperty<DialogState>(nameof(DialogState));
+//
+//     var dialogSet = new DialogSet(conversationStateAccessors);
+//     dialogSet.Add(this._Dialog);
+//
+//     var dialogContext = await dialogSet.CreateContextAsync(turnContext, cancellationToken);
+//     var results = await dialogContext.ContinueDialogAsync(cancellationToken);
+//     if (results.Status == DialogTurnStatus.Empty)
+//     {
+//         await dialogContext.BeginDialogAsync(_Dialog.Id, null, cancellationToken);
+//         await _ConversationState.SaveChangesAsync(dialogContext.Context, false, cancellationToken);
+//     }
+//     else
+//         await turnContext.SendActivityAsync("Starting proactive message bot call back");
+// }
+// catch (Exception ex)
+// {
+//     this._Logger.LogError(ex.Message);
+// }
