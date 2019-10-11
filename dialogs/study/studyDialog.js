@@ -49,8 +49,8 @@ class StudyDialog extends CancelAndHelpDialog {
         max = Math.floor(max);
         // For testing: set number below 15 for guided, above 15 for open.
         // return Math.floor(Math.random() * (max - min)) + min;
-        return 11;
-        // return 16;
+        // return 11;
+        return 16;
     }
 }
 

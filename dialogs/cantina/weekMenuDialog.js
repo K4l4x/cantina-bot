@@ -3,6 +3,7 @@ const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('bot
 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { CardSchema } = require('../../utilities/cardSchema');
+const { Cantina } = require('../../model/cantina');
 
 const WEEK_MENU = 'weekMenu';
 const WEEK_MENU_DIALOG = 'weekMenuDialog';
@@ -34,10 +35,14 @@ class WeekMenuDialog extends CancelAndHelpDialog {
     }
 
     async showDayMenu(step) {
-        console.log('[WeekMenuDialog]: show menu of day');
+        console.log('[WeekMenuDialog]: show menu by user selection');
         const attachments = [];
         const result = step.result.value;
-        const cantina = step.options;
+        // Has to be done here, otherwise the dialog will not recognize
+        // cantina object and will run into an error if I want to get the
+        // menu from day (line 47-53) that the user has selected.
+        const cantina = new Cantina();
+        Object.assign(cantina, step.options);
 
         // Adding one because monday starts at one and friday is represented
         // by five. Either way, this saves ~10 lines of a switch-case.
