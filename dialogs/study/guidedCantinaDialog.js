@@ -15,8 +15,12 @@ const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 // Dialog prompts and fellow messages.
 const WELCOME_GUIDED_PROMPT = 'welcomeGuidedPrompt';
 const WELCOME_GUIDED_PROMPT_TEXT = 'Ich werde dir nun ein' +
-    ' paar Fragen stellen und durch deine Antworten das richtige Gericht für' +
-    ' dich finden. Alles klar?';
+    ' paar Fragen stellen und versuchen durch deine Antworten das richtige' +
+    ' Gericht für dich finden. Falls du das ganze abbrechen möchtest, schreib mir' +
+    ' einfach **stopp** oder **abbrechen**. Falls du es später gerne' +
+    ' noch einmal probieren möchtest, findest du mit **Finde mein' +
+    ' Gericht** wieder hier hin.\n\n' +
+    ' Alles klar?';
 
 // Start of step tree.
 const FIRST_PROMPT_MEET = 'meetPrompt';
@@ -30,9 +34,9 @@ const VEGAN_PROMPT = 'veganPrompt';
 const VEGAN_PROMPT_MESSAGE = 'Bist du Veganer?';
 
 const SECOND_PROMPT_WITHOUT_SPECIFIC = 'withoutSpecificPrompt';
-const SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC = 'Alle Arten Fleisch? Oder' +
-    ' verzichtest du auf Gewisse? Du kannst sie mir mit Kommata getrennt' +
-    ' auflisten z.B. Schwein, Rind,...';
+const SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC = 'Magst du alle Sorten Fleisch?' +
+    ' Verzichtest du vielleicht auf gewisse Sorten? Du kannst sie mir mit' +
+    ' Kommata getrennt auflisten z.B. Schwein, Rind,...';
 
 const THIRD_PROMPT_ALLERGIES = 'allergiesPrompt';
 const THIRD_PROMPT_MESSAGE_ALLERGIES = 'Ich hoffe du hast keine Allergien!' +

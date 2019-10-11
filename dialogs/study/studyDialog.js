@@ -1,3 +1,4 @@
+const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
@@ -9,6 +10,13 @@ const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
 
 const STUDY = 'study';
 const STUDY_DIALOG = 'studyDialog';
+
+const FAILED_FINDING_DISH_TEXT = 'Falls keines dieser Gerichte dir zusagt,' +
+    ' kannst du mit **"Was gibt es heute zu essen?"** alle Gerichte des' +
+    ' heutigen Tages selbst noch einmal anschauen.\n\n' +
+    'Sonst schreibe mir an einem anderen Tag **"Ich habe hunger"** und ich' +
+    ' werde mit deinen hier gesetzten Preferenzen nach einem Gericht für' +
+    ' dich suchen.';
 
 class StudyDialog extends CancelAndHelpDialog {
     constructor(id, luisRecognizer) {
@@ -41,6 +49,8 @@ class StudyDialog extends CancelAndHelpDialog {
     async restoreResult(step) {
         console.log('[StudyDialog]: end study');
         const result = step.result;
+        await step.context.sendActivity(MessageFactory
+            .text(FAILED_FINDING_DISH_TEXT));
         return await step.endDialog(result);
     }
 
@@ -49,8 +59,8 @@ class StudyDialog extends CancelAndHelpDialog {
         max = Math.floor(max);
         // For testing: return a number below 15 for guided, above 15 for open.
         // return Math.floor(Math.random() * (max - min)) + min;
-        // return 11;
-        return 16;
+        return 11;
+        // return 16;
     }
 }
 

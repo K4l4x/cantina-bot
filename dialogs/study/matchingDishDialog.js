@@ -37,8 +37,8 @@ class MatchingDishDialog extends CancelAndHelpDialog {
 
         // TODO: Should be done in root dialog or even before that and only
         //  once.
-        const labels = await JsonOps.prototype
-            .loadFrom('utilities', 'labels');
+        // const labels = await JsonOps.prototype
+        //     .loadFrom('utilities', 'labels');
         const allergies = await JsonOps.prototype
             .loadFrom('utilities', 'allergiesRegister');
         const supplements = await JsonOps.prototype

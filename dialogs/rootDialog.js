@@ -28,7 +28,7 @@ const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
 const WHATS_FOR_ME_FAILED = 'Du hast leider noch keine Preferenzen gesetzt.' +
-    ' Mit **Finde mein Gericht** helfe ich dir ein passendes und leckeres' +
+    ' Mit **"Finde mein Gericht"** helfe ich dir ein passendes und leckeres' +
     ' Gericht zu finden und merke mir deine Preferenzen.';
 
 const HELP_TEXT = 'Mit **stopp** und **abbrechen** kannst du mich' +
@@ -37,24 +37,22 @@ const HELP_TEXT = 'Mit **stopp** und **abbrechen** kannst du mich' +
     '-> "Was gibt es heute zu essen?"\n\n' +
     '-> "Was gibt es diese Woche zu essen?"\n\n' +
     '-> "Sag mir die Öffnungszeiten"\n\n\n' +
-    'Mit **Finde mein Gericht** helfe ich dir ein passendes' +
+    'Mit **"Finde mein Gericht"** helfe ich dir ein passendes' +
     ' und leckeres Gericht zu finden. Falls ich dir dabei' +
     ' schon geholfen habe, kannst du das natürlich noch mal' +
     ' ändern.\n\n\n' +
-    'Mit **Was gibts?** versuche ich das passende Gericht' +
-    ' basierend auf deinen Preferenzen zu finden.';
+    'Mit **"Ich hab hunger"** versuche ich ein passendes Gericht' +
+    ' basierend auf deinen gesetzten Preferenzen zu finden.';
 
 const FAILED_CANCEL = 'Gerade gibt es nichts, was ich abbrechen könnte.';
 
 const validMessages = {
     START: '/start',
     TODAY: 'heute',
-    NOW: 'jetzt',
     WEEK: 'woche',
     OPENINGHOURS: 'öffnungszeiten',
-    OPEN: 'offen',
     FIND_DISH: 'finde mein gericht',
-    WHATS_FOR_ME: 'was gibts',
+    HUNGER: 'hunger',
     HELP: 'hilfe',
     _HELP: '?',
     STOP: 'stop',
@@ -177,7 +175,6 @@ class RootDialog extends ComponentDialog {
             conversationData.promptedStudy === false) {
             console.log('[RootDialog]: user first contact');
             dialogId = WELCOME_DIALOG;
-            await this.conversationData.set(step.context, { promptedStudy: true });
             // if (message.includes(validMessages.START)) {
             //     await step.context.sendActivity(MessageFactory
             //         .text('Hi, ich bin CantinaBot. \n\n Blättere' +
@@ -186,7 +183,7 @@ class RootDialog extends ComponentDialog {
         } else if (message.includes(validMessages.FIND_DISH)) {
             console.log('[RootDialog]: user runs study again');
             dialogId = DISCLAIMER_DIALOG;
-        } else if (message.includes(validMessages.WHATS_FOR_ME)) {
+        } else if (message.includes(validMessages.HUNGER)) {
             if (conversationData.promptedStudy === true) {
                 console.log('[RootDialog]: user runs matching');
                 dialogId = MATCHING_DISH_DIALOG;
@@ -219,8 +216,9 @@ class RootDialog extends ComponentDialog {
         } else {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldigung, leider weiß ich nicht was du ' +
-                'mit ' + '**\'' + message + '\'**' + ' meinst. Frag mich' +
-                ' doch z.B. **"Was gibt es diese Woche zu essen?"**.'));
+                'mit ' + '**\'' + message + '\'**' + ' meinst. Mit dem' +
+                ' Stichwort **hilfe** kann ich' +
+                ' dir zeigen, was du mich generell Fragen kannst.'));
         }
 
         if (dialogId !== '') {
@@ -232,6 +230,7 @@ class RootDialog extends ComponentDialog {
 
     async saveResults(step) {
         if (typeof step.result !== 'undefined') {
+            await this.conversationData.set(step.context, { promptedStudy: true });
             // Save new user input.
             const study = new Study();
             Object.assign(study, step.result);

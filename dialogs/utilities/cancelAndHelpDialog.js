@@ -35,11 +35,11 @@ class CancelAndHelpDialog extends ComponentDialog {
                     '-> "Was gibt es heute zu essen?"\n\n' +
                     '-> "Was gibt es diese Woche zu essen?"\n\n' +
                     '-> "Sag mir die Öffnungszeiten"\n\n\n' +
-                    'Mit **Finde mein Gericht** helfe ich dir ein passendes' +
+                    'Mit **"Finde mein Gericht"** helfe ich dir ein passendes' +
                     ' und leckeres Gericht zu finden. Falls ich dir dabei' +
                     ' schon geholfen habe, kannst du das natürlich noch mal' +
                     ' ändern.\n\n\n' +
-                    'Mit **Was gibts?** versuche ich das passende Gericht' +
+                    'Mit **"Ich hab hunger"** versuche ich das passende Gericht' +
                     ' basierend auf deinen Preferenzen zu finden.';
                 await innerDialogContext.context.sendActivity(MessageFactory.text(message));
                 return { status: DialogTurnStatus.waiting };
