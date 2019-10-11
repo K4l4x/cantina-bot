@@ -31,7 +31,7 @@ const WHATS_FOR_ME_FAILED = 'Du hast leider noch keine Preferenzen gesetzt.' +
     ' Mit **"Finde mein Gericht"** helfe ich dir ein passendes und leckeres' +
     ' Gericht zu finden und merke mir deine Preferenzen.';
 
-const HELP_TEXT = 'Mit **stopp** und **abbrechen** kannst du mich' +
+const HELP_TEXT = 'Mit **"stopp"** und **"abbrechen"** kannst du mich' +
     ' jederzeit unterbrechen.\n\n' +
     'Sonst frage mich z.B.\n\n' +
     '-> "Was gibt es heute zu essen?"\n\n' +

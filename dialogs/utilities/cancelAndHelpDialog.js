@@ -29,8 +29,8 @@ class CancelAndHelpDialog extends ComponentDialog {
             case 'hilfe':
             case '?':
                 // TODO: Handling user helplessness.
-                message = 'Mit **stopp** und **abbrechen** kannst du mich' +
-                    ' jederzeit unterbrechen.\n\n' +
+                message = 'Mit **"stopp"** und **"abbrechen"** kannst du mich' +
+                    ' jederzeit unterbrechen.\n\n\n' +
                     'Sonst frage mich z.B.\n\n' +
                     '-> "Was gibt es heute zu essen?"\n\n' +
                     '-> "Was gibt es diese Woche zu essen?"\n\n' +
@@ -47,7 +47,7 @@ class CancelAndHelpDialog extends ComponentDialog {
             case 'stopp':
                 // TODO: Handling lost user, after everything has been canceled.
                 message = 'Okay, ich breche alles ab. Wenn du nicht weißt,' +
-                    ' was du mir schreiben kannst, schreib mir **hilfe**';
+                    ' was du mir schreiben kannst, schreib mir **"hilfe"**';
                 await innerDialogContext.context.sendActivity(MessageFactory.text(message));
                 return await innerDialogContext.cancelAllDialogs();
             }

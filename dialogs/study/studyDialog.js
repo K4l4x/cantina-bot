@@ -11,12 +11,11 @@ const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
 const STUDY = 'study';
 const STUDY_DIALOG = 'studyDialog';
 
-const FAILED_FINDING_DISH_TEXT = 'Falls keines dieser Gerichte dir zusagt,' +
-    ' kannst du mit **"Was gibt es heute zu essen?"** alle Gerichte des' +
-    ' heutigen Tages selbst noch einmal anschauen.\n\n' +
-    'Sonst schreibe mir an einem anderen Tag **"Ich habe hunger"** und ich' +
-    ' werde mit deinen hier gesetzten Preferenzen nach einem Gericht für' +
-    ' dich suchen.';
+const FAILED_FINDING_DISH_TEXT = 'Falls dir keines dieser Gerichte' +
+    ' zusagt, kannst du mit **"Was gibt es heute zu essen?"** alle Gerichte des' +
+    ' heutigen Tages selbst noch einmal anschauen.\n\n\n' +
+    'Sonst schreibe mir **"Ich habe hunger"** und ich werde mit deinen hier' +
+    ' gesetzten Preferenzen nach einem Gericht für dich heraussuchen.';
 
 class StudyDialog extends CancelAndHelpDialog {
     constructor(id, luisRecognizer) {
