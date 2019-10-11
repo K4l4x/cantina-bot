@@ -8,9 +8,10 @@ const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const WELCOME = 'welcome';
 const WELCOME_DIALOG = 'welcomeDialog';
 const WELCOME_PROMPT = 'welcomePrompt';
-const WELCOME_MESSAGE = 'Hi, ich bin CantinaBot. \n\n Finde mit meiner Hilfe' +
-    ' heraus, welches Gericht heute genau zu dir passt. Oder blättere' +
-    ' einfach durch das Menü von heute oder eines anderen Tages der Woche.';
+const WELCOME_MESSAGE = 'Hi, ich bin CantinaBot.\n\n' +
+    'Finde mit meiner Hilfe heraus, welches Gericht heute genau zu dir' +
+    ' passt. Oder blättere einfach durch das Menü von heute oder eines' +
+    ' anderen Tages der Woche.';
 
 const WELCOME_CHOICE = ['Okay, cool und weiter?'];
 
