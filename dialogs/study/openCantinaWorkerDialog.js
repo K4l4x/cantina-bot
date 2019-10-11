@@ -33,6 +33,9 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
     }
 
     async anker(step) {
+        if (step.options === 'start') {
+            step.values.study = new Study();
+        }
         return await step.prompt(ANKER_PROMPT, {
             prompt: MessageFactory.text(ANKER_PROMPT_TEXT)
         });
@@ -40,7 +43,6 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
 
     async switchIntention(step) {
         if (this.luisRecognizer.isConfigured) {
-            step.values.study = new Study();
             const luisResult = await this.luisRecognizer.executeQuery(step.context);
             if (LuisRecognizer.topIntent(luisResult) === 'isVegetarian') {
                 console.log('[OpenCantinaDialog]: isVegetarian Intent hit.');
@@ -117,12 +119,13 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
     }
 
     async prepareResults(step) {
+        const study = step.values.study;
         if (typeof step.result === 'undefined') {
             console.log('[OpenCantinaDialog]: step.result is undefined =>' +
                 ' run replaceDialog to loop this.');
             // Just loop this dialog because the is not finished yet.
             return await step
-                .replaceDialog(OPEN_CANTINA_WORKER_DIALOG, step.values.study);
+                .replaceDialog(OPEN_CANTINA_WORKER_DIALOG, study);
         } else {
             if (step.result === 'finished') {
                 console.log('[OpenCantinaDialog]: step.result is finished =>' +
@@ -130,7 +133,7 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
                     ' stack.');
                 await step.context.sendActivity(MessageFactory.text(THANK_USER));
                 return await step
-                    .replaceDialog(MATCHING_DISH_DIALOG, step.values.study);
+                    .replaceDialog(MATCHING_DISH_DIALOG, study);
             }
         }
     }

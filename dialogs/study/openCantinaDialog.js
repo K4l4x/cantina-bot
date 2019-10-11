@@ -51,7 +51,9 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
         const choice = step.result.value;
         if (userChoices[CHOICE.YES] === choice) {
             console.log('[OpenCantinaDialog]: start worker...');
-            return await step.replaceDialog(OPEN_CANTINA_WORKER_DIALOG);
+            // Setting options to 'start', so the worker knows where the
+            // beginning and the middle of the dialog is.
+            return await step.replaceDialog(OPEN_CANTINA_WORKER_DIALOG, 'start');
         }
     }
 }

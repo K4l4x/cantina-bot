@@ -18,7 +18,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || MATCHING_DISH_DIALOG);
         this.addDialog(new WaterfallDialog(MATCHING_DISH, [
-            this.prepare.bind(this)
+            this.findDish.bind(this)
         ]));
         this.initialDialogId = MATCHING_DISH;
     }
@@ -29,13 +29,14 @@ class MatchingDishDialog extends CancelAndHelpDialog {
     //  them in the description of the dishes. It Would be great to remove
     //  duplicates before searching in the descriptions. Only with "lables"
     //  the description should also be searched with values.
-    async prepare(step) {
+    async findDish(step) {
         const study = step.options;
         const tmpCantina = new Cantina('mensaX');
         await tmpCantina.menu.loadList();
         study.cantina = tmpCantina;
 
-        // TODO: Should be done in root dialog or even before that.
+        // TODO: Should be done in root dialog or even before that and only
+        //  once.
         const labels = await JsonOps.prototype
             .loadFrom('utilities', 'labels');
         const allergies = await JsonOps.prototype
@@ -44,8 +45,6 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             .loadFrom('utilities', 'supplementsRegister');
 
         // TODO: Should be done only once
-        const labelKeys = Object.keys(labels);
-        const labelValues = Object.values(labels);
         const allergiesKeys = Object.keys(allergies);
         const allergiesValues = Object.values(allergies);
         const supplementsKeys = Object.keys(supplements);

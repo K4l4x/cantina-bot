@@ -62,9 +62,13 @@ const validMessages = {
 };
 
 class RootDialog extends ComponentDialog {
-    constructor(conversationState, userState, luisRecognizer) {
+    constructor(cantinaState, conversationState, userState, luisRecognizer) {
         super(ROOT_DIALOG);
 
+        if (!cantinaState) {
+            throw new Error('[RootDialog]: Missing parameter.' +
+                ' cantinaState is required');
+        }
         if (!conversationState) {
             throw new Error('[RootDialog]: Missing parameter.' +
             ' conversationState is required');
@@ -79,10 +83,10 @@ class RootDialog extends ComponentDialog {
         }
 
         // Create our state property accessors.
+        this.cantinaProfile = cantinaState
+            .createProperty(CANTINA_STATE_PROPERTY);
         this.conversationData = conversationState
             .createProperty(CONVERSATION_STATE_PROPERTY);
-        this.cantinaProfile = conversationState
-            .createProperty(CANTINA_STATE_PROPERTY);
         this.studyProfile = userState
             .createProperty(STUDY_STATE_PROPERTY);
         this.luisRecognizer = luisRecognizer;

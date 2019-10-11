@@ -6,14 +6,27 @@ const { ActivityHandler } = require('botbuilder');
 // const MENU_STATE_PROPERTY = 'menuState';
 
 class CantinaBot extends ActivityHandler {
-    constructor(conversationState, userState, dialog) {
+    constructor(cantinaState, conversationState, userState, dialog) {
         super();
-
-        if (!conversationState) throw new Error('[CantinaBot]: Missing parameter. conversationState is required');
-        if (!userState) throw new Error('[CantinaBot]: Missing parameter. userState is required');
-        if (!dialog) throw new Error('[CantinaBot]: Missing parameter. dialog is required');
+        if (!cantinaState) {
+            throw new Error('[CantinaBot]: Missing' +
+                ' parameter. CantinaState is required');
+        }
+        if (!conversationState) {
+            throw new Error('[CantinaBot]: Missing' +
+            ' parameter. ConversationState is required');
+        }
+        if (!userState) {
+            throw new Error('[CantinaBot]: Missing parameter.' +
+            ' UserState is required');
+        }
+        if (!dialog) {
+            throw new Error('[CantinaBot]: Missing parameter.' +
+            ' Dialog is required');
+        }
 
         // Record the conversation and user state management objects.
+        this.cantinaState = cantinaState;
         this.conversationState = conversationState;
         this.userState = userState;
         this.dialog = dialog;
@@ -31,6 +44,7 @@ class CantinaBot extends ActivityHandler {
 
         this.onDialog(async (context, next) => {
             // Save any state changes. The load happened during the execution of the Dialog.
+            await this.cantinaState.saveChanges(context, false);
             await this.conversationState.saveChanges(context, false);
             await this.userState.saveChanges(context, false);
 

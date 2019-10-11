@@ -701,7 +701,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Seelachs im BackteigA23,A26,A30,A20.1 mit TatarensoßeZ2,Z9,A22,A26,A28,A30,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Wildreismischung, Salzkartoffeln, Leipziger AllerleiA28, Kohlrabigemüse in RahmA26, Beilagensalate, ZitronenquarkA26, MangoquarkA26 oder EisZ1,A26 "
+    "description": "Seelachs im BackteigA23,A26,A30,A20.1 mit TatarensoßeZ2,Z9,A22,A26,A28,A30,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Wildreismischung, Salzkartoffeln, Leipziger AllerleiA28, Kohlrabigemüse in RahmA26, Beilagensalate, ZitronenquarkA26, MangoquarkA26, Grießpudding vegan A25,A20.1 oder EisZ1,A26 "
   },
   {
     "date": "October 11, 2019",
@@ -712,7 +712,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Schupfnudelpfanne A22,A20.1 mit Tomaten-Käse-SoßeZ1,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, Wildreismischung, Leipziger AllerleiA28, Kohlrabigemüse in RahmA26, Beilagensalate, ZitronenquarkA26, MangoquarkA26 oder EisZ1,A26 "
+    "description": "Schupfnudelpfanne A22,A20.1 mit Tomaten-Käse-SoßeZ1,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, Wildreismischung, Leipziger AllerleiA28, Kohlrabigemüse in RahmA26, Beilagensalate, ZitronenquarkA26, MangoquarkA26, Grießpudding vegan A25,A20.1 oder EisZ1,A26 "
   },
   {
     "date": "October 11, 2019",
@@ -842,9 +842,20 @@
     "prices": [
       " ",
       " ",
-      " "
+      " 1,50 € "
     ],
-    "description": "Täglich wechselnde Dessertvariationen. "
+    "description": "Karamell-Panna-Cotta mit HimbeersoßeA26 "
+  },
+  {
+    "date": "October 11, 2019",
+    "day": 5,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,50 € "
+    ],
+    "description": "ObstsalatA26 "
   },
   {
     "date": "October 11, 2019",
