@@ -33,32 +33,30 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
     }
 
     async anker(step) {
-        if (step.options === 'start') {
-            step.values.study = new Study();
-        }
         return await step.prompt(ANKER_PROMPT, {
             prompt: MessageFactory.text(ANKER_PROMPT_TEXT)
         });
     }
 
     async switchIntention(step) {
+        const study = step.options;
         if (this.luisRecognizer.isConfigured) {
             const luisResult = await this.luisRecognizer.executeQuery(step.context);
             if (LuisRecognizer.topIntent(luisResult) === 'isVegetarian') {
                 console.log('[OpenCantinaDialog]: isVegetarian Intent hit.');
-                step.values.study.isVegetarian = true;
+                study.isVegetarian = true;
                 ANKER_PROMPT_TEXT = 'Alles klar, vegetarisch.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'isVegan') {
                 console.log('[OpenCantinaDialog]: isVegan Intent hit.');
-                step.values.study.isVegan = true;
+                study.isVegan = true;
                 ANKER_PROMPT_TEXT = 'Alles klar, vegan.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'withoutMeets') {
                 console.log('[OpenCantinaDialog]: withoutMeets Intent hit.');
                 // Get the normalized value from luis to search in the labels.
                 let value = (luisResult.entities.Meets[0]).toString();
                 console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
-                step.values.study.notWantedMeets.push(value);
-                this.checkKnownMeets(step.values.study);
+                study.notWantedMeets.push(value);
+                this.checkKnownMeets(study);
                 value = value.charAt(0).toUpperCase() + value.slice(1);
                 ANKER_PROMPT_TEXT = 'Okay, kein ' + value;
             } else if (LuisRecognizer.topIntent(luisResult) === 'noSupplements') {
@@ -66,7 +64,7 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
                 // Get the normalized value from luis to search in the labels.
                 const value = (luisResult.entities.Supplements[0]).toString();
                 console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
-                step.values.study.supplements.push(value);
+                study.supplements.push(value);
                 ANKER_PROMPT_TEXT = 'Alles klar.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'hasAllergies') {
                 console.log('[OpenCantinaDialog]: hasAllergies Intent hit.');
@@ -74,15 +72,16 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
                 // allergiesRegister.
                 const value = (luisResult.entities.Allergies[0]).toString();
                 console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
-                step.values.study.allergies.push(value);
+                study.allergies.push(value);
                 ANKER_PROMPT_TEXT = 'Notiert.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'isFinished') {
+                step.values.study = study;
                 return await step.next('finished');
             } else {
                 await step.context.sendActivity(MessageFactory.text(NONE_TEXT));
             }
         }
-        return await step.next();
+        return await step.next(study);
     }
 
     checkKnownMeets(study) {
@@ -119,15 +118,16 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
     }
 
     async prepareResults(step) {
-        const study = step.values.study;
-        if (typeof step.result === 'undefined') {
-            console.log('[OpenCantinaDialog]: step.result is undefined =>' +
+        if (typeof step.result === 'object') {
+            const study = step.result;
+            console.log('[OpenCantinaDialog]: step.result is object =>' +
                 ' run replaceDialog to loop this.');
             // Just loop this dialog because the is not finished yet.
             return await step
                 .replaceDialog(OPEN_CANTINA_WORKER_DIALOG, study);
         } else {
             if (step.result === 'finished') {
+                const study = step.values.study;
                 console.log('[OpenCantinaDialog]: step.result is finished =>' +
                     ' run replaceDialog to have studyDialog as parent on the' +
                     ' stack.');

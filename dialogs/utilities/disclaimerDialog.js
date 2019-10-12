@@ -15,7 +15,6 @@ const DISCLAIMER_PROMPT_TEXT = 'Ich muss dir noch mitteilen, dass im Rahmen' +
     ' einer Abschlussarbeit die Eingaben die du in diesem Chat tätigst' +
     ' aufgezeichnet und ausgewertet werden. Diese Daten können und werden' +
     ' nicht mit dir in Verbindung gebracht und annonym gespeichert.\n\n' +
-    '\n\n' +
     'Bist du mit diesen Bedingungen einverstanden?';
 
 const USER_DECLINED_TEXT = 'Aller klar, allerdings kann ich dir nun leider' +
