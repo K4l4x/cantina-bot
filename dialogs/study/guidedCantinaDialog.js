@@ -20,7 +20,7 @@ const WELCOME_GUIDED_PROMPT_TEXT = 'Ich werde dir nun ein' +
     ' einfach **"stopp"** oder **"abbrechen"**. Falls du es später gerne' +
     ' noch einmal probieren möchtest, findest du mit **Finde mein' +
     ' Gericht** wieder hier hin.\n\n\n' +
-    ' Alles klar?';
+    'Alles klar?';
 
 // Start of step tree.
 const FIRST_PROMPT_MEET = 'meetPrompt';
@@ -96,7 +96,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async welcomeUser(step) {
         return await step.prompt(WELCOME_GUIDED_PROMPT, {
             prompt: MessageFactory.text(WELCOME_GUIDED_PROMPT_TEXT),
-            choices: ChoiceFactory.toChoices(userCanOnlyAccept)
+            choices: ChoiceFactory.toChoices(userCanOnlyAccept),
+            style: ListStyle.suggestedAction
         });
     }
 
@@ -111,7 +112,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async prepareMeetPrompt(step) {
         return await step.prompt(FIRST_PROMPT_MEET, {
             prompt: MessageFactory.text(FIRST_PROMPT_MESSAGE_MEET),
-            choices: ChoiceFactory.toChoices(userChoices)
+            choices: ChoiceFactory.toChoices(userChoices),
+            style: ListStyle.suggestedAction
         });
     }
 
@@ -123,7 +125,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         }
         return await step.prompt(VEGETARIAN_PROMPT, {
             prompt: MessageFactory.text(VEGETARIAN_PROMPT_MESSAGE),
-            choices: ChoiceFactory.toChoices(userChoices)
+            choices: ChoiceFactory.toChoices(userChoices),
+            style: ListStyle.suggestedAction
         });
     }
 
@@ -135,7 +138,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             }
             return await step.prompt(VEGAN_PROMPT, {
                 prompt: MessageFactory.text(VEGAN_PROMPT_MESSAGE),
-                choices: ChoiceFactory.toChoices(userChoices)
+                choices: ChoiceFactory.toChoices(userChoices),
+                style: ListStyle.suggestedAction
             });
         } else {
             return await step.next();
