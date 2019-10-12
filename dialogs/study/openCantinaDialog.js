@@ -10,12 +10,11 @@ const OPEN = 'open';
 const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
 const OPEN_WELCOME_PROMPT = 'welcomePrompt';
 // TODO: Should be outsourced to json.
-const OPEN_WELCOME_PROMPT_MESSAGE = 'Lass mich' +
-    ' herausfinden, welches das richtige Gericht für' +
-    ' dich ist. Du kannst mir z.B. sagen "ich würde gerne etwas veganes' +
-    ' essen", "bitte ohne erdnüsse", "ich bin allergisch gegen soja" oder' +
-    ' "ich vertrage kein sesam". Wenn du fertig bist, sag einfach "fertig".\n' +
-    ' Alles klar?';
+const OPEN_WELCOME_PROMPT_MESSAGE = 'Lass mich herausfinden, welches das' +
+    ' richtige Gericht für dich ist. Du kannst mir z.B. sagen "ich würde' +
+    ' gerne etwas veganes essen", "bitte ohne erdnüsse", "ich bin' +
+    ' allergisch gegen soja" oder "ich vertrage kein sesam". Wenn du fertig' +
+    ' bist, sag einfach "fertig".\n\n\n Alles klar?';
 
 // TODO: Why so complicated?
 const userChoices = ['Ja'];
