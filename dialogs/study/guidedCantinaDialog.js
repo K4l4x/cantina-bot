@@ -19,7 +19,7 @@ const WELCOME_GUIDED_PROMPT_TEXT = 'Ich werde dir nun ein' +
     ' Gericht für dich finden. Falls du das ganze abbrechen möchtest, schreib mir' +
     ' einfach **"stopp"** oder **"abbrechen"**. Falls du es später gerne' +
     ' noch einmal probieren möchtest, findest du mit **Finde mein' +
-    ' Gericht** wieder hier hin.\n\n\n' +
+    ' Gericht** wieder hier hin.\n\n' +
     'Alles klar?';
 
 // Start of step tree.

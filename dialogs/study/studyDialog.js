@@ -13,7 +13,7 @@ const STUDY_DIALOG = 'studyDialog';
 
 const FAILED_FINDING_DISH_TEXT = 'Falls dir keines dieser Gerichte' +
     ' zusagt, kannst du mit **"Was gibt es heute zu essen?"** alle Gerichte des' +
-    ' heutigen Tages selbst noch einmal anschauen.\n\n\n' +
+    ' heutigen Tages selbst noch einmal anschauen.\n\n' +
     'Sonst schreibe mir **"Ich habe hunger"** und ich werde mit deinen hier' +
     ' gesetzten Preferenzen nach einem Gericht für dich heraussuchen.';
 
@@ -57,8 +57,8 @@ class StudyDialog extends CancelAndHelpDialog {
         min = Math.ceil(min);
         max = Math.floor(max);
         // For testing: return a number below 15 for guided, above 15 for open.
-        // return Math.floor(Math.random() * (max - min)) + min;
-        return 11;
+        return Math.floor(Math.random() * (max - min)) + min;
+        // return 11;
         // return 16;
     }
 }
