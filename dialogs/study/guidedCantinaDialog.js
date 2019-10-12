@@ -157,7 +157,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             return await step.prompt(SECOND_PROMPT_WITHOUT_SPECIFIC, {
                 prompt: MessageFactory
                     .text(SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC),
-                style: ListStyle.none
+                style: ListStyle.auto
             });
         }
     }
@@ -192,7 +192,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         }
         return await step.prompt(THIRD_PROMPT_ALLERGIES, {
             prompt: MessageFactory.text(THIRD_PROMPT_MESSAGE_ALLERGIES),
-            style: ListStyle.none
+            style: ListStyle.auto
         });
     }
 
@@ -203,7 +203,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         }
         return await step.prompt(FORTH_PROMPT_OTHER, {
             prompt: MessageFactory.text(FORTH_PROMPT_MESSAGE_OTHER),
-            style: ListStyle.none
+            style: ListStyle.auto
         });
     }
 
