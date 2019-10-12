@@ -34,8 +34,7 @@ class WelcomeDialog extends CancelAndHelpDialog {
         console.log('[WelcomeDialog]: prompt user with welcome');
         return await step.prompt(WELCOME_PROMPT, {
             prompt: WELCOME_MESSAGE,
-            choices: ChoiceFactory.toChoices(WELCOME_CHOICE),
-            style: ListStyle.suggestedAction
+            choices: ChoiceFactory.toChoices(WELCOME_CHOICE)
         });
     }
 

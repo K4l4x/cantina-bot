@@ -96,8 +96,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async welcomeUser(step) {
         return await step.prompt(WELCOME_GUIDED_PROMPT, {
             prompt: MessageFactory.text(WELCOME_GUIDED_PROMPT_TEXT),
-            choices: ChoiceFactory.toChoices(userCanOnlyAccept),
-            style: ListStyle.suggestedAction
+            choices: ChoiceFactory.toChoices(userCanOnlyAccept)
         });
     }
 
@@ -112,8 +111,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async prepareMeetPrompt(step) {
         return await step.prompt(FIRST_PROMPT_MEET, {
             prompt: MessageFactory.text(FIRST_PROMPT_MESSAGE_MEET),
-            choices: ChoiceFactory.toChoices(userChoices),
-            style: ListStyle.suggestedAction
+            choices: ChoiceFactory.toChoices(userChoices)
         });
     }
 
@@ -125,8 +123,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         }
         return await step.prompt(VEGETARIAN_PROMPT, {
             prompt: MessageFactory.text(VEGETARIAN_PROMPT_MESSAGE),
-            choices: ChoiceFactory.toChoices(userChoices),
-            style: ListStyle.suggestedAction
+            choices: ChoiceFactory.toChoices(userChoices)
         });
     }
 
@@ -138,8 +135,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             }
             return await step.prompt(VEGAN_PROMPT, {
                 prompt: MessageFactory.text(VEGAN_PROMPT_MESSAGE),
-                choices: ChoiceFactory.toChoices(userChoices),
-                style: ListStyle.suggestedAction
+                choices: ChoiceFactory.toChoices(userChoices)
             });
         } else {
             return await step.next();
@@ -156,8 +152,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         } else {
             return await step.prompt(SECOND_PROMPT_WITHOUT_SPECIFIC, {
                 prompt: MessageFactory
-                    .text(SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC),
-                style: ListStyle.auto
+                    .text(SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC)
             });
         }
     }
@@ -191,8 +186,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             step.values.study.notWantedMeets = meets;
         }
         return await step.prompt(THIRD_PROMPT_ALLERGIES, {
-            prompt: MessageFactory.text(THIRD_PROMPT_MESSAGE_ALLERGIES),
-            style: ListStyle.auto
+            prompt: MessageFactory.text(THIRD_PROMPT_MESSAGE_ALLERGIES)
         });
     }
 
@@ -202,8 +196,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             step.values.study.allergies = result.split(',');
         }
         return await step.prompt(FORTH_PROMPT_OTHER, {
-            prompt: MessageFactory.text(FORTH_PROMPT_MESSAGE_OTHER),
-            style: ListStyle.auto
+            prompt: MessageFactory.text(FORTH_PROMPT_MESSAGE_OTHER)
         });
     }
 
