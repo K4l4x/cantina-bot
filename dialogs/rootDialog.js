@@ -97,7 +97,7 @@ class RootDialog extends ComponentDialog {
         this.addDialog(new DisclaimerDialog(DISCLAIMER_DIALOG, this.luisRecognizer));
         this.addDialog(new MatchingDishDialog(MATCHING_DISH_DIALOG));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
-            this.prepareStorage.bind(this),
+            this.prepareStorageAndOptions.bind(this),
             this.handleRequests.bind(this),
             this.saveResults.bind(this)
         ]));
@@ -129,7 +129,7 @@ class RootDialog extends ComponentDialog {
      * @param step
      * @returns {Promise<*>}
      */
-    async prepareStorage(step) {
+    async prepareStorageAndOptions(step) {
         console.log('[RootDialog]: prepare storage and cantina...');
         const cantina = new Cantina('mensaX');
         await this.cantinaProfile.get(step.context, cantina);
@@ -181,28 +181,22 @@ class RootDialog extends ComponentDialog {
             //             ' einfach durch das Menü von heute oder eines anderen' +
             //             ' Tages der Woche.'));
         } else if (message.includes(validMessages.FIND_DISH)) {
-            console.log('[RootDialog]: user runs study again');
             dialogId = DISCLAIMER_DIALOG;
         } else if (message.includes(validMessages.HUNGER)) {
             if (conversationData.promptedStudy === true) {
-                console.log('[RootDialog]: user runs matching');
                 dialogId = MATCHING_DISH_DIALOG;
                 options = study;
             } else {
-                console.log('[RootDialog]: user not yet finished study');
                 await step.context
                     .sendActivity(MessageFactory.text(WHATS_FOR_ME_FAILED));
             }
         } else if (message.includes(validMessages.TODAY)) {
-            console.log('[RootDialog]: user runs todaysMenuDialog');
             dialogId = TODAYS_MENU_DIALOG;
             options = cantina;
         } else if (message.includes(validMessages.WEEK)) {
-            console.log('[RootDialog]: user runs weekMenuDialog');
             dialogId = WEEK_MENU_DIALOG;
             options = cantina;
         } else if (message.includes(validMessages.OPENINGHOURS)) {
-            console.log('[RootDialog]: user runs openingHours');
             dialogId = OPENING_HOURS_DIALOG;
             options = cantina;
         } else if (
