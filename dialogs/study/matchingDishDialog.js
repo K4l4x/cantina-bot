@@ -48,7 +48,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
 
         // Get todays menu to search in it.
         // For testing just give getDay() a weekday from 1-5.
-        const todaysMenu = await study.cantina.menu.getDay(3);
+        const todaysMenu = await study.cantina.menu.getDay();
 
         if (study.isVegetarian || study.isVegan) {
             for (let i = todaysMenu.length - 1; i >= 0; i--) {
