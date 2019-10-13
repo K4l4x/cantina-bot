@@ -18,16 +18,33 @@ const { RootDialog } = require('./dialogs/rootDialog');
 const ENV_FILE = path.join(__dirname, '.env');
 dotenv.config({ path: ENV_FILE });
 
+// If configured, pass in the recognizer.  (Defining it externally allows it
+// to be mocked for tests)
+const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
+const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
+
+// Create cantina request recognizer.
+const luisRecognizer = new CantinaRequestsRecognizer(luisConfig);
+
+// Define state store (In-Memory) for your bot.
+const memoryStorage = new MemoryStorage();
+
+// Create conversation and user state with in-memory storage provider.
+const cantinaState = new ConversationState(memoryStorage);
+const conversationState = new ConversationState(memoryStorage);
+const userState = new UserState(memoryStorage);
+
+// Define state store (Blob) for bot.
 // const blobStorage = new BlobStorage({
 //     containerName: process.env.Container,
 //     storageAccessKey: process.env.StorageKey,
 //     storageAccountOrConnectionString: process.env.ConnectionString
 // });
 
-// If configured, pass in the recognizer.  (Defining it externally allows it
-// to be mocked for tests)
-const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
-const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
+// Create conversation and user state with blob storage provider.
+// const cantinaState = new ConversationState(memoryStorage);
+// const conversationState = new ConversationState(blobStorage);
+// const userState = new UserState(blobStorage);
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about .bot file its use and bot configuration.
@@ -35,23 +52,6 @@ const adapter = new BotFrameworkAdapter({
     appId: process.env.MicrosoftAppId,
     appPassword: process.env.MicrosoftAppPassword
 });
-
-// Create cantina request recognizer.
-const luisRecognizer = new CantinaRequestsRecognizer(luisConfig);
-
-// Define state store (In-Memory) for your bot.
-const memoryStorage = new MemoryStorage();
-// Define state store (Blob) for bot.
-
-// Create conversation and user state with in-memory storage provider.
-const cantinaState = new ConversationState(memoryStorage);
-const conversationState = new ConversationState(memoryStorage);
-const userState = new UserState(memoryStorage);
-
-// Create conversation and user state with blob storage provider.
-// const cantinaState = new ConversationState(memoryStorage);
-// const conversationState = new ConversationState(blobStorage);
-// const userState = new UserState(blobStorage);
 
 // Create HTTP server
 const server = restify.createServer();

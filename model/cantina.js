@@ -10,7 +10,6 @@ const openingHours = {
     friday: '11:30 - 14:30Uhr'
 };
 
-// TODO: Let Cantina handle all menu and dishes stuff. Yes! Menu and Dishes.
 /**
  * Represents a general cantina.
  */
