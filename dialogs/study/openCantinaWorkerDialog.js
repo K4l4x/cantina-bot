@@ -4,7 +4,6 @@ const { WaterfallDialog, TextPrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { MatchingDishDialog } = require('./matchingDishDialog');
 const { LuisRecognizer } = require('botbuilder-ai');
-const { Study } = require('../../model/study');
 
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
@@ -45,20 +44,20 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
             if (LuisRecognizer.topIntent(luisResult) === 'isVegetarian') {
                 console.log('[OpenCantinaDialog]: isVegetarian Intent hit.');
                 study.isVegetarian = true;
-                ANKER_PROMPT_TEXT = 'Alles klar, vegetarisch.';
+                ANKER_PROMPT_TEXT = 'Alles klar, vegetarische Gerichte.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'isVegan') {
                 console.log('[OpenCantinaDialog]: isVegan Intent hit.');
                 study.isVegan = true;
-                ANKER_PROMPT_TEXT = 'Alles klar, vegan.';
+                ANKER_PROMPT_TEXT = 'Alles klar, veganes Essen.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'withoutMeets') {
                 console.log('[OpenCantinaDialog]: withoutMeets Intent hit.');
                 // Get the normalized value from luis to search in the labels.
-                let value = (luisResult.entities.Meets[0]).toString();
+                let value = (luisResult.entities.Meet[0]).toString();
                 console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
                 study.notWantedMeets.push(value);
-                this.checkKnownMeets(study);
+                await this.checkKnownMeets(study);
                 value = value.charAt(0).toUpperCase() + value.slice(1);
-                ANKER_PROMPT_TEXT = 'Okay, kein ' + value;
+                ANKER_PROMPT_TEXT = 'Okay, ich lasse ' + value + ' weg.';
             } else if (LuisRecognizer.topIntent(luisResult) === 'noSupplements') {
                 console.log('[OpenCantinaDialog]: noSupplements Intent hit.');
                 // Get the normalized value from luis to search in the labels.
@@ -78,20 +77,20 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
                 step.values.study = study;
                 return await step.next('finished');
             } else {
-                await step.context.sendActivity(MessageFactory.text(NONE_TEXT));
+                ANKER_PROMPT_TEXT = NONE_TEXT;
             }
         }
         return await step.next(study);
     }
 
-    checkKnownMeets(study) {
+    async checkKnownMeets(study) {
         console.log('[OpenCantinaDialog]: checking known meets...');
         // TODO: Should be outsourced to json.
-        const meetsMain = ['rind', 'schwein', 'fisch', 'hähnchen', 'pork'];
-        const beefList = ['kalb', 'hack', 'wurst', 'beef'];
-        const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten'];
-        const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs'];
-        const chickenList = ['hühnchen', 'hähnchen', 'chicken'];
+        const meetsMain = ['rind', 'schwein', 'fisch', 'geflügel'];
+        const beefList = ['kalb', 'wurst', 'beef', 'salami', 'hack', 'würstchen'];
+        const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten', 'speck', 'bacon', 'schinken','salami', 'würstchen'];
+        const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs', 'kabeljau', 'dorsch', 'forelle', 'zander', 'hecht', 'karpfen', 'hering', 'thunfisch'];
+        const poultryList = ['hühnchen', 'hähnchen', 'chicken', 'ente', 'pute', 'huhn', 'truthahn'];
 
         // Check all meets we know off.
         let meets = study.notWantedMeets;
@@ -102,14 +101,13 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
                     meets = meets.concat(beefList);
                     break;
                 case 'schwein':
-                case 'pork':
                     meets = meets.concat(porkList);
                     break;
                 case 'fisch':
                     meets = meets.concat(fishList);
                     break;
-                case 'hähnchen':
-                    meets = meets.concat(chickenList);
+                case 'geflügel':
+                    meets = meets.concat(poultryList);
                     break;
                 }
             }

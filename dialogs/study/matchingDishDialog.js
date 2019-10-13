@@ -10,9 +10,9 @@ const { JsonOps } = require('../../utilities/jsonOps');
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 const MATCHING_DISH = 'matchingDish';
 
-const listOfMeets = ['pulled pork', 'pork', 'lamm', 'schwein', 'rind', 'kalb', 'hack',
-    'hühnchen', 'hähnchen', 'chicken', 'fisch', 'scholle', 'barsch',
-    'kibbelinge', 'lachs', 'spießbraten', 'wurst', 'ente', 'beef'];
+const listOfMeets = ['pulled pork', 'pork', 'lamm', 'schwein', 'rind', 'kalb', 'hack', 'bacon', 'speck', 'truthan', 'salami',
+    'hühnchen', 'hähnchen', 'chicken', 'fisch', 'scholle', 'barsch', 'kabeljau', 'forelle', 'karpfen', 'thunfisch', 'schinken', 'kasseler',
+    'kibbelinge', 'lachs', 'spießbraten', 'wurst', 'ente', 'beef', 'pute', 'dorsch', 'geflügel', 'hecht', 'zander', 'hering', 'würstchen'];
 
 class MatchingDishDialog extends CancelAndHelpDialog {
     constructor(id) {

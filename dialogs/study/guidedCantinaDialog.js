@@ -29,9 +29,9 @@ const FIRST_PROMPT_MESSAGE_MEET = 'Magst du fleischhaltiges Essen?';
 // Have no prefixing number, because they are part of the FIRST_PROMPT. If
 // the user declines FIRST_PROMPT this will be the next two prompts.
 const VEGETARIAN_PROMPT = 'vegetarianPrompt';
-const VEGETARIAN_PROMPT_MESSAGE = 'Bist du Vegetarier?';
+const VEGETARIAN_PROMPT_MESSAGE = 'Möchtest du ein vegetarisches Gericht?'
 const VEGAN_PROMPT = 'veganPrompt';
-const VEGAN_PROMPT_MESSAGE = 'Bist du Veganer?';
+const VEGAN_PROMPT_MESSAGE = 'Möchtest du ein veganes Gericht?';
 
 const SECOND_PROMPT_WITHOUT_SPECIFIC = 'withoutSpecificPrompt';
 const SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC = 'Magst du alle Sorten Fleisch?' +
@@ -58,13 +58,6 @@ const userCanOnlyAccept = ['Leg los!'];
 const userDeclines = 'nein';
 const userAccepts = 'ja';
 const userChoices = [userAccepts, userDeclines];
-
-// TODO: Should be outsourced to json.
-const meetsMain = ['rind', 'schwein', 'fisch', 'hähnchen', 'pork'];
-const beefList = ['kalb', 'hack', 'wurst', 'beef'];
-const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten'];
-const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs'];
-const chickenList = ['hühnchen', 'hähnchen', 'chicken'];
 
 class GuidedCantinaDialog extends CancelAndHelpDialog {
     constructor(id) {
@@ -163,6 +156,13 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
 
     // Only hit, if user is not vegetarian or vegan.
     async checkNotWantedMeets(step) {
+        // TODO: Should be outsourced to json.
+        const meetsMain = ['rind', 'schwein', 'fisch', 'geflügel'];
+        const beefList = ['kalb', 'wurst', 'beef', 'salami', 'hack', 'würstchen'];
+        const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten', 'speck', 'bacon', 'schinken','salami', 'würstchen'];
+        const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs', 'kabeljau', 'dorsch', 'forelle', 'zander', 'hecht', 'karpfen', 'hering', 'thunfisch'];
+        const poultryList = ['hühnchen', 'hähnchen', 'chicken', 'ente', 'pute', 'huhn', 'truthahn'];
+
         if (typeof step.result !== 'undefined') {
             const result = step.result;
             step.values.study.notWantedMeets = result.split(',');
@@ -175,14 +175,13 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
                         meets = meets.concat(beefList);
                         break;
                     case 'schwein':
-                    case 'pork':
                         meets = meets.concat(porkList);
                         break;
                     case 'fisch':
                         meets = meets.concat(fishList);
                         break;
-                    case 'hähnchen':
-                        meets = meets.concat(chickenList);
+                    case 'geflügel':
+                        meets = meets.concat(poultryList);
                         break;
                     }
                 }

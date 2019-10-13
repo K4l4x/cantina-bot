@@ -3,6 +3,7 @@ const { WaterfallDialog } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { CardSchema } = require('../../utilities/cardSchema');
+const { Cantina } = require('../../model/cantina');
 
 const TODAYS_MENU = 'todaysMenu';
 const TODAYS_MENU_DIALOG = 'todaysMenuDialog';
@@ -23,7 +24,8 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
     async scrollTroughMenus(step) {
         console.log('[TodaysMenuDialog]: prepare today\'s menu...');
         const EMPTY_MENU = 0;
-        const cantina = step.options;
+        const cantina = new Cantina();
+        Object.assign(cantina, step.options);
         const attachments = [];
         // For testing just give getDay() a weekday from 1-5.
         const todaysMenu = await cantina.menu.getDay();
