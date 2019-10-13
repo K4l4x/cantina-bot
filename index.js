@@ -22,11 +22,11 @@ const { RootDialog } = require('./dialogs/rootDialog');
 const ENV_FILE = path.join(__dirname, '.env');
 dotenv.config({ path: ENV_FILE });
 
-// const blobStorage = new BlobStorage({
-//     containerName: process.env.Container,
-//     storageAccessKey: process.env.StorageKey,
-//     storageAccountOrConnectionString: process.env.ConnectionString
-// });
+const blobStorage = new BlobStorage({
+    containerName: process.env.Container,
+    storageAccessKey: process.env.StorageKey,
+    storageAccountOrConnectionString: process.env.ConnectionString
+});
 
 // If configured, pass in the recognizer.  (Defining it externally allows it
 // to be mocked for tests)
@@ -48,14 +48,14 @@ const memoryStorage = new MemoryStorage();
 // Define state store (Blob) for bot.
 
 // Create conversation and user state with in-memory storage provider.
-const cantinaState = new ConversationState(memoryStorage);
-const conversationState = new ConversationState(memoryStorage);
-const userState = new UserState(memoryStorage);
+// const cantinaState = new ConversationState(memoryStorage);
+// const conversationState = new ConversationState(memoryStorage);
+// const userState = new UserState(memoryStorage);
 
 // Create conversation and user state with blob storage provider.
-// const cantinaState = new ConversationState(memoryStorage);
-// const conversationState = new ConversationState(blobStorage);
-// const userState = new UserState(blobStorage);
+const cantinaState = new ConversationState(memoryStorage);
+const conversationState = new ConversationState(blobStorage);
+const userState = new UserState(blobStorage);
 
 // Create HTTP server
 const server = restify.createServer();

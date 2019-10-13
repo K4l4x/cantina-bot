@@ -4,7 +4,7 @@
     {
       "type": "TextBlock",
       "text": "Als Ansprechpartner stehen dir die zwei aufgeführten Kontakte zu Verfügung.",
-      "size": "Small",
+      "size": "default",
       "wrap": true
     },
     {

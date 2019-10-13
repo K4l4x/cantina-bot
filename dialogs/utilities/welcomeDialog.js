@@ -1,3 +1,4 @@
+const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
@@ -33,7 +34,7 @@ class WelcomeDialog extends CancelAndHelpDialog {
     async welcomeUser(step) {
         console.log('[WelcomeDialog]: prompt user with welcome');
         return await step.prompt(WELCOME_PROMPT, {
-            prompt: WELCOME_MESSAGE,
+            prompt: MessageFactory.text(WELCOME_MESSAGE),
             choices: ChoiceFactory.toChoices(WELCOME_CHOICE),
             style: ListStyle.suggestedAction
         });

@@ -1,26 +1,26 @@
 const { MessageFactory } = require('botbuilder');
-const { WaterfallDialog, ChoiceFactory, ChoicePrompt, TextPrompt } = require('botbuilder-dialogs');
+const { WaterfallDialog, ChoiceFactory, ChoicePrompt, TextPrompt, ListStyle } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { MatchingDishDialog } = require('./matchingDishDialog');
 const { Study } = require('../../model/study');
+const { JsonOps } = require('../../utilities/jsonOps');
 
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
 const GUIDED = 'guided';
 const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 
-// TODO: Should be outsourced to json.
 // ----------------------------------------------------
 // Dialog prompts and fellow messages.
 const WELCOME_GUIDED_PROMPT = 'welcomeGuidedPrompt';
 const WELCOME_GUIDED_PROMPT_TEXT = 'Ich werde dir nun ein' +
     ' paar Fragen stellen und versuchen durch deine Antworten das richtige' +
     ' Gericht für dich finden. Falls du das ganze abbrechen möchtest, schreib mir' +
-    ' einfach **stopp** oder **abbrechen**. Falls du es später gerne' +
+    ' einfach **"stopp"** oder **"abbrechen"**. Falls du es später gerne' +
     ' noch einmal probieren möchtest, findest du mit **Finde mein' +
     ' Gericht** wieder hier hin.\n\n' +
-    ' Alles klar?';
+    'Alles klar?';
 
 // Start of step tree.
 const FIRST_PROMPT_MEET = 'meetPrompt';
@@ -29,9 +29,9 @@ const FIRST_PROMPT_MESSAGE_MEET = 'Magst du fleischhaltiges Essen?';
 // Have no prefixing number, because they are part of the FIRST_PROMPT. If
 // the user declines FIRST_PROMPT this will be the next two prompts.
 const VEGETARIAN_PROMPT = 'vegetarianPrompt';
-const VEGETARIAN_PROMPT_MESSAGE = 'Bist du Vegetarier?';
+const VEGETARIAN_PROMPT_MESSAGE = 'Möchtest du ein vegetarisches Gericht?'
 const VEGAN_PROMPT = 'veganPrompt';
-const VEGAN_PROMPT_MESSAGE = 'Bist du Veganer?';
+const VEGAN_PROMPT_MESSAGE = 'Möchtest du ein veganes Gericht?';
 
 const SECOND_PROMPT_WITHOUT_SPECIFIC = 'withoutSpecificPrompt';
 const SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC = 'Magst du alle Sorten Fleisch?' +
@@ -58,13 +58,6 @@ const userCanOnlyAccept = ['Leg los!'];
 const userDeclines = 'nein';
 const userAccepts = 'ja';
 const userChoices = [userAccepts, userDeclines];
-
-// TODO: Should be outsourced to json.
-const meetsMain = ['rind', 'schwein', 'fisch', 'hähnchen', 'pork'];
-const beefList = ['kalb', 'hack', 'wurst', 'beef'];
-const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten'];
-const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs'];
-const chickenList = ['hühnchen', 'hähnchen', 'chicken'];
 
 class GuidedCantinaDialog extends CancelAndHelpDialog {
     constructor(id) {
@@ -96,7 +89,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async welcomeUser(step) {
         return await step.prompt(WELCOME_GUIDED_PROMPT, {
             prompt: MessageFactory.text(WELCOME_GUIDED_PROMPT_TEXT),
-            choices: ChoiceFactory.toChoices(userCanOnlyAccept)
+            choices: ChoiceFactory.toChoices(userCanOnlyAccept),
+            style: ListStyle.suggestedAction
         });
     }
 
@@ -111,7 +105,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async prepareMeetPrompt(step) {
         return await step.prompt(FIRST_PROMPT_MEET, {
             prompt: MessageFactory.text(FIRST_PROMPT_MESSAGE_MEET),
-            choices: ChoiceFactory.toChoices(userChoices)
+            choices: ChoiceFactory.toChoices(userChoices),
+            style: ListStyle.suggestedAction
         });
     }
 
@@ -123,7 +118,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         }
         return await step.prompt(VEGETARIAN_PROMPT, {
             prompt: MessageFactory.text(VEGETARIAN_PROMPT_MESSAGE),
-            choices: ChoiceFactory.toChoices(userChoices)
+            choices: ChoiceFactory.toChoices(userChoices),
+            style: ListStyle.suggestedAction
         });
     }
 
@@ -135,7 +131,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             }
             return await step.prompt(VEGAN_PROMPT, {
                 prompt: MessageFactory.text(VEGAN_PROMPT_MESSAGE),
-                choices: ChoiceFactory.toChoices(userChoices)
+                choices: ChoiceFactory.toChoices(userChoices),
+                style: ListStyle.suggestedAction
             });
         } else {
             return await step.next();
@@ -159,26 +156,29 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
 
     // Only hit, if user is not vegetarian or vegan.
     async checkNotWantedMeets(step) {
+        // TODO: Should be done only once.
+        const meetParts = await JsonOps.prototype
+            .loadFrom('utilities', 'meetParts');
+
         if (typeof step.result !== 'undefined') {
             const result = step.result;
             step.values.study.notWantedMeets = result.split(',');
             let meets = step.values.study.notWantedMeets;
             for (let meet of step.values.study.notWantedMeets) {
                 meet = meet.toLowerCase();
-                if (meetsMain.includes(meet)) {
+                if (meetParts.main.includes(meet)) {
                     switch (meet) {
                     case 'rind':
-                        meets = meets.concat(beefList);
+                        meets = meets.concat(meetParts.beef);
                         break;
                     case 'schwein':
-                    case 'pork':
-                        meets = meets.concat(porkList);
+                        meets = meets.concat(meetParts.pork);
                         break;
                     case 'fisch':
-                        meets = meets.concat(fishList);
+                        meets = meets.concat(meetParts.fish);
                         break;
-                    case 'hähnchen':
-                        meets = meets.concat(chickenList);
+                    case 'geflügel':
+                        meets = meets.concat(meetParts.poultry);
                         break;
                     }
                 }

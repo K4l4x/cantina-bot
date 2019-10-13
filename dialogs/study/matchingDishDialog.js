@@ -10,10 +10,6 @@ const { JsonOps } = require('../../utilities/jsonOps');
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 const MATCHING_DISH = 'matchingDish';
 
-const listOfMeets = ['pulled pork', 'pork', 'lamm', 'schwein', 'rind', 'kalb', 'hack',
-    'hühnchen', 'hähnchen', 'chicken', 'fisch', 'scholle', 'barsch',
-    'kibbelinge', 'lachs', 'spießbraten', 'wurst', 'ente', 'beef'];
-
 class MatchingDishDialog extends CancelAndHelpDialog {
     constructor(id) {
         super(id || MATCHING_DISH_DIALOG);
@@ -37,8 +33,8 @@ class MatchingDishDialog extends CancelAndHelpDialog {
 
         // TODO: Should be done in root dialog or even before that and only
         //  once.
-        // const labels = await JsonOps.prototype
-        //     .loadFrom('utilities', 'labels');
+        const listOfMeets = await JsonOps.prototype
+            .loadFrom('utilities', 'meets');
         const allergies = await JsonOps.prototype
             .loadFrom('utilities', 'allergiesRegister');
         const supplements = await JsonOps.prototype
@@ -51,6 +47,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         const supplementsValues = Object.values(supplements);
 
         // Get todays menu to search in it.
+        // For testing just give getDay() a weekday from 1-5.
         const todaysMenu = await study.cantina.menu.getDay();
 
         if (study.isVegetarian || study.isVegan) {

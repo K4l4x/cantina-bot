@@ -1,0 +1,51 @@
+{
+  "main": [
+    "rind",
+    "schwein",
+    "fisch",
+    "geflügel"
+  ],
+  "beef": [
+    "kalb",
+    "wurst",
+    "beef",
+    "salami",
+    "hack",
+    "würstchen"
+  ],
+  "pork": [
+    "hack",
+    "pulled pork",
+    "wurst",
+    "pork",
+    "spießbraten",
+    "speck",
+    "bacon",
+    "schinken",
+    "salami",
+    "würstchen"
+  ],
+  "fish": [
+    "scholle",
+    "barsch",
+    "kibbelinge",
+    "lachs",
+    "kabeljau",
+    "dorsch",
+    "forelle",
+    "zander",
+    "hecht",
+    "karpfen",
+    "hering",
+    "thunfisch"
+  ],
+  "poultry": [
+    "hühnchen",
+    "hähnchen",
+    "chicken",
+    "ente",
+    "pute",
+    "huhn",
+    "truthahn"
+  ]
+}
