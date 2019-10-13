@@ -51,6 +51,7 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
     async runWorker(step) {
         const choice = step.result.value;
         const study = new Study();
+        study.ankerPrompt = 'Okay, leg los';
         if (userChoices[CHOICE.YES] === choice) {
             console.log('[OpenCantinaDialog]: start worker...');
 

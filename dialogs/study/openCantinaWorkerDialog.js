@@ -10,20 +10,18 @@ const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
 const OPEN_WORKER = 'openWorker';
 const OPEN_CANTINA_WORKER_DIALOG = 'openCantinaWorkerDialog';
+
 const ANKER_PROMPT = 'ankerPrompt';
+// No prompt message, because we need to change it some times.
+const IS_VEGETARIAN_TEXT = 'Alles klar, vegetarische' +
+    ' Gerichte.';
+const IS_VEGAN_TEXT = 'Alles klar, veganes Essen.';
+const NO_SUPPLEMENTS_TEXT = 'Alles klar.';
+const HAS_ALLERGIES_TEXT = 'Notiert.';
 
-const IS_VEGETARIAN_TEXT = MessageFactory.text('Alles klar, vegetarische' +
-    ' Gerichte.');
-const IS_VEGAN_TEXT = MessageFactory.text('Alles klar, veganes Essen.');
-const NO_SUPPLEMENTS_TEXT = MessageFactory.text('Alles klar.');
-const HAS_ALLERGIES_TEXT = MessageFactory.text('Notiert.');
-
-// FIXME: This anker is a bad idea. Could block event loop or other wired
-//  things could happen, if multiple client land here.
-let ANKER_PROMPT_TEXT = MessageFactory.text('Okay, leg los');
-const NONE_TEXT = MessageFactory.text('Hm, dass habe ich leider nicht' +
-    ' verstanden');
-// End of strep tree.
+const NONE_TEXT = 'Hm, dass habe ich leider nicht' +
+    ' verstanden';
+// End of step tree.
 const THANK_USER = 'Klasse, vielen Dank! ' +
     'Lass mich kurz nach dem passenden Gericht suchen...';
 
@@ -43,8 +41,9 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
     }
 
     async anker(step) {
+        const study = step.options;
         return await step.prompt(ANKER_PROMPT, {
-            prompt: ANKER_PROMPT_TEXT
+            prompt: study.ankerPrompt
         });
     }
 
@@ -54,34 +53,34 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
             const luisResult = await this.luisRecognizer.executeQuery(step.context);
             if (LuisRecognizer.topIntent(luisResult) === 'isVegetarian') {
                 study.isVegetarian = true;
-                ANKER_PROMPT_TEXT = IS_VEGETARIAN_TEXT;
+                study.ankerPrompt = MessageFactory.text(IS_VEGETARIAN_TEXT);
             } else if (LuisRecognizer.topIntent(luisResult) === 'isVegan') {
                 study.isVegan = true;
-                ANKER_PROMPT_TEXT = IS_VEGAN_TEXT;
+                study.ankerPrompt = MessageFactory.text(IS_VEGAN_TEXT);
             } else if (LuisRecognizer.topIntent(luisResult) === 'withoutMeets') {
                 // Get the normalized value from luis to search in the labels.
                 let value = (luisResult.entities.Meet[0]).toString();
                 study.notWantedMeets.push(value);
                 await this.checkKnownMeets(study);
                 value = value.charAt(0).toUpperCase() + value.slice(1);
-                ANKER_PROMPT_TEXT = MessageFactory
+                study.ankerPrompt = MessageFactory
                     .text('Okay, ich lasse ' + value + ' weg.');
             } else if (LuisRecognizer.topIntent(luisResult) === 'noSupplements') {
                 // Get the normalized value from luis to search in the labels.
                 const value = (luisResult.entities.Supplements[0]).toString();
                 study.supplements.push(value);
-                ANKER_PROMPT_TEXT = NO_SUPPLEMENTS_TEXT;
+                study.ankerPrompt = MessageFactory.text(NO_SUPPLEMENTS_TEXT);
             } else if (LuisRecognizer.topIntent(luisResult) === 'hasAllergies') {
                 // Get the normalized value from luis to search in the
                 // allergiesRegister.
                 const value = (luisResult.entities.Allergies[0]).toString();
                 study.allergies.push(value);
-                ANKER_PROMPT_TEXT = HAS_ALLERGIES_TEXT;
+                study.ankerPrompt = MessageFactory.text(HAS_ALLERGIES_TEXT);
             } else if (LuisRecognizer.topIntent(luisResult) === 'isFinished') {
                 step.values.study = study;
                 return await step.next('finished');
             } else {
-                ANKER_PROMPT_TEXT = NONE_TEXT;
+                study.ankerPrompt = MessageFactory.text(NONE_TEXT);
             }
         }
         return await step.next(study);
