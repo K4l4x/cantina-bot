@@ -3,7 +3,6 @@ const _promise = require('request-promise-native');
 const _cheerio = require('cheerio');
 const moment = require('moment');
 const { Dish } = require('../model/dish');
-const { JsonOps } = require('./jsonOps');
 
 const mensaXmenuURI = 'http://www.studierendenwerk-bielefeld.de/essen-trinken/essen-und-trinken-in-mensen/bielefeld/mensa-gebaeude-x.html';
 
@@ -32,8 +31,6 @@ class MenuScraper {
                 const menuPrices = await MenuScraper.prototype.prepareMenuPrices($);
                 const menuTypes = await MenuScraper.prototype.prepareMenuTypes($);
                 const menuDescriptions = await MenuScraper.prototype.prepareMenuDescriptions($);
-
-                // await MenuScraper.prototype.prepareAllergiesInfo($);
 
                 return await MenuScraper.prototype.buildMenus(
                     dates,
@@ -144,34 +141,6 @@ class MenuScraper {
 
         // console.log(rawMenus);
         return rawMenus;
-    }
-
-    async prepareAllergiesInfo($) {
-        const allergies = await MenuScraper.prototype.prepareDictionary('allergiesRegister');
-
-        // console.log(allergies);
-
-        const countAllergies = [];
-
-        $('.stripedtable').find('.first').not(':empty').each((index, item) => {
-            countAllergies[index] = $(item).find('p').find('sup').not('.menu-detail').text();
-        });
-
-        const reg = new RegExp(/[A-Z][0-9]{2},|[A-Z][0-9]{2}\.[0-9],|[A-Z][0-9]{2}\.[0-9]|[A-Z][0-9]{2}/gm);
-
-        const count = (str) => {
-            return str.match(reg);
-        };
-
-        // console.log(count(countAllergies[0]));
-        // console.log(countAllergies);
-        // console.log(count(countAllergies));
-    }
-
-    // TODO: Should be moved to utilities or something, same as loadFromJSON.
-    async prepareDictionary(name) {
-        return new Map(await JsonOps.prototype
-            .loadFrom('utilities', name));
     }
 
     async buildMenus(dates, dishesPerDay, prices, types, descriptions) {
