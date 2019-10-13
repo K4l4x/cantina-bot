@@ -65,7 +65,9 @@ class CantinaBot extends ActivityHandler {
 
     addConversationReference(activity) {
         const conversationReference = TurnContext.getConversationReference(activity);
-        this.conversationReferences[conversationReference.conversation.id] = conversationReference;
+        // this.conversationReferences[conversationReference.conversation.id]
+        // = conversationReference;
+        this.conversationReferences['telegram%2Fconversations%2F1823731'] = conversationReference;
     }
 }
 

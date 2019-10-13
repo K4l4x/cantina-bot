@@ -108,10 +108,9 @@ server.post('/api/messages', (req, res) => {
 //  on azure there is no need to add another endpoint, because posts on
 //  stackoverflow say, that we can just add endpoints.
 // Listen for incoming trigger and start proactive dialog with user.
-server.get('/api/questionnaire', async (require, res) => {
+server.get('/api/questionnaire5645', async (require, res) => {
     for (const conversationReference of Object.values(conversationReferences)) {
         await adapter.continueConversation(conversationReference, async turnContext => {
-
             const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
 
             const dialogSet = new DialogSet(questionnaireAccessor);
