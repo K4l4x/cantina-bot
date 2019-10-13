@@ -10,7 +10,7 @@ const STUDY_DIALOG = 'studyDialog';
 const DISCLAIMER = 'disclaimer';
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 const DISCLAIMER_PROMPT = 'disclaimerPrompt';
-// TODO: Should be outsourced to json.
+
 const DISCLAIMER_PROMPT_TEXT = 'Ich muss dir noch mitteilen, dass im Rahmen' +
     ' einer Abschlussarbeit die Eingaben die du in diesem Chat tätigst' +
     ' aufgezeichnet und ausgewertet werden. Diese Daten können und werden' +
@@ -58,7 +58,6 @@ class DisclaimerDialog extends CancelAndHelpDialog {
     async analyseReply(step) {
         const choice = step.result.value;
         if (disclaimerChoices[CHOICE.YES] === choice) {
-            console.log('[DiscalimerDialog]: user agreed');
             // TODO: Should be done only once.
             const CONTACTS = MessageFactory
                 .attachment(CardFactory
@@ -67,7 +66,6 @@ class DisclaimerDialog extends CancelAndHelpDialog {
             await step.context.sendActivity(CONTACTS);
             return await step.replaceDialog(STUDY_DIALOG);
         } else {
-            console.log('[DiscalimerDialog]: user declined');
             await step.context.sendActivity(MessageFactory
                 .text(USER_DECLINED_TEXT));
             return await step.endDialog();

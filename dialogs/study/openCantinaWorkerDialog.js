@@ -4,14 +4,25 @@ const { WaterfallDialog, TextPrompt } = require('botbuilder-dialogs');
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { MatchingDishDialog } = require('./matchingDishDialog');
 const { LuisRecognizer } = require('botbuilder-ai');
+const { JsonOps } = require('../../utilities/jsonOps');
 
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
 const OPEN_WORKER = 'openWorker';
 const OPEN_CANTINA_WORKER_DIALOG = 'openCantinaWorkerDialog';
 const ANKER_PROMPT = 'ankerPrompt';
-let ANKER_PROMPT_TEXT = 'Okay, leg los';
-const NONE_TEXT = 'Hm, dass habe ich leider nicht verstanden';
+
+const IS_VEGETARIAN_TEXT = MessageFactory.text('Alles klar, vegetarische' +
+    ' Gerichte.');
+const IS_VEGAN_TEXT = MessageFactory.text('Alles klar, veganes Essen.');
+const NO_SUPPLEMENTS_TEXT = MessageFactory.text('Alles klar.');
+const HAS_ALLERGIES_TEXT = MessageFactory.text('Notiert.');
+
+// FIXME: This anker is a bad idea. Could block event loop or other wired
+//  things could happen, if multiple client land here.
+let ANKER_PROMPT_TEXT = MessageFactory.text('Okay, leg los');
+const NONE_TEXT = MessageFactory.text('Hm, dass habe ich leider nicht' +
+    ' verstanden');
 // End of strep tree.
 const THANK_USER = 'Klasse, vielen Dank! ' +
     'Lass mich kurz nach dem passenden Gericht suchen...';
@@ -26,14 +37,14 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
             [
                 this.anker.bind(this),
                 this.switchIntention.bind(this),
-                this.prepareResults.bind(this)
+                this.prepareStep.bind(this)
             ]));
         this.initialDialogId = OPEN_WORKER;
     }
 
     async anker(step) {
         return await step.prompt(ANKER_PROMPT, {
-            prompt: MessageFactory.text(ANKER_PROMPT_TEXT)
+            prompt: ANKER_PROMPT_TEXT
         });
     }
 
@@ -42,37 +53,30 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
         if (this.luisRecognizer.isConfigured) {
             const luisResult = await this.luisRecognizer.executeQuery(step.context);
             if (LuisRecognizer.topIntent(luisResult) === 'isVegetarian') {
-                console.log('[OpenCantinaDialog]: isVegetarian Intent hit.');
                 study.isVegetarian = true;
-                ANKER_PROMPT_TEXT = 'Alles klar, vegetarische Gerichte.';
+                ANKER_PROMPT_TEXT = IS_VEGETARIAN_TEXT;
             } else if (LuisRecognizer.topIntent(luisResult) === 'isVegan') {
-                console.log('[OpenCantinaDialog]: isVegan Intent hit.');
                 study.isVegan = true;
-                ANKER_PROMPT_TEXT = 'Alles klar, veganes Essen.';
+                ANKER_PROMPT_TEXT = IS_VEGAN_TEXT;
             } else if (LuisRecognizer.topIntent(luisResult) === 'withoutMeets') {
-                console.log('[OpenCantinaDialog]: withoutMeets Intent hit.');
                 // Get the normalized value from luis to search in the labels.
                 let value = (luisResult.entities.Meet[0]).toString();
-                console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
                 study.notWantedMeets.push(value);
                 await this.checkKnownMeets(study);
                 value = value.charAt(0).toUpperCase() + value.slice(1);
-                ANKER_PROMPT_TEXT = 'Okay, ich lasse ' + value + ' weg.';
+                ANKER_PROMPT_TEXT = MessageFactory
+                    .text('Okay, ich lasse ' + value + ' weg.');
             } else if (LuisRecognizer.topIntent(luisResult) === 'noSupplements') {
-                console.log('[OpenCantinaDialog]: noSupplements Intent hit.');
                 // Get the normalized value from luis to search in the labels.
                 const value = (luisResult.entities.Supplements[0]).toString();
-                console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
                 study.supplements.push(value);
-                ANKER_PROMPT_TEXT = 'Alles klar.';
+                ANKER_PROMPT_TEXT = NO_SUPPLEMENTS_TEXT;
             } else if (LuisRecognizer.topIntent(luisResult) === 'hasAllergies') {
-                console.log('[OpenCantinaDialog]: hasAllergies Intent hit.');
                 // Get the normalized value from luis to search in the
                 // allergiesRegister.
                 const value = (luisResult.entities.Allergies[0]).toString();
-                console.log('[OpenCantinaDialog] -> Normalized value: ' + value);
                 study.allergies.push(value);
-                ANKER_PROMPT_TEXT = 'Notiert.';
+                ANKER_PROMPT_TEXT = HAS_ALLERGIES_TEXT;
             } else if (LuisRecognizer.topIntent(luisResult) === 'isFinished') {
                 step.values.study = study;
                 return await step.next('finished');
@@ -84,30 +88,26 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
     }
 
     async checkKnownMeets(study) {
-        console.log('[OpenCantinaDialog]: checking known meets...');
-        // TODO: Should be outsourced to json.
-        const meetsMain = ['rind', 'schwein', 'fisch', 'geflügel'];
-        const beefList = ['kalb', 'wurst', 'beef', 'salami', 'hack', 'würstchen'];
-        const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten', 'speck', 'bacon', 'schinken','salami', 'würstchen'];
-        const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs', 'kabeljau', 'dorsch', 'forelle', 'zander', 'hecht', 'karpfen', 'hering', 'thunfisch'];
-        const poultryList = ['hühnchen', 'hähnchen', 'chicken', 'ente', 'pute', 'huhn', 'truthahn'];
+        // TODO: Should be done only once.
+        const meetParts = await JsonOps.prototype
+            .loadFrom('utilities', 'meetParts');
 
         // Check all meets we know off.
         let meets = study.notWantedMeets;
         for (const meet of study.notWantedMeets) {
-            if (meetsMain.includes(meet.toLowerCase())) {
+            if (meetParts.main.includes(meet.toLowerCase())) {
                 switch (meet.toLowerCase()) {
                 case 'rind':
-                    meets = meets.concat(beefList);
+                    meets = meets.concat(meetParts.beef);
                     break;
                 case 'schwein':
-                    meets = meets.concat(porkList);
+                    meets = meets.concat(meetParts.pork);
                     break;
                 case 'fisch':
-                    meets = meets.concat(fishList);
+                    meets = meets.concat(meetParts.fish);
                     break;
                 case 'geflügel':
-                    meets = meets.concat(poultryList);
+                    meets = meets.concat(meetParts.poultry);
                     break;
                 }
             }
@@ -115,7 +115,7 @@ class OpenCantinaWorkerDialog extends CancelAndHelpDialog {
         study.notWantedMeets = meets;
     }
 
-    async prepareResults(step) {
+    async prepareStep(step) {
         if (typeof step.result === 'object') {
             const study = step.result;
             console.log('[OpenCantinaDialog]: step.result is object =>' +

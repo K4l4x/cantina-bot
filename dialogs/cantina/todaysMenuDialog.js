@@ -30,6 +30,7 @@ class TodaysMenuDialog extends CancelAndHelpDialog {
         // For testing just give getDay() a weekday from 1-5.
         const todaysMenu = await cantina.menu.getDay();
 
+        // TODO: Should be refactored so CardSchema is only used once.
         if (todaysMenu.length > EMPTY_MENU) {
             for (const dish of todaysMenu) {
                 attachments.push(CardFactory

@@ -28,7 +28,6 @@ class CancelAndHelpDialog extends ComponentDialog {
             switch (text) {
             case 'hilfe':
             case '?':
-                // TODO: Handling user helplessness.
                 message = 'Mit **"stopp"** und **"abbrechen"** kannst du mich' +
                     ' jederzeit unterbrechen.\n\n' +
                     'Sonst frage mich z.B.\n\n' +
@@ -45,7 +44,6 @@ class CancelAndHelpDialog extends ComponentDialog {
                 return { status: DialogTurnStatus.waiting };
             case 'abbrechen':
             case 'stopp':
-                // TODO: Handling lost user, after everything has been canceled.
                 message = 'Okay, ich breche alles ab. Wenn du nicht weißt,' +
                     ' was du mir schreiben kannst, schreib mir **"hilfe"**';
                 await innerDialogContext.context.sendActivity(MessageFactory.text(message));

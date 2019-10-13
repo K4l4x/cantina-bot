@@ -10,7 +10,7 @@ const OPEN_CANTINA_WORKER_DIALOG = 'openCantinaWorkerDialog';
 const OPEN = 'open';
 const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
 const OPEN_WELCOME_PROMPT = 'welcomePrompt';
-// TODO: Should be outsourced to json.
+
 const OPEN_WELCOME_PROMPT_MESSAGE = 'Lass mich herausfinden, welches das' +
     ' richtige Gericht für dich ist. Du kannst mir z.B. sagen "ich würde' +
     ' gerne etwas veganes essen", "bitte ohne erdnüsse", "ich bin' +
@@ -53,8 +53,7 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
         const study = new Study();
         if (userChoices[CHOICE.YES] === choice) {
             console.log('[OpenCantinaDialog]: start worker...');
-            // Setting options to 'start', so the worker knows where the
-            // beginning and the middle of the dialog is.
+
             return await step.replaceDialog(OPEN_CANTINA_WORKER_DIALOG, study);
         }
     }

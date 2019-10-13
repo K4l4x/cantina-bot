@@ -17,7 +17,8 @@ class OpeningHoursDialog extends CancelAndHelpDialog {
     }
 
     // TODO: Remove reference to CardSchema and move it to cantina, so we
-    //  just need cantina here and get the opening hours in the right format.
+    //  just need cantina here and get the opening hours in the right format
+    //  and only once prepared and not over and over again.
     async showHours(step) {
         console.log('[OpeningHoursDialog]: show user opening hours');
         const cantina = step.options;

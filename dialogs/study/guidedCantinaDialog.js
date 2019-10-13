@@ -4,13 +4,13 @@ const { WaterfallDialog, ChoiceFactory, ChoicePrompt, TextPrompt, ListStyle } = 
 const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { MatchingDishDialog } = require('./matchingDishDialog');
 const { Study } = require('../../model/study');
+const { JsonOps } = require('../../utilities/jsonOps');
 
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
 const GUIDED = 'guided';
 const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 
-// TODO: Should be outsourced to json.
 // ----------------------------------------------------
 // Dialog prompts and fellow messages.
 const WELCOME_GUIDED_PROMPT = 'welcomeGuidedPrompt';
@@ -156,12 +156,9 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
 
     // Only hit, if user is not vegetarian or vegan.
     async checkNotWantedMeets(step) {
-        // TODO: Should be outsourced to json.
-        const meetsMain = ['rind', 'schwein', 'fisch', 'geflügel'];
-        const beefList = ['kalb', 'wurst', 'beef', 'salami', 'hack', 'würstchen'];
-        const porkList = ['hack', 'pulled pork', 'wurst', 'pork', 'spießbraten', 'speck', 'bacon', 'schinken','salami', 'würstchen'];
-        const fishList = ['scholle', 'barsch', 'kibbelinge', 'lachs', 'kabeljau', 'dorsch', 'forelle', 'zander', 'hecht', 'karpfen', 'hering', 'thunfisch'];
-        const poultryList = ['hühnchen', 'hähnchen', 'chicken', 'ente', 'pute', 'huhn', 'truthahn'];
+        // TODO: Should be done only once.
+        const meetParts = await JsonOps.prototype
+            .loadFrom('utilities', 'meetParts');
 
         if (typeof step.result !== 'undefined') {
             const result = step.result;
@@ -169,19 +166,19 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             let meets = step.values.study.notWantedMeets;
             for (let meet of step.values.study.notWantedMeets) {
                 meet = meet.toLowerCase();
-                if (meetsMain.includes(meet)) {
+                if (meetParts.main.includes(meet)) {
                     switch (meet) {
                     case 'rind':
-                        meets = meets.concat(beefList);
+                        meets = meets.concat(meetParts.beef);
                         break;
                     case 'schwein':
-                        meets = meets.concat(porkList);
+                        meets = meets.concat(meetParts.pork);
                         break;
                     case 'fisch':
-                        meets = meets.concat(fishList);
+                        meets = meets.concat(meetParts.fish);
                         break;
                     case 'geflügel':
-                        meets = meets.concat(poultryList);
+                        meets = meets.concat(meetParts.poultry);
                         break;
                     }
                 }
