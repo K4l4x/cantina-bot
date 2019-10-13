@@ -22,16 +22,33 @@ const { RootDialog } = require('./dialogs/rootDialog');
 const ENV_FILE = path.join(__dirname, '.env');
 dotenv.config({ path: ENV_FILE });
 
-// const blobStorage = new BlobStorage({
-//     containerName: process.env.Container,
-//     storageAccessKey: process.env.StorageKey,
-//     storageAccountOrConnectionString: process.env.ConnectionString
-// });
-
 // If configured, pass in the recognizer.  (Defining it externally allows it
 // to be mocked for tests)
 const { LuisAppId, LuisAPIKey, LuisAPIHostName } = process.env;
 const luisConfig = { applicationId: LuisAppId, endpointKey: LuisAPIKey, endpoint: `https://${ LuisAPIHostName }` };
+
+// Create cantina request recognizer.
+const luisRecognizer = new CantinaRequestsRecognizer(luisConfig);
+
+// Define state store (In-Memory) for your bot.
+const memoryStorage = new MemoryStorage();
+
+// Create conversation and user state with in-memory storage provider.
+// const cantinaState = new ConversationState(memoryStorage);
+// const conversationState = new ConversationState(memoryStorage);
+// const userState = new UserState(memoryStorage);
+
+// Define state store (Blob) for bot.
+const blobStorage = new BlobStorage({
+    containerName: process.env.Container,
+    storageAccessKey: process.env.StorageKey,
+    storageAccountOrConnectionString: process.env.ConnectionString
+});
+
+// Create conversation and user state with blob storage provider.
+const cantinaState = new ConversationState(memoryStorage);
+const conversationState = new ConversationState(blobStorage);
+const userState = new UserState(blobStorage);
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about .bot file its use and bot configuration.
@@ -39,23 +56,6 @@ const adapter = new BotFrameworkAdapter({
     appId: process.env.MicrosoftAppId,
     appPassword: process.env.MicrosoftAppPassword
 });
-
-// Create cantina request recognizer.
-const luisRecognizer = new CantinaRequestsRecognizer(luisConfig);
-
-// Define state store (In-Memory) for your bot.
-const memoryStorage = new MemoryStorage();
-// Define state store (Blob) for bot.
-
-// Create conversation and user state with in-memory storage provider.
-const cantinaState = new ConversationState(memoryStorage);
-const conversationState = new ConversationState(memoryStorage);
-const userState = new UserState(memoryStorage);
-
-// Create conversation and user state with blob storage provider.
-// const cantinaState = new ConversationState(memoryStorage);
-// const conversationState = new ConversationState(blobStorage);
-// const userState = new UserState(blobStorage);
 
 // Create HTTP server
 const server = restify.createServer();
@@ -108,29 +108,29 @@ server.post('/api/messages', (req, res) => {
 //  on azure there is no need to add another endpoint, because posts on
 //  stackoverflow say, that we can just add endpoints.
 // Listen for incoming trigger and start proactive dialog with user.
-server.get('/api/questionnaire5645', async (require, res) => {
-    for (const conversationReference of Object.values(conversationReferences)) {
-        await adapter.continueConversation(conversationReference, async turnContext => {
-            const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
-
-            const dialogSet = new DialogSet(questionnaireAccessor);
-            dialogSet.add(new TodaysMenuDialog('todaysMenuDialog'));
-
-            const dialogContext = await dialogSet.createContext(turnContext);
-            const results = await dialogContext.continueDialog();
-            if (results.status === DialogTurnStatus.empty) {
-                const cantina = new Cantina('mensaX');
-                await cantina.menu.loadList();
-                await dialogContext.beginDialog('todaysMenuDialog', cantina);
-            }
-        });
-    }
-
-    res.setHeader('Content-Type', 'text/html');
-    res.writeHead(200);
-    res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');
-    res.end();
-});
+// server.get('/api/questionnaire5645', async (require, res) => {
+//     for (const conversationReference of Object.values(conversationReferences)) {
+//         await adapter.continueConversation(conversationReference, async turnContext => {
+//             const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
+//
+//             const dialogSet = new DialogSet(questionnaireAccessor);
+//             dialogSet.add(new TodaysMenuDialog('todaysMenuDialog'));
+//
+//             const dialogContext = await dialogSet.createContext(turnContext);
+//             const results = await dialogContext.continueDialog();
+//             if (results.status === DialogTurnStatus.empty) {
+//                 const cantina = new Cantina('mensaX');
+//                 await cantina.menu.loadList();
+//                 await dialogContext.beginDialog('todaysMenuDialog', cantina);
+//             }
+//         });
+//     }
+//
+//     res.setHeader('Content-Type', 'text/html');
+//     res.writeHead(200);
+//     res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');
+//     res.end();
+// });
 
 // try
 // {

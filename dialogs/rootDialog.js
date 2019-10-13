@@ -141,7 +141,7 @@ class RootDialog extends ComponentDialog {
         // just load menus from storage/file.
 
         if (cantina.menu.length !== 0) {
-            if (cantina.menu.isLatest()) {
+            if (await cantina.menu.isLatest()) {
                 console.log('[RootDialog]: cantina menu is latest -> going' +
                     ' to action');
             } else {
@@ -152,7 +152,8 @@ class RootDialog extends ComponentDialog {
             }
         } else {
             await cantina.menu.fill();
-            console.log('[RootDialog]: cantina menu empty -> filling up');
+            console.log('[RootDialog]: cantina menu object empty -> filling' +
+                ' up');
             await cantina.menu.save();
         }
 

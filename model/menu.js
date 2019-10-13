@@ -11,7 +11,7 @@ class Menu extends Array {
         super();
     }
 
-    isLatest() {
+    async isLatest() {
         // console.log('[Menu]: isNotLatest: todaysDate => ' + new Date().getDate());
         // console.log('[Menu]: isNotLatest: todaysTime =>' + new Date().getTime());
         let logMessage = '[Menu]: isLatest => true';

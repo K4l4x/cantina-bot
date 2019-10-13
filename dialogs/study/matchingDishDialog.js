@@ -19,12 +19,8 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         this.initialDialogId = MATCHING_DISH;
     }
 
-    // TODO: Descriptions can contain words like 'hähnchen', could be tricky.
-    // TODO: Write algorithm which searches in keys and values, gets the
-    //  individual equivalent (Key -> Value, Value -> Key) and searches with
-    //  them in the description of the dishes. It Would be great to remove
-    //  duplicates before searching in the descriptions. Only with "lables"
-    //  the description should also be searched with values.
+    // TODO: Remove duplicates before searching in the descriptions. Only
+    //  with "lables" the description should also be searched with values.
     async findDish(step) {
         const study = step.options;
         const tmpCantina = new Cantina('mensaX');
@@ -83,7 +79,6 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                 .replace(/\s+/g, '');
             if (listOfMeets.includes(meetType)) {
                 console.log('(Meets):' + meetType);
-                // TODO: If true look into json.
                 for (let i = todaysMenu.length - 1; i >= 0; i--) {
                     const entry = todaysMenu[i];
                     if (entry.description.toLowerCase().includes(meetType)) {
@@ -105,8 +100,6 @@ class MatchingDishDialog extends CancelAndHelpDialog {
             const allergyType = entry.toLowerCase()
                 .replace(/\s+/g, '');
 
-            // TODO: Works only for first entry (example: A30, A25; A30
-            //  works, but A25 gets the old menu list, like A30 never existed.
             if (allergiesKeys.includes(allergyType)) {
                 console.log('(AllergiesKeys):' + allergyType);
                 console.log('(Menus today): ' + todaysMenu.length);
@@ -165,7 +158,6 @@ class MatchingDishDialog extends CancelAndHelpDialog {
 
             if (supplementsValues.includes(otherType)) {
                 console.log('(SupplementsValues):' + otherType);
-                // TODO: If true look into json.
                 const otherTypeKey = supplementsKeys.find(key => supplements[key] === otherType);
                 console.log('(SupplementsValues.findKey): ' + otherType + ' -> ' +
                     otherTypeKey);

@@ -29,7 +29,7 @@ const FIRST_PROMPT_MESSAGE_MEET = 'Magst du fleischhaltiges Essen?';
 // Have no prefixing number, because they are part of the FIRST_PROMPT. If
 // the user declines FIRST_PROMPT this will be the next two prompts.
 const VEGETARIAN_PROMPT = 'vegetarianPrompt';
-const VEGETARIAN_PROMPT_MESSAGE = 'Möchtest du ein vegetarisches Gericht?'
+const VEGETARIAN_PROMPT_MESSAGE = 'Möchtest du ein vegetarisches Gericht?';
 const VEGAN_PROMPT = 'veganPrompt';
 const VEGAN_PROMPT_MESSAGE = 'Möchtest du ein veganes Gericht?';
 
@@ -53,11 +53,9 @@ const THANK_USER = 'Das war\'s schon, vielen Dank! ' +
 // End of dialog basically.
 // ----------------------------------------------------
 
-// TODO: Why so complicated?
-const userCanOnlyAccept = ['Leg los!'];
-const userDeclines = 'nein';
-const userAccepts = 'ja';
-const userChoices = [userAccepts, userDeclines];
+const START_GUIDED_DIALOG = ['Leg los!'];
+const USER_ACCEPTS = 'Ja';
+const USER_CHOICES = [USER_ACCEPTS, 'Nein'];
 
 class GuidedCantinaDialog extends CancelAndHelpDialog {
     constructor(id) {
@@ -89,14 +87,14 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async welcomeUser(step) {
         return await step.prompt(WELCOME_GUIDED_PROMPT, {
             prompt: MessageFactory.text(WELCOME_GUIDED_PROMPT_TEXT),
-            choices: ChoiceFactory.toChoices(userCanOnlyAccept),
+            choices: ChoiceFactory.toChoices(START_GUIDED_DIALOG),
             style: ListStyle.suggestedAction
         });
     }
 
     async handleWelcomeReply(step) {
         const choice = step.result.value;
-        if (userCanOnlyAccept[0] === choice) {
+        if (START_GUIDED_DIALOG[0] === choice) {
             step.values.study = new Study();
             return await step.next();
         }
@@ -105,20 +103,20 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async prepareMeetPrompt(step) {
         return await step.prompt(FIRST_PROMPT_MEET, {
             prompt: MessageFactory.text(FIRST_PROMPT_MESSAGE_MEET),
-            choices: ChoiceFactory.toChoices(userChoices),
+            choices: ChoiceFactory.toChoices(USER_CHOICES),
             style: ListStyle.suggestedAction
         });
     }
 
     async checkLikesMeet(step) {
         const likesMeet = step.result.value;
-        if (likesMeet === userAccepts) {
+        if (likesMeet === USER_ACCEPTS) {
             step.values.study.likesMeet = true;
             return await step.next();
         }
         return await step.prompt(VEGETARIAN_PROMPT, {
             prompt: MessageFactory.text(VEGETARIAN_PROMPT_MESSAGE),
-            choices: ChoiceFactory.toChoices(userChoices),
+            choices: ChoiceFactory.toChoices(USER_CHOICES),
             style: ListStyle.suggestedAction
         });
     }
@@ -126,12 +124,12 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async checkVegetarian(step) {
         if (typeof step.result !== 'undefined') {
             const isVegetarian = step.result.value;
-            if (isVegetarian === userAccepts) {
+            if (isVegetarian === USER_ACCEPTS) {
                 step.values.study.isVegetarian = true;
             }
             return await step.prompt(VEGAN_PROMPT, {
                 prompt: MessageFactory.text(VEGAN_PROMPT_MESSAGE),
-                choices: ChoiceFactory.toChoices(userChoices),
+                choices: ChoiceFactory.toChoices(USER_CHOICES),
                 style: ListStyle.suggestedAction
             });
         } else {
@@ -142,7 +140,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     async checkVegan(step) {
         if (typeof step.result !== 'undefined') {
             const isVegan = step.result.value;
-            if (isVegan === userAccepts) {
+            if (isVegan === USER_ACCEPTS) {
                 step.values.study.isVegan = true;
             }
             return await step.next();
