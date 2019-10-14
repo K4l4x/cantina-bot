@@ -1,4 +1,4 @@
-const { WaterfallDialog, TextPrompt, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
+const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
 const { MessageFactory, CardFactory } = require('botbuilder');
 
 const { JsonOps } = require('../../utilities/jsonOps');
@@ -36,7 +36,7 @@ class DisclaimerDialog extends CancelAndHelpDialog {
     constructor(id, luisRecognizer) {
         super(id || DISCLAIMER_DIALOG);
         this.luisRecognizer = luisRecognizer;
-        this.addDialog(new TextPrompt(DISCLAIMER_PROMPT));
+        this.addDialog(new ChoicePrompt(DISCLAIMER_PROMPT));
         this.addDialog(new StudyDialog(STUDY_DIALOG, this.luisRecognizer));
         this.addDialog(new WaterfallDialog(DISCLAIMER,
             [
@@ -48,17 +48,9 @@ class DisclaimerDialog extends CancelAndHelpDialog {
 
     async promptDisclaimer(step) {
         console.log('[DiscalimerDialog]: prompt for disclaimer');
-        // return await step.prompt(DISCLAIMER_PROMPT, {
-        //     prompt: MessageFactory.text(DISCLAIMER_PROMPT_TEXT),
-        //     choices: ChoiceFactory.toChoices(disclaimerChoices),
-        //     style: ListStyle.suggestedAction
-        // });
-
         return await step.prompt(DISCLAIMER_PROMPT, {
-            prompt: ChoiceFactory.forChannel(
-                step.context,
-                disclaimerChoices,
-                DISCLAIMER_PROMPT_TEXT),
+            prompt: MessageFactory.text(DISCLAIMER_PROMPT_TEXT),
+            choices: ChoiceFactory.toChoices(disclaimerChoices),
             style: ListStyle.suggestedAction
         });
     }
