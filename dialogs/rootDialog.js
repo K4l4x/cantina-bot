@@ -123,6 +123,9 @@ class RootDialog extends ComponentDialog {
     }
 
     // TODO: Should be transformed to use storage.
+    // FIXME: If the university website does not respond, "menu.fill()" will
+    //  wait for ever. Should just load the JSON thats already there or say,
+    //  that we cannot receive data because the service is down.
     /**
      * Preparing cantina and menus by loading from storage/file or building
      * a new kind.
