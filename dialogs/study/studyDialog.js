@@ -1,7 +1,6 @@
 const { MessageFactory } = require('botbuilder');
-const { WaterfallDialog } = require('botbuilder-dialogs');
+const { WaterfallDialog, ComponentDialog } = require('botbuilder-dialogs');
 
-const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { GuidedCantinaDialog } = require('./guidedCantinaDialog');
 const { OpenCantinaDialog } = require('./openCantinaDialog');
 
@@ -17,7 +16,7 @@ const FAILED_FINDING_DISH_TEXT = 'Falls dir keines dieser Gerichte' +
     'Sonst schreibe mir **"Ich habe hunger"** und ich werde mit deinen hier' +
     ' gesetzten Preferenzen nach einem Gericht für dich suchen.';
 
-class StudyDialog extends CancelAndHelpDialog {
+class StudyDialog extends ComponentDialog {
     constructor(id, luisRecognizer) {
         super(id || STUDY_DIALOG);
         this.luisRecognizer = luisRecognizer;
@@ -61,9 +60,9 @@ class StudyDialog extends CancelAndHelpDialog {
         min = Math.ceil(min);
         max = Math.floor(max);
         // For testing: return a number below 15 for guided, above 15 for open.
-        return Math.floor(Math.random() * (max - min)) + min;
-        // return 11;
-        // return 16;
+        // return Math.floor(Math.random() * (max - min)) + min;
+        return 11;
+        //return 16;
     }
 }
 

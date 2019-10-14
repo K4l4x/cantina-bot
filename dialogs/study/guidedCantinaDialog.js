@@ -1,7 +1,6 @@
 const { MessageFactory } = require('botbuilder');
-const { WaterfallDialog, ChoiceFactory, ChoicePrompt, TextPrompt, ListStyle } = require('botbuilder-dialogs');
+const { WaterfallDialog, ComponentDialog, ChoiceFactory, ChoicePrompt, TextPrompt, ListStyle } = require('botbuilder-dialogs');
 
-const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { MatchingDishDialog } = require('./matchingDishDialog');
 const { Study } = require('../../model/study');
 const { JsonOps } = require('../../utilities/jsonOps');
@@ -62,7 +61,7 @@ const USER_ACCEPTS = 'Ja';
 const USER_DECLINES = 'Nein';
 const USER_CHOICES = [USER_ACCEPTS, USER_DECLINES];
 
-class GuidedCantinaDialog extends CancelAndHelpDialog {
+class GuidedCantinaDialog extends ComponentDialog {
     constructor(id) {
         super(id || GUIDED_CANTINA_DIALOG);
         this.addDialog(new ChoicePrompt(FIRST_CHOICEPROMPT_MEET));
@@ -166,7 +165,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         const meetParts = await JsonOps.prototype
             .loadFrom('utilities', 'meetParts');
 
-        if (typeof step.result !== 'undefined') {
+        if (typeof step.result !== 'undefined' &&
+            step.result !== USER_DECLINES) {
             const result = step.result;
             step.values.study.notWantedMeets = result.split(',');
             let meets = step.values.study.notWantedMeets;
@@ -201,7 +201,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async checkAllergies(step) {
-        if (typeof step.result !== 'undefined') {
+        if (typeof step.result !== 'undefined' &&
+            step.result !== USER_DECLINES) {
             const result = step.result;
             step.values.study.allergies = result.split(',');
         }
@@ -215,7 +216,8 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
     }
 
     async checkSupplements(step) {
-        if (typeof step.result !== 'undefined') {
+        if (typeof step.result !== 'undefined' &&
+            step.result !== USER_DECLINES) {
             const result = step.result;
             step.values.study.supplements = result.split(',');
         }

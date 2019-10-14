@@ -1,7 +1,6 @@
 const { MessageFactory } = require('botbuilder');
-const { WaterfallDialog, ChoiceFactory, ChoicePrompt, ListStyle } = require('botbuilder-dialogs');
+const { WaterfallDialog, ComponentDialog, ChoiceFactory, ChoicePrompt, ListStyle } = require('botbuilder-dialogs');
 
-const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { OpenCantinaWorkerDialog } = require('./openCantinaWorkerDialog');
 const { Study } = require('../../model/study');
 
@@ -22,7 +21,7 @@ const OPEN_WELCOME_PROMPT_MESSAGE = 'Lass mich herausfinden, welches das' +
 const USER_ACCEPTS = 'Ja';
 const USER_CHOICES = [USER_ACCEPTS];
 
-class OpenCantinaDialog extends CancelAndHelpDialog {
+class OpenCantinaDialog extends ComponentDialog {
     constructor(id, luisRecognizer) {
         super(id || OPEN_CANTINA_DIALOG);
         this.luisRecognizer = luisRecognizer;
@@ -52,7 +51,6 @@ class OpenCantinaDialog extends CancelAndHelpDialog {
         study.ankerPrompt = 'Okay, leg los';
         if (USER_ACCEPTS === choice) {
             console.log('[OpenCantinaDialog]: start worker...');
-
             return await step.replaceDialog(OPEN_CANTINA_WORKER_DIALOG, study);
         }
     }
