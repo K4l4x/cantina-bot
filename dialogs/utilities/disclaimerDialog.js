@@ -48,9 +48,17 @@ class DisclaimerDialog extends CancelAndHelpDialog {
 
     async promptDisclaimer(step) {
         console.log('[DiscalimerDialog]: prompt for disclaimer');
+        // return await step.prompt(DISCLAIMER_PROMPT, {
+        //     prompt: MessageFactory.text(DISCLAIMER_PROMPT_TEXT),
+        //     choices: ChoiceFactory.toChoices(disclaimerChoices),
+        //     style: ListStyle.suggestedAction
+        // });
+
         return await step.prompt(DISCLAIMER_PROMPT, {
-            prompt: MessageFactory.text(DISCLAIMER_PROMPT_TEXT),
-            choices: ChoiceFactory.toChoices(disclaimerChoices),
+            prompt: ChoiceFactory.forChannel(
+                step.context,
+                disclaimerChoices,
+                DISCLAIMER_PROMPT_TEXT),
             style: ListStyle.suggestedAction
         });
     }
