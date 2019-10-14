@@ -211,8 +211,8 @@ class RootDialog extends ComponentDialog {
         } else {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldigung, leider weiß ich nicht was du ' +
-                'mit ' + '**\'' + message + '\'**' + ' meinst. Mit dem' +
-                ' Stichwort **hilfe** kann ich' +
+                'mit ' + '**"' + message + '"**' + ' meinst. Mit dem' +
+                ' Stichwort **"hilfe"** kann ich' +
                 ' dir zeigen, was du mich generell Fragen kannst.'));
         }
 
