@@ -67,7 +67,10 @@ adapter.onTurnError = async (context, error) => {
     // This check writes out errors to console log .vs. app insights.
     console.error(`\n [onTurnError]: ${ error }`);
     // Send a message to the user
-    await context.sendActivity('Leider ist da etwas total schiefgelaufen.');
+    await context.sendActivity('Leider ist da etwas total schiefgelaufen.' +
+        ' Ich werde das später analysieren. Falls du gerade nicht weißt,' +
+        ' was du tun kannst, unterbreche mich mit **"stopp"** oder' +
+        ' **"abbrechen"**. ');
 };
 
 // Create the main dialog.
