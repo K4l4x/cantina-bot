@@ -34,8 +34,8 @@ const VEGETARIAN_PROMPT_MESSAGE = 'Möchtest du vegetarische Gerichte?';
 const VEGAN_CHOICEPROMPT = 'veganPrompt';
 const VEGAN_PROMPT_MESSAGE = 'Möchtest du vegane Gerichte?';
 
-const SECOND_TEXTPROMPT_WITHOUT_SPECIFIC = 'withoutSpecificPrompt';
-const SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC = 'Magst du alle Sorten Fleisch?' +
+const SECOND_TEXTPROMPT_WITHOUT_MEETS = 'withoutMeetsPrompt';
+const SECOND_PROMPT_MESSAGE_WITHOUT_MEETS = 'Magst du alle Sorten Fleisch?' +
     ' Verzichtest du vielleicht auf gewisse Sorten? Du kannst sie mir mit' +
     ' Kommata getrennt auflisten z.B. Schwein, Rind,... oder mit **"Nein"**' +
     ' antworten.';
@@ -69,7 +69,7 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         this.addDialog(new ChoicePrompt(VEGETARIAN_CHOICEPROMPT));
         this.addDialog(new ChoicePrompt(VEGAN_CHOICEPROMPT));
         this.addDialog(new ChoicePrompt(WELCOME_GUIDED_CHOICEPROMPT));
-        this.addDialog(new TextPrompt(SECOND_TEXTPROMPT_WITHOUT_SPECIFIC));
+        this.addDialog(new TextPrompt(SECOND_TEXTPROMPT_WITHOUT_MEETS));
         this.addDialog(new TextPrompt(THIRD_TEXTPROMPT_ALLERGIES));
         this.addDialog(new TextPrompt(FORTH_TEXTPROMPT_SUPPLEMENTS));
         this.addDialog(new MatchingDishDialog(MATCHING_DISH_DIALOG));
@@ -150,10 +150,11 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             }
             return await step.next();
         } else {
-            return await step.prompt(SECOND_TEXTPROMPT_WITHOUT_SPECIFIC, {
-                prompt: MessageFactory
-                    .text(SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC),
-                choices: ChoiceFactory.toChoices([USER_DECLINES]),
+            return await step.prompt(SECOND_TEXTPROMPT_WITHOUT_MEETS, {
+                prompt: ChoiceFactory.forChannel(
+                    step.context,
+                    [USER_DECLINES],
+                    SECOND_PROMPT_MESSAGE_WITHOUT_MEETS),
                 style: ListStyle.suggestedAction
             });
         }
@@ -191,8 +192,10 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             step.values.study.notWantedMeets = meets;
         }
         return await step.prompt(THIRD_TEXTPROMPT_ALLERGIES, {
-            prompt: MessageFactory.text(THIRD_PROMPT_MESSAGE_ALLERGIES),
-            choices: ChoiceFactory.toChoices([USER_DECLINES]),
+            prompt: ChoiceFactory.forChannel(
+                step.context,
+                [USER_DECLINES],
+                THIRD_PROMPT_MESSAGE_ALLERGIES),
             style: ListStyle.suggestedAction
         });
     }
@@ -203,8 +206,10 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             step.values.study.allergies = result.split(',');
         }
         return await step.prompt(FORTH_TEXTPROMPT_SUPPLEMENTS, {
-            prompt: MessageFactory.text(FORTH_PROMPT_MESSAGE_SUPPLEMENTS),
-            choices: ChoiceFactory.toChoices([USER_DECLINES]),
+            prompt: ChoiceFactory.forChannel(
+                step.context,
+                [USER_DECLINES],
+                FORTH_PROMPT_MESSAGE_SUPPLEMENTS),
             style: ListStyle.suggestedAction
         });
     }
