@@ -11,10 +11,6 @@ const OPEN_CANTINA_DIALOG = 'openCantinaDialog';
 const STUDY = 'study';
 const STUDY_DIALOG = 'studyDialog';
 
-const MIN = 10;
-const THRESHOLD = 15;
-const MAX = 20;
-
 const FAILED_FINDING_DISH_TEXT = 'Falls dir keines dieser Gerichte' +
     ' zusagt, kannst du mit **"Was gibt es heute zu essen?"** alle Gerichte des' +
     ' heutigen Tages selbst noch einmal anschauen.\n\n' +
@@ -36,6 +32,10 @@ class StudyDialog extends CancelAndHelpDialog {
     }
 
     async begin(step) {
+        const MIN = 10;
+        const THRESHOLD = 15;
+        const MAX = 20;
+
         console.log('[StudyDialog]: begin study...');
         const randomNum = await this.getRandomNum(MIN, MAX);
         console.log('[StudyDialog]: Randomizer Result => ' + randomNum);
