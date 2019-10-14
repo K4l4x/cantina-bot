@@ -8,7 +8,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Hähnchenbrust mit Frischkäsetopping und TomatensoßeA26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Penne RigateA20.1, Langkornreis, Spitzkohl in RahmA26, Pariser Karotten, Beilagensalate, Brombeer-Kokos-QuarkA26, HeidelbeerjoghurtA26, HaselnusspuddingA26,A27.2 oder EisZ1,A26 "
+    "description": "Hähnchenbrust mit Frischkäsetopping und TomatensoßeA26,A20.1 mit Tomaten-Käse-SoßeZ1,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Penne RigateA20.1, Langkornreis, Spitzkohl in RahmA26, Pariser Karotten, Beilagensalate, Brombeer-Kokos-QuarkA26, HeidelbeerjoghurtA26 oder EisZ1,A26 "
   },
   {
     "date": "October 14, 2019",
@@ -19,18 +19,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Broccoli-KäseschnitteA26,A28,A20.1,A20.3 mit KräutersoßeA26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Penne RigateA20.1, Langkornreis, ErbsengemüseA28, Pariser Karotten, Beilagensalate, Brombeer-Kokos-QuarkA26, HeidelbeerjoghurtA26, HaselnusspuddingA26,A27.2 oder EisZ1,A26 "
-  },
-  {
-    "date": "October 14, 2019",
-    "day": 1,
-    "type": "Mensa vital",
-    "prices": [
-      " 3,70 €",
-      " 5,20 €",
-      " 6,10 €"
-    ],
-    "description": "Feuriges Gemüse-Fisch-Curry mit IngwerreisZ2,A23,A25,A26,A20.1 kcal: 691, F: 20g, E: 39g, KH: 86g "
+    "description": "Broccoli-KäseschnitteA26,A28,A20.1,A20.3 mit KräutersoßeA26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Penne RigateA20.1, Langkornreis, ErbsengemüseA28, Pariser Karotten, Beilagensalate, Brombeer-Kokos-QuarkA26, HeidelbeerjoghurtA26 oder EisZ1,A26 "
   },
   {
     "date": "October 14, 2019",
@@ -116,9 +105,20 @@
     "prices": [
       " ",
       " ",
-      " "
+      " 1,50 € "
     ],
-    "description": "Täglich wechselnde Dessertvariationen. "
+    "description": "Mousse au Chocolat mit SahneA25,A26 "
+  },
+  {
+    "date": "October 14, 2019",
+    "day": 1,
+    "type": "Desserttheke",
+    "prices": [
+      " ",
+      " ",
+      " 1,50 € "
+    ],
+    "description": "Karamell-Panna-Cotta mit HimbeersoßeA26 "
   },
   {
     "date": "October 14, 2019",

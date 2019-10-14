@@ -30,23 +30,26 @@ const FIRST_PROMPT_MESSAGE_MEET = 'Magst du fleischhaltiges Essen?';
 // Have no prefixing number, because they are part of the FIRST_PROMPT. If
 // the user declines FIRST_PROMPT this will be the next two prompts.
 const VEGETARIAN_PROMPT = 'vegetarianPrompt';
-const VEGETARIAN_PROMPT_MESSAGE = 'Möchtest du ein vegetarisches Gericht?';
+const VEGETARIAN_PROMPT_MESSAGE = 'Möchtest du vegetarische Gerichte?';
 const VEGAN_PROMPT = 'veganPrompt';
-const VEGAN_PROMPT_MESSAGE = 'Möchtest du ein veganes Gericht?';
+const VEGAN_PROMPT_MESSAGE = 'Möchtest du vegane Gerichte?';
 
 const SECOND_PROMPT_WITHOUT_SPECIFIC = 'withoutSpecificPrompt';
 const SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC = 'Magst du alle Sorten Fleisch?' +
     ' Verzichtest du vielleicht auf gewisse Sorten? Du kannst sie mir mit' +
-    ' Kommata getrennt auflisten z.B. Schwein, Rind,...';
+    ' Kommata getrennt auflisten z.B. Schwein, Rind,... oder mit **"Nein"**' +
+    ' antworten.';
 
 const THIRD_PROMPT_ALLERGIES = 'allergiesPrompt';
 const THIRD_PROMPT_MESSAGE_ALLERGIES = 'Ich hoffe du hast keine Allergien!' +
     ' Falls doch, scheib sie mir mit Kommata gerennt auf z.B. Erdnüsse,' +
-    ' Dinkel, ... oder A20, A23, ....';
+    ' Dinkel, ... oder A20, A23, ... oder mit **"Nein"**' +
+    ' antworten.';
 
 const FORTH_PROMPT_OTHER = 'othersPrompt';
 const FORTH_PROMPT_MESSAGE_OTHER = 'Soll ich auf sonstige Ergänzungen' +
-    ' achten? Zum Beispiel Süßungsmittel oder Farbstoff.';
+    ' achten? Zum Beispiel Süßungsmittel oder Farbstoff. Falls nicht,' +
+    ' antworte einfach mit **"Nein"**.';
 
 // End of strep tree.
 const THANK_USER = 'Das war\'s schon, vielen Dank! ' +
@@ -56,7 +59,8 @@ const THANK_USER = 'Das war\'s schon, vielen Dank! ' +
 
 const START_GUIDED_DIALOG = ['Leg los!'];
 const USER_ACCEPTS = 'Ja';
-const USER_CHOICES = [USER_ACCEPTS, 'Nein'];
+const USER_DECLINES = 'Nein';
+const USER_CHOICES = [USER_ACCEPTS, USER_DECLINES];
 
 class GuidedCantinaDialog extends CancelAndHelpDialog {
     constructor(id) {
@@ -148,7 +152,9 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
         } else {
             return await step.prompt(SECOND_PROMPT_WITHOUT_SPECIFIC, {
                 prompt: MessageFactory
-                    .text(SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC)
+                    .text(SECOND_PROMPT_MESSAGE_WITHOUT_SPECIFIC),
+                choices: ChoiceFactory.toChoices([USER_DECLINES]),
+                style: ListStyle.suggestedAction
             });
         }
     }
@@ -185,7 +191,9 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             step.values.study.notWantedMeets = meets;
         }
         return await step.prompt(THIRD_PROMPT_ALLERGIES, {
-            prompt: MessageFactory.text(THIRD_PROMPT_MESSAGE_ALLERGIES)
+            prompt: MessageFactory.text(THIRD_PROMPT_MESSAGE_ALLERGIES),
+            choices: ChoiceFactory.toChoices([USER_DECLINES]),
+            style: ListStyle.suggestedAction
         });
     }
 
@@ -195,7 +203,9 @@ class GuidedCantinaDialog extends CancelAndHelpDialog {
             step.values.study.allergies = result.split(',');
         }
         return await step.prompt(FORTH_PROMPT_OTHER, {
-            prompt: MessageFactory.text(FORTH_PROMPT_MESSAGE_OTHER)
+            prompt: MessageFactory.text(FORTH_PROMPT_MESSAGE_OTHER),
+            choices: ChoiceFactory.toChoices([USER_DECLINES]),
+            style: ListStyle.suggestedAction
         });
     }
 
