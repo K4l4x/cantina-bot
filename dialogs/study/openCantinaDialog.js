@@ -15,7 +15,8 @@ const OPEN_WELCOME_PROMPT_MESSAGE = 'Lass mich herausfinden, welches das' +
     ' richtige Gericht für dich ist. Du kannst mir z.B. sagen **"ich würde' +
     ' gerne etwas veganes essen"**, **"Ich verzichte auf Schwein"**, **"ich' +
     ' bin allergisch gegen soja"** oder **"ich vertrage kein' +
-    ' sesam"**. Wenn du fertig bist, sag einfach **"fertig"**.\n\n' +
+    ' sesam"**. Mit dem Stichwort **"stopp"** kannst du mich jederzeit' +
+    ' unterbrechen. Wenn du fertig bist, sag einfach **"fertig"**.\n\n' +
     'Alles klar?';
 
 const USER_ACCEPTS = 'Ja';
