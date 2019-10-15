@@ -20,7 +20,7 @@ const DISCLAIMER_PROMPT_TEXT = 'Ich muss dir noch mitteilen, dass im Rahmen' +
 const USER_DECLINED_TEXT = 'Aller klar, allerdings kann ich dir nun leider' +
     ' nicht das passende Gericht heraussuchen. Du kannst mich aber' +
     ' nach dem heutigen Menü fragen oder eine' +
-    ' Wochenübersicht durchblättern. Über das Stichwort **hilfe** kann ich' +
+    ' Wochenübersicht durchblättern. Über das Stichwort **"hilfe"** kann ich' +
     ' dir zeigen, was du mich generell Fragen kannst. Falls' +
     ' du deine Meinung änderst, schreibe mir' +
     ' einfach **"Finde mein Gericht"**.';
