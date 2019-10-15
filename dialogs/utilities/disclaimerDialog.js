@@ -56,7 +56,7 @@ class DisclaimerDialog extends CancelAndHelpDialog {
     }
 
     async analyseReply(step) {
-        const choice = step.result;
+        const choice = step.result.value;
         if (disclaimerChoices[CHOICE.YES] === choice) {
             // TODO: Should be done only once.
             const CONTACTS = MessageFactory

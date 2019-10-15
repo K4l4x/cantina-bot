@@ -156,17 +156,6 @@
   {
     "date": "October 15, 2019",
     "day": 2,
-    "type": "Mensa vital",
-    "prices": [
-      " 3,70 €",
-      " 5,20 €",
-      " 6,10 €"
-    ],
-    "description": "Karamellisiertes Putensteak mit Kartoffelpüree, Bratenjus und Sesam-Blumenkohl, dazu eine BananeA26,A29 kcal: 457, F: 18g, E: 38g, KH: 36g "
-  },
-  {
-    "date": "October 15, 2019",
-    "day": 2,
     "type": "Eintopf",
     "prices": [
       " 1,90 €",
@@ -248,9 +237,20 @@
     "prices": [
       " ",
       " ",
-      " "
+      " 1,50 € "
     ],
-    "description": "Täglich wechselnde Dessertvariationen. "
+    "description": "Weiße Mousse au Chocolat mit SchokosahneA25,A26 "
+  },
+  {
+    "date": "October 15, 2019",
+    "day": 2,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,50 € "
+    ],
+    "description": "Mini Windbeutel mit SchokosoßeA20,A22,A25,A26 "
   },
   {
     "date": "October 15, 2019",
@@ -284,17 +284,6 @@
       " 5,30 €"
     ],
     "description": "Spinat-KnuspermedaillonA22,A26,A28,A20.1,A20.5 mit BasilikumsoßeA26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Kartoffelpüree A26, BulgurA20.1, Sommergemüse, MandelbroccoliA27.1, Beilagensalate, Heidelbeer-Müsli-QuarkA26,A20.1,A20.4, VanillejoghurtA26, Himbeer-DickmilchA26 oder EisZ1,A26 "
-  },
-  {
-    "date": "October 16, 2019",
-    "day": 3,
-    "type": "Mensa vital",
-    "prices": [
-      " 3,70 €",
-      " 5,20 €",
-      " 6,10 €"
-    ],
-    "description": "Mediterrane Nudelpfanne mit Gemüse, Mozzarella und SahnekräutersoßeA26,A28,A20.1 kcal: 814, F: 28g, E: 30g, KH: 107g "
   },
   {
     "date": "October 16, 2019",
@@ -431,17 +420,6 @@
   {
     "date": "October 17, 2019",
     "day": 4,
-    "type": "Mensa vital",
-    "prices": [
-      " 3,70 €",
-      " 5,20 €",
-      " 6,10 €"
-    ],
-    "description": "Gnocchipfanne mit Austernpilzen, Paprika, Erbsen, Frühlingszwiebeln und Kräutersahnesoße, dazu einen Römersalat mit JoghurtdressingZ2,A22,A26 kcal: 726, F: 30g, E: 22g, KH: 93g "
-  },
-  {
-    "date": "October 17, 2019",
-    "day": 4,
     "type": "Eintopf / Suppe",
     "prices": [
       " 1,90 €",
@@ -559,17 +537,6 @@
       " 5,30 €"
     ],
     "description": "FalafelA28,A20.1 mit Chili-Minz-DipZ2,A26\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, Salzkartoffeln, Leipziger AllerleiA28, Prinzessbohnen, Beilagensalate, Brombeer-DickmilchA26, Irish-Coffee-Creme-DessertA26 oder EisZ1,A26 "
-  },
-  {
-    "date": "October 18, 2019",
-    "day": 5,
-    "type": "Mensa vital",
-    "prices": [
-      " 3,70 €",
-      " 5,20 €",
-      " 6,10 €"
-    ],
-    "description": "Pochiertes Lachsfilet mit Karotten-Fenchelgemüse, Petersilienkartoffeln und BasilikumsoßeA23,A26,A20.1 kcal: 615, F: 12g, E: 47g, KH: 75g "
   },
   {
     "date": "October 18, 2019",
