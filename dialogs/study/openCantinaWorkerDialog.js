@@ -49,8 +49,11 @@ class OpenCantinaWorkerDialog extends OpenCancelHelpDialog {
 
     async switchIntention(step) {
         const study = step.options;
+        // Check if luis service is configuired.
         if (this.luisRecognizer.isConfigured) {
+            // Use luis model to find right intent.
             const luisResult = await this.luisRecognizer.executeQuery(step.context);
+
             if (LuisRecognizer.topIntent(luisResult) === 'isVegetarian') {
                 study.isVegetarian = true;
                 study.ankerPrompt = MessageFactory.text(IS_VEGETARIAN_TEXT);
@@ -59,23 +62,38 @@ class OpenCantinaWorkerDialog extends OpenCancelHelpDialog {
                 study.ankerPrompt = MessageFactory.text(IS_VEGAN_TEXT);
             } else if (LuisRecognizer.topIntent(luisResult) === 'withoutMeets') {
                 // Get the normalized value from luis to search in the labels.
-                let value = (luisResult.entities.Meet[0]).toString();
-                study.notWantedMeets.push(value);
-                await this.checkKnownMeets(study);
-                value = value.charAt(0).toUpperCase() + value.slice(1);
-                study.ankerPrompt = MessageFactory
-                    .text('Okay, ich lasse ' + value + ' weg.');
+                if (typeof luisResult.entities.Meet !== 'undefined' &&
+                    luisResult.entities.Meet.length > 0) {
+                    let value = (luisResult.entities.Meet[0]).toString();
+                    study.notWantedMeets.push(value);
+                    await this.checkKnownMeets(study);
+                    value = value.charAt(0).toUpperCase() + value.slice(1);
+                    study.ankerPrompt = MessageFactory
+                        .text('Okay, ich lasse ' + value + ' weg.');
+                } else {
+                    study.ankerPrompt = MessageFactory.text(NONE_TEXT);
+                }
             } else if (LuisRecognizer.topIntent(luisResult) === 'noSupplements') {
                 // Get the normalized value from luis to search in the labels.
-                const value = (luisResult.entities.Supplements[0]).toString();
-                study.supplements.push(value);
-                study.ankerPrompt = MessageFactory.text(NO_SUPPLEMENTS_TEXT);
+                if (typeof luisResult.entities.Supplements !== 'undefined' &&
+                    luisResult.entities.Supplements.length > 0) {
+                    const value = (luisResult.entities.Supplements[0]).toString();
+                    study.supplements.push(value);
+                    study.ankerPrompt = MessageFactory.text(NO_SUPPLEMENTS_TEXT);
+                } else {
+                    study.ankerPrompt = MessageFactory.text(NONE_TEXT);
+                }
             } else if (LuisRecognizer.topIntent(luisResult) === 'hasAllergies') {
                 // Get the normalized value from luis to search in the
                 // allergiesRegister.
-                const value = (luisResult.entities.Allergies[0]).toString();
-                study.allergies.push(value);
-                study.ankerPrompt = MessageFactory.text(HAS_ALLERGIES_TEXT);
+                if (typeof luisResult.entities.Allergies !== 'undefined' &&
+                    luisResult.entities.Allergies.length > 0) {
+                    const value = (luisResult.entities.Allergies[0]).toString();
+                    study.allergies.push(value);
+                    study.ankerPrompt = MessageFactory.text(HAS_ALLERGIES_TEXT);
+                } else {
+                    study.ankerPrompt = MessageFactory.text(NONE_TEXT);
+                }
             } else if (LuisRecognizer.topIntent(luisResult) === 'isFinished') {
                 step.values.study = study;
                 return await step.next('finished');
