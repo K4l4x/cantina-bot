@@ -34,21 +34,21 @@ const luisRecognizer = new CantinaRequestsRecognizer(luisConfig);
 const memoryStorage = new MemoryStorage();
 
 // Create conversation and user state with in-memory storage provider.
-const cantinaState = new ConversationState(memoryStorage);
-const conversationState = new ConversationState(memoryStorage);
-const userState = new UserState(memoryStorage);
+// const cantinaState = new ConversationState(memoryStorage);
+// const conversationState = new ConversationState(memoryStorage);
+// const userState = new UserState(memoryStorage);
 
 // Define state store (Blob) for bot.
-// const blobStorage = new BlobStorage({
-//     containerName: process.env.Container,
-//     storageAccessKey: process.env.StorageKey,
-//     storageAccountOrConnectionString: process.env.ConnectionString
-// });
-//
-// // Create conversation and user state with blob storage provider.
-// const cantinaState = new ConversationState(memoryStorage);
-// const conversationState = new ConversationState(blobStorage);
-// const userState = new UserState(blobStorage);
+const blobStorage = new BlobStorage({
+    containerName: process.env.Container,
+    storageAccessKey: process.env.StorageKey,
+    storageAccountOrConnectionString: process.env.ConnectionString
+});
+
+// Create conversation and user state with blob storage provider.
+const cantinaState = new ConversationState(memoryStorage);
+const conversationState = new ConversationState(blobStorage);
+const userState = new UserState(blobStorage);
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about .bot file its use and bot configuration.
