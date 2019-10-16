@@ -3,7 +3,7 @@ const { WaterfallDialog, ComponentDialog, ChoiceFactory, ChoicePrompt, TextPromp
 
 const { MatchingDishDialog } = require('./matchingDishDialog');
 const { Study } = require('../../model/study');
-const { JsonOps } = require('../../utilities/jsonOps');
+const MeetParts = require('../../resources/utilities/meetParts');
 
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
@@ -159,12 +159,9 @@ class GuidedCantinaDialog extends ComponentDialog {
         }
     }
 
+    // TODO: Completely hacked. Should be moved or transformed (validator e.x.).
     // Only hit, if user is not vegetarian or vegan.
     async checkNotWantedMeets(step) {
-        // TODO: Should be done only once.
-        const meetParts = await JsonOps.prototype
-            .loadFrom('utilities', 'meetParts');
-
         if (typeof step.result !== 'undefined' &&
             step.result !== USER_DECLINES) {
             const result = step.result;
@@ -172,19 +169,19 @@ class GuidedCantinaDialog extends ComponentDialog {
             let meets = step.values.study.notWantedMeets;
             for (let meet of step.values.study.notWantedMeets) {
                 meet = meet.toLowerCase();
-                if (meetParts.main.includes(meet)) {
+                if (MeetParts.main.includes(meet)) {
                     switch (meet) {
                     case 'rind':
-                        meets = meets.concat(meetParts.beef);
+                        meets = meets.concat(MeetParts.beef);
                         break;
                     case 'schwein':
-                        meets = meets.concat(meetParts.pork);
+                        meets = meets.concat(MeetParts.pork);
                         break;
                     case 'fisch':
-                        meets = meets.concat(meetParts.fish);
+                        meets = meets.concat(MeetParts.fish);
                         break;
                     case 'geflügel':
-                        meets = meets.concat(meetParts.poultry);
+                        meets = meets.concat(MeetParts.poultry);
                         break;
                     }
                 }

@@ -2,7 +2,7 @@ const { AttachmentLayoutTypes, CardFactory } = require('botbuilder');
 const { WaterfallDialog } = require('botbuilder-dialogs');
 
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
-const { JsonOps } = require('../../utilities/jsonOps');
+const Contacts = require('../../resources/utilities/contacts');
 
 const CONTACT_DIALOG = 'contactDialog';
 const CONTACT = 'contact';
@@ -19,10 +19,7 @@ class ContactDialog extends CancelAndHelpDialog {
 
     async showContacts(step) {
         const attachments = [];
-        const contactCard = await JsonOps.prototype
-            .loadFrom('utilities', 'contacts');
-
-        attachments.push(CardFactory.adaptiveCard(contactCard));
+        attachments.push(CardFactory.adaptiveCard(Contacts));
         await step.context.sendActivity({
             attachments: attachments,
             attachmentLayout: AttachmentLayoutTypes.Carousel

@@ -5,7 +5,7 @@ class JsonOps {
         const path = 'resources/' + folder + '/' + name + '.json';
         const json = JSON.stringify(content, null, 2);
         try {
-            console.log('[JsonOps]: Trying to write to ' + path);
+            console.log('[JsonOps]: Trying to write to ' + path + ' ...');
             fileSystem.writeFileSync(path, json, 'utf8');
             console.log('[JsonOps]: Writing done');
         } catch (err) {
@@ -18,7 +18,7 @@ class JsonOps {
         const path = 'resources/' + folder + '/' + name + '.json';
         let result = null;
         try {
-            console.log('[JsonOps]: Trying to read from ' + path);
+            console.log('[JsonOps]: Trying to read from ' + path + ' ...');
             result = JSON.parse(fileSystem.readFileSync(path, 'utf8'));
             console.log('[JsonOps]: Reading done');
         } catch (err) {

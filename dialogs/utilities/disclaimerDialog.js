@@ -1,7 +1,7 @@
 const { WaterfallDialog, ComponentDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
 const { MessageFactory, CardFactory } = require('botbuilder');
 
-const { JsonOps } = require('../../utilities/jsonOps');
+const Disclaimer = require('../../resources/utilities/disclaimer.json');
 const { StudyDialog } = require('../study/studyDialog');
 const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 
@@ -47,7 +47,7 @@ class DisclaimerDialog extends CancelAndHelpDialog {
     }
 
     async promptDisclaimer(step) {
-        console.log('[DiscalimerDialog]: prompt for disclaimer');
+        console.log('[DisclaimerDialog]: contents of disclaimer.json: ' + Disclaimer);
         return await step.prompt(DISCLAIMER_PROMPT, {
             prompt: MessageFactory.text(DISCLAIMER_PROMPT_TEXT),
             choices: ChoiceFactory.toChoices(disclaimerChoices),
@@ -60,9 +60,7 @@ class DisclaimerDialog extends CancelAndHelpDialog {
         if (disclaimerChoices[CHOICE.YES] === choice) {
             // TODO: Should be done only once.
             const CONTACTS = MessageFactory
-                .attachment(CardFactory
-                    .adaptiveCard(await JsonOps.prototype
-                        .loadFrom('utilities', 'disclaimer')));
+                .attachment(CardFactory.adaptiveCard(Disclaimer));
             await step.context.sendActivity(CONTACTS);
             return await step.replaceDialog(STUDY_DIALOG);
         } else {

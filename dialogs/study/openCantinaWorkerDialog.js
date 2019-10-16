@@ -4,7 +4,7 @@ const { WaterfallDialog, ComponentDialog, TextPrompt } = require('botbuilder-dia
 const { OpenCancelHelpDialog } = require('../utilities/openCancelHelpDialog');
 const { MatchingDishDialog } = require('./matchingDishDialog');
 const { LuisRecognizer } = require('botbuilder-ai');
-const { JsonOps } = require('../../utilities/jsonOps');
+const MeetParts = require('../../resources/utilities/meetParts');
 
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
@@ -86,27 +86,24 @@ class OpenCantinaWorkerDialog extends OpenCancelHelpDialog {
         return await step.next(study);
     }
 
+    // TODO: Completely hacked. Should be moved or transformed (validator e.x.).
     async checkKnownMeets(study) {
-        // TODO: Should be done only once.
-        const meetParts = await JsonOps.prototype
-            .loadFrom('utilities', 'meetParts');
-
         // Check all meets we know off.
         let meets = study.notWantedMeets;
         for (const meet of study.notWantedMeets) {
-            if (meetParts.main.includes(meet.toLowerCase())) {
+            if (MeetParts.main.includes(meet.toLowerCase())) {
                 switch (meet.toLowerCase()) {
                 case 'rind':
-                    meets = meets.concat(meetParts.beef);
+                    meets = meets.concat(MeetParts.beef);
                     break;
                 case 'schwein':
-                    meets = meets.concat(meetParts.pork);
+                    meets = meets.concat(MeetParts.pork);
                     break;
                 case 'fisch':
-                    meets = meets.concat(meetParts.fish);
+                    meets = meets.concat(MeetParts.fish);
                     break;
                 case 'geflügel':
-                    meets = meets.concat(meetParts.poultry);
+                    meets = meets.concat(MeetParts.poultry);
                     break;
                 }
             }

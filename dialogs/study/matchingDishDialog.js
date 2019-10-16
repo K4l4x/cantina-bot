@@ -5,7 +5,9 @@ const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 const { CardSchema } = require('../../utilities/cardSchema');
 const { Cantina } = require('../../model/cantina');
 const { Dish } = require('../../model/dish');
-const { JsonOps } = require('../../utilities/jsonOps');
+const Meets = require('../../resources/utilities/meets');
+const Allergies = require('../../resources/utilities/allergiesRegister');
+const Supplements = require('../../resources/utilities/supplementsRegister');
 
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 const MATCHING_DISH = 'matchingDish';
@@ -27,20 +29,11 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         await tmpCantina.menu.loadList();
         study.cantina = tmpCantina;
 
-        // TODO: Should be done in root dialog or even before that and only
-        //  once.
-        const listOfMeets = await JsonOps.prototype
-            .loadFrom('utilities', 'meets');
-        const allergies = await JsonOps.prototype
-            .loadFrom('utilities', 'allergiesRegister');
-        const supplements = await JsonOps.prototype
-            .loadFrom('utilities', 'supplementsRegister');
-
         // TODO: Should be done only once
-        const allergiesKeys = Object.keys(allergies);
-        const allergiesValues = Object.values(allergies);
-        const supplementsKeys = Object.keys(supplements);
-        const supplementsValues = Object.values(supplements);
+        const allergiesKeys = Object.keys(Allergies);
+        const allergiesValues = Object.values(Allergies);
+        const supplementsKeys = Object.keys(Supplements);
+        const supplementsValues = Object.values(Supplements);
 
         // Get todays menu to search in it.
         // For testing just give getDay() a weekday from 1-5.
@@ -49,7 +42,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         if (study.isVegetarian || study.isVegan) {
             for (let i = todaysMenu.length - 1; i >= 0; i--) {
                 const entry = todaysMenu[i];
-                if (listOfMeets.some(meet => entry.description.toLowerCase().includes(meet))) {
+                if (Meets.some(meet => entry.description.toLowerCase().includes(meet))) {
                     console.log('(LookIntoMenus.meets): ' + entry.type + ' has' +
                         ' meet');
                     const indexDish = todaysMenu.indexOf(entry);
@@ -77,7 +70,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
         for (const entry of study.notWantedMeets) {
             const meetType = entry.toLowerCase()
                 .replace(/\s+/g, '');
-            if (listOfMeets.includes(meetType)) {
+            if (Meets.includes(meetType)) {
                 console.log('(Meets):' + meetType);
                 for (let i = todaysMenu.length - 1; i >= 0; i--) {
                     const entry = todaysMenu[i];
@@ -119,7 +112,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
 
             if (allergiesValues.includes(allergyType)) {
                 console.log('(AllergiesValues):' + allergyType);
-                const allergyTypeKey = allergiesKeys.find(key => allergies[key] === allergyType);
+                const allergyTypeKey = allergiesKeys.find(key => Allergies[key] === allergyType);
                 console.log('(AllergiesValues.findKey): ' + allergyType + ' -> ' +
                     allergyTypeKey);
 
@@ -158,7 +151,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
 
             if (supplementsValues.includes(otherType)) {
                 console.log('(SupplementsValues):' + otherType);
-                const otherTypeKey = supplementsKeys.find(key => supplements[key] === otherType);
+                const otherTypeKey = supplementsKeys.find(key => Supplements[key] === otherType);
                 console.log('(SupplementsValues.findKey): ' + otherType + ' -> ' +
                     otherTypeKey);
 
