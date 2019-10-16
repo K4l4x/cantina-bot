@@ -1,7 +1,6 @@
 const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog, ComponentDialog, TextPrompt } = require('botbuilder-dialogs');
 
-const { OpenCancelHelpDialog } = require('../utilities/openCancelHelpDialog');
 const { MatchingDishDialog } = require('./matchingDishDialog');
 const { LuisRecognizer } = require('botbuilder-ai');
 const MeetParts = require('../../resources/utilities/meetParts');
@@ -25,7 +24,7 @@ const NONE_TEXT = 'Hm, dass habe ich leider nicht' +
 const THANK_USER = 'Klasse, vielen Dank! ' +
     'Lass mich kurz nach dem passenden Gericht suchen...';
 
-class OpenCantinaWorkerDialog extends OpenCancelHelpDialog {
+class OpenCantinaWorkerDialog extends ComponentDialog {
     constructor(id, luisRecognizer) {
         super(id || OPEN_CANTINA_WORKER_DIALOG);
         this.luisRecognizer = luisRecognizer;
