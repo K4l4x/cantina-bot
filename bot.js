@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-const { ActivityHandler } = require('botbuilder');
+const { ActivityHandler, TurnContext } = require('botbuilder');
 
 // const MENU_STATE_PROPERTY = 'menuState';
 
 class CantinaBot extends ActivityHandler {
-    constructor(cantinaState, conversationState, userState, dialog) {
+    constructor(cantinaState, conversationState, userState, dialog, conversationReferences) {
         super();
         if (!cantinaState) {
             throw new Error('[CantinaBot]: Missing' +
@@ -24,6 +24,9 @@ class CantinaBot extends ActivityHandler {
             throw new Error('[CantinaBot]: Missing parameter.' +
             ' Dialog is required');
         }
+
+        // Dependency injected dictionary for storing ConversationReference objects used in NotifyController to proactively message users
+        // this.conversationReferences = conversationReferences;
 
         // Record the conversation and user state management objects.
         this.cantinaState = cantinaState;
@@ -51,7 +54,19 @@ class CantinaBot extends ActivityHandler {
             // By calling next() you ensure that the next BotHandler is run.
             await next();
         });
+
+        // this.onConversationUpdate(async (context, next) => {
+        //     this.addConversationReference(context.activity);
+        //
+        //     // By calling next() you ensure that the next BotHandler is run.
+        //     await next();
+        // });
     }
+
+    // addConversationReference(activity) {
+    //     const conversationReference = TurnContext.getConversationReference(activity);
+    //     this.conversationReferences[conversationReference.conversation.id] = conversationReference;
+    // }
 }
 
 module.exports.CantinaBot = CantinaBot;

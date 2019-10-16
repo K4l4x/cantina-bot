@@ -123,6 +123,9 @@ class RootDialog extends ComponentDialog {
     }
 
     // TODO: Should be transformed to use storage.
+    // FIXME: If the university website does not respond, "menu.fill()" will
+    //  wait for ever. Should just load the JSON thats already there or say,
+    //  that we cannot receive data because the service is down.
     /**
      * Preparing cantina and menus by loading from storage/file or building
      * a new kind.
@@ -141,7 +144,7 @@ class RootDialog extends ComponentDialog {
         // just load menus from storage/file.
 
         if (cantina.menu.length !== 0) {
-            if (cantina.menu.isLatest()) {
+            if (await cantina.menu.isLatest()) {
                 console.log('[RootDialog]: cantina menu is latest -> going' +
                     ' to action');
             } else {
@@ -152,7 +155,8 @@ class RootDialog extends ComponentDialog {
             }
         } else {
             await cantina.menu.fill();
-            console.log('[RootDialog]: cantina menu empty -> filling up');
+            console.log('[RootDialog]: cantina menu object empty -> filling' +
+                ' up');
             await cantina.menu.save();
         }
 
@@ -210,8 +214,8 @@ class RootDialog extends ComponentDialog {
         } else {
             await step.context.sendActivity(MessageFactory.text(
                 'Entschuldigung, leider weiß ich nicht was du ' +
-                'mit ' + '**\'' + message + '\'**' + ' meinst. Mit dem' +
-                ' Stichwort **hilfe** kann ich' +
+                'mit ' + '**"' + message + '"**' + ' meinst. Mit dem' +
+                ' Stichwort **"hilfe"** kann ich' +
                 ' dir zeigen, was du mich generell Fragen kannst.'));
         }
 
