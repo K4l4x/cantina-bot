@@ -382,7 +382,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Köfte vom RindA22,A26,A20.1 mit Ajvar (Mus aus Paprika und Auberginen)A26\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, SesamkartoffelnA29, Blumenkohl, BalkangemüseA28, Beilagensalate, Schokoladenpudding veganA25, ErdbeerjoghurtA26, Schwedische ApfelcremeZ3,A26 oder EisZ1,A26 "
+    "description": "Köfte vom RindA22,A26,A20.1 mit Ajvar (Mus aus Paprika und Auberginen)A26\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, SesamkartoffelnA29, Blumenkohl, BalkangemüseA28, Beilagensalate, Schokoladenpudding veganA25, Schwedische ApfelcremeZ3,A26, SauerkirschjoghurtA26 oder EisZ1,A26 "
   },
   {
     "date": "October 17, 2019",
@@ -393,7 +393,7 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "2 Rote-Bete-PufferA20.1 mit Mango-Chili-Dip veganZ2,A30\n\n Es können 3 Wahlbeilagen gewählt werden: SesamkartoffelnA29, Pommes frites, Japanisches BohnengemüseA25,A29,A20.1, Blumenkohl, Beilagensalate, Schokoladenpudding veganA25, ErdbeerjoghurtA26, Schwedische ApfelcremeZ3,A26 oder EisZ1,A26 "
+    "description": "2 Rote-Bete-PufferA20.1 mit Mango-Chili-Dip veganZ2,A30\n\n Es können 3 Wahlbeilagen gewählt werden: SesamkartoffelnA29, Pommes frites, Japanisches BohnengemüseA25,A29,A20.1, Blumenkohl, Beilagensalate, Schokoladenpudding veganA25, Schwedische ApfelcremeZ3,A26, SauerkirschjoghurtA26 oder EisZ1,A26 "
   },
   {
     "date": "October 17, 2019",
@@ -479,9 +479,20 @@
     "prices": [
       " ",
       " ",
-      " "
+      " 1,50 € "
     ],
-    "description": "Täglich wechselnde Dessertvariationen. "
+    "description": "Mascarpone-Quark-Creme mit KirschsoßeA26, Mascarpone-Quark-Creme mit ErdbeersoßeA25,A26 und Mascarpone-Quark-Creme mit BrombeersoßeA25,A26 "
+  },
+  {
+    "date": "October 17, 2019",
+    "day": 4,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,50 € "
+    ],
+    "description": "Zitronen-Bis­kuitrolleA20,A22,A26 "
   },
   {
     "date": "October 17, 2019",

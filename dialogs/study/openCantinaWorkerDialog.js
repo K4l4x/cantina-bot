@@ -18,11 +18,12 @@ const IS_VEGAN_TEXT = 'Alles klar, veganes Essen.';
 const NO_SUPPLEMENTS_TEXT = 'Alles klar.';
 const HAS_ALLERGIES_TEXT = 'Notiert.';
 
-const NONE_TEXT = 'Hm, dass habe ich leider nicht' +
-    ' verstanden';
 // End of step tree.
 const THANK_USER = 'Klasse, vielen Dank! ' +
     'Lass mich kurz nach dem passenden Gericht suchen...';
+
+const NONE_TEXT = 'Hm, dass habe ich leider nicht' +
+    ' verstanden.';
 
 class OpenCantinaWorkerDialog extends ComponentDialog {
     constructor(id, luisRecognizer) {
