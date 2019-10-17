@@ -50,6 +50,7 @@ const validMessages = {
     START: '/start',
     TODAY: 'heute',
     WEEK: 'woche',
+    CONTACT: 'ansprechpartner',
     OPENINGHOURS: 'öffnungszeiten',
     FIND_DISH: 'finde mein gericht',
     HUNGER: 'hunger',
@@ -200,6 +201,8 @@ class RootDialog extends ComponentDialog {
         } else if (message.includes(validMessages.WEEK)) {
             dialogId = WEEK_MENU_DIALOG;
             options = cantina;
+        } else if (message.includes(validMessages.CONTACT)) {
+            dialogId = CONTACT_DIALOG;
         } else if (message.includes(validMessages.OPENINGHOURS)) {
             dialogId = OPENING_HOURS_DIALOG;
             options = cantina;
