@@ -42,7 +42,7 @@ const HELP_TEXT = 'Mit **"stopp"** und **"abbrechen"** kannst du mich' +
     ' schon geholfen habe, kannst du das natürlich noch mal' +
     ' ändern.\n\n\n' +
     'Mit **"Ich hab hunger"** versuche ich ein passendes Gericht' +
-    ' basierend auf deinen gesetzten Preferenzen zu finden.';
+    ' basierend auf deinen gesetzten Präferenzen zu finden.';
 
 const FAILED_CANCEL = 'Gerade gibt es nichts, was ich abbrechen könnte.';
 
