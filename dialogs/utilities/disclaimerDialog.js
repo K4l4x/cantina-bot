@@ -1,4 +1,4 @@
-const { WaterfallDialog, ComponentDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
+const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
 const { MessageFactory, CardFactory } = require('botbuilder');
 
 const Disclaimer = require('../../resources/utilities/disclaimer.json');

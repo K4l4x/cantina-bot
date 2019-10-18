@@ -13,7 +13,7 @@ const WELCOME_MESSAGE = 'Hi, ich bin CantinaBot.\n\n' +
     'Finde mit meiner Hilfe heraus, welches Gericht heute genau zu dir' +
     ' passt. Oder blättere einfach durch das Menü von heute oder eines' +
     ' anderen Tages der Woche. Mit dem Stichwort **"stopp"** kannst du' +
-    ' mich jederzeit unterbrechen und mit **"hife"** zeige ich dir, was du' +
+    ' mich jederzeit unterbrechen und mit **"hilfe"** zeige ich dir, was du' +
     ' mich generell Fragen kannst.';
 
 const WELCOME_CHOICE = ['Okay, cool und weiter?'];

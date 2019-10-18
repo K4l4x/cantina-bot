@@ -51,6 +51,7 @@ const validMessages = {
     TODAY: 'heute',
     WEEK: 'woche',
     CONTACT: 'ansprechpartner',
+    _CONTACT: 'kontakt',
     OPENINGHOURS: 'öffnungszeiten',
     FIND_DISH: 'finde mein gericht',
     HUNGER: 'hunger',
@@ -98,7 +99,7 @@ class RootDialog extends ComponentDialog {
         this.addDialog(new DisclaimerDialog(DISCLAIMER_DIALOG, this.luisRecognizer));
         this.addDialog(new MatchingDishDialog(MATCHING_DISH_DIALOG));
         this.addDialog(new WaterfallDialog(ROOT_WATERFALL, [
-            this.prepareStorageAndOptions.bind(this),
+            this.prepareCantina.bind(this),
             this.handleRequests.bind(this),
             this.saveResults.bind(this)
         ]));
@@ -133,7 +134,7 @@ class RootDialog extends ComponentDialog {
      * @param step
      * @returns {Promise<*>}
      */
-    async prepareStorageAndOptions(step) {
+    async prepareCantina(step) {
         console.log('[RootDialog]: prepare storage and cantina...');
         const cantina = new Cantina('mensaX');
         await this.cantinaProfile.get(step.context, cantina);
@@ -201,7 +202,9 @@ class RootDialog extends ComponentDialog {
         } else if (message.includes(validMessages.WEEK)) {
             dialogId = WEEK_MENU_DIALOG;
             options = cantina;
-        } else if (message.includes(validMessages.CONTACT)) {
+        } else if (
+            message.includes(validMessages.CONTACT) ||
+            message.includes(validMessages._CONTACT)) {
             dialogId = CONTACT_DIALOG;
         } else if (message.includes(validMessages.OPENINGHOURS)) {
             dialogId = OPENING_HOURS_DIALOG;
