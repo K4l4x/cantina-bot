@@ -514,29 +514,18 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "FalafelA28,A20.1 mit Chili-Minz-DipZ2,A26\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, Salzkartoffeln, Leipziger AllerleiA28, Prinzessbohnen, Beilagensalate, Brombeer-DickmilchA26, Irish-Coffee-Creme-DessertA26 oder EisZ1,A26 "
+    "description": "FalafelA28,A20.1 mit Chili-Minz-DipZ2,A26,A30\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, Salzkartoffeln, Leipziger AllerleiA28, Prinzessbohnen, Beilagensalate, Brombeer-DickmilchA26, Irish-Coffee-Creme-DessertA26 oder EisZ1,A26 "
   },
   {
     "date": "October 18, 2019",
     "day": 5,
     "type": "Eintopf",
     "prices": [
-      " 1,90 €",
-      " 3,20 €",
-      " 4,20 €"
-    ],
-    "description": "Laucheintopf mit KäsecremeZ1,A25,A26\n\n Dazu gibt es: gebratenes SojaA25 und gebratenes Schweinefleisch "
-  },
-  {
-    "date": "October 18, 2019",
-    "day": 5,
-    "type": "Eintopf / Suppe",
-    "prices": [
       " ",
       " ",
-      " 0,80 € "
+      " "
     ],
-    "description": "Süßkartoffel-Kokos-SuppeZ2,Z3,A25 "
+    "description": "ausverkauft "
   },
   {
     "date": "October 18, 2019",
@@ -600,9 +589,20 @@
     "prices": [
       " ",
       " ",
-      " "
+      " 1,50 € "
     ],
-    "description": "Täglich wechselnde Dessertvariationen. "
+    "description": "Mascarpone-Quark-Creme mit ErdbeersoßeA25,A26 und Mascarpone-Quark-Creme mit BrombeersoßeA25,A26 "
+  },
+  {
+    "date": "October 18, 2019",
+    "day": 5,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,50 € "
+    ],
+    "description": "Mini Windbeutel mit SchokosoßeA20,A22,A25,A26 "
   },
   {
     "date": "October 18, 2019",

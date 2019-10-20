@@ -1,8 +1,8 @@
 const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
 
-const { CancelAndHelpDialog } = require('./cancelAndHelpDialog');
 const { DisclaimerDialog } = require('./disclaimerDialog');
+const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 
 const DISCLAIMER_DIALOG = 'disclaimerDialog';
 

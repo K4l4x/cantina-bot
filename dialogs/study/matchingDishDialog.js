@@ -61,7 +61,7 @@ class MatchingDishDialog extends CancelAndHelpDialog {
                     study.allergies.push(part);
                 }
             }
-            console.log('[Matching]: Is Vegan, auto add specific' +
+            console.log('[Matching]: Is Vegan, add specific' +
                 ' "allergies"');
             console.log('[Matching]: Size of allergies list: ' +
                 study.allergies.length);

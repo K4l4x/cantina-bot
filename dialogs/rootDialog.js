@@ -181,11 +181,6 @@ class RootDialog extends ComponentDialog {
             conversationData.promptedStudy === false) {
             console.log('[RootDialog]: user first contact');
             dialogId = WELCOME_DIALOG;
-            // if (message.includes(validMessages.START)) {
-            //     await step.context.sendActivity(MessageFactory
-            //         .text('Hi, ich bin CantinaBot. \n\n Blättere' +
-            //             ' einfach durch das Menü von heute oder eines anderen' +
-            //             ' Tages der Woche.'));
         } else if (message.includes(validMessages.FIND_DISH)) {
             dialogId = DISCLAIMER_DIALOG;
         } else if (message.includes(validMessages.HUNGER)) {
