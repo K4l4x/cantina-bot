@@ -39,11 +39,11 @@ const memoryStorage = new MemoryStorage();
 // const userState = new UserState(memoryStorage);
 
 // Define state store (Blob) for bot.
-// const blobStorage = new BlobStorage({
-//     containerName: process.env.Container,
-//     storageAccessKey: process.env.StorageKey,
-//     storageAccountOrConnectionString: process.env.ConnectionString
-// });
+const blobStorage = new BlobStorage({
+    containerName: process.env.Container,
+    storageAccessKey: process.env.StorageKey,
+    storageAccountOrConnectionString: process.env.ConnectionString
+});
 
 // Create conversation and user state with blob storage provider.
 const cantinaState = new ConversationState(memoryStorage);
