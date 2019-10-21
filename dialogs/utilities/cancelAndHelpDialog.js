@@ -39,7 +39,7 @@ class CancelAndHelpDialog extends ComponentDialog {
                     ' schon geholfen habe, kannst du das natürlich noch mal' +
                     ' ändern.\n\n' +
                     'Mit **"Ich hab hunger"** versuche ich das passende Gericht' +
-                    ' basierend auf deinen Preferenzen zu finden.';
+                    ' basierend auf deinen Präferenzen zu finden.';
                 await innerDialogContext.context.sendActivity(MessageFactory.text(message));
                 return { status: DialogTurnStatus.waiting };
             case 'abbrechen':

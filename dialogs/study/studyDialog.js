@@ -14,7 +14,7 @@ const FAILED_FINDING_DISH_TEXT = 'Falls dir keines dieser Gerichte' +
     ' zusagt, kannst du mit **"Was gibt es heute zu essen?"** alle Gerichte des' +
     ' heutigen Tages selbst noch einmal anschauen.\n\n' +
     'Sonst schreibe mir **"Ich habe hunger"** und ich werde mit deinen hier' +
-    ' gesetzten Preferenzen nach einem Gericht für dich suchen.';
+    ' gesetzten Präferenzen nach einem Gericht für dich suchen.';
 
 class StudyDialog extends ComponentDialog {
     constructor(id, luisRecognizer) {
