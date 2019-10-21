@@ -29,7 +29,7 @@ const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
 const WHATS_FOR_ME_FAILED = 'Du hast leider noch keine Preferenzen gesetzt.' +
     ' Mit **"Finde mein Gericht"** helfe ich dir ein passendes und leckeres' +
-    ' Gericht zu finden und merke mir deine Preferenzen.';
+    ' Gericht zu finden und merke mir deine Präferenzen.';
 
 const HELP_TEXT = 'Mit **"stopp"** und **"abbrechen"** kannst du mich' +
     ' jederzeit unterbrechen.\n\n' +

@@ -1,17 +1,6 @@
 [
   {
-    "date": "October 14, 2019",
-    "day": 1,
-    "type": "Tagesmenü",
-    "prices": [
-      " 2,70 €",
-      " 4,40 €",
-      " 5,30 €"
-    ],
-    "description": "Hähnchenbrust mit Frischkäsetopping und TomatensoßeA26,A20.1 mit Tomaten-Käse-SoßeZ1,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Penne RigateA20.1, Langkornreis, Spitzkohl in RahmA26, Pariser Karotten, Beilagensalate, Brombeer-Kokos-QuarkA26, HeidelbeerjoghurtA26 oder EisZ1,A26 "
-  },
-  {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Menü vegetarisch",
     "prices": [
@@ -19,10 +8,32 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Broccoli-KäseschnitteA26,A28,A20.1,A20.3 mit KräutersoßeA26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Penne RigateA20.1, Langkornreis, ErbsengemüseA28, Pariser Karotten, Beilagensalate, Brombeer-Kokos-QuarkA26, HeidelbeerjoghurtA26 oder EisZ1,A26 "
+    "description": "ChampignontascheA22,A26,A28,A20.1,A20.5 mit SpinatcremesoßeA26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Penne RigateA20.1, Basmatireis, grüne Bohnen, Erbsen-Möhren-Mais-Gemüse, Beilagensalate, Heidelbeer-DickmilchA26, OrangenquarkA26, HaselnusspuddingA26,A27.2 oder EisZ1,A26 "
   },
   {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
+    "day": 1,
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Thai-Hähnchen-CurryZ2,A25,A26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Basmatireis, Penne RigateA20.1, grüne Bohnen, Erbsen-Möhren-Mais-Gemüse, Beilagensalate, Heidelbeer-DickmilchA26, OrangenquarkA26, HaselnusspuddingA26,A27.2 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 21, 2019",
+    "day": 1,
+    "type": "Mensa vital",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ],
+    "description": "Kalbsgeschnetzeltes mit Mandel-Broccoli und EierspätzleA22,A26,A20.1,A27.1 kcal: 748, F: 22g, E: 45g, KH: 88g, Bst: 10g "
+  },
+  {
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Eintopf / Suppe",
     "prices": [
@@ -30,10 +41,10 @@
       " 3,20 €",
       " 4,20 €"
     ],
-    "description": "LinseneintopfA25,A28,A20.1\n\n Dazu gibt es: gebratenes SojaA25 und RauchendZ2,Z3,Z9 "
+    "description": "Karibischer Eintopf mit SüßkartoffelnZ2\n\n Dazu gibt es: gebratenes SojaA25 und gebratenes Rinderhack "
   },
   {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Eintopf / Suppe",
     "prices": [
@@ -41,10 +52,10 @@
       " ",
       " 0,80 € "
     ],
-    "description": "Möhren-Ingwer-SuppeA25,A20.1 "
+    "description": "Erbsen-Curry-SuppeA25,A20.1 "
   },
   {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Pasta",
     "prices": [
@@ -55,18 +66,18 @@
     "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
   },
   {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Aktions-Theke",
     "prices": [
       " ",
       " ",
-      " 4,00 € "
+      " 4,50 € "
     ],
-    "description": "Currywurst Spezial mit Pommes frites, dänischer Remoulade und RöstzwiebelnZ1,Z2,Z8,Z9,F12,F13,A20.1,A22,A25,A26,A28,A30 \n\n Auch zum Mitnehmen! "
+    "description": "Grobe frische Bratwurst mit Röstzwiebeln und Käse gefüllt, dazu Rotkohl und KartoffelstampfZ3,Z9,A20.1,A26,A28,A30 \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Aktions-Theke",
     "prices": [
@@ -74,10 +85,21 @@
       " ",
       " 3,50 € "
     ],
-    "description": "Hähnchen-Döner-Pita mit buntem Salat und Krautsalat, dazu wahlweise Tsatsiki oder CocktailsoßeZ1,A20,A25,A26,A28,A30 \n\n Auch zum Mitnehmen! "
+    "description": "Ofenkartoffel mit Hähnchenfiletstreifen und Chunky Salsa-DipZ1,A20,Z3,A22,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
+    "day": 1,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 3,00 € "
+    ],
+    "description": "Ofenkartoffel mit PilzpfanneA20,Z3,A22,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Salate",
     "prices": [
@@ -88,7 +110,7 @@
     "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
   },
   {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Beilagen",
     "prices": [
@@ -99,29 +121,18 @@
     "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
   },
   {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Dessertbuffet",
     "prices": [
       " ",
       " ",
-      " 1,50 € "
+      " "
     ],
-    "description": "Mousse au Chocolat mit SahneA25,A26 "
+    "description": "Täglich wechselndes Dessertangebot. "
   },
   {
-    "date": "October 14, 2019",
-    "day": 1,
-    "type": "Desserttheke",
-    "prices": [
-      " ",
-      " ",
-      " 1,50 € "
-    ],
-    "description": "Karamell-Panna-Cotta mit HimbeersoßeA26 "
-  },
-  {
-    "date": "October 14, 2019",
+    "date": "October 21, 2019",
     "day": 1,
     "type": "Dessertbuffet",
     "prices": [
@@ -132,18 +143,7 @@
     "description": "Hausgemachte Milchshakes "
   },
   {
-    "date": "October 15, 2019",
-    "day": 2,
-    "type": "Tagesmenü",
-    "prices": [
-      " 2,70 €",
-      " 4,40 €",
-      " 5,30 €"
-    ],
-    "description": "SchweineschnitzelA22,A20.1 mit ChampignonrahmsoßeA26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Thymiankartoffeln, Gemüse-CouscousA20.1, Romanobohnen, Kaisergemüse, Beilagensalate, GötterspeiseZ1, VanillepuddingA26, ErdbeerjoghurtA26 oder EisZ1,A26 "
-  },
-  {
-    "date": "October 15, 2019",
+    "date": "October 22, 2019",
     "day": 2,
     "type": "Menü vegetarisch",
     "prices": [
@@ -151,21 +151,54 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Spätzlepfanne mit Pilzen und Gemüse, dazu PaprikasoßeA22,A26,A28,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Thymiankartoffeln, Gemüse-CouscousA20.1, Romanobohnen, Kaisergemüse, Beilagensalate, GötterspeiseZ1, VanillepuddingA26, ErdbeerjoghurtA26 oder EisZ1,A26 "
+    "description": "MöhrenpufferA22,A20.1 mit Sauerrahm-DipA26\n\n Es können 3 Wahlbeilagen gewählt werden: Spiralnudeln A20.1, Paprikareis, Blumenkohl, Broccoli, Beilagensalate, GötterspeiseZ1, BrombeerjoghurtA26, VanillepuddingA26 oder EisZ1,A26 "
   },
   {
-    "date": "October 15, 2019",
+    "date": "October 22, 2019",
     "day": 2,
-    "type": "Eintopf",
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Alaska SeelachsfiletA23,A20.1 mit RemouladensoßeZ2,Z9,A22,A23,A26,A28,A30,A20.3\n\n Es können 3 Wahlbeilagen gewählt werden: Paprikareis, Salzkartoffeln, Blumenkohl, Broccoli, Beilagensalate, GötterspeiseZ1, BrombeerjoghurtA26, VanillepuddingA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 22, 2019",
+    "day": 2,
+    "type": "Mensa vital",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Tagliatelle mit Spinat-Tomaten-Frischkäse-Soße und RucolaA26,A20.1 kcal: 784, F: 21g, E: 31g, KH: 92g "
+  },
+  {
+    "date": "October 22, 2019",
+    "day": 2,
+    "type": "Eintopf / Suppe",
     "prices": [
       " 1,90 €",
       " 3,20 €",
       " 4,20 €"
     ],
-    "description": "Kürbis-Mais-Chili-EintopfA28\n\n Dazu gibt es: gebratenes SojaA25 und Krakauer WurstZ2,Z8,Z9,A26,A30 "
+    "description": "Griechischer GemüseeintopfZ3\n\n Dazu gibt es: gebratenes SojaA25 und gebratenes Schweinefleisch "
   },
   {
-    "date": "October 15, 2019",
+    "date": "October 22, 2019",
+    "day": 2,
+    "type": "Eintopf / Suppe",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ],
+    "description": "Kürbis-Apfel-SuppeA25 "
+  },
+  {
+    "date": "October 22, 2019",
     "day": 2,
     "type": "Pasta",
     "prices": [
@@ -176,18 +209,18 @@
     "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
   },
   {
-    "date": "October 15, 2019",
+    "date": "October 22, 2019",
     "day": 2,
     "type": "Aktions-Theke",
     "prices": [
       " ",
       " ",
-      " 5,00 € "
+      " 4,50 € "
     ],
-    "description": "Kabeljaufilet \"Tomate-Basilikum\" mit Zitronen-Hollandaise, Kartoffeln und BlattsalatZ3,Z8,A20.1,A22,A23,A26,A28,A31 \n\n Auch zum Mitnehmen! "
+    "description": "Halbes Grill-Hähnchen mit Pommes frites und MayonnaiseZ1,F14,A30 \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 15, 2019",
+    "date": "October 22, 2019",
     "day": 2,
     "type": "Aktions-Theke",
     "prices": [
@@ -195,10 +228,21 @@
       " ",
       " 3,50 € "
     ],
-    "description": "Hähnchen-Döner-Pita mit buntem Salat und Krautsalat, dazu wahlweise Tsatsiki oder CocktailsoßeZ1,A20,A25,A26,A28,A30 \n\n Auch zum Mitnehmen! "
+    "description": "Ofenkartoffel mit Rauchlachs und SauerrahmA20,Z3,A22,A23,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 15, 2019",
+    "date": "October 22, 2019",
+    "day": 2,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 3,00 € "
+    ],
+    "description": "Ofenkartoffel mit Antipasti und SauerrahmA20,Z3,A22,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 22, 2019",
     "day": 2,
     "type": "Salate",
     "prices": [
@@ -209,7 +253,7 @@
     "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
   },
   {
-    "date": "October 15, 2019",
+    "date": "October 22, 2019",
     "day": 2,
     "type": "Beilagen",
     "prices": [
@@ -220,29 +264,18 @@
     "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
   },
   {
-    "date": "October 15, 2019",
+    "date": "October 22, 2019",
     "day": 2,
     "type": "Dessertbuffet",
     "prices": [
       " ",
       " ",
-      " 1,50 € "
+      " "
     ],
-    "description": "Weiße Mousse au Chocolat mit SchokosahneA25,A26 "
+    "description": "Täglich wechselndes Dessertangebot. "
   },
   {
-    "date": "October 15, 2019",
-    "day": 2,
-    "type": "Dessertbuffet",
-    "prices": [
-      " ",
-      " ",
-      " 1,50 € "
-    ],
-    "description": "Mini Windbeutel mit SchokosoßeA20,A22,A25,A26 "
-  },
-  {
-    "date": "October 15, 2019",
+    "date": "October 22, 2019",
     "day": 2,
     "type": "Dessertbuffet",
     "prices": [
@@ -253,18 +286,7 @@
     "description": "Hausgemachte Milchshakes "
   },
   {
-    "date": "October 16, 2019",
-    "day": 3,
-    "type": "Tagesmenü",
-    "prices": [
-      " 2,70 €",
-      " 4,40 €",
-      " 5,30 €"
-    ],
-    "description": "Hähnchenschnitzel mit Broccolifüllung, dazu PaprikasoßeA20,Z9,A26,A28 mit Tomatensoße\n\n Es können 3 Wahlbeilagen gewählt werden: Kartoffelpüree A26, BulgurA20.1, MandelbroccoliA27.1, Pariser Karotten, Beilagensalate, Heidelbeer-Müsli-QuarkA26,A20.1,A20.4, VanillejoghurtA26, Himbeer-DickmilchA26 oder EisZ1,A26 "
-  },
-  {
-    "date": "October 16, 2019",
+    "date": "October 23, 2019",
     "day": 3,
     "type": "Menü vegetarisch",
     "prices": [
@@ -272,10 +294,32 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "Spinat-KnuspermedaillonA22,A26,A28,A20.1,A20.5 mit BasilikumsoßeA26,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Kartoffelpüree A26, BulgurA20.1, MandelbroccoliA27.1, Pariser Karotten, Beilagensalate, Heidelbeer-Müsli-QuarkA26,A20.1,A20.4, VanillejoghurtA26, Himbeer-DickmilchA26 oder EisZ1,A26 "
+    "description": "Wellnesspfanne Gyros ArtA22,A20.1 mit TsatsikiA26\n\n Es können 3 Wahlbeilagen gewählt werden: Pommes frites, Couscous A20.1, Kaisergemüse, Romanobohnen, Beilagensalate, SchokoladenpuddingA26, VanillejoghurtA26, Sauerkirsch-DickmilchA26 oder EisZ1,A26 "
   },
   {
-    "date": "October 16, 2019",
+    "date": "October 23, 2019",
+    "day": 3,
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Paprikaschote mit Hackfleischfüllung und TomatensoßeZ10,A22,A25\n\n Es können 3 Wahlbeilagen gewählt werden: Pommes frites, Couscous A20.1, Kaisergemüse, Rahmwirsing Z3,A25, Beilagensalate, SchokoladenpuddingA26, VanillejoghurtA26, Sauerkirsch-DickmilchA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 23, 2019",
+    "day": 3,
+    "type": "Mensa vital",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ],
+    "description": "Wildlachsfilet mit B B Q-Gemüse, dazu WildreismischungZ9,A23,A20.1 kcal: 715, F: 15g, E: 44g, KH: 94g "
+  },
+  {
+    "date": "October 23, 2019",
     "day": 3,
     "type": "Eintopf",
     "prices": [
@@ -283,10 +327,21 @@
       " 3,20 €",
       " 4,20 €"
     ],
-    "description": "ausverkauft "
+    "description": "BäuerinsuppeZ3,A25,A28\n\n Dazu gibt es: gebratenes SojaA25 und BockwurstZ2,Z3,Z8,Z9 "
   },
   {
-    "date": "October 16, 2019",
+    "date": "October 23, 2019",
+    "day": 3,
+    "type": "Eintopf / Suppe",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ],
+    "description": "Broccolicremesuppe, veganA25,A20.1 "
+  },
+  {
+    "date": "October 23, 2019",
     "day": 3,
     "type": "Pasta",
     "prices": [
@@ -297,7 +352,7 @@
     "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
   },
   {
-    "date": "October 16, 2019",
+    "date": "October 23, 2019",
     "day": 3,
     "type": "Aktions-Theke",
     "prices": [
@@ -305,10 +360,10 @@
       " ",
       " 4,50 € "
     ],
-    "description": "Hausgemachte Frikadelle mit Zwiebel-Senf-Soße, Kartoffelpüree und Erbsen-Möhren-GemüseZ1,Z2,Z3,Z8,Z9,F12,F13,A30 \n\n Auch zum Mitnehmen! "
+    "description": "Schweinesteak vom Grill mit Kräuterbutter, Peperonata und KartoffelgratinZ1,F12,A26 \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 16, 2019",
+    "date": "October 23, 2019",
     "day": 3,
     "type": "Aktions-Theke",
     "prices": [
@@ -316,10 +371,21 @@
       " ",
       " 3,50 € "
     ],
-    "description": "Hähnchen-Döner-Pita mit buntem Salat und Krautsalat, dazu wahlweise Tsatsiki oder CocktailsoßeZ1,A20,A25,A26,A28,A30 \n\n Auch zum Mitnehmen! "
+    "description": "Ofenkartoffel mit Hähnchen-Dönerfleisch und KäsecremeA20,Z3,A25,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 16, 2019",
+    "date": "October 23, 2019",
+    "day": 3,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 3,00 € "
+    ],
+    "description": "Ofenkartoffel mit Broccoli, Möhren und grünem Spargel A20,Z3,A22,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 23, 2019",
     "day": 3,
     "type": "Salate",
     "prices": [
@@ -330,7 +396,7 @@
     "description": "\n\n Es können 3 Wahlbeilagen gewählt werden: Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
   },
   {
-    "date": "October 16, 2019",
+    "date": "October 23, 2019",
     "day": 3,
     "type": "Beilagen",
     "prices": [
@@ -341,29 +407,18 @@
     "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
   },
   {
-    "date": "October 16, 2019",
+    "date": "October 23, 2019",
     "day": 3,
     "type": "Dessertbuffet",
     "prices": [
       " ",
       " ",
-      " 1,50 € "
+      " "
     ],
-    "description": "Zitronen-Bis­kuitrolleA20,A22,A26 "
+    "description": "Täglich wechselndes Dessertangebot. "
   },
   {
-    "date": "October 16, 2019",
-    "day": 3,
-    "type": "Dessertbuffet",
-    "prices": [
-      " ",
-      " ",
-      " 1,50 € "
-    ],
-    "description": "Weiße Mousse au Chocolat mit KirschsoßeA25,A26 "
-  },
-  {
-    "date": "October 16, 2019",
+    "date": "October 23, 2019",
     "day": 3,
     "type": "Dessertbuffet",
     "prices": [
@@ -374,18 +429,7 @@
     "description": "Hausgemachte Milchshakes "
   },
   {
-    "date": "October 17, 2019",
-    "day": 4,
-    "type": "Tagesmenü",
-    "prices": [
-      " 2,70 €",
-      " 4,40 €",
-      " 5,30 €"
-    ],
-    "description": "Köfte vom RindA22,A26,A20.1 mit Ajvar (Mus aus Paprika und Auberginen)A26\n\n Es können 3 Wahlbeilagen gewählt werden: Pommes frites, BulgurA20.1, Blumenkohl, Japanisches BohnengemüseA25,A29,A20.1, Beilagensalate, Schokoladenpudding veganA25, Schwedische ApfelcremeZ3,A26, SauerkirschjoghurtA26 oder EisZ1,A26 "
-  },
-  {
-    "date": "October 17, 2019",
+    "date": "October 24, 2019",
     "day": 4,
     "type": "Menü vegetarisch",
     "prices": [
@@ -393,21 +437,54 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "2 Rote-Bete-PufferA20.1 mit Mango-Chili-Dip veganZ2,A30\n\n Es können 3 Wahlbeilagen gewählt werden: SesamkartoffelnA29, Pommes frites, Japanisches BohnengemüseA25,A29,A20.1, Blumenkohl, Beilagensalate, Schokoladenpudding veganA25, Schwedische ApfelcremeZ3,A26, SauerkirschjoghurtA26 oder EisZ1,A26 "
+    "description": "Knusperkroketten GärtnerinA28,A20.1 mit Tomatenrahmsoße veganA25\n\n Es können 3 Wahlbeilagen gewählt werden: Chili-HonigkartoffelnA25,A20.1, BulgurA20.1, ErbsengemüseA28, Leipziger AllerleiA28, Beilagensalate, Milchreis mit Zimt und Zucker, veganA25, Irish-Coffee-Creme-DessertA26, HeidelbeerquarkA26 oder EisZ1,A26 "
   },
   {
-    "date": "October 17, 2019",
+    "date": "October 24, 2019",
+    "day": 4,
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Hähnchengeschnetzeltes in ChampignonrahmsoßeZ1,A26,A28,A31,A20.3\n\n Es können 3 Wahlbeilagen gewählt werden: Chili-HonigkartoffelnA25,A20.1, SpätzleA22,A20.1, ErbsengemüseA28, Leipziger AllerleiA28, Beilagensalate, Milchreis mit Zimt und Zucker, veganA25, Irish-Coffee-Creme-DessertA26, HeidelbeerquarkA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 24, 2019",
+    "day": 4,
+    "type": "Mensa vital",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ],
+    "description": "Feuriges Gemüse-Rindfleisch-Curry mit MienudelnZ2,A25,A26,A20.1 kcal: 735, F: 23g, E: 41g, KH: 90g "
+  },
+  {
+    "date": "October 24, 2019",
+    "day": 4,
+    "type": "Eintopf",
+    "prices": [
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
+    ],
+    "description": "Eintopf aus Tomaten, Champignons und KartoffelnZ1,A25,A26\n\n Dazu gibt es: gebratenes SojaA25 und gebratenes Rinderhack "
+  },
+  {
+    "date": "October 24, 2019",
     "day": 4,
     "type": "Eintopf / Suppe",
     "prices": [
       " ",
       " ",
-      " "
+      " 0,80 € "
     ],
-    "description": "ausverkauft "
+    "description": "BlumenkohlcremesuppeA25,A20.1 "
   },
   {
-    "date": "October 17, 2019",
+    "date": "October 24, 2019",
     "day": 4,
     "type": "Pasta",
     "prices": [
@@ -418,7 +495,7 @@
     "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
   },
   {
-    "date": "October 17, 2019",
+    "date": "October 24, 2019",
     "day": 4,
     "type": "Aktions-Theke",
     "prices": [
@@ -426,10 +503,10 @@
       " ",
       " 5,00 € "
     ],
-    "description": "Orientalische Lammbolognese auf Bandnudeln, Parmesan und Gurkensalat mit Chili und KorianderF11,F13,A20.1,A22,A26,A28,A31 \n\n Auch zum Mitnehmen! "
+    "description": "Veganer Burger mit Quinoa-Patty, gegrilltem Gemüse, Rucola und Pommes fritesA20.1,A20.2,A30 \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 17, 2019",
+    "date": "October 24, 2019",
     "day": 4,
     "type": "Aktions-Theke",
     "prices": [
@@ -437,10 +514,21 @@
       " ",
       " 3,50 € "
     ],
-    "description": "Hähnchen-Döner-Pita mit buntem Salat und Krautsalat, dazu wahlweise Tsatsiki oder CocktailsoßeZ1,A20,A25,A26,A28,A30 \n\n Auch zum Mitnehmen! "
+    "description": "Ofenkartoffel mit Chili con Carne und SauerrahmZ3,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 17, 2019",
+    "date": "October 24, 2019",
+    "day": 4,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 2,50 € "
+    ],
+    "description": "Ofenkartoffel mit KräuterquarkZ3,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 24, 2019",
     "day": 4,
     "type": "Salate",
     "prices": [
@@ -451,7 +539,7 @@
     "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
   },
   {
-    "date": "October 17, 2019",
+    "date": "October 24, 2019",
     "day": 4,
     "type": "Beilagen",
     "prices": [
@@ -462,29 +550,18 @@
     "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
   },
   {
-    "date": "October 17, 2019",
+    "date": "October 24, 2019",
     "day": 4,
     "type": "Dessertbuffet",
     "prices": [
       " ",
       " ",
-      " 1,50 € "
+      " "
     ],
-    "description": "Mascarpone-Quark-Creme mit KirschsoßeA26, Mascarpone-Quark-Creme mit ErdbeersoßeA25,A26 und Mascarpone-Quark-Creme mit BrombeersoßeA25,A26 "
+    "description": "Täglich wechselndes Dessertangebot. "
   },
   {
-    "date": "October 17, 2019",
-    "day": 4,
-    "type": "Dessertbuffet",
-    "prices": [
-      " ",
-      " ",
-      " 1,50 € "
-    ],
-    "description": "Zitronen-Bis­kuitrolleA20,A22,A26 "
-  },
-  {
-    "date": "October 17, 2019",
+    "date": "October 24, 2019",
     "day": 4,
     "type": "Dessertbuffet",
     "prices": [
@@ -495,18 +572,7 @@
     "description": "Hausgemachte Milchshakes "
   },
   {
-    "date": "October 18, 2019",
-    "day": 5,
-    "type": "Tagesmenü",
-    "prices": [
-      " 2,70 €",
-      " 4,40 €",
-      " 5,30 €"
-    ],
-    "description": "Dorschfilet paniertA23,A26,A20.1 mit SenfsoßeZ1,A26,A30,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, Salzkartoffeln, RahmspinatA26, Leipziger AllerleiA28, Beilagensalate, Brombeer-DickmilchA26, Irish-Coffee-Creme-DessertA26 oder EisZ1,A26 "
-  },
-  {
-    "date": "October 18, 2019",
+    "date": "October 25, 2019",
     "day": 5,
     "type": "Menü vegetarisch",
     "prices": [
@@ -514,21 +580,54 @@
       " 4,40 €",
       " 5,30 €"
     ],
-    "description": "FalafelA28,A20.1 mit Chili-Minz-DipZ2,A26,A30\n\n Es können 3 Wahlbeilagen gewählt werden: BulgurA20.1, Salzkartoffeln, Leipziger AllerleiA28, Prinzessbohnen, Beilagensalate, Brombeer-DickmilchA26, Irish-Coffee-Creme-DessertA26 oder EisZ1,A26 "
+    "description": "Vegetarische FrühlingsrolleA22,A26,A28,A30,A20.1 mit Süß-Sauer-SoßeA25,A20.1\n\n Es können 3 Wahlbeilagen gewählt werden: Basmatireis, BulgurA20.1, RahmspinatA26, AsiagemüseZ9,A26,A28,A20.1, Beilagensalate, ZitronenjoghurtA26, KirschquarkA26 oder EisZ1,A26 "
   },
   {
-    "date": "October 18, 2019",
+    "date": "October 25, 2019",
+    "day": 5,
+    "type": "Tagesmenü",
+    "prices": [
+      " 2,70 €",
+      " 4,40 €",
+      " 5,30 €"
+    ],
+    "description": "Seelachs-KibbelingeA23,A26,A20.1 mit Asia-RemouladeA29,A30\n\n Es können 3 Wahlbeilagen gewählt werden: Schnittlauchkartoffeln, BulgurA20.1, AsiagemüseZ9,A26,A28,A20.1, RahmspinatA26, Beilagensalate, ZitronenjoghurtA26, KirschquarkA26 oder EisZ1,A26 "
+  },
+  {
+    "date": "October 25, 2019",
+    "day": 5,
+    "type": "Mensa vital",
+    "prices": [
+      " 3,70 €",
+      " 5,20 €",
+      " 6,10 €"
+    ],
+    "description": "Putenbrustfleisch mit Gemüse in Curry-Frischkäse-Soße dazu KartoffelnA26,A20.1 kcal: 583, F: 21g, E: 41g, KH: 54g "
+  },
+  {
+    "date": "October 25, 2019",
     "day": 5,
     "type": "Eintopf",
     "prices": [
-      " ",
-      " ",
-      " "
+      " 1,90 €",
+      " 3,20 €",
+      " 4,20 €"
     ],
-    "description": "ausverkauft "
+    "description": "Indischer Eintopf mit Linsen, Gemüse und KokosnussmilchA25\n\n Dazu gibt es: gebratenes SojaA25 und Hähnchenfleisch "
   },
   {
-    "date": "October 18, 2019",
+    "date": "October 25, 2019",
+    "day": 5,
+    "type": "Eintopf / Suppe",
+    "prices": [
+      " ",
+      " ",
+      " 0,80 € "
+    ],
+    "description": "ZucchinisuppeA25 "
+  },
+  {
+    "date": "October 25, 2019",
     "day": 5,
     "type": "Pasta",
     "prices": [
@@ -536,21 +635,21 @@
       " 0,90 €",
       " 1,10 €"
     ],
-    "description": "Verschiedene Pastasorten mit Soße \n\n Preis pro 100g "
+    "description": "Verschiedene Pastasorten mit Soße und Toppings nach Wahl \n\n Preis pro 100g "
   },
   {
-    "date": "October 18, 2019",
+    "date": "October 25, 2019",
     "day": 5,
     "type": "Aktions-Theke",
     "prices": [
       " ",
       " ",
-      " 5,30 € "
+      " 4,00 € "
     ],
-    "description": "Portugiesischer Rinderbraten mit mediterranem Gemüse und KartoffelgratinZ1,Z2,Z6,F13,F16,A26,A30,A31 \n\n Auch zum Mitnehmen! "
+    "description": "Chicken Wings mit B B Q-Soße und Pommes fritesZ8,A20.1,A28 \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 18, 2019",
+    "date": "October 25, 2019",
     "day": 5,
     "type": "Aktions-Theke",
     "prices": [
@@ -558,10 +657,21 @@
       " ",
       " 3,50 € "
     ],
-    "description": "Hähnchen-Döner-Pita mit buntem Salat und Krautsalat, dazu wahlweise Tsatsiki oder CocktailsoßeZ1,A20,A25,A26,A28,A30 \n\n Auch zum Mitnehmen! "
+    "description": "Ofenkartoffel mit HeringsstippA20,Z2,Z3,Z9,A22,A23,A25,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
   },
   {
-    "date": "October 18, 2019",
+    "date": "October 25, 2019",
+    "day": 5,
+    "type": "Aktions-Theke",
+    "prices": [
+      " ",
+      " ",
+      " 3,00 € "
+    ],
+    "description": "Ofenkartoffel mit Joccaquark, Radieschen und KresseZ3,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
+  },
+  {
+    "date": "October 25, 2019",
     "day": 5,
     "type": "Salate",
     "prices": [
@@ -572,7 +682,7 @@
     "description": "Rohkostsalate, Dressings und hausgemachte Feinkostsalate \n\n Preis pro 100g "
   },
   {
-    "date": "October 18, 2019",
+    "date": "October 25, 2019",
     "day": 5,
     "type": "Beilagen",
     "prices": [
@@ -583,29 +693,18 @@
     "description": "Täglich wechselndes warmes Buffet. \n\n Preis pro 100g "
   },
   {
-    "date": "October 18, 2019",
+    "date": "October 25, 2019",
     "day": 5,
     "type": "Dessertbuffet",
     "prices": [
       " ",
       " ",
-      " 1,50 € "
+      " "
     ],
-    "description": "Mascarpone-Quark-Creme mit ErdbeersoßeA25,A26 und Mascarpone-Quark-Creme mit BrombeersoßeA25,A26 "
+    "description": "Täglich wechselndes Dessertangebot. "
   },
   {
-    "date": "October 18, 2019",
-    "day": 5,
-    "type": "Dessertbuffet",
-    "prices": [
-      " ",
-      " ",
-      " 1,50 € "
-    ],
-    "description": "Mini Windbeutel mit SchokosoßeA20,A22,A25,A26 "
-  },
-  {
-    "date": "October 18, 2019",
+    "date": "October 25, 2019",
     "day": 5,
     "type": "Dessertbuffet",
     "prices": [

@@ -1,8 +1,9 @@
-const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle, ComponentDialog } = require('botbuilder-dialogs');
+const { WaterfallDialog, ChoicePrompt, ChoiceFactory, ListStyle } = require('botbuilder-dialogs');
 const { MessageFactory, CardFactory } = require('botbuilder');
 
 const Disclaimer = require('../../resources/utilities/disclaimer.json');
 const { StudyDialog } = require('../study/studyDialog');
+const { CancelAndHelpDialog } = require('../utilities/cancelAndHelpDialog');
 
 const STUDY_DIALOG = 'studyDialog';
 
@@ -31,7 +32,7 @@ const CHOICE = {
     NO: 0
 };
 
-class DisclaimerDialog extends ComponentDialog {
+class DisclaimerDialog extends CancelAndHelpDialog {
     constructor(id, luisRecognizer) {
         super(id || DISCLAIMER_DIALOG);
         this.luisRecognizer = luisRecognizer;
