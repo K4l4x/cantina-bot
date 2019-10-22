@@ -26,7 +26,7 @@ class CantinaBot extends ActivityHandler {
         }
 
         // Dependency injected dictionary for storing ConversationReference objects used in NotifyController to proactively message users
-        // this.conversationReferences = conversationReferences;
+        this.conversationReferences = conversationReferences;
 
         // Record the conversation and user state management objects.
         this.cantinaState = cantinaState;
@@ -55,18 +55,18 @@ class CantinaBot extends ActivityHandler {
             await next();
         });
 
-        // this.onConversationUpdate(async (context, next) => {
-        //     this.addConversationReference(context.activity);
-        //
-        //     // By calling next() you ensure that the next BotHandler is run.
-        //     await next();
-        // });
+        this.onConversationUpdate(async (context, next) => {
+            this.addConversationReference(context.activity);
+
+            // By calling next() you ensure that the next BotHandler is run.
+            await next();
+        });
     }
 
-    // addConversationReference(activity) {
-    //     const conversationReference = TurnContext.getConversationReference(activity);
-    //     this.conversationReferences[conversationReference.conversation.id] = conversationReference;
-    // }
+    addConversationReference(activity) {
+        const conversationReference = TurnContext.getConversationReference(activity);
+        this.conversationReferences[conversationReference.conversation.id] = conversationReference;
+    }
 }
 
 module.exports.CantinaBot = CantinaBot;

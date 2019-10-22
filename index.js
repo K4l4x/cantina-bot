@@ -7,12 +7,12 @@ const restify = require('restify');
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
-const { DialogSet, DialogTurnStatus} = require('botbuilder-dialogs');
+const { DialogSet, DialogTurnStatus } = require('botbuilder-dialogs');
 const { CantinaRequestsRecognizer } = require('./utilities/CantinaRequestsRecognizer');
 const { BlobStorage } = require('botbuilder-azure');
 
 const { Cantina } = require('./model/cantina');
-const { TodaysMenuDialog } = require('./dialogs/cantina/todaysMenuDialog');
+const { WeekMenuDialog } = require('./dialogs/cantina/weekMenuDialog');
 
 // This bot's main routine and rootDialog.
 const { CantinaBot } = require('./bot');
@@ -112,29 +112,43 @@ server.post('/api/messages', (req, res) => {
 //  on azure there is no need to add another endpoint, because posts on
 //  stackoverflow say, that we can just add endpoints.
 // Listen for incoming trigger and start proactive dialog with user.
-// server.get('/api/questionnaire5645', async (require, res) => {
-//     for (const conversationReference of Object.values(conversationReferences)) {
-//         await adapter.continueConversation(conversationReference, async turnContext => {
-//             const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
-//
-//             const dialogSet = new DialogSet(questionnaireAccessor);
-//             dialogSet.add(new TodaysMenuDialog('todaysMenuDialog'));
-//
-//             const dialogContext = await dialogSet.createContext(turnContext);
-//             const results = await dialogContext.continueDialog();
-//             if (results.status === DialogTurnStatus.empty) {
-//                 const cantina = new Cantina('mensaX');
-//                 await cantina.menu.loadList();
-//                 await dialogContext.beginDialog('todaysMenuDialog', cantina);
-//             }
-//         });
-//     }
-//
-//     res.setHeader('Content-Type', 'text/html');
-//     res.writeHead(200);
-//     res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');
-//     res.end();
-// });
+server.get('/api/questionnaire5645', async (require, res) => {
+    // for (const conversationReference of
+    // Object.values(conversationReferences)) {
+    // const conversationReference = {
+    //     activityId: '9a9a9e71-f431-11e9-b679-d14460944a24',
+    //     user: {
+    //         id: '1823731',
+    //         name: 'User'
+    //     },
+    //     bot: {
+    //         id: '3ef79c10-c2d8-11e9-8da0-cd47b4011faf',
+    //         name: 'Bot',
+    //         role: 'bot'
+    //     },
+    //     conversation: {
+    //         id: '1823731',
+    //         channelId: 'telegram',
+    //         serviceUrl: 'https://cantinabot.azurewebsites.net'
+    //     }
+    // };
+    console.log('[index]: ' + JSON.stringify(conversationReference));
+    await adapter.continueConversation(conversationReference, async turnContext => {
+        const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
+        const dialogSet = new DialogSet(questionnaireAccessor);
+        dialogSet.add(new WeekMenuDialog('weekMenuDialog'));
+        const dialogContext = await dialogSet.createContext(turnContext);
+
+        const cantina = new Cantina('mensaX');
+        await cantina.menu.loadList();
+        await dialogContext.replaceDialog('weekMenuDialog', cantina);
+    });
+
+    res.setHeader('Content-Type', 'text/html');
+    res.writeHead(200);
+    res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');
+    res.end();
+});
 
 // try
 // {
