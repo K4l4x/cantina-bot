@@ -1,4 +1,4 @@
-const { MessageFactory } = require('botbuilder');
+const { MessageFactory, TurnContext } = require('botbuilder');
 const { DialogSet, DialogTurnStatus, WaterfallDialog, ComponentDialog } = require('botbuilder-dialogs');
 
 const { Cantina } = require('../model/cantina');
@@ -89,6 +89,8 @@ class RootDialog extends ComponentDialog {
             .createProperty(CONVERSATION_STATE_PROPERTY);
         this.studyProfile = userState
             .createProperty(STUDY_STATE_PROPERTY);
+        this.userProfile = userState
+            .createProperty(STUDY_STATE_PROPERTY);
         this.luisRecognizer = luisRecognizer;
 
         this.addDialog(new WelcomeDialog(WELCOME_DIALOG, this.luisRecognizer));
@@ -172,6 +174,11 @@ class RootDialog extends ComponentDialog {
 
         const conversationData = await this.conversationData
             .get(step.context, { promptedStudy: false });
+
+        if (conversationData.promptedStudy === true) {
+            await this.userProfile.set(step.context, TurnContext.getConversationReference(step.context.activity));
+        }
+
 
         let dialogId = '';
         let options = {};
