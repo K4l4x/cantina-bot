@@ -26,11 +26,11 @@
     "day": 1,
     "type": "Mensa vital",
     "prices": [
-      " 3,70 €",
-      " 5,20 €",
-      " 6,10 €"
+      " ",
+      " ",
+      " "
     ],
-    "description": "Kalbsgeschnetzeltes mit Mandel-Broccoli und EierspätzleA22,A26,A20.1,A27.1 kcal: 748, F: 22g, E: 45g, KH: 88g, Bst: 10g "
+    "description": "Diese Woche leider kein Mensa-Vital. "
   },
   {
     "date": "October 21, 2019",
@@ -42,17 +42,6 @@
       " 4,20 €"
     ],
     "description": "Karibischer Eintopf mit SüßkartoffelnZ2\n\n Dazu gibt es: gebratenes SojaA25 und gebratenes Rinderhack "
-  },
-  {
-    "date": "October 21, 2019",
-    "day": 1,
-    "type": "Eintopf / Suppe",
-    "prices": [
-      " ",
-      " ",
-      " 0,80 € "
-    ],
-    "description": "Erbsen-Curry-SuppeA25,A20.1 "
   },
   {
     "date": "October 21, 2019",
@@ -75,28 +64,6 @@
       " 4,50 € "
     ],
     "description": "Grobe frische Bratwurst mit Röstzwiebeln und Käse gefüllt, dazu Rotkohl und KartoffelstampfZ3,Z9,A20.1,A26,A28,A30 \n\n Auch zum Mitnehmen! "
-  },
-  {
-    "date": "October 21, 2019",
-    "day": 1,
-    "type": "Aktions-Theke",
-    "prices": [
-      " ",
-      " ",
-      " 3,50 € "
-    ],
-    "description": "Ofenkartoffel mit Hähnchenfiletstreifen und Chunky Salsa-DipZ1,A20,Z3,A22,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
-  },
-  {
-    "date": "October 21, 2019",
-    "day": 1,
-    "type": "Aktions-Theke",
-    "prices": [
-      " ",
-      " ",
-      " 3,00 € "
-    ],
-    "description": "Ofenkartoffel mit PilzpfanneA20,Z3,A22,A26,A28,A30\n\n Dazu gibt es: einen bunten Salat \n\n Auch zum Mitnehmen! "
   },
   {
     "date": "October 21, 2019",
@@ -127,9 +94,20 @@
     "prices": [
       " ",
       " ",
-      " "
+      " 1,50 € "
     ],
-    "description": "Täglich wechselndes Dessertangebot. "
+    "description": "Mousse au Chocolat mit SahneA25,A26 "
+  },
+  {
+    "date": "October 21, 2019",
+    "day": 1,
+    "type": "Dessertbuffet",
+    "prices": [
+      " ",
+      " ",
+      " 1,50 € "
+    ],
+    "description": "Zitronen-Bis­kuitrolleA20,A22,A26 "
   },
   {
     "date": "October 21, 2019",
@@ -169,11 +147,11 @@
     "day": 2,
     "type": "Mensa vital",
     "prices": [
-      " 2,70 €",
-      " 4,40 €",
-      " 5,30 €"
+      " ",
+      " ",
+      " "
     ],
-    "description": "Tagliatelle mit Spinat-Tomaten-Frischkäse-Soße und RucolaA26,A20.1 kcal: 784, F: 21g, E: 31g, KH: 92g "
+    "description": "Diese Woche leider kein Mensa-Vital. "
   },
   {
     "date": "October 22, 2019",
@@ -312,11 +290,11 @@
     "day": 3,
     "type": "Mensa vital",
     "prices": [
-      " 3,70 €",
-      " 5,20 €",
-      " 6,10 €"
+      " ",
+      " ",
+      " "
     ],
-    "description": "Wildlachsfilet mit B B Q-Gemüse, dazu WildreismischungZ9,A23,A20.1 kcal: 715, F: 15g, E: 44g, KH: 94g "
+    "description": "Diese Woche leider kein Mensa-Vital. "
   },
   {
     "date": "October 23, 2019",
@@ -327,7 +305,7 @@
       " 3,20 €",
       " 4,20 €"
     ],
-    "description": "BäuerinsuppeZ3,A25,A28\n\n Dazu gibt es: gebratenes SojaA25 und BockwurstZ2,Z3,Z8,Z9 "
+    "description": "Russischer BorschtschZ9\n\n Dazu gibt es: gebratenes SojaA25 und RauchendZ2,Z3,Z9 "
   },
   {
     "date": "October 23, 2019",
@@ -338,7 +316,7 @@
       " ",
       " 0,80 € "
     ],
-    "description": "Broccolicremesuppe, veganA25,A20.1 "
+    "description": "Möhren-MangosuppeA25,A20.1 "
   },
   {
     "date": "October 23, 2019",
@@ -455,11 +433,11 @@
     "day": 4,
     "type": "Mensa vital",
     "prices": [
-      " 3,70 €",
-      " 5,20 €",
-      " 6,10 €"
+      " ",
+      " ",
+      " "
     ],
-    "description": "Feuriges Gemüse-Rindfleisch-Curry mit MienudelnZ2,A25,A26,A20.1 kcal: 735, F: 23g, E: 41g, KH: 90g "
+    "description": "Diese Woche leider kein Mensa-Vital. "
   },
   {
     "date": "October 24, 2019",
@@ -470,7 +448,7 @@
       " 3,20 €",
       " 4,20 €"
     ],
-    "description": "Eintopf aus Tomaten, Champignons und KartoffelnZ1,A25,A26\n\n Dazu gibt es: gebratenes SojaA25 und gebratenes Rinderhack "
+    "description": "Kartoffelsuppe mit GemüseA25,A28\n\n Dazu gibt es: gebratenes SojaA25 und BockwurstZ2,Z3,Z8,Z9 "
   },
   {
     "date": "October 24, 2019",
@@ -481,7 +459,7 @@
       " ",
       " 0,80 € "
     ],
-    "description": "BlumenkohlcremesuppeA25,A20.1 "
+    "description": "KichererbsensuppeA29 "
   },
   {
     "date": "October 24, 2019",
@@ -598,11 +576,11 @@
     "day": 5,
     "type": "Mensa vital",
     "prices": [
-      " 3,70 €",
-      " 5,20 €",
-      " 6,10 €"
+      " ",
+      " ",
+      " "
     ],
-    "description": "Putenbrustfleisch mit Gemüse in Curry-Frischkäse-Soße dazu KartoffelnA26,A20.1 kcal: 583, F: 21g, E: 41g, KH: 54g "
+    "description": "Diese Woche leider kein Mensa-Vital. "
   },
   {
     "date": "October 25, 2019",
@@ -613,7 +591,7 @@
       " 3,20 €",
       " 4,20 €"
     ],
-    "description": "Indischer Eintopf mit Linsen, Gemüse und KokosnussmilchA25\n\n Dazu gibt es: gebratenes SojaA25 und Hähnchenfleisch "
+    "description": "Spitzkohleintopf mit Tomaten und KäsecremeZ1,A26,A28\n\n Dazu gibt es: gebratenes SojaA25 und Krakauer WurstZ2,Z8,Z9,A26,A30 "
   },
   {
     "date": "October 25, 2019",

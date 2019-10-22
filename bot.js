@@ -25,13 +25,15 @@ class CantinaBot extends ActivityHandler {
             ' Dialog is required');
         }
 
-        // Dependency injected dictionary for storing ConversationReference objects used in NotifyController to proactively message users
-        // this.conversationReferences = conversationReferences;
+        // Dependency injected dictionary for storing ConversationReference
+        // objects used in NotifyController to proactively message users
+        this.conversationReferences = conversationReferences;
 
         // Record the conversation and user state management objects.
         this.cantinaState = cantinaState;
         this.conversationState = conversationState;
         this.userState = userState;
+        this.userRef = this.userState.createProperty('userRef');
         this.dialog = dialog;
         this.dialogState = this.conversationState.createProperty('DialogState');
 
@@ -55,18 +57,20 @@ class CantinaBot extends ActivityHandler {
             await next();
         });
 
-        // this.onConversationUpdate(async (context, next) => {
-        //     this.addConversationReference(context.activity);
-        //
-        //     // By calling next() you ensure that the next BotHandler is run.
-        //     await next();
-        // });
+        this.onConversationUpdate(async (context, next) => {
+            // await this.addConversationReference(context.activity);
+            const conversationReference = TurnContext.getConversationReference(context.activity);
+            await this.userRef.get(context, conversationReference);
+            await this.userRef.set(context, conversationReference);
+            // By calling next() you ensure that the next BotHandler is run.
+            await next();
+        });
     }
 
-    // addConversationReference(activity) {
-    //     const conversationReference = TurnContext.getConversationReference(activity);
-    //     this.conversationReferences[conversationReference.conversation.id] = conversationReference;
-    // }
+    async addConversationReference(activity) {
+        const conversationReference = TurnContext.getConversationReference(activity);
+        await this.userRef.get(TurnContext, conversationReference);
+    }
 }
 
 module.exports.CantinaBot = CantinaBot;
