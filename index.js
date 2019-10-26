@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+ 2// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 const dotenv = require('dotenv');
 const path = require('path');
@@ -112,43 +112,47 @@ server.post('/api/messages', (req, res) => {
 //  on azure there is no need to add another endpoint, because posts on
 //  stackoverflow say, that we can just add endpoints.
 // Listen for incoming trigger and start proactive dialog with user.
-server.get('/api/questionnaire5645', async (require, res) => {
+// server.get('/api/questionnaire5645', async (require, res) => {
     // for (const conversationReference of
     // Object.values(conversationReferences)) {
+
     // const conversationReference = {
-    //     activityId: '9a9a9e71-f431-11e9-b679-d14460944a24',
+    //     activityId: 'IwPuhL4lYmK',
     //     user: {
     //         id: '1823731',
-    //         name: 'User'
+    //         name: 'Robotxt'
     //     },
     //     bot: {
-    //         id: '3ef79c10-c2d8-11e9-8da0-cd47b4011faf',
-    //         name: 'Bot',
-    //         role: 'bot'
+    //         id: 'CantinaXBot',
+    //         name: 'CantinaBot'
     //     },
     //     conversation: {
-    //         id: '1823731',
-    //         channelId: 'telegram',
-    //         serviceUrl: 'https://cantinabot.azurewebsites.net'
-    //     }
+    //         isGroup: false,
+    //         id: '1823731'
+    //     },
+    //     channelId: 'telegram',
+    //     serviceUrl: 'https://telegram.botframework.com/'
     // };
-    console.log('[index]: ' + JSON.stringify(conversationReference));
-    await adapter.continueConversation(conversationReference, async turnContext => {
-        const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
-        const dialogSet = new DialogSet(questionnaireAccessor);
-        dialogSet.add(new WeekMenuDialog('weekMenuDialog'));
-        const dialogContext = await dialogSet.createContext(turnContext);
 
-        const cantina = new Cantina('mensaX');
-        await cantina.menu.loadList();
-        await dialogContext.replaceDialog('weekMenuDialog', cantina);
-    });
+    // console.log('[index]: ' + JSON.stringify(conversationReference));
+    // await adapter.continueConversation(conversationReference, async turnContext => {
+    //     await turnContext.sendActivity('proactive hello');
+    // });
+    //     const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
+    //     const dialogSet = new DialogSet(questionnaireAccessor);
+    //     dialogSet.add(new WeekMenuDialog('weekMenuDialog'));
+    //     const dialogContext = await dialogSet.createContext(turnContext);
+    //
+    //     const cantina = new Cantina('mensaX');
+    //     await cantina.menu.loadList();
+    //     await dialogContext.replaceDialog('weekMenuDialog', cantina);
+    // });
 
-    res.setHeader('Content-Type', 'text/html');
-    res.writeHead(200);
-    res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');
-    res.end();
-});
+//     res.setHeader('Content-Type', 'text/html');
+//     res.writeHead(200);
+//     res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');
+//     res.end();
+// });
 
 // try
 // {

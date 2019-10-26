@@ -1,12 +1,18 @@
+// Framework imports.
 const { MessageFactory } = require('botbuilder');
 const { WaterfallDialog, ComponentDialog, ChoiceFactory, ChoicePrompt, TextPrompt, ListStyle } = require('botbuilder-dialogs');
 
+// Dialog Imports.
 const { MatchingDishDialog } = require('./matchingDishDialog');
+// Model imports.
 const { Study } = require('../../model/study');
+// Import cached knowlegde about meetParts.
 const MeetParts = require('../../resources/utilities/meetParts');
 
+// Setting id's for all needed dialogs.
 const MATCHING_DISH_DIALOG = 'matchingDishDialog';
 
+// Setting id's for this dialog.
 const GUIDED = 'guided';
 const GUIDED_CANTINA_DIALOG = 'guidedCantinaDialog';
 
@@ -61,6 +67,9 @@ const USER_ACCEPTS = 'Ja';
 const USER_DECLINES = 'Nein';
 const USER_CHOICES = [USER_ACCEPTS, USER_DECLINES];
 
+/**
+ *
+ */
 class GuidedCantinaDialog extends ComponentDialog {
     constructor(id) {
         super(id || GUIDED_CANTINA_DIALOG);
@@ -88,6 +97,11 @@ class GuidedCantinaDialog extends ComponentDialog {
         this.initialDialogId = GUIDED;
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<*>}
+     */
     async welcomeUser(step) {
         return await step.prompt(WELCOME_GUIDED_CHOICEPROMPT, {
             prompt: MessageFactory.text(WELCOME_GUIDED_PROMPT_TEXT),
@@ -96,6 +110,11 @@ class GuidedCantinaDialog extends ComponentDialog {
         });
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<*>}
+     */
     async handleWelcomeReply(step) {
         const choice = step.result.value;
         if (START_GUIDED_DIALOG[0] === choice) {
@@ -104,6 +123,11 @@ class GuidedCantinaDialog extends ComponentDialog {
         }
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<*>}
+     */
     async prepareMeetPrompt(step) {
         return await step.prompt(FIRST_CHOICEPROMPT_MEET, {
             prompt: MessageFactory.text(FIRST_PROMPT_MESSAGE_MEET),
@@ -112,6 +136,11 @@ class GuidedCantinaDialog extends ComponentDialog {
         });
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<*>}
+     */
     async checkLikesMeet(step) {
         const likesMeet = step.result.value;
         if (likesMeet === USER_ACCEPTS) {
@@ -125,6 +154,11 @@ class GuidedCantinaDialog extends ComponentDialog {
         });
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<*>}
+     */
     async checkVegetarian(step) {
         if (typeof step.result !== 'undefined') {
             const isVegetarian = step.result.value;
@@ -141,6 +175,11 @@ class GuidedCantinaDialog extends ComponentDialog {
         }
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<*>}
+     */
     async checkVegan(step) {
         if (typeof step.result !== 'undefined') {
             const isVegan = step.result.value;
@@ -161,6 +200,11 @@ class GuidedCantinaDialog extends ComponentDialog {
 
     // TODO: Completely hacked. Should be moved or transformed (validator e.x.).
     // Only hit, if user is not vegetarian or vegan.
+    /**
+     *
+     * @param step
+     * @returns {Promise<*>}
+     */
     async checkNotWantedMeets(step) {
         if (typeof step.result !== 'undefined' &&
             step.result !== USER_DECLINES) {
@@ -197,6 +241,11 @@ class GuidedCantinaDialog extends ComponentDialog {
         });
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<*>}
+     */
     async checkAllergies(step) {
         if (typeof step.result !== 'undefined' &&
             step.result !== USER_DECLINES) {
@@ -212,6 +261,11 @@ class GuidedCantinaDialog extends ComponentDialog {
         });
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<*>}
+     */
     async checkSupplements(step) {
         if (typeof step.result !== 'undefined' &&
             step.result !== USER_DECLINES) {
@@ -221,6 +275,11 @@ class GuidedCantinaDialog extends ComponentDialog {
         return await step.next();
     }
 
+    /**
+     *
+     * @param step
+     * @returns {Promise<DialogTurnResult<any>>}
+     */
     async guidedResult(step) {
         const study = step.values.study;
         await step.context.sendActivity(MessageFactory.text(THANK_USER));
