@@ -184,7 +184,8 @@ class RootDialog extends ComponentDialog {
         let options = {};
         const message = step.context.activity.text.toLowerCase();
 
-        if (message.includes(validMessages.START)) {
+        if (message.includes(validMessages.START) &&
+            conversationData.promptedStudy === false) {
             console.log('[RootDialog]: user first contact');
             dialogId = WELCOME_DIALOG;
         } else if (message.includes(validMessages.FIND_DISH)) {
