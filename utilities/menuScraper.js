@@ -78,7 +78,6 @@ class MenuScraper {
     async prepareMenuPrices($) {
         const priceSeparator = new RegExp(/\|/gm);
         const rawPrices = [];
-
         // Extracting all prices from every menu and formatting them.
         $('.stripedtable').find('td[width="150px"]').each(function(index, item) {
             const price = $(item).text().replace(/\s+/gm, ' ');
@@ -93,7 +92,6 @@ class MenuScraper {
                 rawPrices.push([' ', ' ', ' ']);
             }
         });
-
         // console.log(rawPrices);
         return rawPrices;
     }
