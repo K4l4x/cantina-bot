@@ -98,13 +98,10 @@ class MenuScraper {
 
     async prepareMenuTypes($) {
         const rawMenuTypes = [];
-
         // Extracting all types of menus and removing empty lines and tabs.
         $('.stripedtable').find('strong').each((index, item) => {
             rawMenuTypes[index] = $(item).text().replace(/\s+/gm, ' ');
         });
-
-        // console.log(rawMenuTypes);
         return rawMenuTypes;
     }
 
