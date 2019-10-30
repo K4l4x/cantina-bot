@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+ 2// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 const dotenv = require('dotenv');
 const path = require('path');
@@ -7,12 +7,12 @@ const restify = require('restify');
 // Import required bot services.
 // See https://aka.ms/bot-services to learn more about the different parts of a bot.
 const { BotFrameworkAdapter, MemoryStorage, ConversationState, UserState } = require('botbuilder');
-const { DialogSet, DialogTurnStatus} = require('botbuilder-dialogs');
+const { DialogSet, DialogTurnStatus } = require('botbuilder-dialogs');
 const { CantinaRequestsRecognizer } = require('./utilities/CantinaRequestsRecognizer');
 const { BlobStorage } = require('botbuilder-azure');
 
 const { Cantina } = require('./model/cantina');
-const { TodaysMenuDialog } = require('./dialogs/cantina/todaysMenuDialog');
+const { WeekMenuDialog } = require('./dialogs/cantina/weekMenuDialog');
 
 // This bot's main routine and rootDialog.
 const { CantinaBot } = require('./bot');
@@ -113,23 +113,41 @@ server.post('/api/messages', (req, res) => {
 //  stackoverflow say, that we can just add endpoints.
 // Listen for incoming trigger and start proactive dialog with user.
 // server.get('/api/questionnaire5645', async (require, res) => {
-//     for (const conversationReference of Object.values(conversationReferences)) {
-//         await adapter.continueConversation(conversationReference, async turnContext => {
-//             const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
-//
-//             const dialogSet = new DialogSet(questionnaireAccessor);
-//             dialogSet.add(new TodaysMenuDialog('todaysMenuDialog'));
-//
-//             const dialogContext = await dialogSet.createContext(turnContext);
-//             const results = await dialogContext.continueDialog();
-//             if (results.status === DialogTurnStatus.empty) {
-//                 const cantina = new Cantina('mensaX');
-//                 await cantina.menu.loadList();
-//                 await dialogContext.beginDialog('todaysMenuDialog', cantina);
-//             }
-//         });
-//     }
-//
+    // for (const conversationReference of
+    // Object.values(conversationReferences)) {
+
+    // const conversationReference = {
+    //     activityId: 'IwPuhL4lYmK',
+    //     user: {
+    //         id: '1823731',
+    //         name: 'Robotxt'
+    //     },
+    //     bot: {
+    //         id: 'CantinaXBot',
+    //         name: 'CantinaBot'
+    //     },
+    //     conversation: {
+    //         isGroup: false,
+    //         id: '1823731'
+    //     },
+    //     channelId: 'telegram',
+    //     serviceUrl: 'https://telegram.botframework.com/'
+    // };
+
+    // console.log('[index]: ' + JSON.stringify(conversationReference));
+    // await adapter.continueConversation(conversationReference, async turnContext => {
+    //     await turnContext.sendActivity('proactive hello');
+    // });
+    //     const questionnaireAccessor = conversationState.createProperty('QuestionnaireState');
+    //     const dialogSet = new DialogSet(questionnaireAccessor);
+    //     dialogSet.add(new WeekMenuDialog('weekMenuDialog'));
+    //     const dialogContext = await dialogSet.createContext(turnContext);
+    //
+    //     const cantina = new Cantina('mensaX');
+    //     await cantina.menu.loadList();
+    //     await dialogContext.replaceDialog('weekMenuDialog', cantina);
+    // });
+
 //     res.setHeader('Content-Type', 'text/html');
 //     res.writeHead(200);
 //     res.write('<html><body><h1>Proactive messages have been sent.</h1></body></html>');

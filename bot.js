@@ -14,20 +14,16 @@ class CantinaBot extends ActivityHandler {
         }
         if (!conversationState) {
             throw new Error('[CantinaBot]: Missing' +
-            ' parameter. ConversationState is required');
+                ' parameter. ConversationState is required');
         }
         if (!userState) {
             throw new Error('[CantinaBot]: Missing parameter.' +
-            ' UserState is required');
+                ' UserState is required');
         }
         if (!dialog) {
             throw new Error('[CantinaBot]: Missing parameter.' +
-            ' Dialog is required');
+                ' Dialog is required');
         }
-
-        // Dependency injected dictionary for storing ConversationReference
-        // objects used in NotifyController to proactively message users
-        // this.conversationReferences = conversationReferences;
 
         // Record the conversation and user state management objects.
         this.cantinaState = cantinaState;
@@ -38,10 +34,8 @@ class CantinaBot extends ActivityHandler {
 
         this.onMessage(async (context, next) => {
             console.log('[CantinaBot]: Running dialog with Message Activity.');
-
             // Run the Dialog with the new message Activity.
             await this.dialog.run(context, this.dialogState);
-
             // By calling next() you ensure that the next BotHandler is run.
             await next();
         });
@@ -51,19 +45,9 @@ class CantinaBot extends ActivityHandler {
             await this.cantinaState.saveChanges(context, false);
             await this.conversationState.saveChanges(context, false);
             await this.userState.saveChanges(context, false);
-
             // By calling next() you ensure that the next BotHandler is run.
             await next();
         });
-
-        // this.onConversationUpdate(async (context, next) => {
-        //     // await this.addConversationReference(context.activity);
-        //     const conversationReference = TurnContext.getConversationReference(context.activity);
-        //     await this.userRef.get(context, conversationReference);
-        //     await this.userRef.set(context, conversationReference);
-        //     // By calling next() you ensure that the next BotHandler is run.
-        //     await next();
-        // });
     }
 }
 
